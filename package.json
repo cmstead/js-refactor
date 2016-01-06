@@ -1,0 +1,35 @@
+{
+  "name": "jsrefactor",
+  "displayName": "Javascript Refactorings",
+  "description": "Javascript refactoring tools for adding efficiency to your development workflow.",
+  "version": "0.1.0",
+  "publisher": "Chris Stead",
+  "engines": {
+    "vscode": "^0.10.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.jsRefactor"
+  ],
+  "main": "./extension",
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha ./test/"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.jsRefactor",
+        "title": "Js Refactor"
+      }
+    ]
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "mockery": "^1.4.0",
+    "sinon": "^1.17.2",
+    "vscode": "0.10.x"
+  }
+}
