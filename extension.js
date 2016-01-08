@@ -1,13 +1,15 @@
 var vscode = require('vscode');
-var loggerFactory = require('./modules/logger.util').loggerFactory;
-var selectionFactory = require('./modules/text-selector').selectionFactory;
+var loggerFactory = require('./modules/logger-factory');
+var selectionFactory = require('./modules/selection-factory');
 
 function activate(context) {
 
 	var disposable = vscode.commands.registerCommand('extension.jsRefactor', function () {
-        var logger = loggerFactory();
-        var selection = selectionFactory(vscode.window.activeTextEditor);
-        console.log(selection.getSelection(0));
+        var logger = loggerFactory(),
+            selection = selectionFactory(vscode.window.activeTextEditor).getSelection(0),
+            selectionStr = selection === null ? 'null' : selection.toString();
+
+        logger.log(selectionStr);
 	});
 	
 	context.subscriptions.push(disposable);

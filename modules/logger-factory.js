@@ -12,4 +12,4 @@ function loggerFactory () {
     };
 }
 
-module.exports.loggerFactory = loggerFactory;
+module.exports = loggerFactory;
