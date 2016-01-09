@@ -2,20 +2,19 @@ var vscode = require('vscode');
 var loggerFactory = require('./modules/logger-factory');
 var selectionFactory = require('./modules/selection-factory');
 var addLine = require('./modules/add-line');
+var wrapInFunction = require('./modules/wrap-in-function')
 
 function activate(context) {
+    var logger = loggerFactory();
 
-	var disposable = vscode.commands.registerCommand('extension.jsRefactor', function () {
-        var logger = loggerFactory(),
-            selection = selectionFactory(vscode.window.activeTextEditor).getSelection(0),
-            selectionStr = selection === null ? 'null' : selection.toString();
-        
-        addLine();
-
-        logger.log(selectionStr);
-	});
+	context.subscriptions.push(vscode.commands.registerCommand('jsRefactor.wrapInFunction', function () {
+        wrapInFunction(vscode.window.activeTextEditor);
+	}));
 	
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(vscode.commands.registerCommand('jsRefactor.wrapInIIFE', function () {
+        logger.log('Wrap in IIFE');
+	}));
+	
 }
 exports.activate = activate;
 

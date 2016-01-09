@@ -11,7 +11,9 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.jsRefactor"
+    "onCommand:jsRefactor",
+    "onCommand:jsRefactor.wrapInFunction",
+    "onCommand:jsRefactor.wrapInIIFE"
   ],
   "main": "./extension",
   "scripts": {
@@ -20,8 +22,14 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.jsRefactor",
-        "title": "Js Refactor"
+        "command": "jsRefactor.wrapInFunction",
+        "title": "Wrap In Function",
+        "description": "Wrap code in a named function"
+      },
+      {
+        "command": "jsRefactor.wrapInIIFE",
+        "title": "Wrap In IIFE",
+        "description": "Wrap code in an immediately invoked function expression"
       }
     ]
   },
