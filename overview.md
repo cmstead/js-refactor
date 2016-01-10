@@ -7,6 +7,14 @@ seconds to do these things by hand, but those seconds add up quite quickly.
 
 JS Refactor has two key components: automated refactorings and code snippets.
 
+##Side-Loading
+
+At this point, JS Refactor is not yet available on the Visual Studio Marketplace.  To start using this extension today, 
+you can side-load it into VS Code by placing the contents of this project in $HOME/.vscode/extensions/cmstead.jsrefactor/.
+
+If VS Code is open on your computer, you must restart it for the extension to take effect. Once installed the following
+information will help to kick start using JS Refactor.
+
 ##Automated Refactorings
 
 Currently JS Refactor supports three refactorings (explanations below):
