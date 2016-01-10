@@ -43,7 +43,7 @@ function indent (value) {
 }
 
 function replaceKey (context, output, key) {
-    return output.replace('{' + key + '}', context[key]);
+    return output.split('{' + key + '}').join(context[key]);
 }
 
 function fillTemplate (templateContext, templateString) {

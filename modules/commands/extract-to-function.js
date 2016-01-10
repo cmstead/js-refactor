@@ -6,15 +6,16 @@ var logger = require('../logger-factory')(),
     templates = require('../json/templates.json');
 
 function updateCode (vsEditor, selection, functionName) {
-    var context = {
-        name: functionName.trim() === '' ? '' : functionName + ' ',
-        body: selection.map(actions.indent).join('\n')
-    };
+    var template = templates.function + templates.functionCall,
+        context = {
+            name: functionName.trim() === '' ? '' : functionName + ' ',
+            body: selection.map(actions.indent).join('\n')
+        };
     
-    actions.applyTemplateRefactor(vsEditor, selection, context, templates.function);
+    actions.applyTemplateRefactor(vsEditor, selection, context, template);
 }
 
-function wrapInFunction (vsEditor) {
+function extractToFunction (vsEditor) {
     var selection = selectionFactory(vsEditor).getSelection(0);
 
     if (selection === null) {
@@ -24,4 +25,4 @@ function wrapInFunction (vsEditor) {
     }
 }
 
-module.exports = wrapInFunction;
+module.exports = extractToFunction;

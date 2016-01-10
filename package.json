@@ -1,43 +1,65 @@
 {
-  "name": "jsrefactor",
-  "displayName": "Javascript Refactorings",
-  "description": "Javascript refactoring tools for adding efficiency to your development workflow.",
-  "version": "0.1.0",
-  "publisher": "Chris Stead",
-  "engines": {
-    "vscode": "^0.10.1"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onCommand:jsRefactor",
-    "onCommand:jsRefactor.wrapInFunction",
-    "onCommand:jsRefactor.wrapInIIFE"
-  ],
-  "main": "./extension",
-  "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha ./test/"
-  },
-  "contributes": {
-    "commands": [
-      {
-        "command": "jsRefactor.wrapInFunction",
-        "title": "Wrap In Function",
-        "description": "Wrap code in a named function"
-      },
-      {
-        "command": "jsRefactor.wrapInIIFE",
-        "title": "Wrap In IIFE",
-        "description": "Wrap code in an immediately invoked function expression"
-      }
-    ]
-  },
-  "devDependencies": {
-    "chai": "^3.4.1",
-    "mocha": "^2.3.4",
-    "mockery": "^1.4.0",
-    "sinon": "^1.17.2",
-    "vscode": "0.10.x"
-  }
+    "name": "jsrefactor",
+    "displayName": "Javascript Refactorings",
+    "description": "Javascript refactoring tools for adding efficiency to your development workflow.",
+    "version": "0.1.0",
+    "publisher": "cmstead",
+    "engines": {
+        "vscode": "^0.10.1"
+    },
+    "categories": [
+        "Other", "Snippets"
+    ],
+    "activationEvents": [
+        "onCommand:cmstead.jsRefactor.extractToFunction",
+        "onCommand:cmstead.jsRefactor.wrapInFunction",
+        "onCommand:cmstead.jsRefactor.wrapInIIFE"
+    ],
+    "main": "./extension",
+    "scripts": {
+        "test": "node ./node_modules/mocha/bin/mocha ./test/"
+    },
+    "contributes": {
+        "languages": [
+            {
+                "id": "javascript",
+                "extensions": [
+                    ".js"
+                ],
+                "aliases": [
+                    "JS"
+                ]
+            }
+        ],
+        "snippets": [
+            {
+                "language": "javascript",
+                "path": "./snippets/javascript.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "cmstead.jsRefactor.extractToFunction",
+                "title": "Extract To Function",
+                "description": "Wrap code in a named function and execute it immediately"
+            },
+            {
+                "command": "cmstead.jsRefactor.wrapInFunction",
+                "title": "Wrap In Function",
+                "description": "Wrap code in a named function"
+            },
+            {
+                "command": "cmstead.jsRefactor.wrapInIIFE",
+                "title": "Wrap In IIFE",
+                "description": "Wrap code in an immediately invoked function expression"
+            }
+        ]
+    },
+    "devDependencies": {
+        "chai": "^3.4.1",
+        "mocha": "^2.3.4",
+        "mockery": "^1.4.0",
+        "sinon": "^1.17.2",
+        "vscode": "0.10.x"
+    }
 }

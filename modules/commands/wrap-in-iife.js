@@ -3,18 +3,17 @@
 var logger = require('../logger-factory')(),
     actions = require('../common-actions'),
     selectionFactory = require('../selection-factory'),
-    
-    functionTemplate = '(function () {\n{body}})();\n';
+    templates = require('../json/templates.json');
 
 function updateCode (vsEditor, selection, functionName) {
     var context = {
         body: selection.map(actions.indent).join('\n')
     };
     
-    actions.applyTemplateRefactor(vsEditor, selection, context, functionTemplate);
+    actions.applyTemplateRefactor(vsEditor, selection, context, templates.iife);
 }
 
-function wrapInFunction (vsEditor) {
+function wrapInIIFE (vsEditor) {
     var selection = selectionFactory(vsEditor).getSelection(0);
 
     if (selection === null) {
@@ -24,4 +23,4 @@ function wrapInFunction (vsEditor) {
     }
 }
 
-module.exports = wrapInFunction;
+module.exports = wrapInIIFE;

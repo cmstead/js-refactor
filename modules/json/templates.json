@@ -1,0 +1,5 @@
+{
+    "function": "function {name}() {\n{body}}\n",
+    "iife": "(function () {\n{body}})();\n",
+    "functionCall": "{name}();\n"
+}

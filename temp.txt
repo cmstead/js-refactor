@@ -1,5 +1,0 @@
-foo bar baz
-bar baz quux
-bar quux foo
-quux foo bar
-foo bar baz
