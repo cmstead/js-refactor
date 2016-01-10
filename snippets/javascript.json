@@ -1,0 +1,44 @@
+{
+
+    "Use Strict": {
+        "prefix": "strict",
+        "body": [
+            "'use strict';\n"
+        ],
+        "description": "Inserts 'use strict' into your code"
+    },
+
+    "Member Function": {
+        "prefix": "mfn",
+        "body": [
+            "{$1:name}: function ({$2:parameters}) {\n{$3:body}\n}\n"
+        ],
+        "description": "Member function on a prototype"
+    },
+
+    "Function": {
+        "prefix": "fn",
+        "body": [
+            "function ${1:name} (${2:parameters}){\n\t{$3:body}\n}"
+        ],
+        "description": "Function snippet"
+    },
+
+    "Anonymous Function": {
+        "prefix": "anon",
+        "body": [
+            "function (${1:parameters}) {\t{$2:body}}"
+        ],
+        "description": "Anonymous function snippet"
+    },
+
+    "Immediately Invoked Function Expression": {
+        "prefix": "iife",
+        "body": [
+            "(function ({$1:parameters}) {",
+            "{$2:body}",
+            "})({$3:arguments);"
+        ],
+        "description": "Snippet to create an IIFE wrapper"
+    }
+}
