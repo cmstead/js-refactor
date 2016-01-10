@@ -1,7 +1,8 @@
 'use strict';
 
 var vscode = require('vscode'),
-    logger = require('./logger-factory')();
+    logger = require('./logger-factory')(),
+    editFactory = require('./edit-factory');
 
 function applyEdit (edit) {
     vscode.workspace.applyEdit(edit);
@@ -37,9 +38,30 @@ function endpointsEqual (coords) {
     return linesEqual && pointsEqual;
 }
 
+function indent (value) {
+    return value.trim() === '' ? value : '\t' + value;
+}
+
+function replaceKey (context, output, key) {
+    return output.replace('{' + key + '}', context[key]);
+}
+
+function fillTemplate (templateContext, templateString) {
+    return Object.keys(templateContext).reduce(replaceKey.bind(null, templateContext), templateString);
+}
+
+function applyTemplateRefactor (vsEditor, selection, context, template) {
+    applyEdit(editFactory.buildSetEdit(vsEditor._document._uri,
+                                       buildLineCoords(vsEditor, 0), 
+                                       fillTemplate(context, template)));
+}
+
 module.exports = {
     applyEdit: applyEdit,
+    applyTemplateRefactor: applyTemplateRefactor,
     buildCoords: buildCoords,
     buildLineCoords: buildLineCoords,
-    endpointsEqual: endpointsEqual
+    endpointsEqual: endpointsEqual,
+    fillTemplate: fillTemplate,
+    indent: indent
 };
