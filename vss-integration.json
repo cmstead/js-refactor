@@ -1,0 +1,55 @@
+{
+ "manifestVersion": 1,
+ "id": "js-refactor",
+ "version": "1.0.0",
+ "name": "JS Refactor",
+ "publisher": "cmstead",
+ "description": "Javascript refactoring extension for Visual Studio Code.",
+ "targets": [
+     {
+         "id": "Microsoft.VisualStudio.Services.Integration"
+     }
+ ],    
+ "icons": {
+     "default": "images/js-refactor-icon.png"
+ },
+ "categories": [
+     "Other",
+     "Snippets",
+     "Languages"
+ ],
+ "tags": [
+     "Javascript",
+     "ECMAScript",
+     "Refactoring"
+ ],
+ "screenshots": [
+     {
+         "path": "images/screen1.png"
+     },
+     {
+         "path": "images/screen2.png"
+     }
+ ],
+ "content": {
+     "details": {
+         "path": "README.md"
+     },
+     "license": {
+         "path": "LICENSE"
+     }
+ },
+ "links": {
+     "getstarted": {
+         "uri": "https://github.com/cmstead/js-refactor"
+     },
+     "support": {
+         "uri": "https://github.com/cmstead/js-refactor/issues"
+     }
+ },
+ "branding": {
+     "color": "#FFFF00",
+     "theme": "dark"
+ },
+ "public": true
+}

@@ -4,6 +4,10 @@
     "description": "Javascript refactoring tools for adding efficiency to your development workflow.",
     "version": "0.1.0",
     "publisher": "cmstead",
+    "author": {
+        "name": "Chris Stead"
+    },
+    "icon": "./images/js-refactor-icon.png",
     "engines": {
         "vscode": "^0.10.1"
     },
