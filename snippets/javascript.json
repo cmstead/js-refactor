@@ -5,7 +5,7 @@
         "body": [
             "'use strict';\n"
         ],
-        "description": "Inserts 'use strict' into your code"
+        "description": "Insert strict mode declaration"
     },
 
     "Member Function": {
@@ -13,7 +13,7 @@
         "body": [
             "${1:name}: function (${2:parameters}) {\n${3:body}\n}\n"
         ],
-        "description": "Member function on a prototype"
+        "description": "Insert a member function into your prototype object"
     },
 
     "Function": {
@@ -21,7 +21,7 @@
         "body": [
             "function ${1:name} (${2:parameters}){\n\t${3:body}\n}"
         ],
-        "description": "Function snippet"
+        "description": "Insert a new function"
     },
 
     "Anonymous Function": {
@@ -29,7 +29,7 @@
         "body": [
             "function (${1:parameters}) {\t${2:body}}"
         ],
-        "description": "Anonymous function snippet"
+        "description": "Insert a new anonymous function"
     },
 
     "Immediately Invoked Function Expression": {
@@ -39,6 +39,6 @@
             "${2:body}",
             "})(${3:arguments);"
         ],
-        "description": "Snippet to create an IIFE wrapper"
+        "description": "Insert a new immediately invoked function expression"
     }
 }

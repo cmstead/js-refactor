@@ -21,7 +21,8 @@
     ],
     "main": "./extension",
     "scripts": {
-        "test": "node ./node_modules/mocha/bin/mocha ./test/"
+        "test": "node ./node_modules/mocha/bin/mocha ./test/",
+        "build": "tfx extension create --manifest-globs vss-integration.json"
     },
     "contributes": {
         "languages": [
