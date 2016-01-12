@@ -38,8 +38,8 @@ function endpointsEqual (coords) {
     return linesEqual && pointsEqual;
 }
 
-function indent (value) {
-    return value.trim() === '' ? value : '\t' + value;
+function indent (documentIndent, value) {
+    return value.trim() === '' ? value : documentIndent + value;
 }
 
 function replaceKey (context, output, key) {
@@ -56,6 +56,21 @@ function applyTemplateRefactor (vsEditor, selection, context, template) {
                                        fillTemplate(context, template)));
 }
 
+function getSelectionIndent (selection) {
+    return selection[0].split(/[^\s\t]/gim)[0];
+}
+
+function repeat (count, astr) {
+    return count > 0 ? astr + repeat(count - 1, astr) : '';
+}
+
+function getDocumentIndent (vsEditor) {
+    var tabSize = vsEditor.options.tabSize,
+        useTabs = !vsEditor.options.insertSpaces;
+
+    return useTabs ? '\t' : repeat(tabSize, ' ');
+}
+
 module.exports = {
     applyEdit: applyEdit,
     applyTemplateRefactor: applyTemplateRefactor,
@@ -63,5 +78,7 @@ module.exports = {
     buildLineCoords: buildLineCoords,
     endpointsEqual: endpointsEqual,
     fillTemplate: fillTemplate,
+    getDocumentIndent: getDocumentIndent,
+    getSelectionIndent: getSelectionIndent,
     indent: indent
 };

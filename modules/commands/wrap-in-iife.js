@@ -6,9 +6,11 @@ var logger = require('../logger-factory')(),
     templates = require('../json/templates.json');
 
 function updateCode (vsEditor, selection, functionName) {
-    var context = {
-        body: selection.map(actions.indent).join('\n')
-    };
+    var documentIndent = actions.getDocumentIndent(vsEditor),
+        context = {
+            body: selection.map(actions.indent.bind(null, documentIndent)).join('\n'),
+            indent: actions.getSelectionIndent(selection)
+        };
     
     actions.applyTemplateRefactor(vsEditor, selection, context, templates.iife);
 }
