@@ -35,11 +35,14 @@ the only work needed is to move the new function to an appropriate location in t
 
 JS Refactor supports five function-related snippets:
 
-- Use Strict (strict)
-- Function (fn)
 - Anonymous Function (anon)
+- Export statement -- single variable (export)
+- Export statement -- object literal (exportObj)
+- Function (fn)
 - Immediately Invoked Function Expression (iife)
 - Member Function (mfn)
+- Require statement (require)
+- Use Strict (strict)
 
 ###Usage
 
@@ -49,12 +52,19 @@ tab-stops where you can fill in the information unique to your program.
 
 ###Explanations
 
-**strict** Inserts 'use strict' into your code
+**anon** Inserts a tab-stopped anonymous function snippet into your code
+
+**export** Adds a module.exports single var assignment in your module
+
+**exportObj** Adds a module.exports assignment with an object literal
 
 **fn** Inserts a tab-stopped named function snippet into your code
-
-**anon** Inserts a tab-stopped anonymous function snippet into your code
 
 **iife** Inserts a new, tab-stopped IIFE into your code
 
 **mfn** Inserts a new color-delimited member function to your prototype -- Protip be inside a prototype object when using this.
+
+**require** Inserts a new require statement in your module
+
+**strict** Inserts 'use strict' into your code
+
