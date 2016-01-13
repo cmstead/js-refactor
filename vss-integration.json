@@ -45,7 +45,7 @@
  },
  "links": {
      "getstarted": {
-         "uri": "https://github.com/cmstead/js-refactor"
+         "uri": "https://github.com/cmstead/js-refactor/blob/master/README.md"
      },
      "support": {
          "uri": "https://github.com/cmstead/js-refactor/issues"
