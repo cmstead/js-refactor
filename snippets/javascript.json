@@ -27,7 +27,7 @@
     "Anonymous Function": {
         "prefix": "anon",
         "body": [
-            "function (${1:parameters}) {\t${2:body}}"
+            "function (${1:parameters}) {${2:body}}"
         ],
         "description": "Insert a new anonymous function"
     },
@@ -40,5 +40,29 @@
             "})(${3:arguments);"
         ],
         "description": "Insert a new immediately invoked function expression"
+    },
+    
+    "Export Object Literal": {
+        "prefix": "exportObj",
+        "body": [
+            "module.exports = {\n\t$1\n}"
+        ],
+        "description": "Creates a module.exports code block with an object literal"
+    },
+    
+    "Export Module Value": {
+        "prefix": "export",
+        "body": [
+            "module.exports.$(1:varName} = $2"
+        ],
+        "description": "Creates a single module exports declaration"
+    },
+    
+    "Require Statement": {
+        "prefix": "require",
+        "body": [
+            "var ${1:varName} = require('${2:module}');"
+        ],
+        "description": "Adds a require statement to your module"
     }
 }
