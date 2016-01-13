@@ -18,6 +18,7 @@ function buildLineCoords (vsDocument, index) {
         endLine = vsDocument._selections[index]._end._line;
 
     vsDocument._selections[index]._start._character = 0;
+    vsDocument._selections[index]._end._character = 0;
     vsDocument._selections[index]._end._line = endChar === 0 ? endLine : endLine + 1;
 
     return buildCoords(vsDocument, index);        
@@ -31,7 +32,8 @@ function endpointsEqual (coords) {
 }
 
 function indent (documentIndent, value) {
-    return value.trim() === '' ? value : documentIndent + value;
+    var indentation = typeof documentIndent !== 'string' ? '\t' : documentIndent;
+    return value.trim() === '' ? value : indentation + value;
 }
 
 function replaceKey (context, output, key) {
@@ -64,5 +66,7 @@ module.exports = {
     fillTemplate: fillTemplate,
     getDocumentIndent: getDocumentIndent,
     getSelectionIndent: getSelectionIndent,
-    indent: indent
+    indent: indent,
+    repeat: repeat,
+    replaceKey: replaceKey
 };
