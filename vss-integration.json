@@ -1,7 +1,7 @@
 {
  "manifestVersion": 1,
  "id": "js-refactor",
- "version": "0.1.0",
+ "version": "0.1.2",
  "name": "JS Refactor",
  "publisher": "cmstead",
  "description": "Javascript refactoring extension for Visual Studio Code.",
