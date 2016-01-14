@@ -1,5 +1,5 @@
 {
-    "function": "{indent}function {name}() {\n{body}{indent}}\n",
-    "iife": "{indent}(function () {\n{body}{indent}})();\n",
-    "functionCall": "{indent}{name}();\n"
+    "function": "{indent}function {name}() {\n{body}\n{indent}}",
+    "iife": "{indent}(function () {\n{body}{indent}\n})();",
+    "functionCall": "\n{indent}{name}();"
 }

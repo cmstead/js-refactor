@@ -11,7 +11,7 @@ function applyEdit (edit) {
 
 function applyTemplateRefactor (vsEditor, selection, context, template) {
     applyEdit(editFactory.buildSetEdit(vsEditor._document._uri,
-                                       utilities.buildLineCoords(vsEditor, 0), 
+                                       utilities.buildCoords(vsEditor, 0), 
                                        utilities.fillTemplate(context, template)));
 }
 
