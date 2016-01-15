@@ -25,6 +25,40 @@ describe('Anonymous Function Refactorings', function () {
             assert.equal(result, false);
         });
         
+        it('should return false if function is not followed by only spaces and an open paren', function () {
+            var line = "= function test foo bar";
+            var result = anonymousFunctionRefactor.canRefactorToNamed(line);
+            assert.equal(result, false);
+        });
+        
+    });
+    
+    describe('Refactor anonymous function to named function', function () {
+        
+        it('should refactor a basic assignment', function () {
+            var line = 'var myFn = function () {}';
+            var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
+            assert.equal(result, 'function myFn () {}');
+        });
+        
+        it('should refactor only the first matching function assignment with var', function () {
+            var line = 'var anotherFn = function () {}; var myOtherFn = function () {}';
+            var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
+            assert.equal(result, 'function anotherFn () {}; var myOtherFn = function () {}');
+        });
+        
+        it('should refactor only the first matching function assignment with const', function () {
+            var line = 'const anotherFn = function () {}; var myOtherFn = function () {}';
+            var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
+            assert.equal(result, 'function anotherFn () {}; var myOtherFn = function () {}');
+        });
+        
+        it('should refactor only the first matching function assignment with let', function () {
+            var line = 'let anotherFn = function () {}; var myOtherFn = function () {}';
+            var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
+            assert.equal(result, 'function anotherFn () {}; var myOtherFn = function () {}');
+        });
+        
     });
     
 });
