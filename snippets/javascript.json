@@ -11,7 +11,7 @@
     "Member Function": {
         "prefix": "mfn",
         "body": [
-            "${1:name}: function (${2:parameters}) {\n${3:body}\n}\n"
+            "$1: function ($2) {\n$3\n}\n"
         ],
         "description": "Insert a member function into your prototype object"
     },
@@ -19,7 +19,7 @@
     "Function": {
         "prefix": "fn",
         "body": [
-            "function ${1:name} (${2:parameters}){\n\t${3:body}\n}"
+            "function $1 ($2){\n\t$3\n}"
         ],
         "description": "Insert a new function"
     },
@@ -27,7 +27,7 @@
     "Anonymous Function": {
         "prefix": "anon",
         "body": [
-            "function (${1:parameters}) {${2:body}}"
+            "function ($1) {$2}"
         ],
         "description": "Insert a new anonymous function"
     },
@@ -35,9 +35,9 @@
     "Immediately Invoked Function Expression": {
         "prefix": "iife",
         "body": [
-            "(function (${1:parameters}) {",
-            "${2:body}",
-            "})(${3:arguments);"
+            "(function () {",
+            "\t$1",
+            "})();"
         ],
         "description": "Insert a new immediately invoked function expression"
     },
@@ -53,7 +53,7 @@
     "Export Module Value": {
         "prefix": "export",
         "body": [
-            "module.exports.$(1:varName} = $2"
+            "module.exports = $2"
         ],
         "description": "Creates a single module exports declaration"
     },

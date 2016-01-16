@@ -1,7 +1,7 @@
 'use strict';
 
 function canRefactorToNamed (line) {
-    return line.match(/\=[\s\t].*function[\t\s].*\(/g) !== null;
+    return line.match(/\=\s*function\s*\(/g) !== null;
 }
 
 function buildReplacementRegex (name) {
@@ -10,7 +10,7 @@ function buildReplacementRegex (name) {
 }
 
 function getFunctionName (line) {
-    var lineTokens = line.split(/\=[\s\t].*function[\t\s].*\(/),
+    var lineTokens = line.split(/\=\s*function\s*\(/),
         nameTokens = lineTokens[0].trim().split(' ');
     
     return nameTokens[nameTokens.length - 1];
