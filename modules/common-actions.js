@@ -9,14 +9,19 @@ function applyEdit (edit) {
     vscode.workspace.applyEdit(edit);
 }
 
-function applyTemplateRefactor (vsEditor, selection, context, template) {
+function applyRefactor (vsEditor, update){
     applyEdit(editFactory.buildSetEdit(vsEditor._document._uri,
                                        utilities.buildCoords(vsEditor, 0), 
-                                       utilities.fillTemplate(context, template)));
+                                       update));
+}
+
+function applyTemplateRefactor (vsEditor, selection, context, template) {
+    applyRefactor(vsEditor, utilities.fillTemplate(context, template));
 }
 
 module.exports = {
     applyEdit: applyEdit,
+    applyRefactor: applyRefactor,
     applyTemplateRefactor: applyTemplateRefactor,
     buildCoords: utilities.buildCoords,
     buildLineCoords: utilities.buildLineCoords,

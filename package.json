@@ -20,6 +20,7 @@
         "Snippets"
     ],
     "activationEvents": [
+        "onCommand:cmstead.jsRefactor.convertToNamedFunction",
         "onCommand:cmstead.jsRefactor.extractToFunction",
         "onCommand:cmstead.jsRefactor.wrapInFunction",
         "onCommand:cmstead.jsRefactor.wrapInIIFE",
@@ -68,6 +69,11 @@
             }
         ],
         "commands": [
+            {
+                "command": "cmstead.jsRefactor.convertToNamedFunction",
+                "title": "Convert To Named Function",
+                "description": "Convert function from an assigned anonymous function to a fully qualified named function"
+            },
             {
                 "command": "cmstead.jsRefactor.extractToFunction",
                 "title": "Extract To Function",
