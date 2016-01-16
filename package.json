@@ -1,18 +1,23 @@
 {
     "name": "jsrefactor",
-    "displayName": "Javascript Refactorings",
-    "description": "Javascript refactoring tools for adding efficiency to your development workflow.",
+    "displayName": "JS Refactorings",
+    "description": "JS refactoring tools for adding efficiency to your development workflow.",
     "version": "0.1.4",
     "publisher": "cmstead",
+    "repository": {
+        "url": "https://github.com/cmstead/js-refactor.git",
+        "type": "git"
+    },
     "author": {
         "name": "Chris Stead"
     },
-    "icon": "./images/js-refactor-icon.png",
     "engines": {
         "vscode": "^0.10.1"
     },
     "categories": [
-        "Other", "Snippets"
+        "Other",
+        "Languages",
+        "Snippets"
     ],
     "activationEvents": [
         "onCommand:cmstead.jsRefactor.extractToFunction",
@@ -24,6 +29,25 @@
         "test": "node ./node_modules/mocha/bin/mocha ./test/",
         "build": "tfx extension create --manifest-globs vss-integration.json"
     },
+    "tags": [
+        "Javascript",
+        "ECMAScript",
+        "Refactoring"
+    ],
+    "screenshots": [
+        {
+            "path": "images/extract-to-function-pallet-option.png"
+        },
+        {
+            "path": "images/extract-to-function-result.png"
+        },
+        {
+            "path": "images/fn-snippet-menu-option.png"
+        },
+        {
+            "path": "images/fn-result-with-anon-menu-option.png"
+        }
+    ],
     "contributes": {
         "languages": [
             {
@@ -66,5 +90,18 @@
         "mockery": "^1.4.0",
         "sinon": "^1.17.2",
         "vscode": "0.10.x"
-    }
+    },
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/cmstead/js-refactor/blob/master/README.md"
+        },
+        "support": {
+            "uri": "https://github.com/cmstead/js-refactor/issues"
+        }
+    },
+    "icon": "images/js-refactor-icon.png",
+    "galleryBanner": {
+        "color": "#ffffee"
+    },
+    "public": true
 }

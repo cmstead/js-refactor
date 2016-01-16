@@ -1,6 +1,6 @@
 {
  "manifestVersion": 1,
- "id": "js-refactor",
+ "id": "jsrefactor",
  "version": "0.1.4",
  "name": "JS Refactor",
  "publisher": "cmstead",
@@ -17,9 +17,9 @@
      "Code"
  ],
  "tags": [
-     "Javascript",
-     "ECMAScript",
-     "Refactoring"
+     "Languages",
+     "Snippets",
+     "Other"
  ],
  "screenshots": [
      {
