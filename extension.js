@@ -1,5 +1,4 @@
 var vscode = require('vscode');
-var logger = require('./modules/logger-factory')();
 
 var convertToNamedFunction = require('./modules/commands/convert-to-named-function');
 var extractToFunction = require('./modules/commands/extract-to-function')

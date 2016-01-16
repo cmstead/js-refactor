@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
-var selectorFactory = require('../modules/text-selector-factory');
+var selectorFactory = require('../modules/shared/text-selector-factory');
 
 describe('Text Selector Factory', function () {
     

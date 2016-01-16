@@ -1,8 +1,8 @@
 'use strict';
 
-var logger = require('../logger-factory')(),
-    actions = require('../common-actions'),
-    selectionFactory = require('../selection-factory'),
+var logger = require('../shared/logger-factory')(),
+    actions = require('../shared/common-actions'),
+    selectionFactory = require('../shared/selection-factory'),
     templates = require('../json/templates.json');
 
 function updateCode (vsEditor, selection, functionName) {

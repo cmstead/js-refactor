@@ -1,9 +1,9 @@
 'use strict';
 
-var actions = require('../common-actions');
-var selectionFactory = require('../selection-factory');
-var refactoring = require('../anonymous-function-refactor');
-var logger = require('../logger-factory')();
+var actions = require('../shared/common-actions');
+var selectionFactory = require('../shared/selection-factory');
+var refactoring = require('../refactoring-logic/anonymous-function-refactor');
+var logger = require('../shared/logger-factory')();
 
 function applyConversion (vsEditor, selection){
     if(!refactoring.canRefactorToNamed(selection[0])){

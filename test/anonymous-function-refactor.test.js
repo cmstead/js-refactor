@@ -1,6 +1,6 @@
 'use strict';
 
-var anonymousFunctionRefactor = require('../modules/anonymous-function-refactor');
+var anonymousFunctionRefactor = require('../modules/refactoring-logic/anonymous-function-refactor');
 var assert = require('chai').assert;
 
 describe('Anonymous Function Refactorings', function () {

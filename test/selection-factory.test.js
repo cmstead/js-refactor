@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var selectionFactory = require('../modules/selection-factory');
+var selectionFactory = require('../modules/shared/selection-factory');
 
 function documentFactory() {
     return {
