@@ -3,6 +3,7 @@ var logger = require('./modules/logger-factory')();
 var extractToFunction = require('./modules/commands/extract-to-function')
 var wrapInFunction = require('./modules/commands/wrap-in-function')
 var wrapInIIFE = require('./modules/commands/wrap-in-iife')
+var wrapInCondition = require('./modules/commands/wrap-in-condition')
 
 function activate(context) {
 
@@ -16,6 +17,10 @@ function activate(context) {
 	
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInIIFE', function () {
         wrapInIIFE(vscode.window.activeTextEditor);
+	}));
+	
+	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInCondition', function () {
+        wrapInCondition(vscode.window.activeTextEditor);
 	}));
 	
 }

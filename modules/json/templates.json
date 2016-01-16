@@ -1,5 +1,6 @@
 {
+    "cond": "{indent}if () {\n{body}\n}\n",
     "function": "{indent}function {name}() {\n{body}\n{indent}}",
-    "iife": "{indent}(function () {\n{body}{indent}\n})();",
+    "iife": "{indent}(function () {\n{body}{indent}\n})();\n",
     "functionCall": "\n{indent}{name}();"
 }

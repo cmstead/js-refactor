@@ -22,7 +22,8 @@
     "activationEvents": [
         "onCommand:cmstead.jsRefactor.extractToFunction",
         "onCommand:cmstead.jsRefactor.wrapInFunction",
-        "onCommand:cmstead.jsRefactor.wrapInIIFE"
+        "onCommand:cmstead.jsRefactor.wrapInIIFE",
+        "onCommand:cmstead.jsRefactor.wrapInCondition"
     ],
     "main": "./extension",
     "scripts": {
@@ -81,6 +82,11 @@
                 "command": "cmstead.jsRefactor.wrapInIIFE",
                 "title": "Wrap In IIFE",
                 "description": "Wrap code in an immediately invoked function expression"
+            },
+            {
+                "command": "cmstead.jsRefactor.wrapInCondition",
+                "title": "Wrap In Condition",
+                "description": "Wrap code in a condition block"
             }
         ]
     },
