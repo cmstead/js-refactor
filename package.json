@@ -2,7 +2,7 @@
     "name": "jsrefactor",
     "displayName": "Javascript Refactorings",
     "description": "Javascript refactoring tools for adding efficiency to your development workflow.",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "publisher": "cmstead",
     "author": {
         "name": "Chris Stead"
