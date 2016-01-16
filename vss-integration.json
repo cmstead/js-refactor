@@ -55,5 +55,5 @@
      "color": "#252500",
      "theme": "dark"
  },
- "public": false
+ "public": true
 }
