@@ -1,7 +1,7 @@
 var vscode = require('vscode');
 
 var convertToNamedFunction = require('./modules/commands/convert-to-named-function');
-var extractToFunction = require('./modules/commands/extract-to-function')
+var wrapInExecutedFunction = require('./modules/commands/wrap-in-executed-function')
 var wrapInFunction = require('./modules/commands/wrap-in-function')
 var wrapInIIFE = require('./modules/commands/wrap-in-iife')
 var wrapInCondition = require('./modules/commands/wrap-in-condition')
@@ -12,8 +12,8 @@ function activate(context) {
         convertToNamedFunction(vscode.window.activeTextEditor);
 	}));
 	
-	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.extractToFunction', function () {
-        extractToFunction(vscode.window.activeTextEditor);
+	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInExecutedFunction', function () {
+        wrapInExecutedFunction(vscode.window.activeTextEditor);
 	}));
 	
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInFunction', function () {

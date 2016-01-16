@@ -17,7 +17,7 @@ function updateCode (vsEditor, selection, functionName) {
     actions.applyTemplateRefactor(vsEditor, selection, context, template);
 }
 
-function extractToFunction (vsEditor) {
+function wrapInExecutedFunction (vsEditor) {
     var selection = selectionFactory(vsEditor).getSelection(0);
 
     if (selection === null) {
@@ -27,4 +27,4 @@ function extractToFunction (vsEditor) {
     }
 }
 
-module.exports = extractToFunction;
+module.exports = wrapInExecutedFunction;

@@ -21,7 +21,7 @@
     ],
     "activationEvents": [
         "onCommand:cmstead.jsRefactor.convertToNamedFunction",
-        "onCommand:cmstead.jsRefactor.extractToFunction",
+        "onCommand:cmstead.jsRefactor.wrapInExecutedFunction",
         "onCommand:cmstead.jsRefactor.wrapInFunction",
         "onCommand:cmstead.jsRefactor.wrapInIIFE",
         "onCommand:cmstead.jsRefactor.wrapInCondition"
@@ -37,9 +37,6 @@
         "Refactoring"
     ],
     "screenshots": [
-        {
-            "path": "images/extract-to-function-pallet-option.png"
-        },
         {
             "path": "images/extract-to-function-result.png"
         },
@@ -75,8 +72,8 @@
                 "description": "Convert function from an assigned anonymous function to a fully qualified named function"
             },
             {
-                "command": "cmstead.jsRefactor.extractToFunction",
-                "title": "Extract To Function",
+                "command": "cmstead.jsRefactor.wrapInExecutedFunction",
+                "title": "Wrap In Executed Function",
                 "description": "Wrap code in a named function and execute it immediately"
             },
             {
