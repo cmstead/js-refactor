@@ -5,7 +5,7 @@ function canRefactorToNamed (line) {
 }
 
 function buildReplacementRegex (name) {
-    var regexStr = '(var|let|const)\\s+' + name + '\\s*\\=\\s*function\\s*\\(';
+    var regexStr = '(var|let|const)?\\s*' + name + '\\s*\\=\\s*function\\s*\\(';
     return new RegExp(regexStr);
 }
 

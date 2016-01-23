@@ -59,6 +59,12 @@ describe('Anonymous Function Refactorings', function () {
             assert.equal(result, 'function anotherFn () {}; var myOtherFn = function () {}');
         });
         
+        it('should refactor only the first matching function assignment with no var-related prefix', function () {
+            var line = 'anotherFn = function () {}; var myOtherFn = function () {}';
+            var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
+            assert.equal(result, 'function anotherFn () {}; var myOtherFn = function () {}');
+        });
+        
     });
     
 });
