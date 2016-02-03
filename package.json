@@ -120,6 +120,7 @@
   },
   "public": true,
   "dependencies": {
-    "esprima": "^2.7.1"
+    "esprima": "^2.7.1",
+    "jfp": "^2.7.0"
   }
 }

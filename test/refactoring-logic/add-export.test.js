@@ -38,4 +38,59 @@ describe('Find export location', function () {
         
     });
     
+    describe('find location in file with exports as single lines', function () {
+        
+        var fixture;
+        
+        beforeEach(function () {
+            fixture = baseFixture.split('\n');
+            fixture.push('module.exports.foo = foo;');
+        });
+        
+        it('should return an export location after a single export', function () {
+            var coords = addExport.exportLocation(fixture);
+            assert.equal(JSON.stringify(coords), '{"start":[14,26],"end":[14,26]}');
+        });
+        
+        it('should return an export location after the last export', function () {
+            fixture.push('');
+            fixture.push('');
+            fixture.push('module.exports.bar = bar;');
+            var coords = addExport.exportLocation(fixture);
+            assert.equal(JSON.stringify(coords), '{"start":[17,26],"end":[17,26]}');
+        });
+        
+        it('should prefer module exports as an object', function () {
+            fixture.push('');
+            fixture.push('module.exports = {');
+            fixture.push('    foo: foo');
+            fixture.push('};');
+            fixture.push('');
+            fixture.push('module.exports.bar = bar;');
+            var coords = addExport.exportLocation(fixture);
+            assert.equal(JSON.stringify(coords), '{"start":[16,19],"end":[16,19]}');
+        });
+        
+    });
+    
+});
+
+describe('hasExportObject', function () {
+    
+    var fixture;
+    
+    beforeEach(function () {
+        fixture = baseFixture.split('\n');
+    });
+    
+    it('should return true when exports are defined within an object', function () {
+        fixture.push('module.exports = {};');
+        assert.equal(addExport.hasExportObject(fixture), true);
+    });
+    
+    it('should return true when exports are defined on single lines', function () {
+        fixture.push('module.exports.blah = blah;');
+        assert.equal(addExport.hasExportObject(fixture), false);
+    });
+    
 });
