@@ -1,26 +1,18 @@
 'use strict';
 
-var functionRegex = /function\s+[^\s(]+\s*\(/;
+var functionUtils = require('../shared/function-utils');
 
 function canConvertToMember (line){
-    return line.match(functionRegex) !== null;
-}
-
-function getFunctionName (line){
-    var preambleLength = line.split(functionRegex)[0].length,
-        lineSubstr = line.substr(preambleLength).split('function')[1];
-    
-    return lineSubstr.split('(', 1)[0].trim();
+    return line.match(/function\s+[^\s(]+\s*\(/) !== null;
 }
 
 function buildRefactorRegex (functionName) {
     var regex = 'function\\s+' + functionName + '\\s*\\(';
-    console.log(regex);
     return new RegExp(regex);
 }
 
 function refactorToMemberFunction (line) {
-    var functionName = getFunctionName(line),
+    var functionName = functionUtils.getFunctionName(line),
         refactorRegex = buildRefactorRegex(functionName),
         replacementStr = functionName + ': function (';
         
