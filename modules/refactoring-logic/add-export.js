@@ -1,54 +1,35 @@
 'use strict';
 
+var j = require('jfp');
+var patterns = {
+    object: /module\.exports\s*=\s*\{/,
+    single: /module\.exports/
+};
 var anyMatch = /module\.exports(\.[^\s]+)?/,
     objectMatch = /module\.exports\s*=\s*\{/;
 
-function getMatch (line, pattern){
-    return line.match(pattern);
+function isMatch (regex, line){
+    return line.match(regex) !== null;
 }
 
-function findExportLine (lines){
-    var lastIndex = lines.length - 1,
-        index = lastIndex,
-        
-        matchIndex = -1,
-        lastMatch = null,
-        currentMatch,
-        pattern;
-    
-    while (index > 0) {
-        pattern = matchIndex === -1 ? anyMatch : objectMatch;
-        currentMatch = getMatch(lines[index], pattern);
-
-        if (matchIndex === -1 && currentMatch !== null) {
-            matchIndex = index;
-            lastMatch = currentMatch;
-        } else if (currentMatch !== null) {
-            matchIndex = index;
-            lastMatch = currentMatch;
-            break;
-        }
-        
-        index--;
-    }
-
-    return lastMatch === null ? lastIndex : matchIndex;
+function matchSource (regex, lines){
+    return isMatch(regex, lines.join(''))
 }
 
-function exportLocation (lines){
-    var exportLine = findExportLine(lines),
+function findExportExpression (recur, regex, lines, index) {
+    return isMatch(regex, lines[index]) ? index : recur(regex, lines, index - 1);
+}
+
+function exportLocation (lines, exportType){
+    var exportLine = j.recur(findExportExpression, patterns[exportType], lines, j.lastIndex(lines)),
         exportLineEnd = lines[exportLine].length,
         insertPoint = [exportLine + 1, exportLineEnd + 1];
     
     return { start: insertPoint, end: insertPoint };
 }
 
-function hasExportObject (lines) {
-    var source = lines.join('');
-    return source.match(/module.exports\s?=\s?\{/) !== null;
-}
-
 module.exports = {
     exportLocation: exportLocation,
-    hasExportObject: hasExportObject
+    hasExportExpression: j.partial(matchSource, patterns.single),
+    hasExportObject: j.partial(matchSource, patterns.object)
 };
