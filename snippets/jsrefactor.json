@@ -1,0 +1,85 @@
+{
+
+    "Use Strict": {
+        "prefix": "strict",
+        "body": [
+            "'use strict';\n"
+        ],
+        "description": "Insert strict mode declaration"
+    },
+
+    "Member Function": {
+        "prefix": "mfn",
+        "body": [
+            "$1: function ($2) {\n$3\n}\n"
+        ],
+        "description": "Insert a member function into your prototype object"
+    },
+
+    "Function": {
+        "prefix": "fn",
+        "body": [
+            "function $1 ($2){\n\t$3\n}"
+        ],
+        "description": "Insert a new function"
+    },
+
+    "Anonymous Function": {
+        "prefix": "anon",
+        "body": [
+            "function ($1) {$2}"
+        ],
+        "description": "Insert a new anonymous function"
+    },
+
+    "Immediately Invoked Function Expression": {
+        "prefix": "iife",
+        "body": [
+            "(function () {",
+            "\t$1",
+            "})();"
+        ],
+        "description": "Insert a new immediately invoked function expression"
+    },
+    
+    "Export Object Literal": {
+        "prefix": "exportObj",
+        "body": [
+            "module.exports = {\n\t$1\n}"
+        ],
+        "description": "Creates a module.exports code block with an object literal"
+    },
+    
+    "Export Module Value": {
+        "prefix": "export",
+        "body": [
+            "module.exports = $2"
+        ],
+        "description": "Creates a single module exports declaration"
+    },
+    
+    "Require Statement": {
+        "prefix": "require",
+        "body": [
+            "var ${1:varName} = require('${2:module}');"
+        ],
+        "description": "Adds a require statement to your module"
+    },
+    
+    "Prototypal Object": {
+        "prefix": "proto",
+        "body": [
+            "function ${1:objName} () {}\n",
+            "${1:objName}.prototype = {};"
+        ],
+        "description": "Creates a new prototypal object definition"
+    },
+    
+    "Condition Block": {
+        "prefix": "cond",
+        "body": [
+            "if ($1) {\n\t$2\n}"
+        ],
+        "description": "Creates a conditional block in your code."
+    }
+}

@@ -22,6 +22,7 @@
   "activationEvents": [
     "onCommand:cmstead.jsRefactor.convertToMemberFunction",
     "onCommand:cmstead.jsRefactor.convertToNamedFunction",
+    "onCommand:cmstead.jsRefactor.exportFunction",
     "onCommand:cmstead.jsRefactor.wrapInExecutedFunction",
     "onCommand:cmstead.jsRefactor.wrapInFunction",
     "onCommand:cmstead.jsRefactor.wrapInIIFE",
@@ -63,7 +64,7 @@
     "snippets": [
       {
         "language": "javascript",
-        "path": "./snippets/javascript.json"
+        "path": "./snippets/jsrefactor.json"
       }
     ],
     "commands": [
@@ -76,6 +77,11 @@
         "command": "cmstead.jsRefactor.convertToNamedFunction",
         "title": "Convert To Named Function",
         "description": "Convert function from an assigned anonymous function to a fully qualified named function"
+      },
+      {
+        "command": "cmstead.jsRefactor.exportFunction",
+        "title": "Export Function",
+        "description": "Export function in a node module for external use"
       },
       {
         "command": "cmstead.jsRefactor.wrapInExecutedFunction",

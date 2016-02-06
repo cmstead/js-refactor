@@ -3,9 +3,10 @@
     "function": "{indent}function {name}() {\n{body}\n{indent}}",
     "iife": "{indent}(function () {\n{body}{indent}\n})();\n",
     "functionCall": "\n{indent}{name}();",
+    
     "addExport": {
-        "single": "",
-        "newExport": "",
-        "objectAddition": ""
+        "single": "\nmodule.exports.{functionName} = {functionName}",
+        "newExport": "\nmodule.exports = {\n\t{functionName}: {functionName}\n}",
+        "objectAddition": "\n\t{functionName}: {functionName},"
     }
 }

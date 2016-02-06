@@ -8,19 +8,18 @@ var addExport = require('../refactoring-logic/add-export');
 var functionUtils = require('../shared/function-utils');
 var exportTemplates = require('../json/templates.json').addExport;
 
-function applyRefactor(vsEditor, selection, lines) {
-    var functionName = functionUtils.getFunctionName(selection[0]),
-        findType = addExport.hasExportObject(lines) ? 'object' : 'single',
-        exportType = addExport.hasExportExpression(lines) ? 'single' : 'newExport',
-        exportTemplate = findType === 'object' ? exportTemplates['objectAddition'] : exportTemplates[exportType],
-        exportLocation = addExport.exportLocation(lines, findType);
+function applyRefactor(vsEditor, functionName, lines) {
+    var findType = addExport.hasExportObject(lines) ? 'object' : 'single';
+    var exportType = addExport.hasExportExpression(lines) ? 'single' : 'newExport';
+    var exportTemplate = findType === 'object' ? exportTemplates['objectAddition'] : exportTemplates[exportType];
+    var exportLocation = addExport.exportLocation(lines, findType);
 
-    // Build new function to take different coordinates
-    actions.applyRefactorAtCoords(vsEditor, exportTemplate.replace('{functionName}', functionName), exportLocation);
+    actions.applyRefactorAtCoords(vsEditor, exportTemplate.replace(/\{functionName\}/g, functionName), exportLocation);
 }
 
 function applyExport(vsEditor, selection) {
-    if (typeof functionUtils.functionName(selection[0]) !== 'string') {
+    var functionName = functionUtils.getFunctionName(selection[0]);
+    if (typeof functionName !== 'string') {
         logger.log('No appropriate named function to export did you select a line containing a function?');
     } else {
         applyRefactor(vsEditor, selection, vsEditor._document._lines);

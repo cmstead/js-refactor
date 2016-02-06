@@ -1,15 +1,20 @@
 'use strict';
 
 var j = require('jfp');
+var logger = require('../shared/logger-factory')();
+
+var offset = {
+    'single': 1,
+    'object': 0
+};
+
 var patterns = {
     object: /module\.exports\s*=\s*\{/,
     single: /module\.exports/
 };
-var anyMatch = /module\.exports(\.[^\s]+)?/,
-    objectMatch = /module\.exports\s*=\s*\{/;
 
 function isMatch (regex, line){
-    return line.match(regex) !== null;
+    return typeof line === 'string' && line.match(regex) !== null;
 }
 
 function matchSource (regex, lines){
@@ -17,13 +22,17 @@ function matchSource (regex, lines){
 }
 
 function findExportExpression (recur, regex, lines, index) {
-    return isMatch(regex, lines[index]) ? index : recur(regex, lines, index - 1);
+    return index < 0 || isMatch(regex, lines[index]) ? index : recur(regex, lines, index - 1);
 }
 
 function exportLocation (lines, exportType){
-    var exportLine = j.recur(findExportExpression, patterns[exportType], lines, j.lastIndex(lines)),
-        exportLineEnd = lines[exportLine].length,
-        insertPoint = [exportLine + 1, exportLineEnd + 1];
+    var lastLineIndex = j.lastIndex(lines);
+    
+    var exportLine = j.recur(findExportExpression, patterns[exportType], lines, lastLineIndex);
+    exportLine = exportLine < 0 ? lastLineIndex : exportLine;
+
+    var exportLineEnd = lines[exportLine].length;
+    var insertPoint = [exportLine + offset[exportType], exportLineEnd + 1];
     
     return { start: insertPoint, end: insertPoint };
 }

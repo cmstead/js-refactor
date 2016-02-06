@@ -1,5 +1,6 @@
 var vscode = require('vscode');
 
+var addExport = require('./modules/commands/add-export');
 var convertToMemberFunction = require('./modules/commands/convert-to-member-function');
 var convertToNamedFunction = require('./modules/commands/convert-to-named-function');
 var wrapInExecutedFunction = require('./modules/commands/wrap-in-executed-function')
@@ -31,6 +32,10 @@ function activate(context) {
 	
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInCondition', function () {
         wrapInCondition(vscode.window.activeTextEditor);
+	}));
+	
+	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.exportFunction', function () {
+        addExport(vscode.window.activeTextEditor);
 	}));
 	
 }
