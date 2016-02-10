@@ -1,7 +1,6 @@
 'use strict';
 
 var j = require('jfp');
-var logger = require('../shared/logger-factory')();
 
 var offset = {
     'single': 1,
@@ -33,6 +32,8 @@ function exportLocation (lines, exportType){
 
     var exportLineEnd = lines[exportLine].length;
     var insertPoint = [exportLine + offset[exportType], exportLineEnd + 1];
+    
+    console.log(exportLine);
     
     return { start: insertPoint, end: insertPoint };
 }

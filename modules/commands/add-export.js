@@ -6,6 +6,7 @@ var logger = require('../shared/logger-factory')();
 
 var addExport = require('../refactoring-logic/add-export');
 var functionUtils = require('../shared/function-utils');
+var utilities = require('../shared/utilities');
 var exportTemplates = require('../json/templates.json').addExport;
 
 function applyRefactor(vsEditor, functionName, lines) {
@@ -22,7 +23,7 @@ function applyExport(vsEditor, selection) {
     if (typeof functionName !== 'string') {
         logger.log('No appropriate named function to export did you select a line containing a function?');
     } else {
-        applyRefactor(vsEditor, selection, vsEditor._document._lines);
+        applyRefactor(vsEditor, selection, utilities.getEditorDocument(vsEditor)._lines);
     }
 }
 

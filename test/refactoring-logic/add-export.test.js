@@ -5,7 +5,7 @@ var assert = require('chai').assert,
 
 describe('Find export location', function () {
 
-    describe.skip('find location in file with no exports', function () {
+    describe('find location in file with no exports', function () {
 
         var fixture;
 
@@ -14,7 +14,7 @@ describe('Find export location', function () {
         });
 
         it('should return an export location at the bottom of the file', function () {
-            var coords = addExport.exportLocation(fixture);
+            var coords = addExport.exportLocation(fixture, 'single');
             assert.equal(JSON.stringify(coords), '{"start":[13,2],"end":[13,2]}');
         });
 
@@ -33,13 +33,13 @@ describe('Find export location', function () {
 
         it('should return an export location inside the exports object', function () {
             var coords = addExport.exportLocation(fixture, 'object');
-            assert.equal(JSON.stringify(coords), '{"start":[14,19],"end":[14,19]}');
+            assert.equal(JSON.stringify(coords), '{"start":[13,19],"end":[13,19]}');
         });
 
         it('should only find module exports as an object', function () {
             fixture.push('module.exports.bar = bar;');
             var coords = addExport.exportLocation(fixture, 'object');
-            assert.equal(JSON.stringify(coords), '{"start":[14,19],"end":[14,19]}');
+            assert.equal(JSON.stringify(coords), '{"start":[13,19],"end":[13,19]}');
         });
         
     });

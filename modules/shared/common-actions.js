@@ -11,7 +11,7 @@ function applyEdit (edit) {
 }
 
 function applyRefactorAtCoords (vsEditor, update, coords) {
-    applyEdit(editFactory.buildSetEdit(vsEditor._document._uri, coords, update));
+    applyEdit(editFactory.buildSetEdit(utilities.getEditorDocument(vsEditor)._uri, coords, update));
 }
 
 function applyRefactor (vsEditor, update){
@@ -26,12 +26,5 @@ module.exports = {
     applyEdit: applyEdit,
     applyRefactor: applyRefactor,
     applyRefactorAtCoords: applyRefactorAtCoords,
-    applyTemplateRefactor: applyTemplateRefactor,
-    buildCoords: utilities.buildCoords,
-    buildLineCoords: utilities.buildLineCoords,
-    endpointsEqual: utilities.endpointsEqual,
-    fillTemplate: utilities.fillTemplate,
-    getDocumentIndent: utilities.getDocumentIndent,
-    getSelectionIndent: utilities.getSelectionIndent,
-    indent: utilities.indent
+    applyTemplateRefactor: applyTemplateRefactor
 };
