@@ -11,6 +11,10 @@ function TextSelection (contentList, selections) {
 
 TextSelection.prototype = {
     
+    getSelectionLine: function (index) {
+        return this.contentList[this.selections[index]._start._line];
+    },
+    
     getSelection: function (index) {
         return selectorFactory(this.selections[index])(this.contentList, this.selections[index]);
     }

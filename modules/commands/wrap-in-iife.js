@@ -7,13 +7,16 @@ var selectionFactory = require('../shared/selection-factory');
 var templates = require('../json/templates.json');
 
 function updateCode (vsEditor, selection, functionName) {
-    var documentIndent = actions.getDocumentIndent(vsEditor),
+    var documentIndent = utilities.getDocumentIndent(vsEditor),
+        selectedLine = selectionFactory(vsEditor).getSelectionLine(0),
+        lineIndent = utilities.getSelectionIndent([selectedLine]),
+        
         context = {
-            body: selection.map(utilities.indent.bind(null, documentIndent)).join('\n'),
-            indent: utilities.getSelectionIndent(selection)
+            body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
+            indent: lineIndent
         };
     
-    actions.applyTemplateRefactor(vsEditor, selection, context, templates.iife);
+    actions.applyTemplateRefactor(vsEditor, selection, context, templates.iife.join('\n'));
 }
 
 function wrapInIIFE (vsEditor) {

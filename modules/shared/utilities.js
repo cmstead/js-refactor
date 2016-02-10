@@ -35,7 +35,9 @@ function endpointsEqual (coords) {
 
 function indent (documentIndent, value) {
     var indentation = typeof documentIndent !== 'string' ? '\t' : documentIndent;
-    return value.trim() === '' ? value : indentation + value;
+    var trimmedValue = j.either('', value, 'string').trim();
+    
+    return trimmedValue === '' ? trimmedValue : indentation + trimmedValue;
 }
 
 function replaceKey (context, output, key) {

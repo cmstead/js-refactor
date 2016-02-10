@@ -1,8 +1,24 @@
 {
-    "cond": "{indent}if () {\n{body}\n}\n",
-    "function": "{indent}function {name}() {\n{body}\n{indent}}",
-    "iife": "{indent}(function () {\n{body}{indent}\n})();\n",
-    "functionCall": "\n{indent}{name}();",
+    "cond": ["", 
+             "{indent}if () {",
+             "{body}",
+             "{indent}}",
+             ""],
+
+    "function": ["",
+                 "{indent}function {name}() {",
+                 "{body}",
+                 "{indent}}",
+                 ""],
+
+    "iife": ["",
+             "{indent}(function () {",
+             "{body}",
+             "{indent}})();",
+             ""],
+             
+    "functionCall": ["{indent}{name}();",
+                     ""],
     
     "addExport": {
         "single": "\nmodule.exports.{functionName} = {functionName}",

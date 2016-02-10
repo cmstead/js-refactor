@@ -8,13 +8,16 @@ var templates = require('../json/templates.json');
 
 function updateCode (vsEditor, selection, functionName) {
     var documentIndent = utilities.getDocumentIndent(vsEditor),
+        selectedLine = selectionFactory(vsEditor).getSelectionLine(0),
+        lineIndent = utilities.getSelectionIndent([selectedLine]),
+        
         context = {
             name: functionName.trim() === '' ? '' : functionName + ' ',
-            body: selection.map(utilities.indent.bind(null, documentIndent)).join('\n'),
-            indent: utilities.getSelectionIndent(selection)
+            body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
+            indent: lineIndent
         };
     
-    actions.applyTemplateRefactor(vsEditor, selection, context, templates.function);
+    actions.applyTemplateRefactor(vsEditor, selection, context, templates.function.join('\n'));
 }
 
 function wrapInFunction (vsEditor) {
