@@ -83,3 +83,9 @@ tab-stops where you can fill in the information unique to your program.
 
 **strict** Inserts 'use strict' into your code
 
+##Release Info
+
+### V0.3.0
+
+- Added export function action
+- Fixed inconsistent indentation for wrap refactorings
