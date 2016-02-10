@@ -30,7 +30,8 @@
   "main": "./extension",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha --recursive ./test/",
-    "build": "tfx extension create --manifest-globs vss-integration.json"
+    "build": "tfx extension create --manifest-globs vss-integration.json",
+    "publish": "vsce publish"
   },
   "tags": [
     "Javascript",
