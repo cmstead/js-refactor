@@ -43,6 +43,16 @@ describe('Selection factory', function () {
             assert.equal(Object.prototype.toString.call(result), '[object Array]');
         });
 
+        it('should return an array of selected lines if using old VS Code API', function () {
+            var document = documentFactory();
+            document._document = document._documentData;
+            document._documentData = undefined;
+            document._selections[0]._end._character = 11;
+            
+            var result = selectionFactory(document).getSelection(0);
+            assert.equal(Object.prototype.toString.call(result), '[object Array]');
+        });
+
         it('should return null if no selection exists', function () {
             var document = documentFactory(),
                 result = selectionFactory(document).getSelection(0);

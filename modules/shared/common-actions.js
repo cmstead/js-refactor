@@ -1,16 +1,17 @@
 'use strict';
 
-var vscode = require('vscode'),
-    logger = require('./logger-factory')(),
-    editFactory = require('./edit-factory'),
-    utilities = require('./utilities');
+var vscode = require('vscode');
+var j = require('jfp');
+var logger = require('./logger-factory')();
+var editFactory = require('./edit-factory');
+var utilities = require('./utilities');
 
 function applyEdit (edit) {
     vscode.workspace.applyEdit(edit);
 }
 
 function applyRefactor (vsEditor, update){
-    applyEdit(editFactory.buildSetEdit(vsEditor._documentData._uri,
+    applyEdit(editFactory.buildSetEdit(utilities.getEditorDocument(vsEditor)._uri,
                                        utilities.buildCoords(vsEditor, 0), 
                                        update));
 }
