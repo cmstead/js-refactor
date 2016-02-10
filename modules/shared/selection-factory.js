@@ -1,6 +1,8 @@
 'use strict';
 
+var j = require('jfp');
 var selectorFactory = require('./text-selector-factory');
+var utilities = require('./utilities');
 
 function TextSelection (contentList, selections) {
     this.contentList = contentList;
@@ -15,8 +17,8 @@ TextSelection.prototype = {
     
 };
 
-function selectionFactory (vsDocument) {
-    return new TextSelection(vsDocument._document._lines, vsDocument._selections);
+function selectionFactory (vsEditor) {
+    return new TextSelection(utilities.getEditorDocument(vsEditor)._lines, vsEditor._selections);
 }
 
 module.exports = selectionFactory;

@@ -1,5 +1,7 @@
 'use strict';
 
+var j = require('jfp');
+
 function buildCoords (vsDocument, index) {
     return {
         start: [
@@ -59,12 +61,17 @@ function getDocumentIndent (vsEditor) {
     return useTabs ? '\t' : repeat(tabSize, ' ');
 }
 
+function getEditorDocument (vsEditor){
+    return j.either(vsEditor._documentData, vsEditor._document);
+}
+
 module.exports = {
     buildCoords: buildCoords,
     buildLineCoords: buildLineCoords,
     endpointsEqual: endpointsEqual,
     fillTemplate: fillTemplate,
     getDocumentIndent: getDocumentIndent,
+    getEditorDocument: getEditorDocument,
     getSelectionIndent: getSelectionIndent,
     indent: indent,
     repeat: repeat,
