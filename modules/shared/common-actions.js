@@ -10,7 +10,7 @@ function applyEdit (edit) {
 }
 
 function applyRefactor (vsEditor, update){
-    applyEdit(editFactory.buildSetEdit(vsEditor._document._uri,
+    applyEdit(editFactory.buildSetEdit(vsEditor._documentData._uri,
                                        utilities.buildCoords(vsEditor, 0), 
                                        update));
 }

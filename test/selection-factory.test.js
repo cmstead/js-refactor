@@ -3,7 +3,7 @@ var selectionFactory = require('../modules/shared/selection-factory');
 
 function documentFactory() {
     return {
-        _document: {
+        _documentData: {
             _lines: [
                 'foo bar baz',
                 'bar baz quux',

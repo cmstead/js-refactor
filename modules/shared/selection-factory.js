@@ -16,7 +16,7 @@ TextSelection.prototype = {
 };
 
 function selectionFactory (vsDocument) {
-    return new TextSelection(vsDocument._document._lines, vsDocument._selections);
+    return new TextSelection(vsDocument._documentData._lines, vsDocument._selections);
 }
 
 module.exports = selectionFactory;

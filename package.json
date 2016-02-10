@@ -104,7 +104,7 @@
     "mocha": "^2.3.4",
     "mockery": "^1.4.0",
     "sinon": "^1.17.2",
-    "vscode": "0.10.x"
+    "vscode": "^0.11.x"
   },
   "links": {
     "getstarted": {
