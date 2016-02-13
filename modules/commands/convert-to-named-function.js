@@ -2,7 +2,7 @@
 
 var actions = require('../shared/common-actions');
 var selectionFactory = require('../shared/selection-factory');
-var refactoring = require('../refactoring-logic/anonymous-function-refactor');
+var refactoring = require('../refactoring-logic/convert-to-named-function');
 var logger = require('../shared/logger-factory')();
 
 function applyConversion (vsEditor, selection){

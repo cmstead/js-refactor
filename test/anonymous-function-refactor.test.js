@@ -1,6 +1,6 @@
 'use strict';
 
-var anonymousFunctionRefactor = require('../modules/refactoring-logic/anonymous-function-refactor');
+var anonymousFunctionRefactor = require('../modules/refactoring-logic/convert-to-named-function');
 var assert = require('chai').assert;
 
 describe('Anonymous Function Refactorings', function () {
@@ -29,6 +29,26 @@ describe('Anonymous Function Refactorings', function () {
             var line = "= function test foo bar";
             var result = anonymousFunctionRefactor.canRefactorToNamed(line);
             assert.equal(result, false);
+        });
+        
+    });
+    
+    describe('Evaluate line for member->named function refactor', function () {
+        
+        it('should return true if line contains member function assignment', function () {
+            var line = 'myFn: function () {';
+            var result = anonymousFunctionRefactor.canRefactorToNamed(line);
+            assert.equal(result, true);
+        });
+        
+    });
+    
+    describe('Refactor member function to named function', function () {
+        
+        it('should refactor a basic assignment', function () {
+            var line = 'myFn: function () {';
+            var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
+            assert.equal(result, 'function myFn () {');
         });
         
     });
