@@ -33,7 +33,6 @@ function exportLocation (lines, exportType){
     var exportLineEnd = lines[exportLine].length;
     var insertPoint = [exportLine + offset[exportType], exportLineEnd + 1];
     
-    console.log(exportLine);
     
     return { start: insertPoint, end: insertPoint };
 }
