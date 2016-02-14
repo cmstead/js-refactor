@@ -14,6 +14,7 @@ function buildWorkspaceEdit () {
     return new vscode.WorkspaceEdit();
 }
 
+// Builds a "set" type edit object to update the view
 function buildSetEdit (uri, coords, text) {
     var edit = buildWorkspaceEdit();
     edit.set(uri, [buildTextEdit(coords, text)]);
@@ -21,6 +22,7 @@ function buildSetEdit (uri, coords, text) {
     return edit;
 }
 
+// Builds a "replace" type edit object to update the view
 function buildReplaceEdit (uri, coords, text) {
     var edit = buildWorkspaceEdit();
     edit.replace(uri, [buildTextEdit(coords, text)]);

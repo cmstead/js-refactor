@@ -84,13 +84,42 @@ function buildBoundsObject(tokens, top, bottom) {
     return hasNoBounds(start, end) ? null : { start: start, end: end };
 }
 
-function findScopeBounds(tokens, coords) {
+function findScopeIndices (tokens, coords){
     var top = j.pipeline(coords, j(findStartToken, tokens), j(findScopeTop, tokens));
-    var bottom = findScopeBottom(tokens, top);
+    var length = findScopeBottom(tokens, top);
+    
+    return { top: top, length: length };
+}
 
-    return buildBoundsObject(tokens, top, bottom);
+function findScopeBounds(tokens, coords) {
+    var boundIndices = findScopeIndices(tokens, coords);
+    
+    return buildBoundsObject(tokens, boundIndices.top, boundIndices.length);
+}
+
+function isTokenMatch (value, token){
+    return token.value === value;
+}
+
+function fixColumnValue (value){
+    value.start.column = value.start.column + 1;
+    value.end.column = value.end.column + 1;
+    return value;
+}
+
+function findValueInstances (tokens, scopeIndices, value){
+    var topIndex = scopeIndices.top;
+    var length = scopeIndices.length;
+    
+    return tokens.slice(topIndex, topIndex + length)
+                 .filter(j.partial(isTokenMatch, value))
+                 .map(j('pick', 'loc'))
+                 .map(fixColumnValue);
 }
 
 module.exports = {
-    findScopeBounds: findScopeBounds
+    buildBoundsObject: buildBoundsObject,
+    findScopeBounds: findScopeBounds,
+    findScopeIndices: findScopeIndices,
+    findValueInstances: findValueInstances
 };
