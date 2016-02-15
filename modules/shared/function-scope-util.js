@@ -86,15 +86,15 @@ function buildBoundsObject(tokens, top, bottom) {
 
 function findScopeIndices (tokens, coords){
     var top = j.pipeline(coords, j(findStartToken, tokens), j(findScopeTop, tokens));
-    var length = findScopeBottom(tokens, top);
+    var bottom = findScopeBottom(tokens, top);
     
-    return { top: top, length: length };
+    return { top: top, bottom: bottom };
 }
 
 function findScopeBounds(tokens, coords) {
     var boundIndices = findScopeIndices(tokens, coords);
     
-    return buildBoundsObject(tokens, boundIndices.top, boundIndices.length);
+    return buildBoundsObject(tokens, boundIndices.top, boundIndices.bottom);
 }
 
 function isTokenMatch (value, token){
@@ -109,9 +109,9 @@ function fixColumnValue (value){
 
 function findValueInstances (tokens, scopeIndices, value){
     var topIndex = scopeIndices.top;
-    var length = scopeIndices.length;
+    var bottom = scopeIndices.bottom;
     
-    return tokens.slice(topIndex, topIndex + length)
+    return tokens.slice(topIndex, bottom)
                  .filter(j.partial(isTokenMatch, value))
                  .map(j('pick', 'loc'))
                  .map(fixColumnValue);

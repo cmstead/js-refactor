@@ -3,6 +3,7 @@ var vscode = require('vscode');
 var addExport = require('./modules/commands/add-export');
 var convertToMemberFunction = require('./modules/commands/convert-to-member-function');
 var convertToNamedFunction = require('./modules/commands/convert-to-named-function');
+var extractVariable = require('./modules/commands/extract-variable');
 var wrapInExecutedFunction = require('./modules/commands/wrap-in-executed-function')
 var wrapInFunction = require('./modules/commands/wrap-in-function')
 var wrapInIIFE = require('./modules/commands/wrap-in-iife')
@@ -36,6 +37,10 @@ function activate(context) {
 	
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.exportFunction', function () {
         addExport(vscode.window.activeTextEditor);
+	}));
+	
+	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.extractVariable', function () {
+        extractVariable(vscode.window.activeTextEditor);
 	}));
 	
 }

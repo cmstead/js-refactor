@@ -23,6 +23,7 @@
     "onCommand:cmstead.jsRefactor.convertToMemberFunction",
     "onCommand:cmstead.jsRefactor.convertToNamedFunction",
     "onCommand:cmstead.jsRefactor.exportFunction",
+    "onCommand:cmstead.jsRefactor.extractVariable",
     "onCommand:cmstead.jsRefactor.wrapInExecutedFunction",
     "onCommand:cmstead.jsRefactor.wrapInFunction",
     "onCommand:cmstead.jsRefactor.wrapInIIFE",
@@ -83,6 +84,11 @@
         "command": "cmstead.jsRefactor.exportFunction",
         "title": "Export Function",
         "description": "Export function in a node module for external use"
+      },
+      {
+        "command": "cmstead.jsRefactor.extractVariable",
+        "title": "Extract Variable",
+        "description": "Extract value into a variable"
       },
       {
         "command": "cmstead.jsRefactor.wrapInExecutedFunction",
