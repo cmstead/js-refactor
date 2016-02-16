@@ -20,8 +20,8 @@
     "functionCall": ["{indent}{name}();",
                      ""],
 
-    "newVariable": ["",
-                    "{indent}var {name} = {value}"],
+    "newVariable": ["{indent}var {name} = {value};",
+                    ""],
     
     "addExport": {
         "single": "\nmodule.exports.{functionName} = {functionName}",

@@ -96,7 +96,7 @@ describe('Find value instances', function () {
     
     it('should fix the column value to match VS Code expectations', function () {
         var result = functionScopeUtil.findValueInstances(tokens, scopeIndices, '\'foo\'');
-        var expected = '[{"start":{"line":8,"column":21},"end":{"line":8,"column":26}},{"start":{"line":13,"column":13},"end":{"line":13,"column":18}},{"start":{"line":14,"column":13},"end":{"line":14,"column":18}}]';
+        var expected = '[{"start":{"line":7,"column":20},"end":{"line":7,"column":25}},{"start":{"line":12,"column":12},"end":{"line":12,"column":17}},{"start":{"line":13,"column":12},"end":{"line":13,"column":17}}]';
         
         assert.equal(JSON.stringify(result), expected);
         

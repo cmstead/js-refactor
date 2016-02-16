@@ -1,6 +1,7 @@
 'use strict';
 
 var vscode = require('vscode');
+var j = require('jfp');
 
 function buildTextEdit (coords, text) {
     var start = new vscode.Position(coords.start[0], coords.start[1]),
@@ -30,7 +31,17 @@ function buildReplaceEdit (uri, coords, text) {
     return edit
 }
 
+function buildMultipleSetEdits (uri, edits){
+    var textEdits = edits.reduce(function (list, edit) { return j.conj(buildTextEdit(edit.coords, edit.value), list); }, []);
+    var edit = buildWorkspaceEdit();
+    
+    edit.set(uri, textEdits);
+    
+    return edit;
+}
+
 module.exports = {
+    buildMultipleSetEdits: buildMultipleSetEdits,
     buildTextEdit: buildTextEdit,
     buildWorkspaceEdit: buildWorkspaceEdit,
     buildSetEdit: buildSetEdit,

@@ -102,8 +102,9 @@ function isTokenMatch (value, token){
 }
 
 function fixColumnValue (value){
-    value.start.column = value.start.column + 1;
-    value.end.column = value.end.column + 1;
+    value.start.line -= 1;
+    value.end.line -= 1;
+    
     return value;
 }
 

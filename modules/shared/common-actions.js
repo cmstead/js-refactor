@@ -22,8 +22,13 @@ function applyTemplateRefactor (vsEditor, selection, context, template) {
     applyRefactor(vsEditor, utilities.fillTemplate(context, template));
 }
 
+function applyMultipleRefactors (vsEditor, edits){
+    applyEdit(editFactory.buildMultipleSetEdits(utilities.getEditorDocument(vsEditor)._uri, edits));
+}
+
 module.exports = {
     applyEdit: applyEdit,
+    applyMultipleRefactors: applyMultipleRefactors,
     applyRefactor: applyRefactor,
     applyRefactorAtCoords: applyRefactorAtCoords,
     applyTemplateRefactor: applyTemplateRefactor

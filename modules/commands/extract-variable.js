@@ -22,9 +22,37 @@ function isValueInScope(scopeBounds, valueCoords) {
     return j.leq(scopeStart[0], valueStart[0]) && j.leq(valueStart[0], scopeEnd[0]);
 }
 
-function extractVariable(vsEditor, selectionData, scopeData) {
-    logger.info('Next step: extract variable.');
-    //actions.applyTemplateRefactor(vsEditor, selection, context, templates.function.join('\n'));
+function addVarExchange (varName, edits, coords){
+    var edit = {
+        value: varName,
+        coords: utilities.buildEsprimaCoords(coords)
+    };
+    
+    return j.cons(edit, edits);
+}
+
+function extractVariable(vsEditor, selectionData, scopeData, name) {
+    var documentIndent = utilities.getDocumentIndent(vsEditor);
+    var lineIndent = utilities.getSelectionIndent([selectionData.selection[0]]);
+
+    var replacementLocations = functionScopeUtil.findValueInstances(scopeData.tokens, scopeData.scopeIndices, selectionData.selection[0]);
+    var variableString = templates.newVariable.join('\n')
+                                  .replace('{indent}', documentIndent + lineIndent)
+                                  .replace('{name}', name)
+                                  .replace('{value}', selectionData.selection[0]);
+
+    var edits = replacementLocations.reduce(j.partial(addVarExchange, name), []);
+
+    var varCoords = {
+        start: scopeData.scopeBounds.start,
+        end: scopeData.scopeBounds.start
+    };
+    
+    varCoords.start[1] = 0;
+    varCoords.end[1] = 0;
+
+    actions.applyMultipleRefactors(vsEditor, edits);    
+    actions.applyRefactorAtCoords(vsEditor, variableString, varCoords);
 }
 
 function selectionDataFactory(vsEditor) {
