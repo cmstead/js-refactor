@@ -21,7 +21,7 @@ function replaceKey (context, result, key){
 }
 
 function fillTemplate (template, context){
-    return Object.keys(context).reduce(j.partial(replaceKey, context), template);
+    return Object.keys(context).reduce(j.partial(replaceKey, context), template.join('\n'));
 }
 
 function templateFactory (templateName){
@@ -32,6 +32,7 @@ function templateFactory (templateName){
 }
 
 module.exports = {
+	templateFactory: templateFactory,
     getNewVariableContext: getNewVariableContext,
     fillTempalte: fillTemplate
 }

@@ -8,12 +8,16 @@ var sourceUtils = require('../shared/source-utils');
 var templateUtils = require('../shared/template-utils');
 var utilities = require('../shared/utilities');
 
+function between (start, end, value){
+    return j.leq(start, value) && j.leq(value, end);
+}
+
 function isValueInScope(scopeBounds, valueCoords) {
     var scopeStart = scopeBounds.start;
     var scopeEnd = scopeBounds.end;
     var valueStart = valueCoords.start;
-
-    return j.between(scopeStart[0], scopeEnd[0], valueStart[0]);
+    
+    return between(scopeStart[0], scopeEnd[0], valueStart[0]);
 }
 
 function addVarEdit(varName, edits, coords) {
@@ -26,18 +30,18 @@ function addVarEdit(varName, edits, coords) {
 }
 
 function getTokensInScope(scopeIndices, tokens) {
-    return tokens.filter(j('between', scopeIndices.top, scopeIndices.bottom))
+    return tokens.filter(function (__, index) { return between(scopeIndices.top, scopeIndices.bottom, index)});
 }
 
 function getMatchLocations(value, tokens) {
-    return tokens.filter(j('eq', value))
-                 .map(function (value) { return value.loc; });
+    return tokens.filter(function (token) { return token.value === value; })
+                 .map(j('pick', 'loc'));
 }
 
 function getReplacementLocations(tokens, scopeIndices, value) {
-    return j.pipeline(tokens,
-        j(getTokensInScope, scopeIndices),
-        j(getMatchLocations, value));
+    var edits = getTokensInScope(scopeIndices, tokens);
+    edits = getMatchLocations(value, edits);
+    return edits;
 }
 
 function buildVarCoords(scopeData) {
@@ -49,6 +53,14 @@ function buildVarCoords(scopeData) {
     varCoords.start[1] = 0;
     varCoords.end[1] = 0;
 
+    return varCoords;
+}
+
+function adjustEdit (edit){
+    edit.coords.start[0] -= 1;
+    edit.coords.end[0] -= 1;
+    
+    return edit;
 }
 
 function extractVariable(vsEditor, selectionData, scopeData, name) {
@@ -57,14 +69,14 @@ function extractVariable(vsEditor, selectionData, scopeData, name) {
     var value = selectionData.selection[0];
     var varCoords = buildVarCoords(scopeData);
 
-    var edits = getReplacementLocations(tokens, scopeIndices, value).reduce(j.partial(addVarEdit, name), []);
+    var edits = getReplacementLocations(tokens, scopeIndices, value).reduce(j.partial(addVarEdit, name), []).map(adjustEdit);
     var variableString = templateUtils.templateFactory('newVariable')(vsEditor, name, selectionData);
 
     actions.applyMultipleRefactors(vsEditor, edits);
     actions.applyRefactorAtCoords(vsEditor, variableString, varCoords);
 }
 
-function wrapInFunction(vsEditor) {
+function extractAction(vsEditor) {
     var selectionData = sourceUtils.selectionDataFactory(vsEditor);
     var scopeData = sourceUtils.scopeDataFactory(vsEditor, selectionData);
     var extract = j(extractVariable, vsEditor, selectionData, scopeData);
@@ -80,4 +92,4 @@ function wrapInFunction(vsEditor) {
     }
 }
 
-module.exports = wrapInFunction;
+module.exports = extractAction;
