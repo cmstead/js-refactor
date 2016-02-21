@@ -1,27 +1,31 @@
 'use strict';
 
+var editActions = require('../shared/edit-actions');
 var logger = require('../shared/logger-factory')();
-var actions = require('../shared/common-actions');
 var selectionFactory = require('../shared/selection-factory');
-var utilities = require('../shared/utilities');
 var templates = require('../json/templates.json');
+var templateUtils = require('../shared/template-utils');
+var utilities = require('../shared/utilities');
 
-function updateCode (vsEditor, selection, functionName) {
-    var documentIndent = utilities.getDocumentIndent(vsEditor),
-        template = templates.function.concat(templates.functionCall),
-        selectedLine = selectionFactory(vsEditor).getSelectionLine(0),
-        lineIndent = utilities.getSelectionIndent([selectedLine]),
-        
-        context = {
-            name: functionName.trim() === '' ? '' : functionName + ' ',
-            body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
-            indent: lineIndent
-        };
+function updateCode(vsEditor, selection, functionName) {
+    var documentIndent = utilities.getDocumentIndent(vsEditor);
+    var template = templates.function.concat(templates.functionCall);
+    var selectedLine = selectionFactory(vsEditor).getSelectionLine(0);
+    var lineIndent = utilities.getSelectionIndent([selectedLine]);
+    var coords = utilities.buildCoords(vsEditor, 0);
+
+    var context = {
+        name: functionName.trim() === '' ? '' : functionName + ' ',
+        body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
+        indent: lineIndent
+    };
     
-    actions.applyTemplateRefactor(vsEditor, selection, context, template.join('\n'));
+    var text = templateUtils.fillTemplate(template, context);
+
+    editActions.applySetEdit(vsEditor, text, coords);
 }
 
-function wrapInExecutedFunction (vsEditor) {
+function wrapInExecutedFunction(vsEditor) {
     var selection = selectionFactory(vsEditor).getSelection(0);
 
     if (selection === null) {

@@ -34,5 +34,5 @@ function templateFactory (templateName){
 module.exports = {
 	templateFactory: templateFactory,
     getNewVariableContext: getNewVariableContext,
-    fillTempalte: fillTemplate
+    fillTemplate: fillTemplate
 }

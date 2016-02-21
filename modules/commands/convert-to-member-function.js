@@ -1,26 +1,27 @@
 'use strict';
 
-var actions = require('../shared/common-actions');
-var selectionFactory = require('../shared/selection-factory');
-var refactoring = require('../refactoring-logic/convert-to-member-function');
+var editActions = require('../shared/edit-actions');
 var logger = require('../shared/logger-factory')();
+var refactoring = require('../refactoring-logic/convert-to-member-function');
+var selectionFactory = require('../shared/selection-factory');
+var utilities = require('../shared/utilities');
 
-function applyConversion (vsEditor, selection){
-    if(!refactoring.canConvertToMember(selection[0])){
-        logger.log('No appropriate named function to convert did you select a line containing a function?');
-    } else {
-        selection[0] = refactoring.refactorToMemberFunction(selection[0]);
-        actions.applyRefactor(vsEditor, selection.join('\n'));
-    }
+function applyRefactor(vsEditor, selection) {
+    var coords = utilities.buildCoords(vsEditor, 0);
+
+    selection[0] = refactoring.refactorToMemberFunction(selection[0]);
+    editActions.applySetEdit(vsEditor, selection.join('\n'), coords);
 }
 
 function convertToMemberFunction(vsEditor) {
     var selection = selectionFactory(vsEditor).getSelection(0);
-    
+
     if (selection === null) {
         logger.log('Cannot perform member function conversion on an empty selection.');
+    } else if (!refactoring.canConvertToMember(selection[0])) {
+        logger.log('No appropriate named function to convert did you select a line containing a function?');
     } else {
-        applyConversion(vsEditor, selection);
+        applyRefactor(vsEditor, selection);
     }
 }
 

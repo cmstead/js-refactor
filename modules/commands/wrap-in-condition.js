@@ -1,22 +1,26 @@
 'use strict';
 
+var editActions = require('../shared/edit-actions');
 var logger = require('../shared/logger-factory')();
-var actions = require('../shared/common-actions');
-var utilities = require('../shared/utilities');
 var selectionFactory = require('../shared/selection-factory');
 var templates = require('../json/templates.json');
+var templateUtils = require('../shared/template-utils');
+var utilities = require('../shared/utilities');
 
 function updateCode(vsEditor, selection, functionName) {
-    var documentIndent = utilities.getDocumentIndent(vsEditor),
-        selectedLine = selectionFactory(vsEditor).getSelectionLine(0),
-        lineIndent = utilities.getSelectionIndent([selectedLine]),
-        
-        context = {
-            body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
-            indent: lineIndent 
-        };
+    var documentIndent = utilities.getDocumentIndent(vsEditor);
+    var selectedLine = selectionFactory(vsEditor).getSelectionLine(0);
+    var lineIndent = utilities.getSelectionIndent([selectedLine]);
+    var coords = utilities.buildCoords(vsEditor, 0);
 
-    actions.applyTemplateRefactor(vsEditor, selection, context, templates.cond.join('\n'));
+    var context = {
+        body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
+        indent: lineIndent
+    };
+
+    var text = templateUtils.fillTemplate(templates.cond, context);
+
+    editActions.applySetEdit(vsEditor, text, coords);
 }
 
 function wrapInCondition(vsEditor) {

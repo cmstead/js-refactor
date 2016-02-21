@@ -1,13 +1,14 @@
 'use strict';
 
-var actions = require('../shared/common-actions');
+var editActions = require('../shared/edit-actions');
 var selectionFactory = require('../shared/selection-factory');
 var logger = require('../shared/logger-factory')();
 
 var addExport = require('../refactoring-logic/add-export');
-var functionUtils = require('../shared/function-utils');
-var utilities = require('../shared/utilities');
 var exportTemplates = require('../json/templates.json').addExport;
+var functionUtils = require('../shared/function-utils');
+var templateUtils = require('../shared/template-utils');
+var utilities = require('../shared/utilities');
 
 function applyRefactor(vsEditor, functionName, lines) {
     var findType = addExport.hasExportObject(lines) ? 'object' : 'single';
@@ -15,7 +16,9 @@ function applyRefactor(vsEditor, functionName, lines) {
     var exportTemplate = findType === 'object' ? exportTemplates['objectAddition'] : exportTemplates[exportType];
     var exportLocation = addExport.exportLocation(lines, findType);
 
-    actions.applyRefactorAtCoords(vsEditor, exportTemplate.replace(/\{functionName\}/g, functionName), exportLocation);
+    var text = exportTemplate.replace(/\{functionName\}/g, functionName)
+
+    editActions.applySetEdit(vsEditor, text, exportLocation);
 }
 
 function applyExport(vsEditor, selection) {

@@ -1,6 +1,6 @@
 'use strict';
 
-var actions = require('../shared/common-actions');
+var editActions = require('../shared/edit-actions');
 var functionScopeUtil = require('../shared/function-scope-util');
 var j = require('jfp');
 var logger = require('../shared/logger-factory')();
@@ -72,8 +72,8 @@ function extractVariable(vsEditor, selectionData, scopeData, name) {
     var edits = getReplacementLocations(tokens, scopeIndices, value).reduce(j.partial(addVarEdit, name), []).map(adjustEdit);
     var variableString = templateUtils.templateFactory('newVariable')(vsEditor, name, selectionData);
 
-    actions.applyMultipleRefactors(vsEditor, edits);
-    actions.applyRefactorAtCoords(vsEditor, variableString, varCoords);
+    editActions.applySetEdits(vsEditor, edits);
+    editActions.applySetEdit(vsEditor, variableString, varCoords);
 }
 
 function extractAction(vsEditor) {
