@@ -39,7 +39,7 @@ describe('Template Utilities', function () {
                 value: '"foo"'
             };
             
-            var result = templateUtils.fillTempalte('{indent}var stuff = {value};', context);
+            var result = templateUtils.fillTemplate(['{indent}var stuff = {value};'], context);
             
             assert.equal(result, expected);
         });
@@ -52,7 +52,7 @@ describe('Template Utilities', function () {
                 value: '"bar"'
             };
             
-            var result = templateUtils.fillTempalte('{indent}let {name} = {value};', context);
+            var result = templateUtils.fillTemplate(['{indent}let {name} = {value};'], context);
             
             assert.equal(result, expected);
         });
