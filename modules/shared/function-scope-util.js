@@ -3,7 +3,7 @@
 var j = require('jfp');
 
 function isLocationMatch(location, token) {
-    return token.loc.start.line === location[0] && 
+    return token.loc.start.line === location[0] + 1 && 
            token.loc.start.column === location[1] - 1;
 }
 
@@ -54,7 +54,6 @@ function findStartToken(tokens, coords) {
 
     function findAction(recur, index) {
         var locationMatches = isLocationMatch(coords.start, tokens[index]);
-        
         return locationMatches ? index : recur(index + 1);
     }
 }
