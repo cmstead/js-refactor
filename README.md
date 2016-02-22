@@ -14,6 +14,7 @@ JS Refactor supports the following refactorings (explanations below):
 - Convert To Member Function
 - Convert To Named Function
 - Export Function
+- Extract Variable
 - Wrap In Condition
 - Wrap In Executed Function
 - Wrap in function
@@ -28,10 +29,12 @@ the refactoring and select the correct refactoring from the list. You will be pr
 
 **Convert To Member Function** Converts a named function to a member function for an object prototype definition.
 
-**Convert To Named Function** Converts selected anonymous function assignment and converts it into a named function declaration.
+**Convert To Named Function** Converts selected anonymous function assignment or member function declaration and converts it into a named function declaration.
 Convert to named function only searches the first line of your selection and will only convert one function at a time.
 
 **Export Function** creates new export declaration for selected function or function name
+
+**Extract Variable** Creates new assigned variable declaration and extracts repeated values.
 
 **Wrap In Condition** Wraps selected code in an if statement, adding indentation as necessary
 
@@ -84,6 +87,11 @@ tab-stops where you can fill in the information unique to your program.
 **strict** Inserts 'use strict' into your code
 
 ##Release Info
+
+### V0.4.0
+
+- Added extract variable behavior.
+- Enhanced refactor to named function behavior to work with member functions
 
 ### V0.3.0
 
