@@ -13,6 +13,12 @@ JS Refactor has two key components: automated refactorings and code snippets.
 - [Visit me on Twitter](https://twitter.com/cm_stead)
 - [Fork and Contribute on Github](https://github.com/cmstead/js-refactor)
 
+## What It's Like
+
+![Convert Function Syntax](http://chrisstead.com/wp-content/uploads/images/extension-gifs/convert-function.gif)
+
+![Extract Variable](http://chrisstead.com/wp-content/uploads/images/extension-gifs/extract-var.gif)
+
 ## Automated Refactorings
 
 JS Refactor supports the following refactorings (explanations below):
