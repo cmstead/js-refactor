@@ -1,6 +1,7 @@
 'use strict';
 
 var j = require('jfp');
+var selectionFactory = require('./selection-factory')
 var templates = require('../json/templates.json');
 var utilities = require('../shared/utilities.js');
 
@@ -31,8 +32,33 @@ function templateFactory (templateName){
     );
 }
 
+function extendContext (context, extension){
+    return Object.keys(extension).reduce(function (context, key) {
+        context[key] = extension[key];
+        return context; }, context);
+}
+
+function buildBaseContext (vsEditor, selection){
+    var selectedLine = selectionFactory(vsEditor).getSelectionLine(0);
+    var documentIndent = utilities.getDocumentIndent(vsEditor);
+    var lineIndent = utilities.getSelectionIndent([selectedLine]);
+
+    return {
+        body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
+        indent: lineIndent
+    };    
+}
+
+function buildExtendedContext (vsEditor, selection, extension) {
+    var context = buildBaseContext(vsEditor, selection);
+    return extendContext(context, extension);
+}
+
+
 module.exports = {
-	templateFactory: templateFactory,
+    buildBaseContext: buildBaseContext,
+    buildExtendedContext: buildExtendedContext,
+    fillTemplate: fillTemplate,
     getNewVariableContext: getNewVariableContext,
-    fillTemplate: fillTemplate
+	templateFactory: templateFactory
 }

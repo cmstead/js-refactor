@@ -24,8 +24,15 @@
                     ""],
     
     "addExport": {
-        "single": "\nmodule.exports.{functionName} = {functionName}",
-        "newExport": "\nmodule.exports = {\n\t{functionName}: {functionName}\n}",
-        "objectAddition": "\n\t{functionName}: {functionName},"
+        "single": ["", 
+                   "module.exports.{functionName} = {functionName}"],
+                   
+        "newExport": ["",
+                      "module.exports = {",
+                      "\t{functionName}: {functionName}",
+                      "}"],
+                      
+        "objectAddition": ["",
+                           "\t{functionName}: {functionName},"]
     }
 }

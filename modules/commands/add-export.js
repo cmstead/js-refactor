@@ -13,12 +13,14 @@ var utilities = require('../shared/utilities');
 function applyRefactor(vsEditor, functionName, lines) {
     var findType = addExport.hasExportObject(lines) ? 'object' : 'single';
     var exportType = addExport.hasExportExpression(lines) ? 'single' : 'newExport';
-    var exportTemplate = findType === 'object' ? exportTemplates['objectAddition'] : exportTemplates[exportType];
-    var exportLocation = addExport.exportLocation(lines, findType);
 
-    var text = exportTemplate.replace(/\{functionName\}/g, functionName)
+    var coords = addExport.exportLocation(lines, findType);
+    var context = templateUtils.buildExtendedContext(vsEditor, [functionName], { functionName: functionName });
+    
+    var template = findType === 'object' ? exportTemplates['objectAddition'] : exportTemplates[exportType];
+    var text = templateUtils.fillTemplate(template, context);
 
-    editActions.applySetEdit(vsEditor, text, exportLocation);
+    editActions.applySetEdit(vsEditor, text, coords);
 }
 
 function applyExport(vsEditor, selection) {
@@ -26,7 +28,7 @@ function applyExport(vsEditor, selection) {
     if (typeof functionName !== 'string') {
         logger.log('No appropriate named function to export did you select a line containing a function?');
     } else {
-        applyRefactor(vsEditor, selection, utilities.getEditorDocument(vsEditor)._lines);
+        applyRefactor(vsEditor, functionName, utilities.getEditorDocument(vsEditor)._lines);
     }
 }
 

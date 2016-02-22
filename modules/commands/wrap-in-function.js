@@ -7,18 +7,15 @@ var templates = require('../json/templates.json');
 var templateUtils = require('../shared/template-utils');
 var utilities = require('../shared/utilities');
 
-function updateCode(vsEditor, selection, functionName) {
-    var documentIndent = utilities.getDocumentIndent(vsEditor);
-    var selectedLine = selectionFactory(vsEditor).getSelectionLine(0);
-    var lineIndent = utilities.getSelectionIndent([selectedLine]);
-    var coords = utilities.buildCoords(vsEditor, 0);
+function cleanFunctionName (functionName){
+    return functionName.trim() === '' ? '' : functionName + ' ';
+}
 
-    var context = {
-        name: functionName.trim() === '' ? '' : functionName + ' ',
-        body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
-        indent: lineIndent
-    };
-    
+function updateCode(vsEditor, selection, functionName) {
+    var contextExtension = { name: cleanFunctionName(functionName) };
+    var context = templateUtils.buildExtendedContext(vsEditor, selection, contextExtension);
+
+    var coords = utilities.buildCoords(vsEditor, 0);
     var text = templateUtils.fillTemplate(templates.function, context);
 
     editActions.applySetEdit(vsEditor, text, coords);

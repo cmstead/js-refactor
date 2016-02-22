@@ -8,16 +8,8 @@ var templateUtils = require('../shared/template-utils');
 var utilities = require('../shared/utilities');
 
 function updateCode(vsEditor, selection, functionName) {
-    var documentIndent = utilities.getDocumentIndent(vsEditor);
-    var selectedLine = selectionFactory(vsEditor).getSelectionLine(0);
-    var lineIndent = utilities.getSelectionIndent([selectedLine]);
+    var context = templateUtils.buildBaseContext(vsEditor, selection);
     var coords = utilities.buildCoords(vsEditor, 0);
-
-    var context = {
-        body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
-        indent: lineIndent
-    };
-    
     var text = templateUtils.fillTemplate(templates.iife, context);
 
     editActions.applySetEdit(vsEditor, text, coords);

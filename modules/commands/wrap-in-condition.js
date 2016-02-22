@@ -7,17 +7,9 @@ var templates = require('../json/templates.json');
 var templateUtils = require('../shared/template-utils');
 var utilities = require('../shared/utilities');
 
-function updateCode(vsEditor, selection, functionName) {
-    var documentIndent = utilities.getDocumentIndent(vsEditor);
-    var selectedLine = selectionFactory(vsEditor).getSelectionLine(0);
-    var lineIndent = utilities.getSelectionIndent([selectedLine]);
+function applyRefactor(vsEditor, selection) {
     var coords = utilities.buildCoords(vsEditor, 0);
-
-    var context = {
-        body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
-        indent: lineIndent
-    };
-
+    var context = templateUtils.buildBaseContext(vsEditor, selection);
     var text = templateUtils.fillTemplate(templates.cond, context);
 
     editActions.applySetEdit(vsEditor, text, coords);
@@ -29,7 +21,7 @@ function wrapInCondition(vsEditor) {
     if (selection === null) {
         logger.info('Cannot wrap empty selection. To create a new if block, use the if (cond) snippet.');
     } else {
-        updateCode(vsEditor, selection);
+        applyRefactor(vsEditor, selection);
     }
 }
 
