@@ -7,7 +7,13 @@ seconds to do these things by hand, but those seconds add up quite quickly.
 
 JS Refactor has two key components: automated refactorings and code snippets.
 
-##Automated Refactorings
+## Keep In Touch
+
+- [ChrisStead.com](http://www.chrisstead.com)
+- [Visit me on Twitter](https://twitter.com/cm_stead)
+- [Fork and Contribute on Github](https://github.com/cmstead/js-refactor)
+
+## Automated Refactorings
 
 JS Refactor supports the following refactorings (explanations below):
 
@@ -20,12 +26,12 @@ JS Refactor supports the following refactorings (explanations below):
 - Wrap in function
 - Wrap in IIFE
 
-###Usage
+### Usage
 
 Select the code you wish to refactor and then press the F1 key to open the command pallette.  Begin typing the name of
 the refactoring and select the correct refactoring from the list. You will be prompted for any necessary information.
 
-###Explanations
+### Explanations
 
 **Convert To Member Function** Converts a named function to a member function for an object prototype definition.
 
@@ -47,7 +53,7 @@ the only work needed is to move the new function to an appropriate location in t
 
 **Wrap in IIFE** wraps selected code in an immediately invoked function expression (IIFE).
 
-##Snippets
+## Snippets
 
 JS Refactor supports several common code snippets:
 
@@ -62,13 +68,13 @@ JS Refactor supports several common code snippets:
 - Require statement (require)
 - Use Strict (strict)
 
-###Usage
+### Usage
 
 Type the abbreviation, such as fn, in your code and hit enter. When the snippet is executed, the appropriate code will be
 inserted into your document. Any snippets which require extra information like names or arguments will have named
 tab-stops where you can fill in the information unique to your program.
 
-###Explanations
+### Explanations
 
 **anon** Inserts a tab-stopped anonymous function snippet into your code
 
@@ -86,7 +92,7 @@ tab-stops where you can fill in the information unique to your program.
 
 **strict** Inserts 'use strict' into your code
 
-##Release Info
+## Release Info
 
 ### V0.4.0
 

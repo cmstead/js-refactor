@@ -4,7 +4,7 @@ var j = require('jfp');
 
 function isLocationMatch(location, token) {
     return token.loc.start.line === location[0] + 1 && 
-           token.loc.start.column === location[1] - 1;
+           token.loc.start.column === location[1];
 }
 
 function isValueMatch(token, value) {

@@ -16,8 +16,8 @@ describe('Find Scope Bounds', function () {
     it('should find the scope bounds of selected value in inner function', function () {
         // Coordinates inside the extension are 0-based while the display is 1-based
         var coords = {
-            start: [10, 20],
-            end: [10, 21]
+            start: [10, 19],
+            end: [10, 20]
         };
 
         var expected = '{"start":[10,28],"end":[12,10]}';
@@ -29,8 +29,8 @@ describe('Find Scope Bounds', function () {
     it('should find the scope bounds of selected value in outer function', function () {
         // Coordinates inside the extension are 0-based while the display is 1-basedß
         var coords = {
-            start: [7, 21],
-            end: [7, 26]
+            start: [7, 20],
+            end: [7, 25]
         };
 
         var expected = '{"start":[7,21],"end":[13,6]}';
@@ -41,8 +41,8 @@ describe('Find Scope Bounds', function () {
 
     it('should return null if function scope boundaries cannot be found', function () {
         var coords = {
-            start: [2, 13],
-            end: [2, 18]
+            start: [2, 12],
+            end: [2, 17]
         };
 
         var expected = null;
@@ -60,8 +60,8 @@ describe('Find value instances', function () {
 
     beforeEach(function () {
         var coords = {
-            start: [7, 21],
-            end: [7, 26]
+            start: [7, 20],
+            end: [7, 25]
         };
         
         var lines = fixture.split('\n');
