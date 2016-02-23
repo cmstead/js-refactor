@@ -48,7 +48,7 @@ describe('Anonymous Function Refactorings', function () {
         it('should refactor a basic assignment', function () {
             var line = 'myFn: function () {';
             var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
-            assert.equal(result, 'function myFn () {');
+            assert.equal(result, '{lineIndent}function myFn () {');
         });
         
     });
@@ -58,31 +58,31 @@ describe('Anonymous Function Refactorings', function () {
         it('should refactor a basic assignment', function () {
             var line = 'var myFn = function () {}';
             var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
-            assert.equal(result, 'function myFn () {}');
+            assert.equal(result, '{lineIndent}function myFn () {}');
         });
         
         it('should refactor only the first matching function assignment with var', function () {
             var line = 'var anotherFn = function () {}; var myOtherFn = function () {}';
             var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
-            assert.equal(result, 'function anotherFn () {}; var myOtherFn = function () {}');
+            assert.equal(result, '{lineIndent}function anotherFn () {}; var myOtherFn = function () {}');
         });
         
         it('should refactor only the first matching function assignment with const', function () {
             var line = 'const anotherFn = function () {}; var myOtherFn = function () {}';
             var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
-            assert.equal(result, 'function anotherFn () {}; var myOtherFn = function () {}');
+            assert.equal(result, '{lineIndent}function anotherFn () {}; var myOtherFn = function () {}');
         });
         
         it('should refactor only the first matching function assignment with let', function () {
             var line = 'let anotherFn = function () {}; var myOtherFn = function () {}';
             var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
-            assert.equal(result, 'function anotherFn () {}; var myOtherFn = function () {}');
+            assert.equal(result, '{lineIndent}function anotherFn () {}; var myOtherFn = function () {}');
         });
         
         it('should refactor only the first matching function assignment with no var-related prefix', function () {
             var line = 'anotherFn = function () {}; var myOtherFn = function () {}';
             var result = anonymousFunctionRefactor.refactorToNamedFunction(line);
-            assert.equal(result, 'function anotherFn () {}; var myOtherFn = function () {}');
+            assert.equal(result, '{lineIndent}function anotherFn () {}; var myOtherFn = function () {}');
         });
         
     });

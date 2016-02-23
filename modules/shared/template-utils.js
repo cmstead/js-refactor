@@ -44,6 +44,8 @@ function buildBaseContext (vsEditor, selection){
     var lineIndent = utilities.getSelectionIndent([selectedLine]);
 
     return {
+        documentIndent: documentIndent,
+        lineIndent: lineIndent,
         body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
         indent: lineIndent
     };    
