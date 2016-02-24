@@ -12,7 +12,7 @@ function applyRefactor(vsEditor, selection) {
     var baseContext = templateUtils.buildBaseContext(vsEditor, selection);
     var updatedLine = refactoring.refactorToNamedFunction(selection[0]);
 
-    selection[0] = templateUtils.fillTemplate(updatedLine, baseContext);
+    selection[0] = templateUtils.fillTemplate([updatedLine], baseContext);
     editActions.applySetEdit(vsEditor, selection.join('\n'), coords);
 }
 
