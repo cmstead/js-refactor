@@ -127,7 +127,27 @@
     "keybindings": [
         {
             "command": "cmstead.jsRefactor.extractVariable",
-            "key": "ctrl+shift+j e"
+            "key": "ctrl+shift+j e v"
+        },
+        {
+            "command": "cmstead.jsRefactor.convertToMemberFunction",
+            "key": "ctrl+shift+j c m"
+        },
+        {
+            "command": "cmstead.jsRefactor.convertToNamedFunction",
+            "key": "ctrl+shift+j c n"
+        },
+        {
+            "command": "cmstead.jsRefactor.exportFunction",
+            "key": "ctrl+shift+j x f"
+        },
+        {
+            "command": "cmstead.jsRefactor.wrapInIIFE",
+            "key": "ctrl+shift+j w i"
+        },
+        {
+            "command": "cmstead.jsRefactor.wrapInExecutedFunction",
+            "key": "ctrl+shift+j w x"
         }
     ]
   },
