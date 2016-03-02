@@ -123,6 +123,12 @@
         "title": "Wrap In Condition",
         "description": "Wrap code in a condition block"
       }
+    ],
+    "keybindings": [
+        {
+            "command": "cmstead.jsRefactor.extractVariable",
+            "key": "ctrl+shift+j e"
+        }
     ]
   },
   "devDependencies": {
