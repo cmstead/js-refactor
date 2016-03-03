@@ -24,13 +24,25 @@ JS Refactor has two key components: automated refactorings and code snippets.
 JS Refactor supports the following refactorings (explanations below):
 
 - Convert To Member Function
+    - (ctrl+shift+j ctrl+shift+m)
 - Convert To Named Function
+    - (ctrl+shift+j ctrl+shift+n)
 - Export Function
+    - (ctrl+shift+j ctrl+shift+x)
 - Extract Variable
+    - (ctrl+shift+j ctrl+shift+e)
+- Shift Parameters Left
+    - (ctrl+shift+j ctrl+shift+s)
+- Wrap in function
+    - (ctrl+shift+j ctrl+shift+w)
+- Wrap in IIFE
+    - (ctrl+shift+j ctrl+shift+i)
+
+- Shift Parameters Right
 - Wrap In Condition
 - Wrap In Executed Function
-- Wrap in function
-- Wrap in IIFE
+
+All keybindings are available using cmd instead of ctrl on a Mac
 
 ### Usage
 
@@ -47,6 +59,10 @@ Convert to named function only searches the first line of your selection and wil
 **Export Function** creates new export declaration for selected function or function name
 
 **Extract Variable** Creates new assigned variable declaration and extracts repeated values.
+
+**Shift Parameters Left** Shifts all selected parameters to the left
+
+**Shift Parameters Right** Shifts all selected parameters to the right
 
 **Wrap In Condition** Wraps selected code in an if statement, adding indentation as necessary
 
@@ -99,6 +115,12 @@ tab-stops where you can fill in the information unique to your program.
 **strict** Inserts 'use strict' into your code
 
 ## Release Info
+
+### V0.5.0
+
+- Shift parameters left
+- Shift parameters right
+- Added keybindings for common actions
 
 ### V0.4.0
 

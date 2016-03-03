@@ -3,14 +3,7 @@
 var splitPattern = /\,\s*/g;
 var paramDelimiter = ', ';
 
-function swapParams(params) {
-    var paramTokens = params.split(splitPattern);
-    var staticParams = paramTokens.slice(2);
-
-    return paramTokens.slice(0, 2).reverse().concat(staticParams).join(paramDelimiter);
-}
-
-function moveFirstToLast (params){
+function shiftParamsLeft (params){
     var paramTokens = params.split(splitPattern);
     var firstToken = paramTokens.shift();
     
@@ -19,7 +12,7 @@ function moveFirstToLast (params){
     return paramTokens.join(paramDelimiter);
 }
 
-function moveLastToFirst (params){
+function shiftParamsRight (params){
     var paramTokens = params.split(splitPattern);
     var lastToken = paramTokens.pop();
     
@@ -29,7 +22,6 @@ function moveLastToFirst (params){
 }
 
 module.exports = {
-	moveLastToFirst: moveLastToFirst,
-	moveFirstToLast: moveFirstToLast,
-    swapParams: swapParams
+	shiftParamsRight: shiftParamsRight,
+	shiftParamsLeft: shiftParamsLeft
 }
