@@ -58,7 +58,7 @@ describe('Selection factory', function () {
                 result = selectionFactory(document).getSelection(0);
                 assert.equal(result, null);
         });
-
+        
     });
 
 });

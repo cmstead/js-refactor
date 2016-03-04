@@ -1,5 +1,6 @@
 'use strict';
 
+var j = require('jfp');
 var editActions = require('../shared/edit-actions');
 var selectionFactory = require('../shared/selection-factory');
 var logger = require('../shared/logger-factory')();
@@ -25,6 +26,7 @@ function applyRefactor(vsEditor, functionName, lines) {
 
 function applyExport(vsEditor, selection) {
     var functionName = functionUtils.getFunctionName(selection[0]);
+    
     if (typeof functionName !== 'string') {
         logger.log('No appropriate named function to export did you select a line containing a function?');
     } else {
@@ -32,12 +34,20 @@ function applyExport(vsEditor, selection) {
     }
 }
 
+function cleanSelection (vsEditor, selection){
+    var cleanSelection = selection.filter(function (value) { return value.trim() !== ''; });
+    var containsFunction = cleanSelection[0].match(/function/) !== null;
+    
+    return containsFunction ? cleanSelection : [selectionFactory(vsEditor).getSelectionLine(0)];
+}
+
 function exportFunction(vsEditor) {
     var selection = selectionFactory(vsEditor).getSelection(0);
-
+    
     if (selection === null) {
         logger.log('Cannot perform export on an empty selection.');
     } else {
+        selection = cleanSelection(vsEditor, selection);
         applyExport(vsEditor, selection);
     }
 }

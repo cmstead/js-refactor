@@ -81,5 +81,13 @@
             "if ($1) {\n\t$2\n}"
         ],
         "description": "Creates a conditional block in your code."
+    },
+    
+    "Console Log": {
+        "prefix": "log",
+        "body": [
+            "console.log($1);"
+        ],
+        "description": "Add console.log to the document at cursor"
     }
 }
