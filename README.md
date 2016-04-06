@@ -7,6 +7,13 @@ seconds to do these things by hand, but those seconds add up quite quickly.
 
 JS Refactor has two key components: automated refactorings and code snippets.
 
+## Installation
+
+Open VS Code, press F1 and enter `ext install jsrefactor`
+
+For early release access prior to deployment to the Visual Studio Marketplace, this extension can be downloaded
+and side-loaded into your editor.
+
 ## Keep In Touch
 
 - [ChrisStead.com](http://www.chrisstead.com)
@@ -20,6 +27,12 @@ JS Refactor has two key components: automated refactorings and code snippets.
 ![Extract Variable](http://chrisstead.com/wp-content/uploads/images/extension-gifs/extract-var.gif)
 
 ## Automated Refactorings
+
+**Basic useage:** Press F1 and type `JS Refactorings` to select from a list of all refactorings
+
+**Alternative options:** You can also press F1 then simply type the name of the refactoring and press enter 
+if you know the name of the refactoring you need. Finally, there are hotkey combinations for some of the most common
+refactorings you might want.
 
 JS Refactor supports the following refactorings (explanations below):
 

@@ -2,7 +2,7 @@
   "name": "jsrefactor",
   "displayName": "JS Refactorings",
   "description": "JS refactoring tools for adding efficiency to your development workflow.",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "publisher": "cmstead",
   "repository": {
     "url": "https://github.com/cmstead/js-refactor.git",
@@ -87,52 +87,52 @@
     "commands": [
       {
         "command": "cmstead.jsRefactor.convertToMemberFunction",
-        "title": "Convert To Member Function",
+        "title": "JS Refactorings: Convert To Member Function",
         "description": "Convert function from a named function to a prototype member function"
       },
       {
         "command": "cmstead.jsRefactor.convertToNamedFunction",
-        "title": "Convert To Named Function",
+        "title": "JS Refactorings: Convert To Named Function",
         "description": "Convert function from an assigned anonymous function to a fully qualified named function"
       },
       {
         "command": "cmstead.jsRefactor.exportFunction",
-        "title": "Export Function",
+        "title": "JS Refactorings: Export Function",
         "description": "Export function in a node module for external use"
       },
       {
         "command": "cmstead.jsRefactor.extractVariable",
-        "title": "Extract Variable",
+        "title": "JS Refactorings: Extract Variable",
         "description": "Extract value into a variable"
       },
       {
         "command": "cmstead.jsRefactor.shiftParamsLeft",
-        "title": "Shift Parameters Left",
+        "title": "JS Refactorings: Shift Parameters Left",
         "description": "Shift function parameters to the left"
       },
       {
         "command": "cmstead.jsRefactor.shiftParamsRight",
-        "title": "Shift Parameters Right",
+        "title": "JS Refactorings: Shift Parameters Right",
         "description": "Shift function parameters to the right"
       },
       {
         "command": "cmstead.jsRefactor.wrapInExecutedFunction",
-        "title": "Wrap In Executed Function",
+        "title": "JS Refactorings: Wrap In Executed Function",
         "description": "Wrap code in a named function and execute it immediately"
       },
       {
         "command": "cmstead.jsRefactor.wrapInFunction",
-        "title": "Wrap In Function",
+        "title": "JS Refactorings: Wrap In Function",
         "description": "Wrap code in a named function"
       },
       {
         "command": "cmstead.jsRefactor.wrapInIIFE",
-        "title": "Wrap In IIFE",
+        "title": "JS Refactorings: Wrap In IIFE",
         "description": "Wrap code in an immediately invoked function expression"
       },
       {
         "command": "cmstead.jsRefactor.wrapInCondition",
-        "title": "Wrap In Condition",
+        "title": "JS Refactorings: Wrap In Condition",
         "description": "Wrap code in a condition block"
       }
     ],
