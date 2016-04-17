@@ -97,6 +97,7 @@ JS Refactor supports several common code snippets:
 - Export statement -- single variable (export)
 - Export statement -- object literal (exportObj)
 - Function (fn)
+- Lambda function (lfn)
 - Immediately Invoked Function Expression (iife)
 - Member Function (mfn)
 - Prototypal Object Definition (proto)
@@ -118,6 +119,8 @@ tab-stops where you can fill in the information unique to your program.
 **exportObj** Adds a module.exports assignment with an object literal
 
 **fn** Inserts a tab-stopped named function snippet into your code
+
+**lfn** Inserts a tab-stopped lambda function snippet into your code
 
 **iife** Inserts a new, tab-stopped IIFE into your code
 
