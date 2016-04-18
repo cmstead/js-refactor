@@ -30,6 +30,14 @@
             "function ($1) {$2}"
         ],
         "description": "Insert a new anonymous function"
+   },
+
+    "Lambda Function": {
+        "prefix": "lfn",
+        "body": [
+            "($1) => {\n\t$2\n}"
+        ],
+        "description": "Insert a new lambda function"
     },
 
     "Immediately Invoked Function Expression": {
