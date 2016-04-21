@@ -1,4 +1,4 @@
-var vscode = require('vscode');
+var vscodeFactory = require('./modules/shared/vscodeFactory');
 
 var addExport = require('./modules/commands/add-export');
 var convertToMemberFunction = require('./modules/commands/convert-to-member-function');
@@ -12,6 +12,7 @@ var wrapInIIFE = require('./modules/commands/wrap-in-iife')
 var wrapInCondition = require('./modules/commands/wrap-in-condition')
 
 function activate(context) {
+    var vscode = vscodeFactory.get();
 
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.convertToMemberFunction', function () {
         convertToMemberFunction(vscode.window.activeTextEditor);

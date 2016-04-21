@@ -1,0 +1,12 @@
+{
+    "cmstead.jsRefactor.convertToMemberFunction": "function () {\n        convertToMemberFunction(vscode.window.activeTextEditor);\n\t}",
+    "cmstead.jsRefactor.convertToNamedFunction": "function () {\n        convertToNamedFunction(vscode.window.activeTextEditor);\n\t}",
+    "cmstead.jsRefactor.wrapInExecutedFunction": "function () {\n        wrapInExecutedFunction(vscode.window.activeTextEditor);\n\t}",
+    "cmstead.jsRefactor.wrapInFunction": "function () {\n        wrapInFunction(vscode.window.activeTextEditor);\n\t}",
+    "cmstead.jsRefactor.wrapInIIFE": "function () {\n        wrapInIIFE(vscode.window.activeTextEditor);\n\t}",
+    "cmstead.jsRefactor.wrapInCondition": "function () {\n        wrapInCondition(vscode.window.activeTextEditor);\n\t}",
+    "cmstead.jsRefactor.exportFunction": "function () {\n        addExport(vscode.window.activeTextEditor);\n\t}",
+    "cmstead.jsRefactor.extractVariable": "function () {\n        extractVariable(vscode.window.activeTextEditor);\n\t}",
+    "cmstead.jsRefactor.shiftParamsLeft": "function () {\n        shiftParamsLeft(vscode.window.activeTextEditor);\n\t}",
+    "cmstead.jsRefactor.shiftParamsRight": "function () {\n        shiftParamsRight(vscode.window.activeTextEditor);\n\t}"
+}

@@ -137,79 +137,80 @@
       }
     ],
     "keybindings": [
-        {
-            "command": "cmstead.jsRefactor.extractVariable",
-            "key": "ctrl+shift+j ctrl+shift+e",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.extractVariable",
-            "key": "cmd+shift+j cmd+shift+e",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.convertToMemberFunction",
-            "key": "ctrl+shift+j ctrl+shift+m",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.convertToMemberFunction",
-            "key": "cmd+shift+j cmd+shift+m",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.convertToNamedFunction",
-            "key": "ctrl+shift+j ctrl+shift+n",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.convertToNamedFunction",
-            "key": "cmd+shift+j cmd+shift+n",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.exportFunction",
-            "key": "ctrl+shift+j ctrl+shift+x",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.exportFunction",
-            "key": "cmd+shift+j cmd+shift+x",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.shiftParamsLeft",
-            "key": "ctrl+shift+j ctrl+shift+s",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.shiftParamsLeft",
-            "key": "cmd+shift+j cmd+shift+s",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.wrapInIIFE",
-            "key": "ctrl+shift+j ctrl+shift+i",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.wrapInIIFE",
-            "key": "cmd+shift+j cmd+shift+i",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.wrapInExecutedFunction",
-            "key": "ctrl+shift+j ctrl+shift+w",
-            "when": "editorHasSelection"
-        },
-        {
-            "command": "cmstead.jsRefactor.wrapInExecutedFunction",
-            "key": "cmd+shift+j cmd+shift+w",
-            "when": "editorHasSelection"
-        }
+      {
+        "command": "cmstead.jsRefactor.extractVariable",
+        "key": "ctrl+shift+j ctrl+shift+e",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.extractVariable",
+        "key": "cmd+shift+j cmd+shift+e",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.convertToMemberFunction",
+        "key": "ctrl+shift+j ctrl+shift+m",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.convertToMemberFunction",
+        "key": "cmd+shift+j cmd+shift+m",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.convertToNamedFunction",
+        "key": "ctrl+shift+j ctrl+shift+n",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.convertToNamedFunction",
+        "key": "cmd+shift+j cmd+shift+n",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.exportFunction",
+        "key": "ctrl+shift+j ctrl+shift+x",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.exportFunction",
+        "key": "cmd+shift+j cmd+shift+x",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.shiftParamsLeft",
+        "key": "ctrl+shift+j ctrl+shift+s",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.shiftParamsLeft",
+        "key": "cmd+shift+j cmd+shift+s",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.wrapInIIFE",
+        "key": "ctrl+shift+j ctrl+shift+i",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.wrapInIIFE",
+        "key": "cmd+shift+j cmd+shift+i",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.wrapInExecutedFunction",
+        "key": "ctrl+shift+j ctrl+shift+w",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.wrapInExecutedFunction",
+        "key": "cmd+shift+j cmd+shift+w",
+        "when": "editorHasSelection"
+      }
     ]
   },
   "devDependencies": {
+    "approvals": "^1.2.0",
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
     "mockery": "^1.4.0",
