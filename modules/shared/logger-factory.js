@@ -1,24 +1,26 @@
 'use strict';
 
-var vscode = require('vscode');
+var vscodeFactory = require('./vscodeFactory');
 
-function log (message) {
-    vscode.window.showInformationMessage(message);
-}
+module.exports = function () {
+    var vscode = vscodeFactory.get();
+    
+    function log(message) {
+        vscode.window.showInformationMessage(message);
+    }
 
-function error (message) {
-    vscode.window.showErrorMessage(message);
-}
+    function error(message) {
+        vscode.window.showErrorMessage(message);
+    }
 
-function info (message) {
-    vscode.window.showInformationMessage(message);
-}
+    function info(message) {
+        vscode.window.showInformationMessage(message);
+    }
 
-function input (options, callback) {
-    vscode.window.showInputBox(options).then(callback);
-}
+    function input(options, callback) {
+        vscode.window.showInputBox(options).then(callback);
+    }
 
-function loggerFactory () {
     return {
         error: error,
         info: info,
@@ -26,5 +28,3 @@ function loggerFactory () {
         log: log
     };
 }
-
-module.exports = loggerFactory;

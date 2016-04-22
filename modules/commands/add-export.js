@@ -11,45 +11,43 @@ var functionUtils = require('../shared/function-utils');
 var templateUtils = require('../shared/template-utils');
 var utilities = require('../shared/utilities');
 
-function applyRefactor(vsEditor, functionName, lines) {
-    var findType = addExport.hasExportObject(lines) ? 'object' : 'single';
-    var exportType = addExport.hasExportExpression(lines) ? 'single' : 'newExport';
-
-    var coords = addExport.exportLocation(lines, findType);
-    var context = templateUtils.buildExtendedContext(vsEditor, [functionName], { functionName: functionName });
-    
-    var template = findType === 'object' ? exportTemplates['objectAddition'] : exportTemplates[exportType];
-    var text = templateUtils.fillTemplate(template, context);
-
-    editActions.applySetEdit(vsEditor, text, coords);
-}
-
-function applyExport(vsEditor, selection) {
-    var functionName = functionUtils.getFunctionName(selection[0]);
-    
-    if (typeof functionName !== 'string') {
-        logger.log('No appropriate named function to export did you select a line containing a function?');
-    } else {
-        applyRefactor(vsEditor, functionName, utilities.getEditorDocument(vsEditor)._lines);
-    }
-}
-
-function cleanSelection (vsEditor, selection){
-    var cleanSelection = selection.filter(function (value) { return value.trim() !== ''; });
-    var containsFunction = cleanSelection[0].match(/function/) !== null;
-    
-    return containsFunction ? cleanSelection : [selectionFactory(vsEditor).getSelectionLine(0)];
-}
-
-function exportFunction(vsEditor) {
+module.exports = function (vsEditor) {
     var selection = selectionFactory(vsEditor).getSelection(0);
-    
-    if (selection === null) {
-        logger.log('Cannot perform export on an empty selection.');
-    } else {
-        selection = cleanSelection(vsEditor, selection);
-        applyExport(vsEditor, selection);
-    }
-}
 
-module.exports = exportFunction;
+    function getExportType (searchType, lines){
+        var exportType = addExport.hasExportExpression(lines) ? 'single' : 'newExport';
+        return searchType === 'object' ? 'objectAddition' : exportType;
+    }
+
+    function applyRefactor(functionName, lines) {
+        var searchType = addExport.hasExportObject(lines) ? 'object' : 'single';
+        var exportTemplate = exportTemplates[getExportType(searchType, lines)];
+        var context = templateUtils.buildExtendedContext(vsEditor, [functionName], { functionName: functionName });
+
+        var coords = addExport.exportLocation(lines, searchType);
+        var text = templateUtils.fillTemplate(exportTemplate, context);
+
+        editActions.applySetEdit(vsEditor, text, coords);
+    }
+
+    function cleanSelection(selection) {
+        var cleanSelection = selection.filter(function (value) { return value.trim() !== ''; });
+        var containsFunction = cleanSelection[0].match(/function/) !== null;
+
+        return containsFunction ? cleanSelection : [selectionFactory(vsEditor).getSelectionLine(0)];
+    }
+
+    function applyExport(selection) {
+        var message = 'No appropriate named function to export did you select a line containing a function?';
+        var functionName = functionUtils.getFunctionName(selection[0]);
+
+        if (functionName.trim() === '') {
+            logger.log(message);
+        } else {
+            applyRefactor(functionName, utilities.getEditorDocument(vsEditor)._lines);
+        }
+    }
+
+    applyExport(cleanSelection(j.either([], selection)));
+
+};
