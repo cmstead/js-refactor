@@ -43,7 +43,7 @@ describe('register actions', function() {
     });
 
     // Needs line ending normalization before this will always work
-    it.skip('should have all known actions registered', function() {
+    it('should have all known actions registered', function() {
         var registeredCommands = vscodeFake.commands.getRegisteredCommandList();
         var approvalResult = testUtils.objectFunctionsToSource(registeredCommands);
         

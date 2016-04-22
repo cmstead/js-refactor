@@ -2,9 +2,10 @@
 
 function approvalsSetup() {
     var defaultConfig = {
-        reporters: [
-            "beyondCompare"
-        ]
+        reporters: ["BeyondCompare"],
+        normalizeLineEndingsTo: '\n',
+        appendEOL: true,
+        stripBOM: true
     };
 
     require('approvals').mocha('./test/approvals');
