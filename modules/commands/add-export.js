@@ -32,7 +32,8 @@ module.exports = function (vsEditor) {
 
     function cleanSelection(selection) {
         var cleanSelection = selection.filter(function (value) { return value.trim() !== ''; });
-        var containsFunction = cleanSelection[0].match(/function/) !== null;
+        var cleanLine = j.either('', cleanSelection[0]);
+        var containsFunction = cleanLine.match(/function/) !== null;
 
         return containsFunction ? cleanSelection : [selectionFactory(vsEditor).getSelectionLine(0)];
     }

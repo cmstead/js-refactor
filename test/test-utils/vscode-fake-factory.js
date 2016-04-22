@@ -23,7 +23,8 @@ function buildVscodeFake() {
                 _documentData: {
                     _lines: ['']
                 }
-            }
+            },
+            showInformationMessage: function () {}
         }
     };
 }
