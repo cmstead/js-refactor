@@ -2,10 +2,10 @@
 
 var editFactory = require('./edit-factory');
 var utilities = require('./utilities');
-var vscode = require('vscode');
+var vscodeFactory = require('./vscodeFactory');
 
 function applyEdit (edit) {
-    vscode.workspace.applyEdit(edit);
+    vscodeFactory.get().workspace.applyEdit(edit);
 }
 
 function getUri (vsEditor){

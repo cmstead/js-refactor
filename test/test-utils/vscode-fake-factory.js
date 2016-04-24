@@ -20,11 +20,15 @@ function buildVscodeFake() {
                     }
 
                 ],
+                options: {
+                    tabSize: 4,
+                    insertSpaces: true
+                },
                 _documentData: {
                     _lines: ['']
                 }
             },
-            showInformationMessage: function () {}
+            showInformationMessage: function () { }
         }
     };
 }

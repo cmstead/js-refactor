@@ -1,6 +1,7 @@
 'use strict';
 
-var vscode = require('vscode');
+var vscode;
+var vscodeFactory = require('./vscodeFactory');
 var j = require('jfp');
 
 function positionFactory (line, column){
@@ -48,22 +49,26 @@ function replaceEditFactory (uri, edits){
 
 // Builds a "set" type edit object to update the view
 function buildSetEdit (uri, coords, text) {
+    vscode = vscodeFactory.get();
     var textEdit = textEditFactory(coords, text);
     return setEditFactory(uri, [textEdit]);
 }
 
 // Builds a "replace" type edit object to update the view
 function buildReplaceEdit (uri, coords, text) {
+    vscode = vscodeFactory.get();
     var textEdit = textEditFactory(coords, text);
     return replaceEditFactory(uri, [textEdit]);
 }
 
 function buildMultipleSetEdits (uri, edits){
+    vscode = vscodeFactory.get();
     var textEdits = edits.map(function (edit) { return textEditFactory(edit.coords, edit.value); });
     return setEditFactory(uri, textEdits);
 }
 
 function buildMultipleReplaceEdits (uri, edits){
+    vscode = vscodeFactory.get();
     var textEdits = edits.map(function (edit) { return textEditFactory(edit.coords, edit.value); });
     return replaceEditFactory(uri, textEdits);
 }

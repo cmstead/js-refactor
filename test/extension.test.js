@@ -42,14 +42,6 @@ describe('register actions', function() {
         mockery.disable();
     });
 
-    // Needs line ending normalization before this will always work
-    it.skip('should have all known actions registered', function() {
-        var registeredCommands = vscodeFake.commands.getRegisteredCommandList();
-        var approvalResult = testUtils.objectFunctionsToSource(registeredCommands);
-        
-        this.verify(testUtils.prettyJson(approvalResult));
-    });
-    
     it('should match every command with an onCommand value in the package.json file', function () {
         commandKeys.forEach(function (key) {
             assert.equal(onCommandSet[key], true);
