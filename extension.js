@@ -12,48 +12,52 @@ var wrapInIIFE = require('./modules/commands/wrap-in-iife')
 var wrapInCondition = require('./modules/commands/wrap-in-condition')
 
 function activate(context) {
-    var vscode = vscodeFactory.get();
+	var vscode = vscodeFactory.get();
+
+	function formatSelection() {
+		vscode.commands.executeCommand("editor.action.formatSelection");
+	}
 
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.convertToMemberFunction', function () {
-        convertToMemberFunction(vscode.window.activeTextEditor);
+		convertToMemberFunction(vscode.window.activeTextEditor);
 	}));
-	
+
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.convertToNamedFunction', function () {
-        convertToNamedFunction(vscode.window.activeTextEditor);
+		convertToNamedFunction(vscode.window.activeTextEditor);
 	}));
-	
+
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInExecutedFunction', function () {
-        wrapInExecutedFunction(vscode.window.activeTextEditor);
+		wrapInExecutedFunction(vscode.window.activeTextEditor, formatSelection);
 	}));
-	
+
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInFunction', function () {
-        wrapInFunction(vscode.window.activeTextEditor);
+		wrapInFunction(vscode.window.activeTextEditor, formatSelection);
 	}));
-	
+
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInIIFE', function () {
-        wrapInIIFE(vscode.window.activeTextEditor);
+		wrapInIIFE(vscode.window.activeTextEditor, formatSelection);
 	}));
-	
+
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInCondition', function () {
-        wrapInCondition(vscode.window.activeTextEditor);
+		wrapInCondition(vscode.window.activeTextEditor, formatSelection);
 	}));
-	
+
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.exportFunction', function () {
-        addExport(vscode.window.activeTextEditor);
+		addExport(vscode.window.activeTextEditor);
 	}));
-	
+
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.extractVariable', function () {
-        extractVariable(vscode.window.activeTextEditor);
+		extractVariable(vscode.window.activeTextEditor);
 	}));
-	
+
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.shiftParamsLeft', function () {
-        shiftParamsLeft(vscode.window.activeTextEditor);
+		shiftParamsLeft(vscode.window.activeTextEditor);
 	}));
-	
+
 	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.shiftParamsRight', function () {
-        shiftParamsRight(vscode.window.activeTextEditor);
+		shiftParamsRight(vscode.window.activeTextEditor);
 	}));
-	
+
 }
 exports.activate = activate;
 

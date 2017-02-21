@@ -12,16 +12,16 @@ function applyRefactor(vsEditor, selection) {
     var context = templateUtils.buildBaseContext(vsEditor, selection);
     var text = templateUtils.fillTemplate(templates.cond, context);
 
-    editActions.applySetEdit(vsEditor, text, coords);
+    return editActions.applySetEdit(vsEditor, text, coords);
 }
 
-function wrapInCondition(vsEditor) {
+function wrapInCondition(vsEditor, callback) {
     var selection = selectionFactory(vsEditor).getSelection(0);
 
     if (selection === null) {
         logger.info('Cannot wrap empty selection. To create a new if block, use the if (cond) snippet.');
     } else {
-        applyRefactor(vsEditor, selection);
+        applyRefactor(vsEditor, selection).then(callback);
     }
 }
 

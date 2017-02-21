@@ -20,16 +20,18 @@ function updateCode(vsEditor, selection, functionName) {
 
     var coords = utilities.buildCoords(vsEditor, 0);
 
-    editActions.applySetEdit(vsEditor, text, coords);
+    return editActions.applySetEdit(vsEditor, text, coords);
 }
 
-function wrapInExecutedFunction(vsEditor) {
+function wrapInExecutedFunction(vsEditor, callback) {
     var selection = selectionFactory(vsEditor).getSelection(0);
 
     if (selection === null) {
         logger.info('Cannot wrap empty selection. To create a new function, use the function (fn) snippet.');
     } else {
-        logger.input({ prompt: 'Name of your function' }, updateCode.bind(null, vsEditor, selection));
+        logger.input({ prompt: 'Name of your function' }, function (functionName) {
+            updateCode(vsEditor, selection, functionName).then(callback);
+        });
     }
 }
 
