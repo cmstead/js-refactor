@@ -14,6 +14,13 @@ Open VS Code, press F1 and enter `ext install jsrefactor`
 For early release access prior to deployment to the Visual Studio Marketplace, this extension can be downloaded
 and side-loaded into your editor.
 
+## Updates
+
+### v0.6.1
+
+- Added lambda function snippet (lfn)
+- Fixed indentation issue in code block wrapping
+
 ## Keep In Touch
 
 - [ChrisStead.com](http://www.chrisstead.com)
