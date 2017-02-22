@@ -6,21 +6,24 @@ var selectionFactory = require('../shared/selection-factory');
 var utilities = require('../shared/utilities');
 var variableOrder = require('../refactoring-logic/variable-order');
 
-function applyRefactor(vsEditor, selection) {
-    var coords = utilities.buildCoords(vsEditor, 0);
-    var text = variableOrder.shiftParamsRight(selection[0]);
+module.exports = function (vsEditor, callback) {
 
-    editActions.applySetEdit(vsEditor, text, coords);
-}
+    function applyRefactor(vsEditor, selection) {
+        var coords = utilities.buildCoords(vsEditor, 0);
+        var text = variableOrder.shiftParamsRight(selection[0]);
 
-function wrapInCondition(vsEditor) {
-    var selection = selectionFactory(vsEditor).getSelection(0);
-
-    if (selection === null) {
-        logger.info('Cannot shift parameters on an empty selection.');
-    } else {
-        applyRefactor(vsEditor, selection);
+        return editActions.applySetEdit(vsEditor, text, coords);
     }
-}
 
-module.exports = wrapInCondition;
+    function wrapInCondition(vsEditor) {
+        var selection = selectionFactory(vsEditor).getSelection(0);
+
+        if (selection === null) {
+            logger.info('Cannot shift parameters on an empty selection.');
+        } else {
+            applyRefactor(vsEditor, selection).then(callback);
+        }
+    }
+
+    return wrapInCondition.bind(null, vsEditor);
+}

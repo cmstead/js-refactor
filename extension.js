@@ -13,51 +13,60 @@ var wrapInCondition = require('./modules/commands/wrap-in-condition')
 
 function activate(context) {
 	var vscode = vscodeFactory.get();
+	var activeEditor = vscode.window.activeTextEditor;
+
+	var commands = [
+		{
+			name: 'cmstead.jsRefactor.convertToMemberFunction',
+			behavior: convertToMemberFunction(activeEditor, formatSelection)
+		},
+		{
+			name: 'cmstead.jsRefactor.convertToNamedFunction',
+			behavior: convertToNamedFunction(activeEditor, formatSelection)
+		},
+		{
+			name: 'cmstead.jsRefactor.wrapInExecutedFunction',
+			behavior: wrapInExecutedFunction(activeEditor, formatSelection)
+		},
+		{
+			name: 'cmstead.jsRefactor.wrapInFunction',
+			behavior: wrapInFunction(activeEditor, formatSelection)
+		},
+		{
+			name: 'cmstead.jsRefactor.wrapInIIFE',
+			behavior: wrapInIIFE(activeEditor, formatSelection)
+		},
+		{
+			name: 'cmstead.jsRefactor.wrapInCondition',
+			behavior: wrapInCondition(activeEditor, formatSelection)
+		},
+		{
+			name: 'cmstead.jsRefactor.exportFunction',
+			behavior: addExport(activeEditor, formatSelection)
+		},
+		{
+			name: 'cmstead.jsRefactor.extractVariable',
+			behavior: extractVariable(activeEditor, formatSelection)
+		},
+		{
+			name: 'cmstead.jsRefactor.shiftParamsLeft',
+			behavior: shiftParamsLeft(activeEditor, formatSelection)
+		},
+		{
+			name: 'cmstead.jsRefactor.shiftParamsRight',
+			behavior: shiftParamsRight(activeEditor, formatSelection)
+		}
+	];
+
+	commands.forEach(registerCommand);
 
 	function formatSelection() {
 		vscode.commands.executeCommand("editor.action.formatSelection");
 	}
 
-	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.convertToMemberFunction', function () {
-		convertToMemberFunction(vscode.window.activeTextEditor);
-	}));
-
-	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.convertToNamedFunction', function () {
-		convertToNamedFunction(vscode.window.activeTextEditor);
-	}));
-
-	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInExecutedFunction', function () {
-		wrapInExecutedFunction(vscode.window.activeTextEditor, formatSelection);
-	}));
-
-	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInFunction', function () {
-		wrapInFunction(vscode.window.activeTextEditor, formatSelection);
-	}));
-
-	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInIIFE', function () {
-		wrapInIIFE(vscode.window.activeTextEditor, formatSelection);
-	}));
-
-	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.wrapInCondition', function () {
-		wrapInCondition(vscode.window.activeTextEditor, formatSelection);
-	}));
-
-	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.exportFunction', function () {
-		addExport(vscode.window.activeTextEditor);
-	}));
-
-	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.extractVariable', function () {
-		extractVariable(vscode.window.activeTextEditor);
-	}));
-
-	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.shiftParamsLeft', function () {
-		shiftParamsLeft(vscode.window.activeTextEditor);
-	}));
-
-	context.subscriptions.push(vscode.commands.registerCommand('cmstead.jsRefactor.shiftParamsRight', function () {
-		shiftParamsRight(vscode.window.activeTextEditor);
-	}));
-
+	function registerCommand(command) {
+		context.subscriptions.push(vscode.commands.registerCommand(command.name, command.behavior));
+	}
 }
 exports.activate = activate;
 

@@ -6,14 +6,14 @@ var refactoring = require('../refactoring-logic/convert-to-member-function');
 var selectionFactory = require('../shared/selection-factory');
 var utilities = require('../shared/utilities');
 
-module.exports = function (vsEditor) {
+module.exports = function (vsEditor, callback) {
     var selection = selectionFactory(vsEditor).getSelection(0);
 
     function applyRefactor() {
         var coords = utilities.buildCoords(vsEditor, 0);
 
         selection[0] = refactoring.refactorToMemberFunction(selection[0]);
-        editActions.applySetEdit(vsEditor, selection.join('\n'), coords);
+        return editActions.applySetEdit(vsEditor, selection.join('\n'), coords);
     }
 
 
@@ -35,10 +35,10 @@ module.exports = function (vsEditor) {
         if (message !== '') {
             logger.log(message);
         } else {
-            applyRefactor();
+            applyRefactor().then(callback);
         }
     }
 
-    convertToMemberFunction();
+    return convertToMemberFunction;
 
 };

@@ -1,7 +1,7 @@
 'use strict';
 
 var j = require('jfp');
-var editActions = require('../shared/edit-actions');
+var editActionsFactory = require('../shared/edit-actions-factory');
 var selectionFactory = require('../shared/selection-factory');
 var logger = require('../shared/logger-factory')();
 
@@ -11,10 +11,11 @@ var functionUtils = require('../shared/function-utils');
 var templateUtils = require('../shared/template-utils');
 var utilities = require('../shared/utilities');
 
-module.exports = function (vsEditor) {
+module.exports = function (vsEditor, callback) {
+    var editActions = editActionsFactory(vsEditor);
     var selection = selectionFactory(vsEditor).getSelection(0);
 
-    function getExportType (searchType, lines){
+    function getExportType(searchType, lines) {
         var exportType = addExport.hasExportExpression(lines) ? 'single' : 'newExport';
         return searchType === 'object' ? 'objectAddition' : exportType;
     }
@@ -27,7 +28,7 @@ module.exports = function (vsEditor) {
         var coords = addExport.exportLocation(lines, searchType);
         var text = templateUtils.fillTemplate(exportTemplate, context);
 
-        editActions.applySetEdit(vsEditor, text, coords);
+        return editActions.applySetEdit(text, coords);
     }
 
     function cleanSelection(selection) {
@@ -45,10 +46,12 @@ module.exports = function (vsEditor) {
         if (functionName.trim() === '') {
             logger.log(message);
         } else {
-            applyRefactor(functionName, utilities.getEditorDocument(vsEditor)._lines);
+            applyRefactor(functionName, utilities.getEditorDocument(vsEditor)._lines).then(callback);
         }
     }
 
-    applyExport(cleanSelection(j.either([], selection)));
+    return function () {
+        applyExport(cleanSelection(j.either([], selection)));
+    };
 
 };

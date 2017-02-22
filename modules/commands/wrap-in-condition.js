@@ -7,22 +7,24 @@ var templates = require('../json/templates.json');
 var templateUtils = require('../shared/template-utils');
 var utilities = require('../shared/utilities');
 
-function applyRefactor(vsEditor, selection) {
-    var coords = utilities.buildCoords(vsEditor, 0);
-    var context = templateUtils.buildBaseContext(vsEditor, selection);
-    var text = templateUtils.fillTemplate(templates.cond, context);
+module.exports = function (vsEditor, callback) {
+    function applyRefactor(vsEditor, selection) {
+        var coords = utilities.buildCoords(vsEditor, 0);
+        var context = templateUtils.buildBaseContext(vsEditor, selection);
+        var text = templateUtils.fillTemplate(templates.cond, context);
 
-    return editActions.applySetEdit(vsEditor, text, coords);
-}
-
-function wrapInCondition(vsEditor, callback) {
-    var selection = selectionFactory(vsEditor).getSelection(0);
-
-    if (selection === null) {
-        logger.info('Cannot wrap empty selection. To create a new if block, use the if (cond) snippet.');
-    } else {
-        applyRefactor(vsEditor, selection).then(callback);
+        return editActions.applySetEdit(vsEditor, text, coords);
     }
-}
 
-module.exports = wrapInCondition;
+    function wrapInCondition(vsEditor) {
+        var selection = selectionFactory(vsEditor).getSelection(0);
+
+        if (selection === null) {
+            logger.info('Cannot wrap empty selection. To create a new if block, use the if (cond) snippet.');
+        } else {
+            applyRefactor(vsEditor, selection).then(callback);
+        }
+    }
+
+    return wrapInCondition.bind(null, vsEditor);
+}
