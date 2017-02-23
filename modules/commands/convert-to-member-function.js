@@ -30,7 +30,7 @@ module.exports = function (vsEditor, callback) {
         return message;
     }
 
-    function convertToMemberFunction() {
+    return function convertToMemberFunction() {
         var message = getErrorMessage();
 
         if (message !== '') {
@@ -39,7 +39,5 @@ module.exports = function (vsEditor, callback) {
             applyRefactor().then(callback);
         }
     }
-
-    return convertToMemberFunction;
 
 };

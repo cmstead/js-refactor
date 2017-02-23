@@ -19,7 +19,7 @@ module.exports = function (vsEditor, callback) {
         return editActions.applySetEdit(selection.join('\n'), coords);
     }
 
-    function convertToNamedFunction() {
+    return function convertToNamedFunction() {
         var selection = selectionFactory(vsEditor).getSelection(0);
 
         if (selection === null) {
@@ -30,7 +30,5 @@ module.exports = function (vsEditor, callback) {
             applyRefactor(selection).then(callback);
         }
     }
-
-    return convertToNamedFunction.bind(null, vsEditor);
 
 };

@@ -1,29 +1,29 @@
 'use strict';
 
-var editActions = require('../shared/edit-actions');
+var editActionsFactory = require('../shared/edit-actions-factory');
 var logger = require('../shared/logger-factory')();
 var selectionFactory = require('../shared/selection-factory');
 var utilities = require('../shared/utilities');
 var variableOrder = require('../refactoring-logic/variable-order');
 
 module.exports = function (vsEditor, callback) {
+    var editActions = editActionsFactory(vsEditor);
 
-    function applyRefactor(vsEditor, selection) {
+    function applyRefactor(selection) {
         var coords = utilities.buildCoords(vsEditor, 0);
         var text = variableOrder.shiftParamsRight(selection[0]);
 
-        return editActions.applySetEdit(vsEditor, text, coords);
+        return editActions.applySetEdit(text, coords);
     }
 
-    function wrapInCondition(vsEditor) {
+    return function shiftParamsRight() {
         var selection = selectionFactory(vsEditor).getSelection(0);
 
         if (selection === null) {
             logger.info('Cannot shift parameters on an empty selection.');
         } else {
-            applyRefactor(vsEditor, selection).then(callback);
+            applyRefactor(selection).then(callback);
         }
     }
 
-    return wrapInCondition.bind(null, vsEditor);
 }

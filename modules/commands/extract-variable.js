@@ -1,6 +1,6 @@
 'use strict';
 
-var editActions = require('../shared/edit-actions');
+var editActionsFactory = require('../shared/edit-actions-factory');
 var functionScopeUtil = require('../shared/function-scope-util');
 var j = require('jfp');
 var logger = require('../shared/logger-factory')();
@@ -9,9 +9,10 @@ var templateUtils = require('../shared/template-utils');
 var utilities = require('../shared/utilities');
 
 module.exports = function (vsEditor, callback) {
+    var editActions = editActionsFactory(vsEditor);
 
     function between(start, end, value) {
-        return j.leq(start, value) && j.leq(value, end);
+        return start <= value && value <= end;
     }
 
     function isValueInScope(scopeBounds, valueCoords) {
@@ -28,7 +29,7 @@ module.exports = function (vsEditor, callback) {
             coords: utilities.buildEsprimaCoords(coords)
         };
 
-        return j.cons(edit, edits);
+        return [edit].concat(edits);
     }
 
     function getTokensInScope(scopeIndices, tokens) {
@@ -37,13 +38,12 @@ module.exports = function (vsEditor, callback) {
 
     function getMatchLocations(value, tokens) {
         return tokens.filter(function (token) { return token.value === value; })
-            .map(j('pick', 'loc'));
+            .map(j.partial(j.pick, 'loc'));
     }
 
     function getReplacementLocations(tokens, scopeIndices, value) {
         var edits = getTokensInScope(scopeIndices, tokens);
-        edits = getMatchLocations(value, edits);
-        return edits;
+        return getMatchLocations(value, edits);
     }
 
     function buildVarCoords(scopeData) {
@@ -65,7 +65,7 @@ module.exports = function (vsEditor, callback) {
         return edit;
     }
 
-    function extractVariable(vsEditor, selectionData, scopeData, name) {
+    function extractVariable(selectionData, scopeData, name) {
         var tokens = scopeData.tokens;
         var scopeIndices = scopeData.scopeIndices;
         var value = selectionData.selection[0];
@@ -74,14 +74,14 @@ module.exports = function (vsEditor, callback) {
         var edits = getReplacementLocations(tokens, scopeIndices, value).reduce(j.partial(addVarEdit, name), []).map(adjustEdit);
         var variableString = templateUtils.templateFactory('newVariable')(vsEditor, name, selectionData);
 
-        editActions.applySetEdits(vsEditor, edits);
-        editActions.applySetEdit(vsEditor, variableString, varCoords);
+        return editActions.applySetEdits(edits).then(function () {
+            return editActions.applySetEdit(variableString, varCoords);
+        });
     }
 
-    function extractAction(vsEditor) {
+    return function extractAction() {
         var selectionData = sourceUtils.selectionDataFactory(vsEditor);
         var scopeData = sourceUtils.scopeDataFactory(vsEditor, selectionData);
-        var extract = j(extractVariable, vsEditor, selectionData, scopeData);
 
         if (selectionData.selection === null) {
             logger.info('Cannot extract empty selection as a variable');
@@ -90,9 +90,9 @@ module.exports = function (vsEditor, callback) {
         } else if (!isValueInScope(scopeData.scopeBounds, selectionData.selectionCoords)) {
             logger.info('Cannot extract variable if it is not inside a function');
         } else {
-            logger.input({ prompt: 'Name of your variable' }, extract);
+            logger.input({ prompt: 'Name of your variable' }, function (name) {
+                extractVariable(selectionData, scopeData, name).then(callback);
+            });
         }
     }
-
-    return extractAction.bind(null, vsEditor);
 }

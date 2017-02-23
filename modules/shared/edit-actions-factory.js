@@ -19,7 +19,7 @@ module.exports = function (vsEditor) {
         return applyEdit(textEdit);
     }
 
-    function applySetEdits(vsEditor, edits) {
+    function applySetEdits(edits) {
         var textEdit = editFactory.buildMultipleSetEdits(getUri(), edits);
 
         return applyEdit(textEdit);
