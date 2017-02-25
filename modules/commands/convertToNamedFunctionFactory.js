@@ -2,11 +2,12 @@
 
 var editActionsFactory = require('../shared/edit-actions-factory');
 
+
 var templateUtils = require('../shared/template-utils');
 var utilities = require('../shared/utilities');
 
 
-function converToNamedFunctionFactory(logger, selectionFactory, convertToNamedFunctionAction) {
+function convertToNamedFunctionFactory(logger, selectionFactory, convertToNamedFunctionAction) {
     var refactoring = convertToNamedFunctionAction;
 
     return function (vsEditor, callback) {
@@ -36,10 +37,10 @@ function converToNamedFunctionFactory(logger, selectionFactory, convertToNamedFu
     };
 }
 
-converToNamedFunctionFactory['@dependencies'] = [
+convertToNamedFunctionFactory['@dependencies'] = [
     'logger',
     'selectionFactory',
     'convertToNamedFunctionAction'
 ];
 
-module.exports = converToNamedFunctionFactory;
+module.exports = convertToNamedFunctionFactory;

@@ -4,7 +4,7 @@ var editActionsFactory = require('../shared/edit-actions-factory');
 var utilities = require('../shared/utilities');
 
 
-function converToMemberFunctionFactory(logger, selectionFactory, convertToMemberFunctionAction) {
+function convertToMemberFunctionFactory(logger, selectionFactory, convertToMemberFunctionAction) {
     var refactoring = convertToMemberFunctionAction;
 
     return function (vsEditor, callback) {
@@ -44,10 +44,10 @@ function converToMemberFunctionFactory(logger, selectionFactory, convertToMember
     };
 }
 
-converToMemberFunctionFactory['@dependencies'] = [
+convertToMemberFunctionFactory['@dependencies'] = [
     'logger',
     'selectionFactory',
     'convertToMemberFunctionAction'
 ];
 
-module.exports = converToMemberFunctionFactory;
+module.exports = convertToMemberFunctionFactory;

@@ -2,7 +2,7 @@
 
 var esprima = require('esprima');
 var functionScopeUtil = require('./function-scope-util');
-var selectionFactory = require('../shared/selection-factory');
+var selectionFactory = require('../shared/selectionFactory')();
 var utilities = require('./utilities');
 
 function getSourceTokens(vsEditor) {

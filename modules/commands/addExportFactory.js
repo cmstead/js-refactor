@@ -2,14 +2,13 @@
 
 var j = require('jfp');
 var editActionsFactory = require('../shared/edit-actions-factory');
-var selectionFactory = require('../shared/selection-factory');
 
 var exportTemplates = require('../json/templates.json').addExport;
 var functionUtils = require('../shared/function-utils');
 var templateUtils = require('../shared/template-utils');
 var utilities = require('../shared/utilities');
 
-function addExportFactory(logger, addExportAction) {
+function addExportFactory(logger, selectionFactory, addExportAction) {
 
     return function (vsEditor, callback) {
 
@@ -60,6 +59,7 @@ function addExportFactory(logger, addExportAction) {
 
 addExportFactory['@dependencies'] = [
     'logger',
+    'selectionFactory',
     'addExportAction'
 ];
 

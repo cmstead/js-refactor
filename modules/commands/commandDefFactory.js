@@ -10,7 +10,8 @@ function commandDefFactory(
     wrapInExecutedFunctionFactory,
     wrapInFunctionFactory,
     wrapInIIFEFactory,
-    wrapInConditionFactory) {
+    wrapInConditionFactory
+) {
 
     return [
         {
@@ -66,6 +67,7 @@ commandDefFactory['@dependencies'] = [
     'wrapInExecutedFunctionFactory',
     'wrapInFunctionFactory',
     'wrapInIIFEFactory',
-    'wrapInConditionFactory']
+    'wrapInConditionFactory'
+]
 
 module.exports = commandDefFactory;

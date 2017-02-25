@@ -1,7 +1,7 @@
 'use strict';
 
 var j = require('jfp');
-var selectionFactory = require('./selection-factory')
+var selectionFactory = require('./selectionFactory')();
 var templates = require('../json/templates.json');
 var utilities = require('../shared/utilities.js');
 

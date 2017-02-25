@@ -2,10 +2,9 @@
 
 var editActionsFactory = require('../shared/edit-actions-factory');
 
-var selectionFactory = require('../shared/selection-factory');
 var utilities = require('../shared/utilities');
 
-function shiftParamsLeftFactory(logger, variableOrderAction) {
+function shiftParamsLeftFactory(logger, selectionFactory, variableOrderAction) {
 
     return function (vsEditor, callback) {
 
@@ -35,6 +34,7 @@ function shiftParamsLeftFactory(logger, variableOrderAction) {
 
 shiftParamsLeftFactory['@dependencies'] = [
     'logger',
+    'selectionFactory',
     'variableOrderAction'
 ];
 
