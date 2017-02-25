@@ -1,10 +1,14 @@
 'use strict';
 
-function get (){
-    return require('vscode');
+function vsCodeFactory() {
+    function get() {
+        return require('vscode');
+    }
+
+    return {
+        get: get
+    };
 }
 
 
-module.exports = {
-	get: get
-}
+module.exports = vsCodeFactory;

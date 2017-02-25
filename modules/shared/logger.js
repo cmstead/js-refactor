@@ -1,9 +1,9 @@
 'use strict';
 
-var vscodeFactory = require('./vscodeFactory');
+var vsCodeFactory = require('./vsCodeFactory')();
 
-module.exports = function () {
-    var vscode = vscodeFactory.get();
+function logger () {
+    var vscode = vsCodeFactory.get();
     
     function log(message) {
         vscode.window.showInformationMessage(message);
@@ -28,3 +28,5 @@ module.exports = function () {
         log: log
     };
 }
+
+module.exports = logger;

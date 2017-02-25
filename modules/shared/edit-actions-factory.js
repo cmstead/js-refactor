@@ -2,7 +2,7 @@
 
 var editFactory = require('./edit-factory');
 var utilities = require('./utilities');
-var vscodeFactory = require('./vscodeFactory');
+var vscodeFactory = require('./vsCodeFactory')();
 
 module.exports = function (vsEditor) {
     function applyEdit(edit) {

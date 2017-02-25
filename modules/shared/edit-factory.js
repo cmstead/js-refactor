@@ -1,7 +1,7 @@
 'use strict';
 
 var vscode;
-var vscodeFactory = require('./vscodeFactory');
+var vscodeFactory = require('./vsCodeFactory')();
 var j = require('jfp');
 
 function positionFactory (line, column){

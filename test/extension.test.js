@@ -3,7 +3,7 @@
 var assert = require('chai').assert;
 var mockery = require('mockery');
 var vscodeFake = require('./test-utils/vscode-fake');
-var vscodeFactory = require('../modules/shared/vscodeFactory');
+var vscodeFactory = require('../modules/shared/vsCodeFactory')();
 var testUtils = require('./test-utils/test-utils');
 var packageObj = require('../package.json');
 
