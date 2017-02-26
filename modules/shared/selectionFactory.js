@@ -2,7 +2,7 @@
 
 var j = require('jfp');
 var selectorFactory = require('./text-selector-factory');
-var utilities = require('./utilities');
+var utilities = require('./utilities')();
 
 
 function selectionFactory() {

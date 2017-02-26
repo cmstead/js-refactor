@@ -1,13 +1,17 @@
 'use strict';
 
-var editActionsFactory = require('../shared/edit-actions-factory');
 
 
 var templateUtils = require('../shared/template-utils');
-var utilities = require('../shared/utilities');
 
 
-function convertToNamedFunctionFactory(logger, selectionFactory, convertToNamedFunctionAction) {
+function convertToNamedFunctionFactory(
+    logger, 
+    selectionFactory, 
+    editActionsFactory,
+    utilities,
+    convertToNamedFunctionAction) {
+
     var refactoring = convertToNamedFunctionAction;
 
     return function (vsEditor, callback) {
@@ -40,6 +44,8 @@ function convertToNamedFunctionFactory(logger, selectionFactory, convertToNamedF
 convertToNamedFunctionFactory['@dependencies'] = [
     'logger',
     'selectionFactory',
+    'editActionsFactory',
+    'utilities',
     'convertToNamedFunctionAction'
 ];
 

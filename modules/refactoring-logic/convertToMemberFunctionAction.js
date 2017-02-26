@@ -1,9 +1,6 @@
 'use strict';
 
-var functionUtils = require('../shared/function-utils');
-
-
-function convertToMemberFunctionAction() {
+function convertToMemberFunctionAction(functionUtils) {
     function canConvertToMember(line) {
         return line.match(/function\s+[^\s(]+\s*\(/) !== null;
     }
@@ -26,5 +23,7 @@ function convertToMemberFunctionAction() {
         refactorToMemberFunction: refactorToMemberFunction
     }
 }
+
+convertToMemberFunctionAction['@dependencies'] = ['functionUtils'];
 
 module.exports = convertToMemberFunctionAction;

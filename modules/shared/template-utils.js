@@ -3,7 +3,7 @@
 var j = require('jfp');
 var selectionFactory = require('./selectionFactory')();
 var templates = require('../json/templates.json');
-var utilities = require('../shared/utilities.js');
+var utilities = require('../shared/utilities')();
 
 function getNewVariableContext(vsEditor, name, selectionData) {
     var documentIndent = utilities.getDocumentIndent(vsEditor);

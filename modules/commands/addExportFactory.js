@@ -1,17 +1,19 @@
 'use strict';
 
 var j = require('jfp');
-var editActionsFactory = require('../shared/edit-actions-factory');
 
 var exportTemplates = require('../json/templates.json').addExport;
-var functionUtils = require('../shared/function-utils');
 var templateUtils = require('../shared/template-utils');
-var utilities = require('../shared/utilities');
 
-function addExportFactory(logger, selectionFactory, addExportAction) {
+function addExportFactory(
+    logger,
+    selectionFactory,
+    functionUtils,
+    editActionsFactory,
+    utilities,
+    addExportAction) {
 
     return function (vsEditor, callback) {
-
         var editActions = editActionsFactory(vsEditor);
         var selection = selectionFactory(vsEditor).getSelection(0);
 
@@ -60,6 +62,9 @@ function addExportFactory(logger, selectionFactory, addExportAction) {
 addExportFactory['@dependencies'] = [
     'logger',
     'selectionFactory',
+    'functionUtils',
+    'editActionsFactory',
+    'utilities',
     'addExportAction'
 ];
 

@@ -1,5 +1,5 @@
 var assert = require('chai').assert,
-    utilities = require('../modules/shared/utilities');
+    utilities = require('../modules/shared/utilities')();
 
 describe('Common Actions', function () {
 

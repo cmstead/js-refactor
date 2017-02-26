@@ -1,15 +1,16 @@
 'use strict';
 
-var editActionsFactory = require('../shared/edit-actions-factory');
-var functionScopeUtil = require('../shared/function-scope-util');
 var j = require('jfp');
-var logger = require('../shared/logger')();
+
+var functionScopeUtil = require('../shared/function-scope-util');
 var sourceUtils = require('../shared/source-utils');
 var templateUtils = require('../shared/template-utils');
-var utilities = require('../shared/utilities');
 
+function extractVariableFactory(
+    logger, 
+    editActionsFactory,
+    utilities) {
 
-function extractVariableFactory() {
     return function (vsEditor, callback) {
         var editActions = editActionsFactory(vsEditor);
 
@@ -99,5 +100,11 @@ function extractVariableFactory() {
         }
     }
 }
+
+extractVariableFactory['@dependencies'] = [
+    'logger',
+    'editActionsFactory',
+    'utilities'
+];
 
 module.exports = extractVariableFactory;

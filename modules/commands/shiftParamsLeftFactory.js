@@ -1,10 +1,13 @@
 'use strict';
 
-var editActionsFactory = require('../shared/edit-actions-factory');
 
-var utilities = require('../shared/utilities');
 
-function shiftParamsLeftFactory(logger, selectionFactory, variableOrderAction) {
+function shiftParamsLeftFactory(
+    logger, 
+    selectionFactory, 
+    editActionsFactory,
+    utilities,
+    variableOrderAction) {
 
     return function (vsEditor, callback) {
 
@@ -35,6 +38,8 @@ function shiftParamsLeftFactory(logger, selectionFactory, variableOrderAction) {
 shiftParamsLeftFactory['@dependencies'] = [
     'logger',
     'selectionFactory',
+    'editActionsFactory',
+    'utilities',
     'variableOrderAction'
 ];
 

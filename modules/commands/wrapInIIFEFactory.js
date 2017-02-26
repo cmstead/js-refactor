@@ -1,12 +1,15 @@
 'use strict';
 
-var editActionsFactory = require('../shared/edit-actions-factory');
 var templates = require('../json/templates.json');
 var templateUtils = require('../shared/template-utils');
-var utilities = require('../shared/utilities');
 
 
-function wrapInIIFEFactory(logger, selectionFactory) {
+function wrapInIIFEFactory(
+    logger, 
+    selectionFactory,
+    utilities,
+    editActionsFactory) {
+
     return function (vsEditor, callback) {
         var editActions = editActionsFactory(vsEditor);
 
@@ -34,7 +37,9 @@ function wrapInIIFEFactory(logger, selectionFactory) {
 
 wrapInIIFEFactory['@dependencies'] = [
     'logger',
-    'selectionFactory'
+    'selectionFactory',
+    'utilities',
+    'editActionsFactory'
 ];
 
 module.exports = wrapInIIFEFactory;

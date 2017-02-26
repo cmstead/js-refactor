@@ -1,10 +1,14 @@
 'use strict';
 
-var editActionsFactory = require('../shared/edit-actions-factory');
-var utilities = require('../shared/utilities');
 
 
-function converToMemberFunctionFactory(logger, selectionFactory, convertToMemberFunctionAction) {
+function converToMemberFunctionFactory(
+    logger,
+    selectionFactory,
+    editActionsFactory,
+    utilities,
+    convertToMemberFunctionAction) {
+
     var refactoring = convertToMemberFunctionAction;
 
     return function (vsEditor, callback) {
@@ -47,6 +51,8 @@ function converToMemberFunctionFactory(logger, selectionFactory, convertToMember
 converToMemberFunctionFactory['@dependencies'] = [
     'logger',
     'selectionFactory',
+    'editActionsFactory',
+    'utilities',
     'convertToMemberFunctionAction'
 ];
 

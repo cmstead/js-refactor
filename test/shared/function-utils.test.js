@@ -1,4 +1,4 @@
-var functionUtils = require('../../modules/shared/function-utils');
+var functionUtils = require('../../modules/shared/functionUtils')();
 var assert = require('chai').assert;
 
 describe('function utilities', function () {
