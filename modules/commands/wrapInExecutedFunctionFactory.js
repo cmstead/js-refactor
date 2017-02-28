@@ -1,13 +1,12 @@
 'use strict';
 
-var templates = require('../json/templates.json');
-var templateUtils = require('../shared/template-utils');
-
+var functionCallTemplate = require('../json/templates.json').functionCall;
 
 function wrapInExecutedFunctionFactory(
     logger, 
     selectionFactory,
     utilities,
+    templateUtils,
     editActionsFactory) {
 
     return function (vsEditor, callback) {
@@ -21,7 +20,7 @@ function wrapInExecutedFunctionFactory(
             var contextExtension = { name: cleanFunctionName(functionName) };
             var context = templateUtils.buildExtendedContext(vsEditor, selection, contextExtension);
 
-            var template = templates.function.concat(templates.functionCall);
+            var template = templates.function.concat(functionCallTemplate);
             var text = templateUtils.fillTemplate(template, context);
 
             var coords = utilities.buildCoords(vsEditor, 0);
@@ -49,6 +48,7 @@ wrapInExecutedFunctionFactory['@dependencies'] = [
     'logger',
     'selectionFactory',
     'utilities',
+    'templateUtils',
     'editActionsFactory'
 ];
 

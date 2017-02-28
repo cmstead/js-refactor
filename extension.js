@@ -7,6 +7,9 @@ function activate(context) {
 
 	container.build('commandDefFactory').forEach(registerCommand);
 
+	var moduleList = container.getRegisteredModules();
+	console.log(JSON.stringify(moduleList, null, 4));
+
 	function registerCommand(command) {
 		var behavior = command.behavior(activeEditor, formatSelection);
 

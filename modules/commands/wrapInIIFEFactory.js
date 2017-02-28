@@ -1,13 +1,12 @@
 'use strict';
 
 var templates = require('../json/templates.json');
-var templateUtils = require('../shared/template-utils');
-
 
 function wrapInIIFEFactory(
     logger, 
     selectionFactory,
     utilities,
+    templateUtils,
     editActionsFactory) {
 
     return function (vsEditor, callback) {
@@ -39,6 +38,7 @@ wrapInIIFEFactory['@dependencies'] = [
     'logger',
     'selectionFactory',
     'utilities',
+    'templateUtils',
     'editActionsFactory'
 ];
 

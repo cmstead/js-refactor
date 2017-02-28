@@ -3,7 +3,6 @@
 var j = require('jfp');
 
 var exportTemplates = require('../json/templates.json').addExport;
-var templateUtils = require('../shared/template-utils');
 
 function addExportFactory(
     logger,
@@ -11,6 +10,7 @@ function addExportFactory(
     functionUtils,
     editActionsFactory,
     utilities,
+    templateUtils,
     addExportAction) {
 
     return function (vsEditor, callback) {
@@ -65,6 +65,7 @@ addExportFactory['@dependencies'] = [
     'functionUtils',
     'editActionsFactory',
     'utilities',
+    'templateUtils',
     'addExportAction'
 ];
 

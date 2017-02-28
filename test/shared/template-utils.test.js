@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var templateUtils = require('../../modules/shared/template-utils');
+var templateUtils = require('../../modules/shared/templateUtils')();
 
 describe('Template Utilities', function () {
     

@@ -4,12 +4,12 @@ var j = require('jfp');
 
 var functionScopeUtil = require('../shared/function-scope-util');
 var sourceUtils = require('../shared/source-utils');
-var templateUtils = require('../shared/template-utils');
 
 function extractVariableFactory(
     logger, 
     editActionsFactory,
-    utilities) {
+    utilities,
+    templateUtils) {
 
     return function (vsEditor, callback) {
         var editActions = editActionsFactory(vsEditor);
@@ -104,7 +104,8 @@ function extractVariableFactory(
 extractVariableFactory['@dependencies'] = [
     'logger',
     'editActionsFactory',
-    'utilities'
+    'utilities',
+    'templateUtils'
 ];
 
 module.exports = extractVariableFactory;

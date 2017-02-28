@@ -1,13 +1,12 @@
 'use strict';
 
-var templates = require('../json/templates.json');
-var templateUtils = require('../shared/template-utils');
-
+var condTemplate = require('../json/templates.json').cond;
 
 function wrapInConditionFactory(
     logger, 
     selectionFactory,
     utilities,
+    templateUtils,
     editActionsFactory) {
 
     return function (vsEditor, callback) {
@@ -16,7 +15,7 @@ function wrapInConditionFactory(
         function applyRefactor(selection) {
             var coords = utilities.buildCoords(vsEditor, 0);
             var context = templateUtils.buildBaseContext(vsEditor, selection);
-            var text = templateUtils.fillTemplate(templates.cond, context);
+            var text = templateUtils.fillTemplate(condTemplate, context);
 
             return editActions.applySetEdit(text, coords);
         }
@@ -38,6 +37,7 @@ wrapInConditionFactory['@dependencies'] = [
     'logger',
     'selectionFactory',
     'utilities',
+    'templateUtils',
     'editActionsFactory'
 ]
 

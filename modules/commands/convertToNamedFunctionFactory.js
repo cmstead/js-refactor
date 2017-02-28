@@ -1,15 +1,11 @@
 'use strict';
 
-
-
-var templateUtils = require('../shared/template-utils');
-
-
 function convertToNamedFunctionFactory(
     logger, 
     selectionFactory, 
     editActionsFactory,
     utilities,
+    templateUtils,
     convertToNamedFunctionAction) {
 
     var refactoring = convertToNamedFunctionAction;
@@ -46,6 +42,7 @@ convertToNamedFunctionFactory['@dependencies'] = [
     'selectionFactory',
     'editActionsFactory',
     'utilities',
+    'templateUtils',
     'convertToNamedFunctionAction'
 ];
 
