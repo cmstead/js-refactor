@@ -1,10 +1,8 @@
 'use strict';
 
-
-
 function convertToMemberFunctionFactory(
     logger,
-    selectionFactory, 
+    selectionFactory,
     editActionsFactory,
     utilities,
     convertToMemberFunctionAction) {
@@ -12,10 +10,10 @@ function convertToMemberFunctionFactory(
     var refactoring = convertToMemberFunctionAction;
 
     return function (vsEditor, callback) {
-        var selection = selectionFactory(vsEditor).getSelection(0);
+
         var editActions = editActionsFactory(vsEditor);
 
-        function applyRefactor() {
+        function applyRefactor(selection) {
             var coords = utilities.buildCoords(vsEditor, 0);
 
             selection[0] = refactoring.refactorToMemberFunction(selection[0]);
@@ -23,7 +21,7 @@ function convertToMemberFunctionFactory(
         }
 
 
-        function getErrorMessage() {
+        function getErrorMessage(selection) {
             var message = '';
 
             if (selection === null) {
@@ -36,12 +34,13 @@ function convertToMemberFunctionFactory(
         }
 
         return function convertToMemberFunction() {
-            var message = getErrorMessage();
+            var selection = selectionFactory(vsEditor).getSelection(0);
+            var message = getErrorMessage(selection);
 
             if (message !== '') {
                 logger.log(message);
             } else {
-                applyRefactor().then(callback);
+                applyRefactor(selection).then(callback);
             }
         }
 

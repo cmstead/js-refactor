@@ -9,11 +9,7 @@ var utilities = require('../shared/utilities')();
 
 function templateUtils() {
     function getNewVariableContext(vsEditor, name, selectionData) {
-        var documentIndent = utilities.getDocumentIndent(vsEditor);
-        var lineIndent = utilities.getSelectionIndent([selectionData.selection[0]]);
-
         return {
-            indent: lineIndent + documentIndent,
             name: name,
             value: selectionData.selection[0]
         };
@@ -44,14 +40,9 @@ function templateUtils() {
 
     function buildBaseContext(vsEditor, selection) {
         var selectedLine = selectionFactory(vsEditor).getSelectionLine(0);
-        var documentIndent = utilities.getDocumentIndent(vsEditor);
-        var lineIndent = utilities.getSelectionIndent([selectedLine]);
 
         return {
-            documentIndent: documentIndent,
-            lineIndent: lineIndent,
-            body: selection.map(utilities.indent.bind(null, lineIndent + documentIndent)).join('\n'),
-            indent: lineIndent
+            body: selection.join('\n')
         };
     }
 

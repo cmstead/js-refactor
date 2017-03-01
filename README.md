@@ -16,10 +16,32 @@ and side-loaded into your editor.
 
 ## Updates
 
+### v0.7.0
+
+- Added refactorings to context (right-click) menu
+- Moved to DJect IoC library for dependency management to enhance testing
+- Removed potentially buggy indent logic
+
 ### v0.6.1
 
 - Added lambda function snippet (lfn)
 - Fixed indentation issue in code block wrapping
+
+### V0.5.0
+
+- Shift parameters left
+- Shift parameters right
+- Added keybindings for common actions
+
+### V0.4.0
+
+- Added extract variable behavior.
+- Enhanced refactor to named function behavior to work with member functions
+
+### V0.3.0
+
+- Added export function action
+- Fixed inconsistent indentation for wrap refactorings
 
 ## Keep In Touch
 
@@ -136,21 +158,3 @@ tab-stops where you can fill in the information unique to your program.
 **require** Inserts a new require statement in your module
 
 **strict** Inserts 'use strict' into your code
-
-## Release Info
-
-### V0.5.0
-
-- Shift parameters left
-- Shift parameters right
-- Added keybindings for common actions
-
-### V0.4.0
-
-- Added extract variable behavior.
-- Enhanced refactor to named function behavior to work with member functions
-
-### V0.3.0
-
-- Added export function action
-- Fixed inconsistent indentation for wrap refactorings

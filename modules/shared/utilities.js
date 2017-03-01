@@ -23,24 +23,6 @@ function utilities() {
         };
     }
 
-    function indent(documentIndent, value) {
-        var indentation = typeof documentIndent !== 'string' ? '\t' : documentIndent;
-        var trimmedValue = j.either('', value, 'string').trim();
-
-        return trimmedValue === '' ? trimmedValue : indentation + trimmedValue;
-    }
-
-    function getSelectionIndent(selection) {
-        return selection[0].split(/[^\s\t]/gim)[0];
-    }
-
-    function getDocumentIndent(vsEditor) {
-        var tabSize = vsEditor.options.tabSize,
-            useTabs = !vsEditor.options.insertSpaces;
-
-        return useTabs ? '\t' : j.repeat(tabSize, ' ');
-    }
-
     function getEditorDocument(vsEditor) {
         return j.either(vsEditor._documentData, vsEditor._document);
     }
@@ -48,10 +30,7 @@ function utilities() {
     return {
         buildCoords: buildCoords,
         buildEsprimaCoords: buildEsprimaCoords,
-        getDocumentIndent: getDocumentIndent,
-        getEditorDocument: getEditorDocument,
-        getSelectionIndent: getSelectionIndent,
-        indent: indent
+        getEditorDocument: getEditorDocument
     };
 }
 

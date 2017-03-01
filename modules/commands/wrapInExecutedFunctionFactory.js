@@ -1,6 +1,8 @@
 'use strict';
 
-var functionCallTemplate = require('../json/templates.json').functionCall;
+var templates = require('../json/templates.json');
+var functionCallTemplate = templates.functionCall;
+var functionTemplate = templates.function;
 
 function wrapInExecutedFunctionFactory(
     logger, 
@@ -20,7 +22,7 @@ function wrapInExecutedFunctionFactory(
             var contextExtension = { name: cleanFunctionName(functionName) };
             var context = templateUtils.buildExtendedContext(vsEditor, selection, contextExtension);
 
-            var template = templates.function.concat(functionCallTemplate);
+            var template = functionTemplate.concat(functionCallTemplate);
             var text = templateUtils.fillTemplate(template, context);
 
             var coords = utilities.buildCoords(vsEditor, 0);

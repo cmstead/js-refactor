@@ -19,17 +19,12 @@ function convertToNamedFunctionAction() {
         return nameTokens[nameTokens.length - 1];
     }
 
-    function prependIndent(line) {
-        var pattern = /^function/;
-        return line.match(pattern) !== null ? '{lineIndent}' + line : line;
-    }
-
     function refactorToNamedFunction(line) {
         var name = getFunctionName(line);
         var regex = buildReplacementRegex(name);
         var result = line.replace(regex, 'function ' + name + ' (');
 
-        return prependIndent(result);
+        return result;
     }
 
     return {

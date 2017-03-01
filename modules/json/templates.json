@@ -1,26 +1,26 @@
 {
     "cond": ["", 
-             "{indent}if () {",
+             "if () {",
              "{body}",
-             "{indent}}",
+             "}",
              ""],
 
     "function": ["",
-                 "{indent}function {name}() {",
+                 "function {name}() {",
                  "{body}",
-                 "{indent}}",
+                 "}",
                  ""],
 
     "iife": ["",
-             "{indent}(function () {",
+             "(function () {",
              "{body}",
-             "{indent}})();",
+             "})();",
              ""],
              
-    "functionCall": ["{indent}{name}();",
+    "functionCall": ["{name}();",
                      ""],
 
-    "newVariable": ["{indent}var {name} = {value};",
+    "newVariable": ["var {name} = {value};",
                     ""],
     
     "addExport": {

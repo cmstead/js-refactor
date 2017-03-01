@@ -2,8 +2,8 @@
 
 function commandDefFactory(
     addExportFactory,
-    converToMemberFunctionFactory,
-    converToNamedFunctionFactory,
+    convertToMemberFunctionFactory,
+    convertToNamedFunctionFactory,
     extractVariableFactory,
     shiftParamsLeftFactory,
     shiftParamsRightFactory,
@@ -20,11 +20,11 @@ function commandDefFactory(
         },
         {
             name: 'cmstead.jsRefactor.convertToMemberFunction',
-            behavior: converToMemberFunctionFactory
+            behavior: convertToMemberFunctionFactory
         },
         {
             name: 'cmstead.jsRefactor.convertToNamedFunction',
-            behavior: converToNamedFunctionFactory
+            behavior: convertToNamedFunctionFactory
         },
         {
             name: 'cmstead.jsRefactor.extractVariable',
@@ -59,8 +59,8 @@ function commandDefFactory(
 
 commandDefFactory['@dependencies'] = [
     'addExportFactory',
-    'converToMemberFunctionFactory',
-    'converToNamedFunctionFactory',
+    'convertToMemberFunctionFactory',
+    'convertToNamedFunctionFactory',
     'extractVariableFactory',
     'shiftParamsLeftFactory',
     'shiftParamsRightFactory',

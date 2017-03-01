@@ -1,6 +1,7 @@
 'use strict';
 
 function convertToMemberFunctionAction(functionUtils) {
+
     function canConvertToMember(line) {
         return line.match(/function\s+[^\s(]+\s*\(/) !== null;
     }

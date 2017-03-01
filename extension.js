@@ -2,19 +2,14 @@ var container = require('./container');
 
 function activate(context) {
 	var vscode = container.build('vsCodeFactory').get();
-	var activeEditor = vscode.window.activeTextEditor;
 	var formatSelection = vscode.commands.executeCommand.bind(vscode.commands, "editor.action.formatSelection");
 
-	container.build('commandDefFactory').forEach(registerCommand);
-
-	var moduleList = container.getRegisteredModules();
-	console.log(JSON.stringify(moduleList, null, 4));
-
-	function registerCommand(command) {
-		var behavior = command.behavior(activeEditor, formatSelection);
-
-		context.subscriptions.push(vscode.commands.registerCommand(command.name, behavior));
-	}
+	container.build('commandDefFactory').forEach(function (command) {
+		context.subscriptions.push(vscode.commands.registerCommand(
+			command.name, 
+			command.behavior(vscode.window.activeTextEditor, formatSelection)
+		));
+	});
 }
 
 function deactivate() { /* noop */ }
