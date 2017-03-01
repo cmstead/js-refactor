@@ -1,6 +1,6 @@
 'use strict';
 
-var templates = require('../json/templates.json');
+var functionTemplate = require('../json/templates.json').function;
 
 function wrapInFunctionFactory(
     logger, 
@@ -21,7 +21,7 @@ function wrapInFunctionFactory(
             var context = templateUtils.buildExtendedContext(vsEditor, selection, contextExtension);
 
             var coords = utilities.buildCoords(vsEditor, 0);
-            var text = templateUtils.fillTemplate(templates.function, context);
+            var text = templateUtils.fillTemplate(functionTemplate, context);
 
             return editActions.applySetEdit(text, coords);
         }
@@ -41,13 +41,5 @@ function wrapInFunctionFactory(
     }
 
 }
-
-wrapInFunctionFactory['@dependencies'] = [
-    'logger',
-    'selectionFactory',
-    'utilities',
-    'templateUtils',
-    'editActionsFactory'
-];
 
 module.exports = wrapInFunctionFactory;

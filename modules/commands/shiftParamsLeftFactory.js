@@ -35,12 +35,4 @@ function shiftParamsLeftFactory(
 
 }
 
-shiftParamsLeftFactory['@dependencies'] = [
-    'logger',
-    'selectionFactory',
-    'editActionsFactory',
-    'utilities',
-    'variableOrderAction'
-];
-
 module.exports = shiftParamsLeftFactory;

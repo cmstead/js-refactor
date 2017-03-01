@@ -59,14 +59,4 @@ function addExportFactory(
     };
 }
 
-addExportFactory['@dependencies'] = [
-    'logger',
-    'selectionFactory',
-    'functionUtils',
-    'editActionsFactory',
-    'utilities',
-    'templateUtils',
-    'addExportAction'
-];
-
 module.exports = addExportFactory;

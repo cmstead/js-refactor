@@ -57,17 +57,4 @@ function commandDefFactory(
     ];
 }
 
-commandDefFactory['@dependencies'] = [
-    'addExportFactory',
-    'convertToMemberFunctionFactory',
-    'convertToNamedFunctionFactory',
-    'extractVariableFactory',
-    'shiftParamsLeftFactory',
-    'shiftParamsRightFactory',
-    'wrapInExecutedFunctionFactory',
-    'wrapInFunctionFactory',
-    'wrapInIIFEFactory',
-    'wrapInConditionFactory'
-]
-
 module.exports = commandDefFactory;

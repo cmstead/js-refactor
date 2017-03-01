@@ -46,12 +46,4 @@ function wrapInExecutedFunctionFactory(
 
 }
 
-wrapInExecutedFunctionFactory['@dependencies'] = [
-    'logger',
-    'selectionFactory',
-    'utilities',
-    'templateUtils',
-    'editActionsFactory'
-];
-
 module.exports = wrapInExecutedFunctionFactory;

@@ -1,4 +1,5 @@
 var container = require('./container');
+var fs = require('fs');
 
 function activate(context) {
 	var vscode = container.build('vsCodeFactory').get();
@@ -6,11 +7,13 @@ function activate(context) {
 
 	container.build('commandDefFactory').forEach(function (command) {
 		context.subscriptions.push(vscode.commands.registerCommand(
-			command.name, 
+			command.name,
 			command.behavior(vscode.window.activeTextEditor, formatSelection)
 		));
 	});
+
 }
+
 
 function deactivate() { /* noop */ }
 

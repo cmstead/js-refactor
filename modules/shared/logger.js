@@ -1,8 +1,6 @@
 'use strict';
 
-var vsCodeFactory = require('./vsCodeFactory')();
-
-function logger () {
+function logger (vsCodeFactory) {
     var vscode = vsCodeFactory.get();
     
     function log(message) {

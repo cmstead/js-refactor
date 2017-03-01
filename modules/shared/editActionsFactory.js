@@ -1,9 +1,7 @@
 'use strict';
 
-var editFactory = require('./edit-factory');
-
-
 function editActionsFactory(
+    editFactory,
     utilities,
     vsCodeFactory) {
 
@@ -35,10 +33,5 @@ function editActionsFactory(
     }
 
 }
-
-editActionsFactory['@dependencies'] = [
-    'utilities',
-    'vsCodeFactory'
-]
 
 module.exports = editActionsFactory;

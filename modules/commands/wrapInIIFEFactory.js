@@ -34,12 +34,4 @@ function wrapInIIFEFactory(
 
 }
 
-wrapInIIFEFactory['@dependencies'] = [
-    'logger',
-    'selectionFactory',
-    'utilities',
-    'templateUtils',
-    'editActionsFactory'
-];
-
 module.exports = wrapInIIFEFactory;

@@ -1,8 +1,5 @@
 'use strict';
 
-
-
-
 function shiftParamsRightFactory(
     logger,
     selectionFactory,
@@ -34,13 +31,5 @@ function shiftParamsRightFactory(
     }
 
 }
-
-shiftParamsRightFactory['@dependencies'] = [
-    'logger',
-    'selectionFactory',
-    'editActionsFactory',
-    'utilities',
-    'variableOrderAction'
-];
 
 module.exports = shiftParamsRightFactory;

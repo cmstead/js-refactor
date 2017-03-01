@@ -1,11 +1,15 @@
 'use strict';
 
 var j = require('jfp');
-var selectorFactory = require('./text-selector-factory');
-var utilities = require('./utilities')();
 
+function selectionFactory(
+    utilities,
+    textSelectorFactory) {
 
-function selectionFactory() {
+    if(typeof utilities === 'undefined') {
+        utilities = require('./utilities')();
+    }
+
     return function (vsEditor) {
         var contentList = utilities.getEditorDocument(vsEditor)._lines;
         var selections = vsEditor._selections;
@@ -15,7 +19,7 @@ function selectionFactory() {
         }
 
         function getSelection(index) {
-            return selectorFactory(selections[index])(contentList, selections[index]);
+            return textSelectorFactory(selections[index])(contentList, selections[index]);
         }
 
         return {

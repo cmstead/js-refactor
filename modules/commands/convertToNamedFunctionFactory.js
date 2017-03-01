@@ -37,13 +37,4 @@ function convertToNamedFunctionFactory(
     };
 }
 
-convertToNamedFunctionFactory['@dependencies'] = [
-    'logger',
-    'selectionFactory',
-    'editActionsFactory',
-    'utilities',
-    'templateUtils',
-    'convertToNamedFunctionAction'
-];
-
 module.exports = convertToNamedFunctionFactory;

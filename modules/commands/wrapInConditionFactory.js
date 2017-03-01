@@ -33,12 +33,4 @@ function wrapInConditionFactory(
     }
 }
 
-wrapInConditionFactory['@dependencies'] = [
-    'logger',
-    'selectionFactory',
-    'utilities',
-    'templateUtils',
-    'editActionsFactory'
-]
-
 module.exports = wrapInConditionFactory;

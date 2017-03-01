@@ -47,12 +47,4 @@ function convertToMemberFunctionFactory(
     };
 }
 
-convertToMemberFunctionFactory['@dependencies'] = [
-    'logger',
-    'selectionFactory',
-    'editActionsFactory',
-    'utilities',
-    'convertToMemberFunctionAction'
-];
-
 module.exports = convertToMemberFunctionFactory;
