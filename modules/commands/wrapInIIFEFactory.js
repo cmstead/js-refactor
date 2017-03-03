@@ -1,13 +1,13 @@
 'use strict';
 
-var templates = require('../json/templates.json');
-
 function wrapInIIFEFactory(
-    logger, 
+    logger,
     selectionFactory,
     utilities,
     templateUtils,
     editActionsFactory) {
+
+    var iifeTemplate = templateUtils.getTemplate('iife');
 
     return function (vsEditor, callback) {
         var editActions = editActionsFactory(vsEditor);
@@ -15,7 +15,7 @@ function wrapInIIFEFactory(
         function updateCode(selection, functionName) {
             var context = templateUtils.buildBaseContext(vsEditor, selection);
             var coords = utilities.buildCoords(vsEditor, 0);
-            var text = templateUtils.fillTemplate(templates.iife, context);
+            var text = templateUtils.fillTemplate(iifeTemplate, context);
 
             return editActions.applySetEdit(text, coords);
         }

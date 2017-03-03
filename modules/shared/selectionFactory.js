@@ -1,14 +1,11 @@
 'use strict';
 
 var j = require('jfp');
+var container = require('../../container');
 
 function selectionFactory(
     utilities,
     textSelectorFactory) {
-
-    if(typeof utilities === 'undefined') {
-        utilities = require('./utilities')();
-    }
 
     return function (vsEditor) {
         var contentList = utilities.getEditorDocument(vsEditor)._lines;

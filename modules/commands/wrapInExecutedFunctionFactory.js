@@ -1,15 +1,14 @@
 'use strict';
 
-var templates = require('../json/templates.json');
-var functionCallTemplate = templates.functionCall;
-var functionTemplate = templates.function;
-
 function wrapInExecutedFunctionFactory(
-    logger, 
+    logger,
     selectionFactory,
     utilities,
     templateUtils,
     editActionsFactory) {
+
+    var functionCallTemplate = templateUtils.getTemplate('functionCall');
+    var functionTemplate = templateUtils.getTemplate('function');
 
     return function (vsEditor, callback) {
         var editActions = editActionsFactory(vsEditor);

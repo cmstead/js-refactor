@@ -3,11 +3,10 @@
 var j = require('jfp');
 var templates = require('../json/templates.json');
 
-var selectionFactory = require('./selectionFactory')();
-var utilities = require('../shared/utilities')();
+function templateUtils(
+    selectionFactory,
+    utilities) {
 
-
-function templateUtils() {
     function getNewVariableContext(vsEditor, name, selectionData) {
         return {
             name: name,
@@ -51,12 +50,17 @@ function templateUtils() {
         return extendContext(context, extension);
     }
 
+    function getTemplate(templateName) {
+        return templates[templateName];
+    }
+
 
     return {
         buildBaseContext: buildBaseContext,
         buildExtendedContext: buildExtendedContext,
         fillTemplate: fillTemplate,
         getNewVariableContext: getNewVariableContext,
+        getTemplate: getTemplate,
         templateFactory: templateFactory
     };
 }

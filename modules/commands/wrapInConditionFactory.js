@@ -1,13 +1,13 @@
 'use strict';
 
-var condTemplate = require('../json/templates.json').cond;
-
 function wrapInConditionFactory(
     logger, 
     selectionFactory,
     utilities,
     templateUtils,
     editActionsFactory) {
+
+    var condTemplate = templateUtils.getTemplate('cond');
 
     return function (vsEditor, callback) {
         var editActions = editActionsFactory(vsEditor);
