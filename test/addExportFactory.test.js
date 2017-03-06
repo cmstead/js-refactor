@@ -1,53 +1,55 @@
 'use strict';
+
 var container = require('../container');
+var mocker = require('./mocker');
+var sinon = require('sinon');
+var assert = require('chai').assert;
 
-container.register('logger', function () {
-    function log() { };
+describe('Add Export', function () {
 
-    return {
-        log: log
-    };
-});
+    var subcontainer;
+    var addExportFactory;
 
-container.register('selectionFactory', function () {
-    function selectionFactory() {
-        return {}
-    };
+    beforeEach(function () {
+        subcontainer = container.new();
+
+        mocker.registerMock('logger');
+        mocker.registerMock('selectionFactory');
+        mocker.registerMock('functionUtils');
+        mocker.registerMock('editActionsFactory');
+        mocker.registerMock('utilities');
+
+        subcontainer.register(mocker.getMock('logger').mock);
+        subcontainer.register(mocker.getMock('selectionFactory').mock);
+        subcontainer.register(mocker.registerMock('functionUtils').mock);
+        subcontainer.register(mocker.registerMock('editActionsFactory').mock);
+        subcontainer.register(mocker.registerMock('utilities').mock);
 
 
-    return selectionFactory;
-});
+        mocker.getMock('selectionFactory').api.getSelection = function () {
+            return [];
+        }
 
-container.register('functionUtils', function () {
-    function getFunctionName() { };
+        mocker.getMock('selectionFactory').api.getSelectionLine = function () {
+            return [];
+        }
 
-    return {
-        getFunctionName: getFunctionName
-    };
-});
+        mocker.getMock('functionUtils').api.getFunctionName = function () {
+            return ' ';
+        }
 
-container.register('editActionsFactory', function () {
-    function editActionsFactory() {
-        return {};
-    };
+        mocker.getMock('logger').api.log = sinon.spy();
 
-    return editActionsFactory;
-});
+        addExportFactory = subcontainer.build('addExportFactory');
+    });
 
-container.register('utilities', function () {
-    function utilities() {
-        return {};
-    };
+    it('should log an error if function name comes back blank', function () {
+        var log = mocker.getMock('logger').api.log;
+        subcontainer.build('addExportFactory')()();
 
-    return {};
-});
+        assert.equal(log.args[0][0], 'No appropriate named function to export did you select a line containing a function?');
+    });
 
-container.register('templateUtils', function () {
-    function utilities() {
-        return {};
-    };
-
-    return {};
 });
 
 
