@@ -5,6 +5,9 @@ var mocker = require('./mocker');
 var sinon = require('sinon');
 var assert = require('chai').assert;
 
+var approvalsConfig = require('./test-utils/approvalsConfig');
+var approvals = require('approvals').configure(approvalsConfig).mocha('./test/approvals');
+
 describe('Add Export', function () {
 
     var subcontainer;
@@ -48,6 +51,10 @@ describe('Add Export', function () {
         subcontainer.build('addExportFactory')()();
 
         assert.equal(log.args[0][0], 'No appropriate named function to export did you select a line containing a function?');
+    });
+
+    it('should approve stuff', function () {
+        this.verify('test');
     });
 
 });
