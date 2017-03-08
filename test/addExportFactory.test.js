@@ -6,6 +6,8 @@ var sinon = require('sinon');
 var assert = require('chai').assert;
 var readSource = require('./test-utils/read-source');
 var vsCodeFakeFactory = require('./test-utils/vscode-fake-factory');
+var testUtils = require('./test-utils/test-utils');
+var prettyJson = testUtils.prettyJson;
 
 var approvalsConfig = require('./test-utils/approvalsConfig');
 var approvals = require('approvals').configure(approvalsConfig).mocha('./test/approvals');
@@ -49,7 +51,7 @@ describe('Add Export', function () {
         var log = mocker.getMock('logger').api.log;
         subcontainer.build('addExportFactory')(vsCodeFake.window.activeTextEditor, function(){})();
 
-        assert.equal(log.args[0][0], 'No appropriate named function to export did you select a line containing a function?');
+        this.verify(prettyJson(log.args));
     });
 
     it('should add an export to file source when one does not exist', function () {
@@ -70,7 +72,7 @@ describe('Add Export', function () {
 
         subcontainer.build('addExportFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 
-        this.verify(JSON.stringify(applySetEditSpy.args, null, 4));
+        this.verify(prettyJson(applySetEditSpy.args));
     });
 
     it('should add a single line export to file sourceif other exports are single line', function () {
@@ -91,7 +93,7 @@ describe('Add Export', function () {
 
         subcontainer.build('addExportFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 
-        this.verify(JSON.stringify(applySetEditSpy.args, null, 4));
+        this.verify(prettyJson(applySetEditSpy.args));
     });
 
     it('should add an export line to existing exported object', function () {
@@ -112,7 +114,7 @@ describe('Add Export', function () {
 
         subcontainer.build('addExportFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 
-        this.verify(JSON.stringify(applySetEditSpy.args, null, 4));
+        this.verify(prettyJson(applySetEditSpy.args));
     });
 
 });
