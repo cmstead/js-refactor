@@ -1,0 +1,15 @@
+[
+    [
+        "\nmodule.exports = {\n\tfoo: foo\n}",
+        {
+            "start": [
+                5,
+                2
+            ],
+            "end": [
+                5,
+                2
+            ]
+        }
+    ]
+]

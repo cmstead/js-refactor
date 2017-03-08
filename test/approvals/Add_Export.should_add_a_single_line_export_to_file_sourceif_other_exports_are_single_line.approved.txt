@@ -1,0 +1,15 @@
+[
+    [
+        "\nmodule.exports.foo = foo",
+        {
+            "start": [
+                11,
+                22
+            ],
+            "end": [
+                11,
+                22
+            ]
+        }
+    ]
+]
