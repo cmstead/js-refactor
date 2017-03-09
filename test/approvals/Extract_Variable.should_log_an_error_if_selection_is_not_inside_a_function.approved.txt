@@ -1,0 +1,5 @@
+[
+    [
+        "Cannot extract variable if it is not inside a function"
+    ]
+]

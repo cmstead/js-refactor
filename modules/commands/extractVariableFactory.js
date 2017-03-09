@@ -3,7 +3,7 @@
 var j = require('jfp');
 
 function extractVariableFactory(
-    logger, 
+    logger,
     editActionsFactory,
     utilities,
     sourceUtils,
@@ -80,15 +80,33 @@ function extractVariableFactory(
             });
         }
 
+        function getScopeAndValueData(selectionData) {
+            var result = {
+                scopeData: null,
+                valueInScope: false
+            };
+
+            // This reference error needs some sort of longer-term management and fix.
+            try {
+                result.scopeData = sourceUtils.scopeDataFactory(vsEditor, selectionData);
+                result.valueInScope = isValueInScope(result.scopeData.scopeBounds, selectionData.selectionCoords)
+            } catch (e) { /* scope process failed */ }
+
+            return result;
+        }
+
         return function extractAction() {
             var selectionData = sourceUtils.selectionDataFactory(vsEditor);
-            var scopeData = sourceUtils.scopeDataFactory(vsEditor, selectionData);
+            var scopeAndValueData = getScopeAndValueData(selectionData);
+
+            var scopeData = scopeAndValueData.scopeData;
+            var valueInScope = scopeAndValueData.valueInScope;
 
             if (selectionData.selection === null) {
                 logger.info('Cannot extract empty selection as a variable');
             } else if (selectionData.selection.length > 1) {
                 logger.info('Extract varialble does not currently support multiline values');
-            } else if (!isValueInScope(scopeData.scopeBounds, selectionData.selectionCoords)) {
+            } else if (!valueInScope) {
                 logger.info('Cannot extract variable if it is not inside a function');
             } else {
                 logger.input({ prompt: 'Name of your variable' }, function (name) {
