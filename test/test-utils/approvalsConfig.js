@@ -16,6 +16,8 @@ module.exports = {
 
     stripBOM: false,
 
-    forceApproveAll: false
+    forceApproveAll: false,
+
+    failOnLineEndingDifferences: false
 
 }
