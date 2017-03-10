@@ -1,0 +1,5 @@
+[
+    [
+        "Cannot wrap empty selection. To create a new function, use the function (fn) snippet."
+    ]
+]

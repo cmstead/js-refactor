@@ -1,0 +1,5 @@
+[
+    [
+        "Cannot wrap empty selection. To create a new IIFE, use the IIFE (iife) snippet."
+    ]
+]
