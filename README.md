@@ -158,3 +158,20 @@ tab-stops where you can fill in the information unique to your program.
 **require** Inserts a new require statement in your module
 
 **strict** Inserts 'use strict' into your code
+
+### Contribution Rules and Guidelines
+
+JS Refactorings is open to pull requests for everything from code to documentation.  As with any project, there are certain
+needs which must be addressed.  JS Refactorings is, at its core, still in development. Since it was built on an early version
+of Visual Studio Code, so there is a fair amount of code that was originally exploratory in nature. In its current state, 
+JS Refactorings is fully tested and behaviors are vice-tested into place.  Going forward, code will be cleaned and, itself,
+refactored, so a style guide is going to be relatively fluid.
+
+Nevertheless, following are the required elements of a good pull request:
+
+- **Code updates must be covered by a test.**
+- **Code must follow existing standards as they are available.**
+- **All existing behaviors must continue to function as designed.**
+- **All tests must continue to pass. Any pull requests with failing tests cannot be accepted.**
+- **Pull request must explain changes which are made, referring to an issue number as available.**
+- **Pull requests may not be claimed as intellectual property of a company or other external agency.**
