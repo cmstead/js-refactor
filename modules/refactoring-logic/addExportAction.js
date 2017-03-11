@@ -21,14 +21,14 @@ function addExportAction() {
         return isMatch(regex, lines.join(''))
     }
 
-    function findExportExpression(recur, regex, lines, index) {
+    var findExportExpression = j.recur(function (recur, regex, lines, index) {
         return index < 0 || isMatch(regex, lines[index]) ? index : recur(regex, lines, index - 1);
-    }
+    })
 
     function exportLocation(lines, exportType) {
-        var lastLineIndex = j.lastIndex(lines);
+        var lastLineIndex = j.lastIndexOf(lines);
 
-        var exportLine = j.recur(findExportExpression, patterns[exportType], lines, lastLineIndex);
+        var exportLine = findExportExpression(patterns[exportType], lines, lastLineIndex);
         exportLine = exportLine < 0 ? lastLineIndex : exportLine;
 
         var exportLineEnd = lines[exportLine].length;

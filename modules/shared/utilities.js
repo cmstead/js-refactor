@@ -1,6 +1,7 @@
 'use strict';
 
 var j = require('jfp');
+var eitherObject = j.either('object');
 
 function utilities() {
     function buildEsprimaCoords(coords) {
@@ -24,7 +25,7 @@ function utilities() {
     }
 
     function getEditorDocument(vsEditor) {
-        return j.either(vsEditor._documentData, vsEditor._document);
+        return eitherObject(vsEditor._documentData)(vsEditor._document);
     }
 
     return {

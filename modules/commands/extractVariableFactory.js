@@ -39,7 +39,7 @@ function extractVariableFactory(
 
         function getMatchLocations(value, tokens) {
             return tokens.filter(function (token) { return token.value === value; })
-                .map(j.partial(j.pick, 'loc'));
+                .map(j.pick('loc'));
         }
 
         function getReplacementLocations(tokens, scopeIndices, value) {

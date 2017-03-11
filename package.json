@@ -236,7 +236,7 @@
   "dependencies": {
     "dject": "^1.4.0",
     "esprima": "^2.7.1",
-    "jfp": "^2.7.0"
+    "jfp": "^3.6.4"
   },
   "devDependencies": {
     "approvals": "^2.1.2",
