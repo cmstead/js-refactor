@@ -1,8 +1,6 @@
 'use strict';
 
 var j = require('jfp');
-var eitherString = j.either('string');
-var eitherArray = j.either('array');
 
 function addExportFactory(
     logger,
@@ -49,7 +47,7 @@ function addExportFactory(
 
         function cleanSelection(selection) {
             var cleanSelection = selection.filter(function (value) { return value.trim() !== ''; });
-            var cleanLine = eitherString('')(cleanSelection[0]);
+            var cleanLine = j.eitherString('')(cleanSelection[0]);
             var containsFunction = cleanLine.match(/function/) !== null;
 
             return containsFunction ? cleanSelection : [selectionFactory(vsEditor).getSelectionLine(0)];
@@ -67,7 +65,7 @@ function addExportFactory(
         }
 
         return function () {
-            applyExport(cleanSelection(eitherArray([])(selection)));
+            applyExport(cleanSelection(j.eitherArray([])(selection)));
         };
 
     };

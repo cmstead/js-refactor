@@ -1,10 +1,6 @@
 'use strict';
 
 var j = require('jfp');
-var eitherNumber = j.either('number');
-var eitherObject = j.either('object');
-var isNull = j.isTypeOf('null');
-var isUndefined = j.isTypeOf('undefined');
 
 function functionScopeUtils() {
     function isLocationMatch(location, token) {
@@ -17,18 +13,18 @@ function functionScopeUtils() {
     }
 
     function isBadIndex(index) {
-        return eitherNumber(-1)(index) === -1;
+        return j.eitherNumber(-1)(index) === -1;
     }
 
     function hasNoBounds(start, end) {
-        return isNull(start) || isNull(end);
+        return j.isNull(start) || j.isNull(end);
     }
 
     function seek(directionIncrement, tokens, value, index) {
         return j.recur(seekAction)(index);
 
         function seekAction(recur, index) {
-            index = isUndefined(tokens[index]) ? -1 : index;
+            index = j.isUndefined(tokens[index]) ? -1 : index;
 
             var isStopState = index === -1 || isValueMatch(tokens[index], value);
 
@@ -39,18 +35,14 @@ function functionScopeUtils() {
     var seekUp = j.partial(seek, -1);
     var seekDown = j.partial(seek, 1);
 
-    function dropLast (values) {
-        return values.slice(0, values.length - 1);
-    }
-
     function updateState(currentState, tokens, index) {
-        var token = eitherObject({})(j.deref(index.toString())(tokens));
+        var token = j.eitherObject({})(j.deref(index.toString())(tokens));
 
         switch (token.value) {
             case '{':
                 return j.cons('{', currentState);
             case '}':
-                return dropLast(currentState);
+                return j.dropLast(currentState);
             case undefined:
                 return [];
             default:
@@ -126,7 +118,7 @@ function functionScopeUtils() {
 
         return tokens.slice(topIndex, bottom)
             .filter(j.partial(isTokenMatch, value))
-            .map(j('pick', 'loc'))
+            .map(j.pick('loc'))
             .map(fixColumnValue);
     }
 
