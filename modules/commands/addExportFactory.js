@@ -17,18 +17,30 @@ function addExportFactory(
         var editActions = editActionsFactory(vsEditor);
         var selection = selectionFactory(vsEditor).getSelection(0);
 
-        function getExportType(searchType, lines) {
-            var exportType = addExportAction.hasExportExpression(lines) ? 'single' : 'newExport';
-            return searchType === 'object' ? 'objectAddition' : exportType;
+        function getExportTemplate(searchType, lines) {
+            var exportType = 'newExport';
+
+            if(searchType === 'object') {
+                exportType = 'objectAddition';
+            } else if (addExportAction.hasExportExpression(lines)) {
+                exportType = 'single';
+            }
+            
+            return exportTemplates[exportType];
+        }
+
+        function getRefactorText (functionName, searchType, lines) {
+            var exportTemplate = getExportTemplate(searchType, lines);
+            var context = templateUtils.buildExtendedContext(vsEditor, [functionName], { functionName: functionName });
+
+            return templateUtils.fillTemplate(exportTemplate, context);
         }
 
         function applyRefactor(functionName, lines) {
             var searchType = addExportAction.hasExportObject(lines) ? 'object' : 'single';
-            var exportTemplate = exportTemplates[getExportType(searchType, lines)];
-            var context = templateUtils.buildExtendedContext(vsEditor, [functionName], { functionName: functionName });
-
+            
             var coords = addExportAction.exportLocation(lines, searchType);
-            var text = templateUtils.fillTemplate(exportTemplate, context);
+            var text = getRefactorText(functionName, searchType, lines);
 
             return editActions.applySetEdit(text, coords);
         }
