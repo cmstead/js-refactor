@@ -73,7 +73,7 @@ function extractVariableFactory(
             var varCoords = buildVarCoords(scopeData);
 
             var edits = getReplacementLocations(tokens, scopeIndices, value).reduce(j.partial(addVarEdit, name), []).map(adjustEdit);
-            var variableString = templateUtils.templateFactory('newVariable')(vsEditor, name, selectionData);
+            var variableString = templateUtils.templateFactory('newVariable')(name, selectionData);
 
             return editActions.applySetEdits(edits).then(function () {
                 return editActions.applySetEdit(variableString, varCoords);

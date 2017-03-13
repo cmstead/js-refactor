@@ -14,7 +14,7 @@ function wrapInConditionFactory(
 
         function applyRefactor(selection) {
             var coords = utilities.buildCoords(vsEditor, 0);
-            var context = templateUtils.buildBaseContext(vsEditor, selection);
+            var context = templateUtils.buildBaseContext(selection);
             var text = templateUtils.fillTemplate(condTemplate, context);
 
             return editActions.applySetEdit(text, coords);

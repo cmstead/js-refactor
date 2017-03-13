@@ -13,7 +13,7 @@ function wrapInIIFEFactory(
         var editActions = editActionsFactory(vsEditor);
 
         function updateCode(selection, functionName) {
-            var context = templateUtils.buildBaseContext(vsEditor, selection);
+            var context = templateUtils.buildBaseContext(selection);
             var coords = utilities.buildCoords(vsEditor, 0);
             var text = templateUtils.fillTemplate(iifeTemplate, context);
 

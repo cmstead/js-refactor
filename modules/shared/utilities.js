@@ -27,9 +27,14 @@ function utilities() {
         return j.eitherObject(vsEditor._documentData)(vsEditor._document);
     }
 
+    function getDocumentLines(vsEditor) {
+        return getEditorDocument(vsEditor)._lines;
+    }
+
     return {
         buildCoords: buildCoords,
         buildEsprimaCoords: buildEsprimaCoords,
+        getDocumentLines: getDocumentLines,
         getEditorDocument: getEditorDocument
     };
 }

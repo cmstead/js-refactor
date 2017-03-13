@@ -15,7 +15,7 @@ function convertToNamedFunctionFactory(
 
         function applyRefactor(selection) {
             var coords = utilities.buildCoords(vsEditor, 0);
-            var baseContext = templateUtils.buildBaseContext(vsEditor, selection);
+            var baseContext = templateUtils.buildBaseContext(selection);
             var updatedLine = refactoring.refactorToNamedFunction(selection[0]);
 
             selection[0] = templateUtils.fillTemplate([updatedLine], baseContext);

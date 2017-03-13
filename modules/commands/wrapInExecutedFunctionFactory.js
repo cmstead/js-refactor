@@ -19,7 +19,7 @@ function wrapInExecutedFunctionFactory(
 
         function updateCode(selection, functionName) {
             var contextExtension = { name: cleanFunctionName(functionName) };
-            var context = templateUtils.buildExtendedContext(vsEditor, selection, contextExtension);
+            var context = templateUtils.buildExtendedContext(selection, contextExtension);
 
             var template = functionTemplate.concat(functionCallTemplate);
             var text = templateUtils.fillTemplate(template, context);

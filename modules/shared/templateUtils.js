@@ -7,7 +7,7 @@ function templateUtils(
     selectionFactory,
     utilities) {
 
-    function getNewVariableContext(vsEditor, name, selectionData) {
+    function getNewVariableContext(name, selectionData) {
         return {
             name: name,
             value: selectionData.selection[0]
@@ -37,21 +37,19 @@ function templateUtils(
         }, context);
     }
 
-    function buildBaseContext(vsEditor, selection) {
-        var selectedLine = selectionFactory(vsEditor).getSelectionLine(0);
-
+    function buildBaseContext(selection) {
         return {
             body: selection.join('\n')
         };
     }
 
-    function buildExtendedContext(vsEditor, selection, extension) {
-        var context = buildBaseContext(vsEditor, selection);
+    function buildExtendedContext(selection, extension) {
+        var context = buildBaseContext(selection);
         return extendContext(context, extension);
     }
 
     function getTemplate(templateName) {
-        return templates[templateName];
+        return j.deref(templateName)(templates);
     }
 
 

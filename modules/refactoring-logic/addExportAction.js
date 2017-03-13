@@ -2,7 +2,9 @@
 
 var j = require('jfp');
 
-function addExportAction() {
+function addExportAction(
+    templateUtils
+) {
     var offset = {
         'single': 1,
         'object': 0
@@ -38,8 +40,48 @@ function addExportAction() {
         return { start: insertPoint, end: insertPoint };
     }
 
+    function buildTemplateKey(searchType, lines) {
+        var templatePrefix = 'addExport.';
+        var exportType = 'newExport';
+
+        if (searchType === 'object') {
+            exportType = 'objectAddition';
+        } else if (matchSource(patterns.single, lines)) {
+            exportType = 'single';
+        }
+
+        return templatePrefix + exportType;
+    }
+
+    function getSearchType(lines) {
+        return matchSource(patterns.object, lines) ? 'object' : 'single';
+    }
+
+    function getRefactorText(functionName, searchType, lines) {
+        var templateKey = buildTemplateKey(searchType, lines);
+        var exportTemplate = templateUtils.getTemplate(templateKey);
+        var context = templateUtils.buildExtendedContext([functionName], { functionName: functionName });
+
+        return templateUtils.fillTemplate(exportTemplate, context);
+    }
+
+    function cleanSelection(selection) {
+        var cleanSelection = selection.filter(isNotEmptyOrWhitespace);
+        var containsFunction = j.eitherString('')(cleanSelection[0]).match(/function/) !== null;
+
+        return containsFunction ? cleanSelection : [j.eitherString('')(selection[0])];
+    }
+
+    function isNotEmptyOrWhitespace(value) {
+        return value.trim() !== '';
+    }
+
     return {
+        buildTemplateKey: buildTemplateKey,
+        cleanSelection: cleanSelection,
         exportLocation: exportLocation,
+        getRefactorText: getRefactorText,
+        getSearchType: getSearchType,
         hasExportExpression: j.partial(matchSource, patterns.single),
         hasExportObject: j.partial(matchSource, patterns.object)
     };

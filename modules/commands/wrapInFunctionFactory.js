@@ -18,7 +18,7 @@ function wrapInFunctionFactory(
 
         function updateCode(selection, functionName) {
             var contextExtension = { name: cleanFunctionName(functionName) };
-            var context = templateUtils.buildExtendedContext(vsEditor, selection, contextExtension);
+            var context = templateUtils.buildExtendedContext(selection, contextExtension);
 
             var coords = utilities.buildCoords(vsEditor, 0);
             var text = templateUtils.fillTemplate(functionTemplate, context);
