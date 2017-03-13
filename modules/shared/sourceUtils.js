@@ -31,8 +31,17 @@ function sourceUtils(
         };
     }
 
+    function matchInLine(regex, line) {
+        return typeof line === 'string' && line.match(regex) !== null;
+    }
+
+    function matchInSource(regex, lines) {
+        return matchInLine(regex, lines.join(''))
+    }
+
     return {
-        getSourceTokens: getSourceTokens,
+        matchInLine: matchInLine,
+        matchInSource: matchInSource,
         scopeDataFactory: scopeDataFactory,
         selectionDataFactory: selectionDataFactory,
     }

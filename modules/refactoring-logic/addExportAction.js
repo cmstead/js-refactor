@@ -3,8 +3,11 @@
 var j = require('jfp');
 
 function addExportAction(
-    templateUtils
+    templateUtils,
+    sourceUtils
 ) {
+    var matchSource = sourceUtils.matchInSource;
+
     var offset = {
         'single': 1,
         'object': 0
@@ -15,16 +18,11 @@ function addExportAction(
         single: /module\.exports/
     };
 
-    function isMatch(regex, line) {
-        return typeof line === 'string' && line.match(regex) !== null;
-    }
-
-    function matchSource(regex, lines) {
-        return isMatch(regex, lines.join(''))
-    }
 
     var findExportExpression = j.recur(function (recur, regex, lines, index) {
-        return index < 0 || isMatch(regex, lines[index]) ? index : recur(regex, lines, index - 1);
+        var searchComplete = index < 0 || sourceUtils.matchInLine(regex, lines[index]);
+
+        return searchComplete ? index : recur(regex, lines, index - 1);
     })
 
     function exportLocation(lines, exportType) {
