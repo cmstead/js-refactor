@@ -98,4 +98,25 @@ describe('Convert to Named Function', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
+    it('should convert variable assigned a function to named function', function () {
+        var sourceTokens = readSource('./test/fixtures/convertToNamedFunction/convertToNamedFunction.js');
+        var vsCodeFake = vsCodeFakeFactory();
+
+        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
+        vsCodeFake.window.activeTextEditor._selections = [{
+            _start: {
+                _line: 8,
+                _character: 0
+            },
+            _end: {
+                _line: 8,
+                _character: 25
+            }
+        }];
+
+        subcontainer.build('convertToNamedFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
 });

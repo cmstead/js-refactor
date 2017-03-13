@@ -5,3 +5,7 @@ var temp = {
 
     }
 };
+
+var myBar = function () {
+    console.log('Bar');
+}
