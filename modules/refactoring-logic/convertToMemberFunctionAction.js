@@ -19,8 +19,14 @@ function convertToMemberFunctionAction(functionUtils) {
         return line.replace(refactorRegex, replacementStr);
     }
 
+    function refactorFunctionDef(selection) {
+        selection[0] = refactorToMemberFunction(selection[0]);
+        return selection.join('\n');
+    }
+
     return {
         canConvertToMember: canConvertToMember,
+        refactorFunctionDef: refactorFunctionDef,
         refactorToMemberFunction: refactorToMemberFunction
     }
 }

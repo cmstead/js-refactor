@@ -7,41 +7,32 @@ function convertToMemberFunctionFactory(
     utilities,
     convertToMemberFunctionAction) {
 
-    var refactoring = convertToMemberFunctionAction;
-
     return function (vsEditor, callback) {
 
-        var editActions = editActionsFactory(vsEditor);
 
-        function applyRefactor(selection) {
-            var coords = utilities.buildCoords(vsEditor, 0);
+        var canConvertToMember = convertToMemberFunctionAction.canConvertToMember;
+        var refactorFunctionDef = convertToMemberFunctionAction.refactorFunctionDef;
 
-            selection[0] = refactoring.refactorToMemberFunction(selection[0]);
-            return editActions.applySetEdit(selection.join('\n'), coords);
-        }
-
-
-        function getErrorMessage(selection) {
-            var message = '';
-
+        function applyRefactoring(editActions, selection, coords) {
             if (selection === null) {
-                message = 'Cannot perform member function conversion on an empty selection.';
-            } else if (!refactoring.canConvertToMember(selection[0])) {
-                message = 'No appropriate named function to convert did you select a line containing a function?';
-            }
+                logger.log('Cannot perform member function conversion on an empty selection.');
+            } else if (!canConvertToMember(selection[0])) {
+                logger.log('No appropriate named function to convert did you select a line containing a function?');
+            } else {
+                var refactoredSelection = refactorFunctionDef(selection);
 
-            return message;
+                editActions
+                    .applySetEdit(refactoredSelection, coords)
+                    .then(callback);
+            }
         }
 
         return function convertToMemberFunction() {
+            var editActions = editActionsFactory(vsEditor);
             var selection = selectionFactory(vsEditor).getSelection(0);
-            var message = getErrorMessage(selection);
+            var coords = utilities.buildCoords(vsEditor, 0);
 
-            if (message !== '') {
-                logger.log(message);
-            } else {
-                applyRefactor(selection).then(callback);
-            }
+            applyRefactoring(editActions, selection, coords);
         }
 
     };
