@@ -1,7 +1,8 @@
 'use strict';
 
 
-function convertToNamedFunctionAction() {
+function convertToNamedFunctionAction(
+    templateUtils) {
 
     function canRefactorToNamed(line) {
         return line.match(/(\=|\:)\s*function\s*\(/g) !== null;
@@ -27,11 +28,21 @@ function convertToNamedFunctionAction() {
         return result;
     }
 
+    function buildRefactorString(selection) {
+        var baseContext = templateUtils.buildBaseContext(selection);
+        var updatedLine = refactorToNamedFunction(selection[0]);
+
+        selection[0] = templateUtils.fillTemplate([updatedLine], baseContext);
+
+        return selection.join('\n');
+    }
+
     return {
+        buildRefactorString: buildRefactorString,
         canRefactorToNamed: canRefactorToNamed,
         refactorToNamedFunction: refactorToNamedFunction
     };
-    
+
 }
 
 module.exports = convertToNamedFunctionAction;

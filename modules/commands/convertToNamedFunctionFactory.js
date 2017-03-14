@@ -1,37 +1,37 @@
 'use strict';
 
 function convertToNamedFunctionFactory(
-    logger, 
-    selectionFactory, 
+    logger,
+    selectionFactory,
     editActionsFactory,
     utilities,
-    templateUtils,
     convertToNamedFunctionAction) {
 
-    var refactoring = convertToNamedFunctionAction;
-
     return function (vsEditor, callback) {
-        var editActions = editActionsFactory(vsEditor);
 
-        function applyRefactor(selection) {
-            var coords = utilities.buildCoords(vsEditor, 0);
-            var baseContext = templateUtils.buildBaseContext(selection);
-            var updatedLine = refactoring.refactorToNamedFunction(selection[0]);
+        var canRefactorToNamed = convertToNamedFunctionAction.canRefactorToNamed;
+        var buildRefactorString = convertToNamedFunctionAction.buildRefactorString;
 
-            selection[0] = templateUtils.fillTemplate([updatedLine], baseContext);
-            return editActions.applySetEdit(selection.join('\n'), coords);
+        function applyRefactor(editActions, selection, coords) {
+            if (selection === null) {
+                logger.log('Cannot perform named function conversion on an empty selection.');
+            } else if (!canRefactorToNamed(selection[0])) {
+                logger.log('No appropriate anonymous or member function to convert.');
+            } else {
+                var refactorString = buildRefactorString(selection);
+
+                editActions
+                    .applySetEdit(refactorString, coords)
+                    .then(callback);
+            }
         }
 
         return function convertToNamedFunction() {
+            var editActions = editActionsFactory(vsEditor);
             var selection = selectionFactory(vsEditor).getSelection(0);
+            var coords = utilities.buildCoords(vsEditor, 0);
 
-            if (selection === null) {
-                logger.log('Cannot perform named function conversion on an empty selection.');
-            } else if (!refactoring.canRefactorToNamed(selection[0])) {
-                logger.log('No appropriate anonymous or member function to convert.');
-            } else {
-                applyRefactor(selection).then(callback);
-            }
+            applyRefactor(editActions, selection, coords);
         }
 
     };

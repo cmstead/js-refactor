@@ -9,7 +9,6 @@ function convertToMemberFunctionFactory(
 
     return function (vsEditor, callback) {
 
-
         var canConvertToMember = convertToMemberFunctionAction.canConvertToMember;
         var refactorFunctionDef = convertToMemberFunctionAction.refactorFunctionDef;
 
