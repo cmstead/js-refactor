@@ -7,72 +7,15 @@ function extractVariableFactory(
     editActionsFactory,
     utilities,
     sourceUtils,
-    templateUtils) {
+    templateUtils,
+    extractVariableAction) {
 
     return function (vsEditor, callback) {
         var editActions = editActionsFactory(vsEditor);
 
-        function between(start, end, value) {
-            return start <= value && value <= end;
-        }
-
-        function isValueInScope(scopeBounds, valueCoords) {
-            var scopeStart = scopeBounds.start;
-            var scopeEnd = scopeBounds.end;
-            var valueStart = valueCoords.start;
-
-            return between(scopeStart[0], scopeEnd[0], valueStart[0]);
-        }
-
-        function addVarEdit(varName, edits, coords) {
-            var edit = {
-                value: varName,
-                coords: utilities.buildEsprimaCoords(coords)
-            };
-
-            return [edit].concat(edits);
-        }
-
-        function getTokensInScope(scopeIndices, tokens) {
-            return tokens.filter(function (__, index) { return between(scopeIndices.top, scopeIndices.bottom, index) });
-        }
-
-        function getMatchLocations(value, tokens) {
-            return tokens.filter(function (token) { return token.value === value; })
-                .map(j.pick('loc'));
-        }
-
-        function getReplacementLocations(tokens, scopeIndices, value) {
-            var edits = getTokensInScope(scopeIndices, tokens);
-            return getMatchLocations(value, edits);
-        }
-
-        function buildVarCoords(scopeData) {
-            var varCoords = {
-                start: scopeData.scopeBounds.start,
-                end: scopeData.scopeBounds.start
-            };
-
-            varCoords.start[1] = 0;
-            varCoords.end[1] = 0;
-
-            return varCoords;
-        }
-
-        function adjustEdit(edit) {
-            edit.coords.start[0] -= 1;
-            edit.coords.end[0] -= 1;
-
-            return edit;
-        }
-
-        function extractVariable(selectionData, scopeData, name) {
-            var tokens = scopeData.tokens;
-            var scopeIndices = scopeData.scopeIndices;
-            var value = selectionData.selection[0];
-            var varCoords = buildVarCoords(scopeData);
-
-            var edits = getReplacementLocations(tokens, scopeIndices, value).reduce(j.partial(addVarEdit, name), []).map(adjustEdit);
+        function applyRefactor(selectionData, scopeData, name) {
+            var varCoords = extractVariableAction.buildVarCoords(scopeData);
+            var edits = extractVariableAction.getEdits(selectionData, scopeData, name);
             var variableString = templateUtils.templateFactory('newVariable')(name, selectionData);
 
             return editActions.applySetEdits(edits).then(function () {
@@ -89,10 +32,18 @@ function extractVariableFactory(
             // This reference error needs some sort of longer-term management and fix.
             try {
                 result.scopeData = sourceUtils.scopeDataFactory(vsEditor, selectionData);
-                result.valueInScope = isValueInScope(result.scopeData.scopeBounds, selectionData.selectionCoords)
+                result.valueInScope = extractVariableAction.isValueInScope(result.scopeData.scopeBounds, selectionData.selectionCoords)
             } catch (e) { /* scope process failed */ }
 
             return result;
+        }
+
+        function returnOrDefault (defaultValue, fn){
+            try{
+                return fn();
+            } catch (e) {
+                return defaultValue;
+            }
         }
 
         return function extractAction() {
@@ -110,7 +61,7 @@ function extractVariableFactory(
                 logger.info('Cannot extract variable if it is not inside a function');
             } else {
                 logger.input({ prompt: 'Name of your variable' }, function (name) {
-                    extractVariable(selectionData, scopeData, name).then(callback);
+                    applyRefactor(selectionData, scopeData, name).then(callback);
                 });
             }
         }

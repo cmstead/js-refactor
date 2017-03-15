@@ -3,6 +3,7 @@ var fs = require('fs');
 
 function activate(context) {
 	var vscode = container.build('vsCodeFactory').get();
+
 	var formatSelection = vscode.commands.executeCommand.bind(vscode.commands, "editor.action.formatSelection");
 
 	container.build('commandDefFactory').forEach(function (command) {
