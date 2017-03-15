@@ -2,7 +2,10 @@
 
 var j = require('jfp');
 
-function extractVariableAction() {
+function extractVariableAction(
+    templateUtils,
+    utilities,
+    extensionHelper) {
 
     function isValueInScope(scopeBounds, valueCoords) {
         var scopeStart = scopeBounds.start[0];
@@ -70,14 +73,19 @@ function extractVariableAction() {
             .map(adjustEdit);
     }
 
+    function buildVariableString (name, selectionData){
+        return templateUtils.templateFactory('newVariable')(name, selectionData);
+    }
+
     return {
         addVarEdit: addVarEdit,
         adjustEdit: adjustEdit,
         buildVarCoords: buildVarCoords,
+        buildVariableString: buildVariableString,
         getEdits: getEdits,
         getReplacementLocations: getReplacementLocations,
         getTokensInScope: getTokensInScope,
-        isValueInScope: isValueInScope
+        isValueInScope: extensionHelper.returnOrDefault(false, isValueInScope)
     };
 }
 

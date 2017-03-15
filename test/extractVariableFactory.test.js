@@ -136,11 +136,11 @@ describe('Extract Variable', function () {
         vsCodeFake.window.activeTextEditor._selections = [{
             _start: {
                 _line: 6,
-                _character: 15
+                _character: 20
             },
             _end: {
                 _line: 6,
-                _character: 20
+                _character: 23
             }
         }];
 
