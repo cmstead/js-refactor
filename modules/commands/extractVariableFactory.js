@@ -7,6 +7,8 @@ function extractVariableFactory(
     editActionsFactory,
     extensionHelper,
     sourceUtils,
+    selectionFactory,
+    utilities,
     extractVariableAction) {
 
     return function (vsEditor, callback) {
@@ -41,10 +43,21 @@ function extractVariableFactory(
         }
 
 
+        function getSelectionData(vsEditor) {
+            return {
+                selection: selectionFactory(vsEditor).getSelection(0),
+                selectionCoords: utilities.buildCoords(vsEditor, 0)
+            };
+        }
+
+
         return function extractAction() {
             var getScopeBounds = extensionHelper.returnOrDefault(null, sourceUtils.scopeDataFactory);
-            var selectionData = sourceUtils.selectionDataFactory(vsEditor);
-            var scopeData = getScopeBounds(vsEditor, selectionData);
+            var selectionData = getSelectionData(vsEditor);
+
+
+            var lines = utilities.getEditorDocument(vsEditor)._lines;
+            var scopeData = getScopeBounds(lines, selectionData);
 
             applyRefactor(selectionData, scopeData);
         }

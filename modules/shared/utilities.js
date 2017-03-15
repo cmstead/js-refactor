@@ -3,12 +3,6 @@
 var j = require('jfp');
 
 function utilities() {
-    function buildEsprimaCoords(coords) {
-        return {
-            start: [coords.start.line, coords.start.column],
-            end: [coords.end.line, coords.end.column],
-        };
-    }
 
     function buildCoords(vsDocument, index) {
         return {
@@ -33,7 +27,6 @@ function utilities() {
 
     return {
         buildCoords: buildCoords,
-        buildEsprimaCoords: buildEsprimaCoords,
         getDocumentLines: getDocumentLines,
         getEditorDocument: getEditorDocument
     };

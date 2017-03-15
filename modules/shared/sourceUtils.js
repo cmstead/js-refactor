@@ -4,16 +4,16 @@ var esprima = require('esprima');
 
 function sourceUtils(
     functionScopeUtils,
-    selectionFactory,
     utilities) {
 
-    function getSourceTokens(vsEditor) {
-        var src = utilities.getEditorDocument(vsEditor)._lines.join('\n');
+    function getSourceTokens(lines) {
+        var src = lines.join('\n');
         return esprima.tokenize(src, { loc: true });
     }
 
-    function scopeDataFactory(vsEditor, selectionData) {
-        var tokens = getSourceTokens(vsEditor);
+    function scopeDataFactory(lines, selectionData) {
+        var tokens = getSourceTokens(lines);
+
         var scopeIndices = functionScopeUtils.findScopeIndices(tokens, selectionData.selectionCoords);
         var scopeBounds = functionScopeUtils.buildBoundsObject(tokens, scopeIndices.top, scopeIndices.bottom);
 
@@ -21,13 +21,6 @@ function sourceUtils(
             tokens: tokens,
             scopeIndices: scopeIndices,
             scopeBounds: scopeBounds
-        };
-    }
-
-    function selectionDataFactory(vsEditor) {
-        return {
-            selection: selectionFactory(vsEditor).getSelection(0),
-            selectionCoords: utilities.buildCoords(vsEditor, 0)
         };
     }
 
@@ -39,11 +32,18 @@ function sourceUtils(
         return matchInLine(regex, lines.join(''))
     }
 
+    function buildEsprimaCoords(coords) {
+        return {
+            start: [coords.start.line, coords.start.column],
+            end: [coords.end.line, coords.end.column],
+        };
+    }
+
     return {
+        buildEsprimaCoords: buildEsprimaCoords,
         matchInLine: matchInLine,
         matchInSource: matchInSource,
-        scopeDataFactory: scopeDataFactory,
-        selectionDataFactory: selectionDataFactory,
+        scopeDataFactory: scopeDataFactory
     }
 }
 

@@ -3,6 +3,7 @@
 var j = require('jfp');
 
 function extractVariableAction(
+    sourceUtils,
     templateUtils,
     utilities,
     extensionHelper) {
@@ -18,7 +19,7 @@ function extractVariableAction(
     function addVarEdit(varName, edits, coords) {
         var edit = {
             value: varName,
-            coords: utilities.buildEsprimaCoords(coords)
+            coords: sourceUtils.buildEsprimaCoords(coords)
         };
 
         return [edit].concat(edits);

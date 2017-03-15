@@ -1,35 +1,11 @@
 'use strict';
 
-function shiftParamsRightFactory(
-    logger,
-    selectionFactory,
-    editActionsFactory,
-    utilities,
-    variableOrderAction) {
+var j = require('jfp');
 
-    return function (vsEditor, callback) {
+function shiftParamsRightFactory(shiftParamsFactory) {
 
-        var editActions = editActionsFactory(vsEditor);
-
-        function applyRefactor(selection) {
-            var coords = utilities.buildCoords(vsEditor, 0);
-            var text = variableOrderAction.shiftParamsRight(selection[0]);
-
-            return editActions.applySetEdit(text, coords);
-        }
-
-        return function shiftParamsRight() {
-            var selection = selectionFactory(vsEditor).getSelection(0);
-
-            if (selection === null) {
-                logger.info('Cannot shift parameters on an empty selection.');
-            } else {
-                applyRefactor(selection).then(callback);
-            }
-        }
-
-    }
-
+    return j.partial(shiftParamsFactory, 'right');
+    
 }
 
 module.exports = shiftParamsRightFactory;
