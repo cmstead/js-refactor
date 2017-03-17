@@ -1,38 +1,68 @@
 {
-    "cond": ["", 
-             "if () {",
-             "{body}",
-             "}",
-             ""],
+    "cond": [
+        "",
+        "if () {",
+        "{body}",
+        "}",
+        ""
+    ],
+    "function": [
+        "",
+        "function {name}() {",
+        "{body}",
+        "}",
+        ""
+    ],
+    "functionCall": [
+        "{name}();",
+        ""
+    ],
+    "iife": [
+        "",
+        "(function () {",
+        "{body}",
+        "})();",
+        ""
+    ],
 
-    "function": ["",
-                 "function {name}() {",
-                 "{body}",
-                 "}",
-                 ""],
+    "arrowFunction": [
+        "() => {",
+        "{body}",
+        "}"
+    ],
 
-    "iife": ["",
-             "(function () {",
-             "{body}",
-             "})();",
-             ""],
-             
-    "functionCall": ["{name}();",
-                     ""],
+    "generator": [
+        "function {name} *() {",
+        "{body}",
+        "}"
+    ],
 
-    "newVariable": ["var {name} = {value};",
-                    ""],
-    
+    "asyncFunction": [
+        "",
+        "async function {name}() {",
+        "{body}",
+        "}",
+        ""
+    ],
+
+    "newVariable": [
+        "var {name} = {value};",
+        ""
+    ],
     "addExport": {
-        "single": ["", 
-                   "module.exports.{functionName} = {functionName}"],
-                   
-        "newExport": ["",
-                      "module.exports = {",
-                      "\t{functionName}: {functionName}",
-                      "}"],
-                      
-        "objectAddition": ["",
-                           "\t{functionName}: {functionName},"]
+        "single": [
+            "",
+            "module.exports.{functionName} = {functionName}"
+        ],
+        "newExport": [
+            "",
+            "module.exports = {",
+            "\t{functionName}: {functionName}",
+            "}"
+        ],
+        "objectAddition": [
+            "",
+            "\t{functionName}: {functionName},"
+        ]
     }
 }

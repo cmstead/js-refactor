@@ -1,0 +1,15 @@
+[
+    [
+        "() => {\nfunction bar (a, b){\n        somethingElse(a + b);\n    }\n}",
+        {
+            "start": [
+                3,
+                4
+            ],
+            "end": [
+                5,
+                5
+            ]
+        }
+    ]
+]

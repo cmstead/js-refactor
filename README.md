@@ -16,6 +16,12 @@ and side-loaded into your editor.
 
 ## Updates
 
+### v0.9.0
+
+- Wrap in Generator
+- Wrap in Arrow Function
+- Wrap in Async Function
+
 ### v0.8.1
 
 - Added "Wrap Selection" top-level option for wrapping code in generated code

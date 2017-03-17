@@ -32,14 +32,6 @@
         "description": "Insert a new anonymous function"
    },
 
-    "Lambda Function": {
-        "prefix": "lfn",
-        "body": [
-            "($1) => {\n\t$2\n}"
-        ],
-        "description": "Insert a new lambda function"
-    },
-
     "Immediately Invoked Function Expression": {
         "prefix": "iife",
         "body": [
@@ -97,5 +89,40 @@
             "console.log($1);"
         ],
         "description": "Add console.log to the document at cursor"
+    },
+
+    "Lambda Function": {
+        "prefix": "lambda",
+        "body": [
+            "$1 => $2"
+        ]
+    },
+
+    "Arrow Function": {
+        "prefix": "arrow",
+        "body": [
+            "($1) => {",
+            "$2",
+            "}"
+        ]
+    },
+
+    "Generator": {
+        "prefix": "generator",
+        "body": [
+            "function *($1) {",
+            "{body}",
+            "}"
+        ]
+    },
+
+    "Async Function": {
+        "prefix": "async",
+        "body": [
+            "async function ($1) {",
+            "{body}",
+            "}"
+        ]
     }
+
 }
