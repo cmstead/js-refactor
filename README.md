@@ -16,6 +16,11 @@ and side-loaded into your editor.
 
 ## Updates
 
+### v0.8.1
+
+- Added "Wrap Selection" top-level option for wrapping code in generated code
+- Removed Wrap In "Name" actions from context menu
+
 ### v0.7.0
 
 - Added refactorings to context (right-click) menu
