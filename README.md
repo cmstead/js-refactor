@@ -16,6 +16,11 @@ and side-loaded into your editor.
 
 ## Updates
 
+### v0.10.0
+
+- Added hotkey menu of available refactorings
+- Updated keybindings to simpler key combinations
+
 ### v0.9.0
 
 - Wrap in Generator
@@ -77,25 +82,25 @@ refactorings you might want.
 JS Refactor supports the following refactorings (explanations below):
 
 - Convert To Member Function
-    - (ctrl+shift+j ctrl+shift+m)
 - Convert To Named Function
-    - (ctrl+shift+j ctrl+shift+n)
 - Export Function
-    - (ctrl+shift+j ctrl+shift+x)
 - Extract Variable
-    - (ctrl+shift+j ctrl+shift+e)
 - Shift Parameters Left
-    - (ctrl+shift+j ctrl+shift+s)
-- Wrap in function
-    - (ctrl+shift+j ctrl+shift+w)
-- Wrap in IIFE
-    - (ctrl+shift+j ctrl+shift+i)
-
 - Shift Parameters Right
+- Wrap in Function
+- Wrap in IIFE
 - Wrap In Condition
 - Wrap In Executed Function
 
-All keybindings are available using cmd instead of ctrl on a Mac
+### Keybindings
+
+- Menu of available refactorings - ctrl+shift+j r
+- Extract variable - ctrl+shift+j e
+- Convert to member function - ctrl+shift+j m
+- Convert to named function - ctrl+shift+j n
+- Export function - ctrl+shift+j x
+- Shift params to the left - ctrl+shift+j s
+- Wrap selection - ctrl+shift+j w",
 
 ### Usage
 
