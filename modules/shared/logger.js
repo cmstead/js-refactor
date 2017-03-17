@@ -19,11 +19,16 @@ function logger (vsCodeFactory) {
         vscode.window.showInputBox(options).then(callback);
     }
 
+    function quickPick(items, options, callback) {
+        vscode.window.showQuickPick(items, options).then(callback);
+    }
+
     return {
         error: error,
         info: info,
         input: input,
-        log: log
+        log: log,
+        quickPick: quickPick
     };
 }
 

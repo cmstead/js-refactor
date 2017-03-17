@@ -10,7 +10,8 @@ function commandDefFactory(
     wrapInExecutedFunctionFactory,
     wrapInFunctionFactory,
     wrapInIIFEFactory,
-    wrapInConditionFactory
+    wrapInConditionFactory,
+    wrapSelectionFactory
 ) {
 
     return [
@@ -53,6 +54,10 @@ function commandDefFactory(
         {
             name: 'cmstead.jsRefactor.wrapInCondition',
             behavior: wrapInConditionFactory
+        },
+        {
+            name: 'cmstead.jsRefactor.wrapSelection',
+            behavior: wrapSelectionFactory
         }
     ];
 }

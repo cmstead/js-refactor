@@ -29,7 +29,8 @@
     "onCommand:cmstead.jsRefactor.wrapInExecutedFunction",
     "onCommand:cmstead.jsRefactor.wrapInFunction",
     "onCommand:cmstead.jsRefactor.wrapInIIFE",
-    "onCommand:cmstead.jsRefactor.wrapInCondition"
+    "onCommand:cmstead.jsRefactor.wrapInCondition",
+    "onCommand:cmstead.jsRefactor.wrapSelection"
   ],
   "main": "./extension",
   "scripts": {
@@ -134,6 +135,11 @@
         "command": "cmstead.jsRefactor.wrapInCondition",
         "title": "JS Refactorings: Wrap In Condition",
         "description": "Wrap code in a condition block"
+      },
+      {
+        "command": "cmstead.jsRefactor.wrapSelection",
+        "title": "JS Refactorings: Wrap Selection",
+        "description": "Wrap selected code with generated code"
       }
     ],
     "keybindings": [
@@ -163,18 +169,8 @@
         "when": "editorHasSelection"
       },
       {
-        "command": "cmstead.jsRefactor.wrapInIIFE",
-        "key": "ctrl+shift+j ctrl+shift+i",
-        "when": "editorHasSelection"
-      },
-      {
-        "command": "cmstead.jsRefactor.wrapInExecutedFunction",
+        "command": "cmstead.jsRefactor.wrapSelection",
         "key": "ctrl+shift+j ctrl+shift+w",
-        "when": "editorHasSelection"
-      },
-      {
-        "command": "cmstead.jsRefactor.wrapInExecutedFunction",
-        "key": "cmd+shift+j cmd+shift+w",
         "when": "editorHasSelection"
       }
     ],
@@ -212,22 +208,7 @@
         },
         {
           "when": "editorHasSelection",
-          "command": "cmstead.jsRefactor.wrapInExecutedFunction",
-          "group": "5_refactor"
-        },
-        {
-          "when": "editorHasSelection",
-          "command": "cmstead.jsRefactor.wrapInFunction",
-          "group": "5_refactor"
-        },
-        {
-          "when": "editorHasSelection",
-          "command": "cmstead.jsRefactor.wrapInIIFE",
-          "group": "5_refactor"
-        },
-        {
-          "when": "editorHasSelection",
-          "command": "cmstead.jsRefactor.wrapInCondition",
+          "command": "cmstead.jsRefactor.wrapSelection",
           "group": "5_refactor"
         }
       ]
