@@ -18,7 +18,12 @@ function extensionHelper() {
         }
     }
 
+    function cleanFunctionName(functionName) {
+        return functionName.trim() === '' ? '' : functionName + ' ';
+    }
+
     return {
+        cleanFunctionName: cleanFunctionName,
         isEmptyOrWhitespace: isEmptyOrWhitespace,
         returnOrDefault: returnOrDefault
     };

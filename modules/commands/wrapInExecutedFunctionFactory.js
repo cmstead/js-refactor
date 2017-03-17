@@ -1,48 +1,20 @@
 'use strict';
 
 function wrapInExecutedFunctionFactory(
-    logger,
-    selectionFactory,
-    utilities,
-    templateUtils,
-    editActionsFactory) {
-
-    var functionCallTemplate = templateUtils.getTemplate('functionCall');
-    var functionTemplate = templateUtils.getTemplate('function');
+    wrapInExecutedFunctionAction,
+    wrapInTemplateFactory) {
 
     return function (vsEditor, callback) {
-        var editActions = editActionsFactory(vsEditor);
 
-        function cleanFunctionName(functionName) {
-            return functionName.trim() === '' ? '' : functionName + ' ';
-        }
+        return function wrapInCondition() {
+            var wrapSelection = wrapInExecutedFunctionAction.wrapSelection;
+            var errorMessage = 'Cannot wrap empty selection. To create a new function, use the function (fn) snippet.';
+            var prompt = {prompt: 'Name of your function'};
 
-        function updateCode(selection, functionName) {
-            var contextExtension = { name: cleanFunctionName(functionName) };
-            var context = templateUtils.buildExtendedContext(selection, contextExtension);
-
-            var template = functionTemplate.concat(functionCallTemplate);
-            var text = templateUtils.fillTemplate(template, context);
-
-            var coords = utilities.buildCoords(vsEditor, 0);
-
-            return editActions.applySetEdit(text, coords);
-        }
-
-        return function wrapInExecutedFunction() {
-            var selection = selectionFactory(vsEditor).getSelection(0);
-
-            if (selection === null) {
-                logger.info('Cannot wrap empty selection. To create a new function, use the function (fn) snippet.');
-            } else {
-                logger.input({ prompt: 'Name of your function' }, function (functionName) {
-                    updateCode(selection, functionName).then(callback);
-                });
-            }
+            wrapInTemplateFactory(vsEditor, callback)(wrapSelection, errorMessage, prompt);
         }
 
     }
-
 }
 
 module.exports = wrapInExecutedFunctionFactory;

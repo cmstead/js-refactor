@@ -1,45 +1,20 @@
 'use strict';
 
 function wrapInFunctionFactory(
-    logger, 
-    selectionFactory,
-    utilities,
-    templateUtils,
-    editActionsFactory) {
-
-    var functionTemplate = templateUtils.getTemplate('function');
+    wrapInFunctionAction,
+    wrapInTemplateFactory) {
 
     return function (vsEditor, callback) {
-        var editActions = editActionsFactory(vsEditor);
 
-        function cleanFunctionName(functionName) {
-            return functionName.trim() === '' ? '' : functionName + ' ';
-        }
+        return function wrapInCondition() {
+            var wrapSelection = wrapInFunctionAction.wrapSelection;
+            var errorMessage = 'Cannot wrap empty selection. To create a new function, use the function (fn) snippet.';
+            var prompt = {prompt: 'Name of your function'};
 
-        function updateCode(selection, functionName) {
-            var contextExtension = { name: cleanFunctionName(functionName) };
-            var context = templateUtils.buildExtendedContext(selection, contextExtension);
-
-            var coords = utilities.buildCoords(vsEditor, 0);
-            var text = templateUtils.fillTemplate(functionTemplate, context);
-
-            return editActions.applySetEdit(text, coords);
-        }
-
-        return function wrapInFunction() {
-            var selection = selectionFactory(vsEditor).getSelection(0);
-
-            if (selection === null) {
-                logger.info('Cannot wrap empty selection. To create a new function, use the function (fn) snippet.');
-            } else {
-                logger.input({ prompt: 'Name of your function' }, function (functionName) {
-                    updateCode(selection, functionName).then(callback);
-                });
-            }
+            wrapInTemplateFactory(vsEditor, callback)(wrapSelection, errorMessage, prompt);
         }
 
     }
-
 }
 
 module.exports = wrapInFunctionFactory;

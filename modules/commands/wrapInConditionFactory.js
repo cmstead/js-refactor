@@ -1,33 +1,16 @@
 'use strict';
 
 function wrapInConditionFactory(
-    logger, 
-    selectionFactory,
-    utilities,
-    templateUtils,
-    editActionsFactory) {
-
-    var condTemplate = templateUtils.getTemplate('cond');
+    wrapInConditionAction,
+    wrapInTemplateFactory) {
 
     return function (vsEditor, callback) {
-        var editActions = editActionsFactory(vsEditor);
-
-        function applyRefactor(selection) {
-            var coords = utilities.buildCoords(vsEditor, 0);
-            var context = templateUtils.buildBaseContext(selection);
-            var text = templateUtils.fillTemplate(condTemplate, context);
-
-            return editActions.applySetEdit(text, coords);
-        }
 
         return function wrapInCondition() {
-            var selection = selectionFactory(vsEditor).getSelection(0);
+            var wrapSelection = wrapInConditionAction.wrapSelection;
+            var errorMessage = 'Cannot wrap empty selection. To create a new if block, use the if (cond) snippet.';
 
-            if (selection === null) {
-                logger.info('Cannot wrap empty selection. To create a new if block, use the if (cond) snippet.');
-            } else {
-                applyRefactor(selection).then(callback);
-            }
+            wrapInTemplateFactory(vsEditor, callback)(wrapSelection, errorMessage);
         }
 
     }
