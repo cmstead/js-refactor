@@ -24,7 +24,6 @@ function selectRefactoringFactory(
         };
 
         function selectActionAndRun() {
-            console.log('Did bad things happen?');
             var items = Object.keys(refactoringBehaviors);
             var options = {
                 prompt: 'Apply refactoring:'

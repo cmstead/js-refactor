@@ -149,4 +149,26 @@ describe('Extract Variable', function () {
         this.verify(prettyJson(applySetEditSpy.args) + prettyJson(applySetEditsSpy.args));
     });
 
+    it.skip('should extract complex variable', function () {
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+        var vsCodeFake = vsCodeFakeFactory();
+        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
+
+        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
+        vsCodeFake.window.activeTextEditor._selections = [{
+            _start: {
+                _line: 6,
+                _character: 25
+            },
+            _end: {
+                _line: 6,
+                _character: 30
+            }
+        }];
+
+        subcontainer.build('extractVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args) + prettyJson(applySetEditsSpy.args));
+    });
+
 });

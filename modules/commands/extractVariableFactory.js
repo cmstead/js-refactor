@@ -13,7 +13,7 @@ function extractVariableFactory(
 
     return function (vsEditor, callback) {
 
-        function applyRefactor(selectionData, scopeData) {
+        function applyRefactor(selectionData, scopeData, lines) {
             var scopeBounds = j.deref('scopeBounds')(scopeData);
             var valueInScope = extractVariableAction.isValueInScope(scopeBounds, selectionData.selectionCoords);
 
@@ -24,13 +24,16 @@ function extractVariableFactory(
             } else if (!valueInScope) {
                 logger.info('Cannot extract variable if it is not inside a function');
             } else {
+                // console.log(scopeBounds);
+                // console.log('scope lines: ' + getScopeLines(lines, scopeBounds));
+
                 logger.input({ prompt: 'Name of your variable' }, function (name) {
-                    buildAndApply(selectionData, scopeData, name);
+                    buildAndApply(selectionData, scopeData, name, lines);
                 });
             }
         }
 
-        function buildAndApply(selectionData, scopeData, name) {
+        function buildAndApply(selectionData, scopeData, name, lines) {
             var editActions = editActionsFactory(vsEditor);
 
             var varCoords = extractVariableAction.buildVarCoords(scopeData);
@@ -50,6 +53,22 @@ function extractVariableFactory(
             };
         }
 
+        function getScopeLines(lines, scopeBounds) {
+            var startLine = scopeBounds.start[0] - 1;
+            var endLine = scopeBounds.end[0] - 1;
+
+            var charStart = scopeBounds.start[1] - 1;
+            var charEnd = scopeBounds.end[1] - 1;
+
+            var scopeLines = lines.slice(startLine, endLine);
+
+            var lastIndex = scopeLines.length - 1;
+
+            scopeLines[0] = scopeLines[0].substr(charStart);
+            scopeLines[lastIndex] = scopeLines[lastIndex].substr(charEnd);
+
+            return scopeLines;
+        }
 
         return function extractAction() {
             var getScopeBounds = extensionHelper.returnOrDefault(null, sourceUtils.scopeDataFactory);
@@ -59,7 +78,7 @@ function extractVariableFactory(
             var lines = utilities.getEditorDocument(vsEditor)._lines;
             var scopeData = getScopeBounds(lines, selectionData);
 
-            applyRefactor(selectionData, scopeData);
+            applyRefactor(selectionData, scopeData, lines);
         }
     }
 }
