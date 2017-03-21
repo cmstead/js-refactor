@@ -55,7 +55,7 @@ function sourceUtils(
         if (bounds.end[0] === lines.length - 1) {
             scopeLines = lines.slice(bounds.start[0]);
         } else {
-            scopeLines = lines.slice(bounds.start[0], bounds.end[0]);
+            scopeLines = lines.slice(bounds.start[0], bounds.end[0] + 1);
         }
 
         var lastIndex = scopeLines.length - 1;
