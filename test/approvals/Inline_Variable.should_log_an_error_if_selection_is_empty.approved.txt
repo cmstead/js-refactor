@@ -1,0 +1,5 @@
+[
+    [
+        "Cannot inline empty selection"
+    ]
+]

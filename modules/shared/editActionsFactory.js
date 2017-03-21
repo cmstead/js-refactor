@@ -20,7 +20,14 @@ function editActionsFactory(
             return applyEdit(textEdit);
         }
 
+        function applyDeleteEdit(coords) {
+            var textEdit = editFactory.buildDeleteEdit(getUri(), coords, content);
+
+            return applyEdit(textEdit);
+        }
+
         return {
+            applyDeleteEdit: applyDeleteEdit,
             applySetEdit: applySetEdit
         };
     }

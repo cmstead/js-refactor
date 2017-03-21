@@ -12,9 +12,9 @@ var prettyJson = testUtils.prettyJson;
 var approvalsConfig = require('./test-utils/approvalsConfig');
 var approvals = require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
-describe('Extract Variable', function () {
+describe('Inline Variable', function () {
     var subcontainer;
-    var extractVariableFactory;
+    var inlineVariableFactory;
     var applySetEditSpy;
     var applySetEditsSpy;
 
@@ -47,21 +47,21 @@ describe('Extract Variable', function () {
         }
     });
 
-    it.skip('should log an error if selection is empty', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+    it('should log an error if selection is empty', function () {
+        var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
         var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('extractVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('inlineVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 
         this.verify(prettyJson(info.args));
     });
 
-    it.skip('should log an error if multiple selections are made', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+    it('should log an error if multiple selections are made', function () {
+        var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
         var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
@@ -88,13 +88,13 @@ describe('Extract Variable', function () {
         }];
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('extractVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('inlineVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 
         this.verify(prettyJson(info.args));
     });
 
-    it.skip('should log an error if selection is not inside a function', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+    it('should log an error if selection is not inside a function', function () {
+        var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
         var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
@@ -111,13 +111,13 @@ describe('Extract Variable', function () {
         }];
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('extractVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('inlineVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 
         this.verify(prettyJson(info.args));
     });
 
-    it.skip('should extract variable when selection is safe', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+    it.skip('should log an error if variable is not assigned', function () {
+        var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
         var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
@@ -125,37 +125,38 @@ describe('Extract Variable', function () {
         vsCodeFake.window.activeTextEditor._selections = [{
             _start: {
                 _line: 11,
-                _character: 16
+                _character: 0
             },
             _end: {
                 _line: 11,
-                _character: 19
+                _character: 12
             }
         }];
 
-        subcontainer.build('extractVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        var info = mocker.getMock('logger').api.info;
+        subcontainer.build('inlineVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 
-        this.verify(prettyJson(applySetEditSpy.args));
+        this.verify(prettyJson(info.args));
     });
 
-    it.skip('should extract complex variable', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+    it.skip('should inline variable when selection is okay', function () {
+        var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
         var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
         vsCodeFake.window.activeTextEditor._selections = [{
             _start: {
-                _line: 11,
-                _character: 21
+                _line: 12,
+                _character: 0
             },
             _end: {
-                _line: 11,
-                _character: 26
+                _line: 12,
+                _character: 21
             }
         }];
 
-        subcontainer.build('extractVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('inlineVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
