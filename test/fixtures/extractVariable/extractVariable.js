@@ -7,3 +7,7 @@ function foo() {
         console.log(baz, 7 + 8);
     }
 }
+
+function someFn (){
+    console.log(baz, 7 + 8);
+}

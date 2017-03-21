@@ -24,9 +24,6 @@ function extractVariableFactory(
             } else if (!valueInScope) {
                 logger.info('Cannot extract variable if it is not inside a function');
             } else {
-                // console.log(scopeBounds);
-                // console.log('scope lines: ' + getScopeLines(lines, scopeBounds));
-
                 logger.input({ prompt: 'Name of your variable' }, function (name) {
                     buildAndApply(selectionData, scopeData, name, lines);
                 });
@@ -34,13 +31,19 @@ function extractVariableFactory(
         }
 
         function buildAndApply(selectionData, scopeData, name, lines) {
+            var bounds = getDocumentScopeBounds(scopeData.scopeBounds);
+            var selection = selectionData.selection[0];
+            var scopeSource = getScopeLines(lines, bounds).join('\n');
+            var replacementSource = scopeSource.replace(selection, name);
+
+            console.log(scopeSource, replacementSource);
+
             var editActions = editActionsFactory(vsEditor);
 
             var varCoords = extractVariableAction.buildVarCoords(scopeData);
-            var edits = extractVariableAction.getEdits(selectionData, scopeData, name);
             var variableString = extractVariableAction.buildVariableString(name, selectionData);
 
-            editActions.applySetEdits(edits).then(function () {
+            editActions.applySetEdit(replacementSource, bounds).then(function () {
                 editActions.applySetEdit(variableString, varCoords).then(callback);
             });
         }
@@ -53,19 +56,30 @@ function extractVariableFactory(
             };
         }
 
-        function getScopeLines(lines, scopeBounds) {
-            var startLine = scopeBounds.start[0] - 1;
-            var endLine = scopeBounds.end[0] - 1;
+        function getDocumentScopeBounds(scopeBounds) {
+            console.log(scopeBounds);
+            var start = scopeBounds.start;
+            var end = scopeBounds.end;
 
-            var charStart = scopeBounds.start[1] - 1;
-            var charEnd = scopeBounds.end[1] - 1;
+            return {
+                start: [start[0] - 1, start[1] - 1],
+                end: [end[0] - 1, end[1] - 1]
+            };
+        }
 
-            var scopeLines = lines.slice(startLine, endLine);
+        function getScopeLines(lines, bounds) {
+            var scopeLines = null;
+
+            if(bounds.end[0] === lines.length - 1) {
+                scopeLines = lines.slice(bounds.start[0]);
+            } else {
+                scopeLines = lines.slice(bounds.start[0], bounds.end[0]);
+            }
 
             var lastIndex = scopeLines.length - 1;
 
-            scopeLines[0] = scopeLines[0].substr(charStart);
-            scopeLines[lastIndex] = scopeLines[lastIndex].substr(charEnd);
+            scopeLines[0] = scopeLines[0].substr(bounds.start[1]);
+            scopeLines[lastIndex] = scopeLines[lastIndex].substr(0, bounds.end[1] + 1);
 
             return scopeLines;
         }

@@ -34,19 +34,8 @@ describe('Extract Variable', function () {
             applySetEditSpy(text, coords);
 
             return {
-                then: function () { }
-            };
-        };
-
-        mocker.getMock('editActionsFactory').api.applySetEdits = function (text, coords) {
-            applySetEditsSpy(text, coords);
-
-            return {
                 then: function (callback) {
-                    callback();
-                    return {
-                        then: function (){}
-                    }
+                    callback()
                 }
             };
         };
@@ -135,21 +124,21 @@ describe('Extract Variable', function () {
         vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
         vsCodeFake.window.activeTextEditor._selections = [{
             _start: {
-                _line: 6,
-                _character: 20
+                _line: 11,
+                _character: 16
             },
             _end: {
-                _line: 6,
-                _character: 23
+                _line: 11,
+                _character: 19
             }
         }];
 
         subcontainer.build('extractVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 
-        this.verify(prettyJson(applySetEditSpy.args) + prettyJson(applySetEditsSpy.args));
+        this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    it.skip('should extract complex variable', function () {
+    it('should extract complex variable', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
         var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
@@ -157,18 +146,18 @@ describe('Extract Variable', function () {
         vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
         vsCodeFake.window.activeTextEditor._selections = [{
             _start: {
-                _line: 6,
-                _character: 25
+                _line: 11,
+                _character: 21
             },
             _end: {
-                _line: 6,
-                _character: 30
+                _line: 11,
+                _character: 26
             }
         }];
 
         subcontainer.build('extractVariableFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 
-        this.verify(prettyJson(applySetEditSpy.args) + prettyJson(applySetEditsSpy.args));
+        this.verify(prettyJson(applySetEditSpy.args));
     });
 
 });
