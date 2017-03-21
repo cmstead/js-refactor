@@ -6,18 +6,13 @@ function editFactory(vsCodeFactory) {
 
     var vscode;
 
-    function positionFactory(line, column) {
-        return new vscode.Position(line, column);
-    }
-
-    // This will be important as coordinate object is converted to new format
-    function positionFactoryFacade(location) {
-        return positionFactory(location[0], location[1]);
+    function positionFactory(location) {
+        return new vscode.Position(location[0], location[1]);
     }
 
     function rangeFactory(start, end) {
-        var startPosition = positionFactoryFacade(start);
-        var endPosition = positionFactoryFacade(end);
+        var startPosition = positionFactory(start);
+        var endPosition = positionFactory(end);
 
         return new vscode.Range(startPosition, endPosition);
     }
@@ -25,6 +20,11 @@ function editFactory(vsCodeFactory) {
     function textEditFactory(coords, content) {
         var range = rangeFactory(coords.start, coords.end);
         return new vscode.TextEdit(range, content);
+    }
+
+    function textDeleteEditFactory(coords) {
+        var range = rangeFactory(coords.start, coords.end);
+        return vscode.TextEdit.delete(range);
     }
 
     function workspaceEditFactory() {
@@ -39,47 +39,28 @@ function editFactory(vsCodeFactory) {
         return edit;
     }
 
-    function replaceEditFactory(uri, edits) {
-        var edit = workspaceEditFactory();
-
-        edit.replace(uri, edits);
-
-        return edit;
-    }
-
     // Composite construction functions
 
-    // Builds a "set" type edit object to update the view
-    function buildSetEdit(uri, coords, text) {
+    function initializeVsCode (){
         vscode = vsCodeFactory.get();
+    }
+
+    function buildSetEdit(uri, coords, text) {
+        initializeVsCode();
+
         var textEdit = textEditFactory(coords, text);
         return setEditFactory(uri, [textEdit]);
     }
 
-    // Builds a "replace" type edit object to update the view
-    function buildReplaceEdit(uri, coords, text) {
-        vscode = vsCodeFactory.get();
-        var textEdit = textEditFactory(coords, text);
-        return replaceEditFactory(uri, [textEdit]);
-    }
+    function buildDeleteEdit(uri, coords) {
+        initializeVsCode();
 
-    function buildMultipleSetEdits(uri, edits) {
-        vscode = vsCodeFactory.get();
-        var textEdits = edits.map(function (edit) { return textEditFactory(edit.coords, edit.value); });
-        return setEditFactory(uri, textEdits);
-    }
-
-    function buildMultipleReplaceEdits(uri, edits) {
-        vscode = vsCodeFactory.get();
-        var textEdits = edits.map(function (edit) { return textEditFactory(edit.coords, edit.value); });
-        return replaceEditFactory(uri, textEdits);
+        var deleteEdit = textDeleteEditFactory(coords);
+        return setEditFactory(uri, [deleteEdit]);
     }
 
     return {
-        buildMultipleSetEdits: buildMultipleSetEdits,
-        buildSetEdit: buildSetEdit,
-        buildMultipleReplaceEdits: buildMultipleSetEdits,
-        buildReplaceEdit: buildSetEdit
+        buildSetEdit: buildSetEdit
     };
 }
 

@@ -20,15 +20,8 @@ function editActionsFactory(
             return applyEdit(textEdit);
         }
 
-        function applySetEdits(edits) {
-            var textEdit = editFactory.buildMultipleSetEdits(getUri(), edits);
-
-            return applyEdit(textEdit);
-        }
-
         return {
-            applySetEdit: applySetEdit,
-            applySetEdits: applySetEdits
+            applySetEdit: applySetEdit
         };
     }
 
