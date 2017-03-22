@@ -1,5 +1,5 @@
 [
     [
-        "Inline varialble does not currently support multiline values"
+        "Inline variable does not currently support multiline values"
     ]
 ]

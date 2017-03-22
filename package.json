@@ -12,7 +12,7 @@
     "name": "Chris Stead"
   },
   "engines": {
-    "vscode": "^0.11.0"
+    "vscode": "^0.12.0"
   },
   "categories": [
     "Other",
@@ -24,6 +24,7 @@
     "onCommand:cmstead.jsRefactor.convertToNamedFunction",
     "onCommand:cmstead.jsRefactor.exportFunction",
     "onCommand:cmstead.jsRefactor.extractVariable",
+    "onCommand:cmstead.jsRefactor.inlineVariable",
     "onCommand:cmstead.jsRefactor.selectRefactoring",
     "onCommand:cmstead.jsRefactor.shiftParamsLeft",
     "onCommand:cmstead.jsRefactor.shiftParamsRight",
@@ -111,6 +112,11 @@
         "description": "Extract value into a variable"
       },
       {
+        "command": "cmstead.jsRefactor.inlineVariable",
+        "title": "JS Refactorings: Inline Variable",
+        "description": "Inline variable"
+      },
+      {
         "command": "cmstead.jsRefactor.selectRefactoring",
         "title": "JS Refactorings: Select Refactoring",
         "description": "Select refactoring to apply"
@@ -174,6 +180,11 @@
       {
         "command": "cmstead.jsRefactor.extractVariable",
         "key": "ctrl+shift+j e",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "cmstead.jsRefactor.inlineVariable",
+        "key": "ctrl+shift+j i",
         "when": "editorHasSelection"
       },
       {

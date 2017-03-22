@@ -4,12 +4,12 @@ var fs = require('fs');
 function activate(context) {
 	var vscode = container.build('vsCodeFactory').get();
 
-	var formatSelection = vscode.commands.executeCommand.bind(vscode.commands, "editor.action.formatSelection");
+	var formatDocument = vscode.commands.executeCommand.bind(vscode.commands, "editor.action.formatDocument");
 
 	container.build('commandDefFactory').forEach(function (command) {
 		context.subscriptions.push(vscode.commands.registerCommand(
 			command.name,
-			command.behavior(vscode.window.activeTextEditor, formatSelection)
+			command.behavior(vscode.window.activeTextEditor, formatDocument)
 		));
 	});
 

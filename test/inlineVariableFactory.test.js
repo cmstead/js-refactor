@@ -16,7 +16,6 @@ describe('Inline Variable', function () {
     var subcontainer;
     var inlineVariableFactory;
     var applySetEditSpy;
-    var applySetEditsSpy;
 
     beforeEach(function () {
         subcontainer = container.new();
@@ -28,9 +27,8 @@ describe('Inline Variable', function () {
         subcontainer.register(mocker.getMock('editActionsFactory').mock);
 
         applySetEditSpy = sinon.spy();
-        applySetEditsSpy = sinon.spy();
 
-        mocker.getMock('editActionsFactory').api.applySetEdit = function (text, coords) {
+        mocker.getMock('editActionsFactory').api.applyDeleteEdit = function (coords) {
             applySetEditSpy(text, coords);
 
             return {
@@ -40,11 +38,18 @@ describe('Inline Variable', function () {
             };
         };
 
+        mocker.getMock('editActionsFactory').api.applySetEdit = function (text, coords) {
+            applySetEditSpy(text, coords);
+
+            return {
+                then: function (callback) {
+                    
+                }
+            };
+        };
+
         mocker.getMock('logger').api.log = sinon.spy();
         mocker.getMock('logger').api.info = sinon.spy();
-        mocker.getMock('logger').api.input = function (astr, callback) {
-            callback('foo');
-        }
     });
 
     it('should log an error if selection is empty', function () {
@@ -102,7 +107,7 @@ describe('Inline Variable', function () {
         vsCodeFake.window.activeTextEditor._selections = [{
             _start: {
                 _line: 2,
-                _character: 13
+                _character: 0
             },
             _end: {
                 _line: 2,
@@ -116,7 +121,7 @@ describe('Inline Variable', function () {
         this.verify(prettyJson(info.args));
     });
 
-    it.skip('should log an error if variable is not assigned', function () {
+    it('should log an error if variable is not assigned', function () {
         var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
         var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
@@ -139,7 +144,7 @@ describe('Inline Variable', function () {
         this.verify(prettyJson(info.args));
     });
 
-    it.skip('should inline variable when selection is okay', function () {
+    it('should inline variable when selection is okay', function () {
         var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
         var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;

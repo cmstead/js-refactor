@@ -15,49 +15,53 @@ function inlineVariableFactory(
 
         function applyRefactor(selectionData, scopeData, lines) {
             var scopeBounds = j.deref('scopeBounds')(scopeData);
-            var valueInScope = inlineVariableAction.isValueInScope(scopeBounds, selectionData.selectionCoords);
+            var selectedVar = j.eitherString('')(j.deref('selection.0')(selectionData));
+
+            var isAssignedVariable = inlineVariableAction.isAssigned(selectedVar);
+            var valueInFunctionScope = inlineVariableAction.isValueInScope(scopeBounds, selectionData.selectionCoords);
 
             if (selectionData.selection === null) {
                 logger.info('Cannot inline empty selection');
             } else if (selectionData.selection.length > 1) {
-                logger.info('Inline varialble does not currently support multiline values');
-            } else if (!valueInScope) {
+                logger.info('Inline variable does not currently support multiline values');
+            } else if(!isAssignedVariable) {
+                logger.info('Variable is either not local or unassigned, cannot inline');
+            } else if (!valueInFunctionScope) {
                 logger.info('Cannot inline variable if it is not inside a function');
             } else {
-                logger.input({ prompt: 'Name of your variable' }, function (name) {
-                    buildAndApply(selectionData, scopeData, name, lines);
-                });
+                buildAndApply(selectionData, scopeData, lines);
             }
         }
 
-        function buildAndApply(selectionData, scopeData, name, lines) {
-            var bounds = sourceUtils.getDocumentScopeBounds(scopeData.scopeBounds);
-            var selection = selectionData.selection[0];
-            var scopeSource = sourceUtils.getScopeLines(lines, bounds).join('\n');
-            var replacementSource = scopeSource.replace(selection, name);
-
+        function buildAndApply(selectionData, scopeData, lines) {
             var editActions = editActionsFactory(vsEditor);
 
-            var varCoords = inlineVariableAction.buildVarCoords(scopeData);
-            var variableString = inlineVariableAction.buildVariableString(name, selectionData);
+            var bounds = sourceUtils.getDocumentScopeBounds(scopeData.scopeBounds);
+            var selection = selectionData.selection[0];
 
-            editActions.applySetEdit(replacementSource, bounds).then(function () {
-                editActions.applyDeleteEdit(variableString, varCoords).then(callback);
-            });
+            var replacementSource = inlineVariableAction.getReplacementSource(selection, bounds, lines);
+
+
+            editActions.applySetEdit(replacementSource, bounds).then(callback);
         }
 
-
         function getSelectionData(vsEditor) {
+            var selection = selectionFactory(vsEditor).getSelection(0);
+            var selectionCoords = utilities.buildCoords(vsEditor, 0);
+
+            var lineOffset = inlineVariableAction.getWhitespaceOffset(j.eitherArray([''])(selection)[0]);
+
+            selectionCoords.start[1] = selectionCoords.start[1] + lineOffset;
+
             return {
-                selection: selectionFactory(vsEditor).getSelection(0),
-                selectionCoords: utilities.buildCoords(vsEditor, 0)
+                selection: selection,
+                selectionCoords: selectionCoords
             };
         }
 
-        return function extractAction() {
+        return function inlineAction() {
             var getScopeBounds = extensionHelper.returnOrDefault(null, sourceUtils.scopeDataFactory);
             var selectionData = getSelectionData(vsEditor);
-
 
             var lines = utilities.getEditorDocument(vsEditor)._lines;
             var scopeData = getScopeBounds(lines, selectionData);

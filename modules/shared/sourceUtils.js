@@ -13,7 +13,6 @@ function sourceUtils(
 
     function scopeDataFactory(lines, selectionData) {
         var tokens = getSourceTokens(lines);
-
         var scopeIndices = functionScopeUtils.findScopeIndices(tokens, selectionData.selectionCoords);
         var scopeBounds = functionScopeUtils.buildBoundsObject(tokens, scopeIndices.top, scopeIndices.bottom);
 

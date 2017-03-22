@@ -32,8 +32,25 @@ function functionScopeUtils() {
         }
     }
 
-    var seekUp = j.partial(seek, -1);
-    var seekDown = j.partial(seek, 1);
+    function isStopState(index, tokens, value) {
+        var isStopIndex = index <= -1 || index >= tokens.length;
+        return isStopIndex || isValueMatch(tokens[index], value);
+    }
+
+    function directionalSeek(increment) {
+        return function (tokens, value, index) {
+            var resultIndex = index;
+
+            while (!isStopState(resultIndex, tokens, value)) {
+                resultIndex += increment;
+            }
+
+            return resultIndex;
+        }
+    }
+
+    var seekUp = directionalSeek(-1);
+    var seekDown = directionalSeek(1);
 
     function updateState(currentState, tokens, index) {
         var token = j.eitherObject({})(j.deref(index.toString())(tokens));
@@ -90,6 +107,7 @@ function functionScopeUtils() {
             j.partial(findScopeTop, tokens),
             j.partial(findStartToken, tokens)
         )(coords);
+
         var bottom = findScopeBottom(tokens, top);
 
         return { top: top, bottom: bottom };
