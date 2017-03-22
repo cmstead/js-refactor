@@ -152,15 +152,20 @@ the only work needed is to move the new function to an appropriate location in t
 JS Refactor supports several common code snippets:
 
 - Anonymous Function (anon)
+- Arrow Function (arrow)
+- Async Function (async)
 - Condition Block (cond)
+- Console Log (log)
 - Export statement -- single variable (export)
 - Export statement -- object literal (exportObj)
 - Function (fn)
+- Generator (generator)
 - Lambda function (lfn)
 - Immediately Invoked Function Expression (iife)
 - Member Function (mfn)
 - Prototypal Object Definition (proto)
 - Require statement (require)
+- Try/Catch Block (tryCatch)
 - Use Strict (strict)
 
 ### Usage
