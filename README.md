@@ -16,6 +16,10 @@ and side-loaded into your editor.
 
 ## Updates
 
+### v0.13.0
+
+- Added Wrap in Try/Catch Block
+
 ### v0.12.0
 
 - Added inline variable
@@ -92,10 +96,14 @@ JS Refactor supports the following refactorings (explanations below):
 - Inline Variable
 - Shift Parameters Left
 - Shift Parameters Right
-- Wrap in Function
-- Wrap in IIFE
+- Wrap in Arrow Function
+- Wrap in Async Function
 - Wrap In Condition
 - Wrap In Executed Function
+- Wrap in Function
+- Wrap in Generator
+- Wrap in IIFE
+- Wrap in Try/Catch
 
 ### Keybindings
 
