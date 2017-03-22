@@ -16,6 +16,10 @@ and side-loaded into your editor.
 
 ## Updates
 
+### v0.12.0
+
+- Added inline variable
+
 ### v0.10.0
 
 - Added hotkey menu of available refactorings
@@ -85,6 +89,7 @@ JS Refactor supports the following refactorings (explanations below):
 - Convert To Named Function
 - Export Function
 - Extract Variable
+- Inline Variable
 - Shift Parameters Left
 - Shift Parameters Right
 - Wrap in Function
@@ -96,6 +101,7 @@ JS Refactor supports the following refactorings (explanations below):
 
 - Menu of available refactorings - ctrl+shift+j r
 - Extract variable - ctrl+shift+j e
+- Inline variable - ctrl+shift+j i
 - Convert to member function - ctrl+shift+j m
 - Convert to named function - ctrl+shift+j n
 - Export function - ctrl+shift+j x
