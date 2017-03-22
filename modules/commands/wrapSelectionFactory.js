@@ -8,6 +8,7 @@ function wrapSelectionFactory(
     wrapInFunctionFactory,
     wrapInGeneratorFactory,
     wrapInIIFEFactory,
+    wrapInTryCatchFactory,
     logger) {
 
     return function (vsCode, callback) {
@@ -19,7 +20,8 @@ function wrapSelectionFactory(
             "Executed Function": wrapInExecutedFunctionFactory,
             "Function": wrapInFunctionFactory,
             "Generator": wrapInGeneratorFactory,
-            "IIFE": wrapInIIFEFactory
+            "IIFE": wrapInIIFEFactory,
+            "Try/Catch": wrapInTryCatchFactory
         };
 
         function selectActionAndRun() {

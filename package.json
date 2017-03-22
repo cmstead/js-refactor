@@ -35,6 +35,7 @@
     "onCommand:cmstead.jsRefactor.wrapInFunction",
     "onCommand:cmstead.jsRefactor.wrapInGenerator",
     "onCommand:cmstead.jsRefactor.wrapInIIFE",
+    "onCommand:cmstead.jsRefactor.wrapInTryCatch",
     "onCommand:cmstead.jsRefactor.wrapSelection"
   ],
   "main": "./extension",
@@ -165,6 +166,11 @@
         "command": "cmstead.jsRefactor.wrapInIIFE",
         "title": "JS Refactorings: Wrap In IIFE",
         "description": "Wrap code in an immediately invoked function expression"
+      },
+      {
+        "command": "cmstead.jsRefactor.wrapInTryCatch",
+        "title": "JS Refactorings: Wrap In Try/Catch Block",
+        "description": "Wrap code in a try/catch block"
       },
       {
         "command": "cmstead.jsRefactor.wrapSelection",

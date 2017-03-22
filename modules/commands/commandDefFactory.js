@@ -9,11 +9,12 @@ function commandDefFactory(
     selectRefactoringFactory,
     shiftParamsLeftFactory,
     shiftParamsRightFactory,
+    wrapInConditionFactory,
     wrapInExecutedFunctionFactory,
     wrapInFunctionFactory,
     wrapInIIFEFactory,
-    wrapInConditionFactory,
-    wrapSelectionFactory
+    wrapSelectionFactory,
+    wrapInTryCatchFactory
 ) {
 
     return [
@@ -50,6 +51,10 @@ function commandDefFactory(
             behavior: shiftParamsRightFactory
         },
         {
+            name: 'cmstead.jsRefactor.wrapInCondition',
+            behavior: wrapInConditionFactory
+        },
+        {
             name: 'cmstead.jsRefactor.wrapInExecutedFunction',
             behavior: wrapInExecutedFunctionFactory
         },
@@ -62,8 +67,8 @@ function commandDefFactory(
             behavior: wrapInIIFEFactory
         },
         {
-            name: 'cmstead.jsRefactor.wrapInCondition',
-            behavior: wrapInConditionFactory
+            name: 'cmstead.jsRefactor.wrapInTryCatch',
+            behavior: wrapInTryCatchFactory
         },
         {
             name: 'cmstead.jsRefactor.wrapSelection',

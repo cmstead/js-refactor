@@ -123,6 +123,17 @@
             "{body}",
             "}"
         ]
+    },
+
+    "Try/Catch": {
+        "prefix": "tryCatch",
+        "body": [
+            "try {",
+            "$1",
+            "} catch (e) {",
+            "$2",
+            "}"
+        ]
     }
 
 }
