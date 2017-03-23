@@ -10,17 +10,35 @@ function negateExpressionAction (){
         return expression.match(/\s/g) !== null;
     }
 
+    function isGroupedExpression (expression) {
+        // Yes, that's a lot of parentheses
+        var groupedPattern = 
+        '^\\!?\\(' + 
+        '(' +
+        '(\\(.+\\))+' +
+        '|' +
+        '([^\(\)])+' +
+        ')+' +
+        '\\)$';
+        return expression.match(new RegExp(groupedPattern)) !== null;
+    }
+
     function groupExpression(expression) {
         return '(' + expression + ')';
     }
 
-    function negateExpression (expression){
+    function negate (expression){
         var negated = isNegated(expression);
+        return negated ? expression.substr(1) : '!' + expression;
+    }
+
+    function negateExpression (expression){
         var multivalue = isMultiValue(expression);
+        var grouped = isGroupedExpression(expression);
 
-        var result = !negated && multivalue ? groupExpression(expression) : expression;
+        var result = multivalue && !grouped ? groupExpression(expression) : expression;
 
-        return negated ? result.substr(1) : '!' + result;
+        return negate(result);
     }
 
     return {

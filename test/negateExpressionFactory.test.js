@@ -142,19 +142,19 @@ describe('Negate Condition', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    it.skip('should negate multiple values in parentheses', function () {
+    it('should negate multiple values in parentheses', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
         var vsCodeFake = vsCodeFakeFactory();
 
         vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
         vsCodeFake.window.activeTextEditor._selections = [{
             _start: {
-                _line: 2,
-                _character: 0
+                _line: 6,
+                _character: 7
             },
             _end: {
-                _line: 5,
-                _character: 1
+                _line: 6,
+                _character: 19
             }
         }];
 
@@ -163,19 +163,19 @@ describe('Negate Condition', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    it.skip('should negate negated values in parentheses', function () {
+    it('should negate negated values in parentheses', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
         var vsCodeFake = vsCodeFakeFactory();
 
         vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
         vsCodeFake.window.activeTextEditor._selections = [{
             _start: {
-                _line: 2,
-                _character: 0
+                _line: 7,
+                _character: 7
             },
             _end: {
-                _line: 5,
-                _character: 1
+                _line: 7,
+                _character: 28
             }
         }];
 
@@ -184,19 +184,40 @@ describe('Negate Condition', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    it.skip('should negate un-grouped values with first value negated', function () {
+    it('should negate un-grouped values with first value negated', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
         var vsCodeFake = vsCodeFakeFactory();
 
         vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
         vsCodeFake.window.activeTextEditor._selections = [{
             _start: {
-                _line: 2,
-                _character: 0
+                _line: 8,
+                _character: 7
             },
             _end: {
-                _line: 5,
-                _character: 1
+                _line: 8,
+                _character: 18
+            }
+        }];
+
+        subcontainer.build('negateExpressionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
+    it('should negate un-grouped, individually grouped values with first value negated', function () {
+        var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
+        var vsCodeFake = vsCodeFakeFactory();
+
+        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
+        vsCodeFake.window.activeTextEditor._selections = [{
+            _start: {
+                _line: 9,
+                _character: 7
+            },
+            _end: {
+                _line: 9,
+                _character: 22
             }
         }];
 
