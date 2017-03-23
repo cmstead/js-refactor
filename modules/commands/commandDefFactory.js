@@ -6,6 +6,7 @@ function commandDefFactory(
     convertToNamedFunctionFactory,
     extractVariableFactory,
     inlineVariableFactory,
+    negateExpressionFactory,
     selectRefactoringFactory,
     shiftParamsLeftFactory,
     shiftParamsRightFactory,
@@ -37,6 +38,10 @@ function commandDefFactory(
         {
             name: 'cmstead.jsRefactor.inlineVariable',
             behavior: inlineVariableFactory
+        },
+        {
+            name: 'cmstead.jsRefactor.negateExpression',
+            behavior: negateExpressionFactory
         },
         {
             name: 'cmstead.jsRefactor.selectRefactoring',

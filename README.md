@@ -16,6 +16,10 @@ and side-loaded into your editor.
 
 ## Updates
 
+### v0.14.0
+
+- Added Negate Expression
+
 ### v0.13.0
 
 - Added Wrap in Try/Catch Block
@@ -94,6 +98,7 @@ JS Refactor supports the following refactorings (explanations below):
 - Export Function
 - Extract Variable
 - Inline Variable
+- Negate Expression
 - Shift Parameters Left
 - Shift Parameters Right
 - Wrap in Arrow Function
