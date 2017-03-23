@@ -1,0 +1,5 @@
+[
+    [
+        "Cannot negate empty selection, be sure to select expression to negate"
+    ]
+]
