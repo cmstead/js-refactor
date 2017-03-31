@@ -32,7 +32,7 @@
     ],
 
     "generator": [
-        "function {name} *() {",
+        "function* {name} () {",
         "{body}",
         "}"
     ],
