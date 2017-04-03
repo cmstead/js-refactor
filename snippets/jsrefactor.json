@@ -110,8 +110,8 @@
     "Generator": {
         "prefix": "generator",
         "body": [
-            "function *($1) {",
-            "$2",
+            "function* $1 ($2) {",
+            "$3",
             "}"
         ]
     },
@@ -119,8 +119,8 @@
     "Async Function": {
         "prefix": "async",
         "body": [
-            "async function ($1) {",
-            "$2",
+            "async function $1 ($2) {",
+            "$3",
             "}"
         ]
     },
