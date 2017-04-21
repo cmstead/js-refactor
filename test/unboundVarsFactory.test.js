@@ -3,7 +3,7 @@
 var container = require('../container');
 var readSource = require('./test-utils/read-source');
 
-describe.only('Capture unbound variable names', function () {
+describe.skip('Capture unbound variable names', function () {
     var subcontainer;
     var unboundVarsFactory;
 
