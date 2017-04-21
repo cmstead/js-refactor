@@ -13,6 +13,13 @@ function activate(context) {
 		));
 	});
 
+	context.subscriptions.push(vscode.commands.registerCommand(
+		'cmstead.jsRefactor.rename',
+		function () {
+			vscode.commands.executeCommand("editor.action.rename");
+		}
+	));
+
 }
 
 
