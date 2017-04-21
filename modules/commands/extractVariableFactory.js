@@ -20,7 +20,7 @@ function extractVariableFactory(
             if (selectionData.selection === null) {
                 logger.info('Cannot extract empty selection as a variable');
             } else if (selectionData.selection.length > 1) {
-                logger.info('Extract varialble does not currently support multiline values');
+                logger.info('Extract variable does not currently support multiline values');
             } else if (!valueInScope) {
                 logger.info('Cannot extract variable if it is not inside a function');
             } else {
