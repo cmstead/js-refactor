@@ -31,7 +31,9 @@ function extractVariableFactory(
         }
 
         function buildAndApply(selectionData, scopeData, name, lines) {
-            var bounds = sourceUtils.getDocumentScopeBounds(scopeData.scopeBounds);
+            var bounds = scopeData.scopeBounds;
+
+
             var selection = selectionData.selection[0];
             var scopeSource = sourceUtils.getScopeLines(lines, bounds).join('\n');
             var replacementSource = scopeSource.replace(selection, name);
@@ -57,6 +59,7 @@ function extractVariableFactory(
         return function extractAction() {
             var getScopeBounds = extensionHelper.returnOrDefault(null, sourceUtils.scopeDataFactory);
             var selectionData = getSelectionData(vsEditor);
+
 
 
             var lines = utilities.getEditorDocument(vsEditor)._lines;

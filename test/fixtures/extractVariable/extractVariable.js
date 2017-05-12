@@ -11,3 +11,7 @@ function foo() {
 function someFn (){
     console.log(baz, 7 + 8);
 }
+
+const myFn = () => {
+    console.log(baz, 7 + 8);
+};

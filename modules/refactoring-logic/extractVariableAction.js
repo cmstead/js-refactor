@@ -16,11 +16,13 @@ function extractVariableAction(
 
     function buildVarCoords(scopeData) {
         var varCoords = {
-            start: scopeData.scopeBounds.start,
-            end: scopeData.scopeBounds.start
+            start: scopeData.scopeBounds.start.slice(0),
+            end: scopeData.scopeBounds.start.slice(0)
         };
 
+        varCoords.start[0] += 1;
         varCoords.start[1] = 0;
+        varCoords.end[0] += 1;
         varCoords.end[1] = 0;
 
         return varCoords;

@@ -36,7 +36,7 @@ function inlineVariableFactory(
         function buildAndApply(selectionData, scopeData, lines) {
             var editActions = editActionsFactory(vsEditor);
 
-            var bounds = sourceUtils.getDocumentScopeBounds(scopeData.scopeBounds);
+            var bounds = scopeData.scopeBounds;
             var selection = selectionData.selection[0];
 
             var replacementSource = inlineVariableAction.getReplacementSource(selection, bounds, lines);
