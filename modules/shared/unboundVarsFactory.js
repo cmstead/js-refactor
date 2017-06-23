@@ -1,6 +1,5 @@
 'use strict';
 
-var esprima = require('esprima');
 var typescript = require('typescript');
 
 function unboundVarsFactory (){

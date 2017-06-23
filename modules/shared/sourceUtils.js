@@ -1,7 +1,5 @@
 'use strict';
 
-var esprima = require('esprima');
-
 function sourceUtils(
     scopeFinder,
     utilities) {

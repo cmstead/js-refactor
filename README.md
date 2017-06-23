@@ -16,6 +16,10 @@ and side-loaded into your editor.
 
 ## Updates
 
+### v0.15.0 ###
+
+- Replaced Esprima with Babylon to support ES Next and JSX features
+
 ### v0.14.0
 
 - Added Negate Expression

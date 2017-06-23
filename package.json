@@ -282,10 +282,9 @@
     }
   },
   "dependencies": {
+    "babel-core": "^6.25.0",
+    "babylon": "^6.17.4",
     "dject": "^1.4.0",
-    "escope": "^3.6.0",
-    "esprima": "^2.7.1",
-    "estraverse": "^4.2.0",
     "jfp": "^4.0.0",
     "typescript": "^2.2.2"
   },
