@@ -17,9 +17,17 @@ describe('Convert To Member Function', function () {
     var subcontainer;
     var convertToMemberFunctionFactory;
     var applySetEditSpy;
+    var vsCodeProperties;
 
     beforeEach(function () {
         subcontainer = container.new();
+
+        vsCodeProperties = {};
+        mocker.registerMock('vsCodeFactory');
+
+        var vsCodeFactoryFake = mocker.getMock('vsCodeFactory').mock(vsCodeProperties);
+
+        subcontainer.register(vsCodeFactoryFake);
 
         mocker.registerMock('logger');
         mocker.registerMock('editActionsFactory');
@@ -41,13 +49,16 @@ describe('Convert To Member Function', function () {
 
     it('should log an error if selection is empty', function () {
         var sourceTokens = readSource('./test/fixtures/convertToMemberFunction/convertToMemberFunction.js');
-        var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            }
+        };
 
         var log = mocker.getMock('logger').api.log;
-        subcontainer.build('convertToMemberFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('convertToMemberFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(log.args));
     });
@@ -55,22 +66,25 @@ describe('Convert To Member Function', function () {
 
     it('should log an error if selection does not contain a function', function () {
         var sourceTokens = readSource('./test/fixtures/convertToMemberFunction/convertToMemberFunction.js');
-        var vsCodeFake = vsCodeFakeFactory();
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 4,
-                _character: 0
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 5,
-                _character: 1
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 4,
+                    _character: 0
+                },
+                _end: {
+                    _line: 5,
+                    _character: 1
+                }
+            }]
+        };
 
         var log = mocker.getMock('logger').api.log;
-        subcontainer.build('convertToMemberFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('convertToMemberFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(log.args));
     });
@@ -79,19 +93,23 @@ describe('Convert To Member Function', function () {
         var sourceTokens = readSource('./test/fixtures/convertToMemberFunction/convertToMemberFunction.js');
         var vsCodeFake = vsCodeFakeFactory();
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 2,
-                _character: 0
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 5,
-                _character: 1
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 2,
+                    _character: 0
+                },
+                _end: {
+                    _line: 5,
+                    _character: 1
+                }
+            }]
+        };
 
-        subcontainer.build('convertToMemberFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('convertToMemberFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

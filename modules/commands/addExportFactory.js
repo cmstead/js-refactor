@@ -7,11 +7,12 @@ function addExportFactory(
     selectionFactory,
     editActionsFactory,
     utilities,
-    addExportAction) {
+    addExportAction,
+    vsCodeFactory) {
 
-    return function (vsEditor, callback) {
+    return function (_, callback) {
 
-        function applyRefactoring (selection, lines, refactorData){
+        function applyRefactoring(vsEditor, selection, lines, refactorData) {
             if (refactorData.functionName === '') {
                 logger.log('No appropriate named function to export did you select a line containing a function?');
             } else {
@@ -22,11 +23,13 @@ function addExportFactory(
         }
 
         return function applyExport() {
+            var vsEditor = vsCodeFactory.get().window.activeTextEditor;
+
             var selection = selectionFactory(vsEditor).getSelection(0);
             var lines = utilities.getDocumentLines(vsEditor);
             var refactorData = addExportAction.getRefactorData(selection, lines);
 
-            applyRefactoring(selection, lines, refactorData);
+            applyRefactoring(vsEditor, selection, lines, refactorData);
         }
 
     };

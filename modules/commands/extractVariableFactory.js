@@ -9,11 +9,12 @@ function extractVariableFactory(
     sourceUtils,
     selectionFactory,
     utilities,
-    extractVariableAction) {
+    extractVariableAction,
+    vsCodeFactory) {
 
-    return function (vsEditor, callback) {
+    return function (_, callback) {
 
-        function applyRefactor(selectionData, scopeData, lines) {
+        function applyRefactor(vsEditor, selectionData, scopeData, lines) {
             var scopeBounds = j.deref('scopeBounds')(scopeData);
             var valueInScope = extractVariableAction.isValueInScope(scopeBounds, selectionData.selectionCoords);
 
@@ -25,12 +26,12 @@ function extractVariableFactory(
                 logger.info('Cannot extract variable if it is not inside a function');
             } else {
                 logger.input({ prompt: 'Name of your variable' }, function (name) {
-                    buildAndApply(selectionData, scopeData, name, lines);
+                    buildAndApply(vsEditor, selectionData, scopeData, name, lines);
                 });
             }
         }
 
-        function buildAndApply(selectionData, scopeData, name, lines) {
+        function buildAndApply(vsEditor, selectionData, scopeData, name, lines) {
             var bounds = scopeData.scopeBounds;
 
 
@@ -57,6 +58,8 @@ function extractVariableFactory(
         }
 
         return function extractAction() {
+            var vsEditor = vsCodeFactory.get().window.activeTextEditor;
+            
             var getScopeBounds = extensionHelper.returnOrDefault(null, sourceUtils.scopeDataFactory);
             var selectionData = getSelectionData(vsEditor);
 
@@ -65,7 +68,7 @@ function extractVariableFactory(
             var lines = utilities.getEditorDocument(vsEditor)._lines;
             var scopeData = getScopeBounds(lines, selectionData);
 
-            applyRefactor(selectionData, scopeData, lines);
+            applyRefactor(vsEditor, selectionData, scopeData, lines);
         }
     }
 }

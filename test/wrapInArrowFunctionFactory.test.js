@@ -15,9 +15,17 @@ var approvals = require('approvals').configure(approvalsConfig).mocha('./test/ap
 describe('Wrap In Arrow', function () {
     var subcontainer;
     var applySetEditSpy;
+    var vsCodeProperties = {}
 
     beforeEach(function () {
         subcontainer = container.new();
+
+        vsCodeProperties = {};
+        mocker.registerMock('vsCodeFactory');
+
+        var vsCodeFactoryFake = mocker.getMock('vsCodeFactory').mock(vsCodeProperties);
+
+        subcontainer.register(vsCodeFactoryFake);
 
         mocker.registerMock('logger');
         mocker.registerMock('editActionsFactory');
@@ -41,35 +49,41 @@ describe('Wrap In Arrow', function () {
 
     it('should log an error if selection is empty', function () {
         var sourceTokens = readSource('./test/fixtures/wrapInWrapper/wrapInWrapper.js');
-        var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            }
+        };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('wrapInArrowFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('wrapInArrowFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(info.args));
     });
 
     it('should wrap selection in an arrow function', function () {
         var sourceTokens = readSource('./test/fixtures/wrapInWrapper/wrapInWrapper.js');
-        var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 3,
-                _character: 4
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 5,
-                _character: 5
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 3,
+                    _character: 4
+                },
+                _end: {
+                    _line: 5,
+                    _character: 5
+                }
+            }]
+        };
 
-        subcontainer.build('wrapInArrowFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('wrapInArrowFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

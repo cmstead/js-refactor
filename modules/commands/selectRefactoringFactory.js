@@ -11,7 +11,7 @@ function selectRefactoringFactory(
     wrapSelectionFactory,
     logger) {
 
-    return function (vsCode, callback) {
+    return function (_, callback) {
 
         var refactoringBehaviors = {
             "Add Export": addExportFactory,
@@ -30,7 +30,7 @@ function selectRefactoringFactory(
             };
 
             logger.quickPick(items, options, function (value) {
-                refactoringBehaviors[value](vsCode, callback)();
+                refactoringBehaviors[value](null, callback)();
             });
         }
 

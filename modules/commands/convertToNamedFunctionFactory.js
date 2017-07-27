@@ -5,9 +5,10 @@ function convertToNamedFunctionFactory(
     selectionFactory,
     editActionsFactory,
     utilities,
-    convertToNamedFunctionAction) {
+    convertToNamedFunctionAction,
+    vsCodeFactory) {
 
-    return function (vsEditor, callback) {
+    return function (_, callback) {
 
         var canRefactorToNamed = convertToNamedFunctionAction.canRefactorToNamed;
         var buildRefactorString = convertToNamedFunctionAction.buildRefactorString;
@@ -27,6 +28,8 @@ function convertToNamedFunctionFactory(
         }
 
         return function convertToNamedFunction() {
+            var vsEditor = vsCodeFactory.get().window.activeTextEditor;
+
             var editActions = editActionsFactory(vsEditor);
             var selection = selectionFactory(vsEditor).getSelection(0);
             var coords = utilities.buildCoords(vsEditor, 0);

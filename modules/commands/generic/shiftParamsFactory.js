@@ -5,11 +5,12 @@ function shiftParamsFactory(
     selectionFactory,
     editActionsFactory,
     utilities,
-    variableOrderAction) {
+    variableOrderAction,
+    vsCodeFactory) {
 
-    return function (direction, vsEditor, callback) {
+    return function (direction, _, callback) {
 
-        function applyRefactor(editActions, selection) {
+        function applyRefactor(vsEditor, editActions, selection) {
             var coords = utilities.buildCoords(vsEditor, 0);
 
             if (selection === null) {
@@ -26,10 +27,11 @@ function shiftParamsFactory(
         }
 
         return function () {
+            var vsEditor = vsCodeFactory.get().window.activeTextEditor;
             var editActions = editActionsFactory(vsEditor);
             var selection = selectionFactory(vsEditor).getSelection(0);
 
-            applyRefactor(editActions, selection);
+            applyRefactor(vsEditor, editActions, selection);
         }
 
     };

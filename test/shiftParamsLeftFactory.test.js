@@ -5,7 +5,6 @@ var mocker = require('./mocker');
 var sinon = require('sinon');
 var assert = require('chai').assert;
 var readSource = require('./test-utils/read-source');
-var vsCodeFakeFactory = require('./test-utils/vscode-fake-factory');
 var testUtils = require('./test-utils/test-utils');
 var prettyJson = testUtils.prettyJson;
 
@@ -16,9 +15,17 @@ describe('Shift Params Left', function () {
     var subcontainer;
     var extractVariableFactory;
     var applySetEditSpy;
+    var vsCodeProperties;
 
     beforeEach(function () {
         subcontainer = container.new();
+
+        vsCodeProperties = {};
+        mocker.registerMock('vsCodeFactory');
+
+        var vsCodeFactoryFake = mocker.getMock('vsCodeFactory').mock(vsCodeProperties);
+
+        subcontainer.register(vsCodeFactoryFake);
 
         mocker.registerMock('logger');
         mocker.registerMock('editActionsFactory');
@@ -42,35 +49,41 @@ describe('Shift Params Left', function () {
 
     it('should log an error if selection is empty', function () {
         var sourceTokens = readSource('./test/fixtures/shiftParams/shiftParams.js');
-        var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            }
+        };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('shiftParamsLeftFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('shiftParamsLeftFactory')(null, function () { })();
 
         this.verify(prettyJson(info.args));
     });
 
     it('should rotate params one to the left', function () {
         var sourceTokens = readSource('./test/fixtures/shiftParams/shiftParams.js');
-        var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 2,
-                _character: 14
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 2,
-                _character: 21
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 2,
+                    _character: 14
+                },
+                _end: {
+                    _line: 2,
+                    _character: 21
+                }
+            }]
+        };
 
-        subcontainer.build('shiftParamsLeftFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('shiftParamsLeftFactory')(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

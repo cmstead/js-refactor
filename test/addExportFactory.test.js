@@ -17,22 +17,30 @@ describe('Add Export', function () {
     var subcontainer;
     var addExportFactory;
     var applySetEditSpy;
+    var vsCodeProperties;
 
     beforeEach(function () {
         subcontainer = container.new();
 
+        vsCodeProperties = {};
+        mocker.registerMock('vsCodeFactory');
+
+        var vsCodeFactoryFake = mocker.getMock('vsCodeFactory').mock(vsCodeProperties);
+
+        subcontainer.register(vsCodeFactoryFake);
+
         mocker.registerMock('logger');
         mocker.registerMock('editActionsFactory');
-
         subcontainer.register(mocker.getMock('logger').mock);
-        subcontainer.register(mocker.registerMock('editActionsFactory').mock);
+        subcontainer.register(mocker.getMock('editActionsFactory').mock);
+
 
         applySetEditSpy = sinon.spy();
         mocker.getMock('editActionsFactory').api.applySetEdit = function (text, coords) {
             applySetEditSpy(text, coords);
 
             return {
-                then: function(){}
+                then: function () { }
             };
         };
 
@@ -43,13 +51,16 @@ describe('Add Export', function () {
 
     it('should log an error if function name comes back blank', function () {
         var sourceTokens = readSource('./test/fixtures/addExport/addExport-no-exports.js');
-        var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            }
+        };
 
         var log = mocker.getMock('logger').api.log;
-        subcontainer.build('addExportFactory')(vsCodeFake.window.activeTextEditor, function(){})();
+        subcontainer.build('addExportFactory')(null, function () { })();
 
         this.verify(prettyJson(log.args));
     });
@@ -58,19 +69,23 @@ describe('Add Export', function () {
         var sourceTokens = readSource('./test/fixtures/addExport/addExport-no-exports.js');
         var vsCodeFake = vsCodeFakeFactory();
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 2,
-                _character: 0
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 5,
-                _character: 1
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 2,
+                    _character: 0
+                },
+                _end: {
+                    _line: 5,
+                    _character: 1
+                }
+            }]
+        };
 
-        subcontainer.build('addExportFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('addExportFactory')(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -79,17 +94,21 @@ describe('Add Export', function () {
         var sourceTokens = readSource('./test/fixtures/addExport/addExport-line-exports.js');
         var vsCodeFake = vsCodeFakeFactory();
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 2,
-                _character: 0
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 5,
-                _character: 1
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 2,
+                    _character: 0
+                },
+                _end: {
+                    _line: 5,
+                    _character: 1
+                }
+            }]
+        };
 
         subcontainer.build('addExportFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 
@@ -100,17 +119,21 @@ describe('Add Export', function () {
         var sourceTokens = readSource('./test/fixtures/addExport/addExport-object-exports.js');
         var vsCodeFake = vsCodeFakeFactory();
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 2,
-                _character: 0
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 5,
-                _character: 1
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 2,
+                    _character: 0
+                },
+                _end: {
+                    _line: 5,
+                    _character: 1
+                }
+            }]
+        };
 
         subcontainer.build('addExportFactory')(vsCodeFake.window.activeTextEditor, function () { })();
 

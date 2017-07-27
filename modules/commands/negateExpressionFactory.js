@@ -5,11 +5,12 @@ function negateExpressionFactory(
     selectionFactory,
     editActionsFactory,
     utilities,
-    negateExpressionAction) {
+    negateExpressionAction,
+    vsCodeFactory) {
 
-    return function (vsEditor, callback) {
+    return function (_, callback) {
 
-        function applyRefactoring(selection, lines, coords) {
+        function applyRefactoring(vsEditor, selection, lines, coords) {
 
             if (selection === null) {
                 logger.log('Cannot negate empty selection, be sure to select expression to negate');
@@ -25,11 +26,12 @@ function negateExpressionFactory(
         }
 
         return function applyNegateExpression() {
+            var vsEditor = vsCodeFactory.get().window.activeTextEditor;
             var selection = selectionFactory(vsEditor).getSelection(0);
             var lines = utilities.getDocumentLines(vsEditor);
             var coords = utilities.buildCoords(vsEditor, 0);
 
-            applyRefactoring(selection, lines, coords);
+            applyRefactoring(vsEditor, selection, lines, coords);
         }
 
     };

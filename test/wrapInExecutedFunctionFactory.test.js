@@ -5,7 +5,6 @@ var mocker = require('./mocker');
 var sinon = require('sinon');
 var assert = require('chai').assert;
 var readSource = require('./test-utils/read-source');
-var vsCodeFakeFactory = require('./test-utils/vscode-fake-factory');
 var testUtils = require('./test-utils/test-utils');
 var prettyJson = testUtils.prettyJson;
 
@@ -15,9 +14,17 @@ var approvals = require('approvals').configure(approvalsConfig).mocha('./test/ap
 describe('Wrap In Executed Function', function () {
     var subcontainer;
     var applySetEditSpy;
+    var vsCodeProperties;
 
     beforeEach(function () {
         subcontainer = container.new();
+
+        vsCodeProperties = {};
+        mocker.registerMock('vsCodeFactory');
+
+        var vsCodeFactoryFake = mocker.getMock('vsCodeFactory').mock(vsCodeProperties);
+
+        subcontainer.register(vsCodeFactoryFake);
 
         mocker.registerMock('logger');
         mocker.registerMock('editActionsFactory');
@@ -45,57 +52,66 @@ describe('Wrap In Executed Function', function () {
 
     it('should log an error if selection is empty', function () {
         var sourceTokens = readSource('./test/fixtures/wrapInWrapper/wrapInWrapper.js');
-        var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            }
+        };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('wrapInExecutedFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('wrapInExecutedFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(info.args));
     });
 
     it('should wrap selection in an executed function', function () {
         var sourceTokens = readSource('./test/fixtures/wrapInWrapper/wrapInWrapper.js');
-        var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 3,
-                _character: 4
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 5,
-                _character: 5
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 3,
+                    _character: 4
+                },
+                _end: {
+                    _line: 5,
+                    _character: 5
+                }
+            }]
+        };
 
-        subcontainer.build('wrapInExecutedFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('wrapInExecutedFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
     it('should wrap selection within a line in an executed function', function () {
         var sourceTokens = readSource('./test/fixtures/wrapInWrapper/wrapInWrapper.js');
-        var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 4,
-                _character: 22
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 4,
-                _character: 27
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 4,
+                    _character: 22
+                },
+                _end: {
+                    _line: 4,
+                    _character: 27
+                }
+            }]
+        };
 
-        subcontainer.build('wrapInExecutedFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('wrapInExecutedFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

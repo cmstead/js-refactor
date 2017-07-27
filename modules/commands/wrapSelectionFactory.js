@@ -11,7 +11,7 @@ function wrapSelectionFactory(
     wrapInTryCatchFactory,
     logger) {
 
-    return function (vsCode, callback) {
+    return function (_, callback) {
 
         var wrapBehaviors = {
             "Arrow Function": wrapInArrowFunctionFactory,
@@ -31,7 +31,7 @@ function wrapSelectionFactory(
             };
 
             logger.quickPick(items, options, function (value) {
-                wrapBehaviors[value](vsCode, callback)();
+                wrapBehaviors[value](null, callback)();
             });
         }
 

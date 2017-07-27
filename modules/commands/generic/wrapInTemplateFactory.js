@@ -4,9 +4,10 @@ function wrapInTemplateFactory(
     logger,
     selectionFactory,
     utilities,
-    editActionsFactory) {
+    editActionsFactory,
+    vsCodeFactory) {
 
-    return function (vsEditor, callback) {
+    return function (_, callback) {
 
         function promptAndCall(callback, prompt) {
             if (prompt) {
@@ -17,6 +18,8 @@ function wrapInTemplateFactory(
         }
 
         return function wrapInCondition(wrapSelection, errorMessage, prompt) {
+            var vsEditor = vsCodeFactory.get().window.activeTextEditor;
+
             var selection = selectionFactory(vsEditor).getSelection(0);
 
             function applyToDocument(value) {

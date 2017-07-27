@@ -9,11 +9,12 @@ function inlineVariableFactory(
     sourceUtils,
     selectionFactory,
     utilities,
-    inlineVariableAction) {
+    inlineVariableAction,
+    vsCodeFactory) {
 
     return function (vsEditor, callback) {
 
-        function applyRefactor(selectionData, scopeData, lines) {
+        function applyRefactor(vsEditor, selectionData, scopeData, lines) {
             var scopeBounds = j.deref('scopeBounds')(scopeData);
             var selectedVar = j.eitherString('')(j.deref('selection.0')(selectionData));
 
@@ -29,11 +30,11 @@ function inlineVariableFactory(
             } else if (!valueInFunctionScope) {
                 logger.info('Cannot inline variable if it is not inside a function');
             } else {
-                buildAndApply(selectionData, scopeData, lines);
+                buildAndApply(vsEditor, selectionData, scopeData, lines);
             }
         }
 
-        function buildAndApply(selectionData, scopeData, lines) {
+        function buildAndApply(vsEditor, selectionData, scopeData, lines) {
             var editActions = editActionsFactory(vsEditor);
 
             var bounds = scopeData.scopeBounds;
@@ -60,13 +61,14 @@ function inlineVariableFactory(
         }
 
         return function inlineAction() {
+            var vsEditor = vsCodeFactory.get().window.activeTextEditor;
             var getScopeBounds = extensionHelper.returnOrDefault(null, sourceUtils.scopeDataFactory);
             var selectionData = getSelectionData(vsEditor);
 
             var lines = utilities.getEditorDocument(vsEditor)._lines;
             var scopeData = getScopeBounds(lines, selectionData);
 
-            applyRefactor(selectionData, scopeData, lines);
+            applyRefactor(vsEditor, selectionData, scopeData, lines);
         }
     }
 }

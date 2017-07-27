@@ -16,9 +16,17 @@ describe('Convert to Named Function', function () {
     var subcontainer;
     var convertToMemberFunctionFactory;
     var applySetEditSpy;
+    var vsCodeProperties;
 
     beforeEach(function () {
         subcontainer = container.new();
+
+        vsCodeProperties = {};
+        mocker.registerMock('vsCodeFactory');
+
+        var vsCodeFactoryFake = mocker.getMock('vsCodeFactory').mock(vsCodeProperties);
+
+        subcontainer.register(vsCodeFactoryFake);
 
         mocker.registerMock('logger');
         mocker.registerMock('editActionsFactory');
@@ -40,13 +48,16 @@ describe('Convert to Named Function', function () {
 
     it('should log an error if selection is empty', function () {
         var sourceTokens = readSource('./test/fixtures/convertToNamedFunction/convertToNamedFunction.js');
-        var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            }
+        };
 
         var log = mocker.getMock('logger').api.log;
-        subcontainer.build('convertToNamedFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('convertToNamedFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(log.args));
 
@@ -54,24 +65,27 @@ describe('Convert to Named Function', function () {
 
     it('should log an error if selection is invalid', function () {
         var sourceTokens = readSource('./test/fixtures/convertToNamedFunction/convertToNamedFunction.js');
-        var vsCodeFake = vsCodeFakeFactory();
         var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 4,
-                _character: 0
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 5,
-                _character: 1
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 4,
+                    _character: 0
+                },
+                _end: {
+                    _line: 5,
+                    _character: 1
+                }
+            }]
+        };
 
 
         var log = mocker.getMock('logger').api.log;
-        subcontainer.build('convertToNamedFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('convertToNamedFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(log.args));
 
@@ -79,42 +93,48 @@ describe('Convert to Named Function', function () {
 
     it('should convert member function to named function', function () {
         var sourceTokens = readSource('./test/fixtures/convertToNamedFunction/convertToNamedFunction.js');
-        var vsCodeFake = vsCodeFakeFactory();
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 3,
-                _character: 0
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 5,
-                _character: 1
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 3,
+                    _character: 0
+                },
+                _end: {
+                    _line: 5,
+                    _character: 1
+                }
+            }]
+        };
 
-        subcontainer.build('convertToNamedFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('convertToNamedFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
     it('should convert variable assigned a function to named function', function () {
         var sourceTokens = readSource('./test/fixtures/convertToNamedFunction/convertToNamedFunction.js');
-        var vsCodeFake = vsCodeFakeFactory();
 
-        vsCodeFake.window.activeTextEditor._documentData._lines = sourceTokens;
-        vsCodeFake.window.activeTextEditor._selections = [{
-            _start: {
-                _line: 8,
-                _character: 0
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
             },
-            _end: {
-                _line: 8,
-                _character: 25
-            }
-        }];
+            _selections: [{
+                _start: {
+                    _line: 8,
+                    _character: 0
+                },
+                _end: {
+                    _line: 8,
+                    _character: 25
+                }
+            }]
+        };
 
-        subcontainer.build('convertToNamedFunctionFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('convertToNamedFunctionFactory')(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
