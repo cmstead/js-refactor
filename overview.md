@@ -49,12 +49,6 @@ and side-loaded into your editor.
 - [Visit me on Twitter](https://twitter.com/cm_stead)
 - [Fork and Contribute on Github](https://github.com/cmstead/js-refactor)
 
-## What It's Like
-
-![Convert Function Syntax](http://chrisstead.com/wp-content/uploads/images/extension-gifs/convert-function.gif)
-
-![Extract Variable](http://chrisstead.com/wp-content/uploads/images/extension-gifs/extract-var.gif)
-
 ## Automated Refactorings
 
 **Basic usage:** Press F1 and type `JS Refactorings` to select from a list of all refactorings
