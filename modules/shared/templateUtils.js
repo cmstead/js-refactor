@@ -3,9 +3,7 @@
 var j = require('jfp');
 var templates = require('../json/templates.json');
 
-function templateUtils(
-    selectionFactory,
-    utilities) {
+function templateUtils() {
 
     function getNewVariableContext(name, selectionData) {
         return {
@@ -15,7 +13,7 @@ function templateUtils(
     }
 
     function replaceKey(context, result, key) {
-        var pattern = new RegExp('\{' + key + '\}', 'g');
+        var pattern = new RegExp(`{${key}}`, 'g');
         return result.replace(pattern, context[key]);
     }
 

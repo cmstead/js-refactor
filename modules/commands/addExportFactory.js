@@ -1,7 +1,5 @@
 'use strict';
 
-var j = require('jfp');
-
 function addExportFactory(
     logger,
     selectionFactory,

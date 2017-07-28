@@ -1,8 +1,5 @@
 'use strict';
 
-var j = require('jfp');
-var container = require('../../container');
-
 function selectionFactory(
     utilities,
     textSelectorFactory) {

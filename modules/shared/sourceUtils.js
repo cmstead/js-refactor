@@ -1,8 +1,6 @@
 'use strict';
 
-function sourceUtils(
-    scopeFinder,
-    utilities) {
+function sourceUtils(scopeFinder) {
 
     function scopeDataFactory(lines, selectionData) {
         var scopeBounds = scopeFinder.findScopeCoords(lines.join('\n'), selectionData.selectionCoords);

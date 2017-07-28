@@ -62,10 +62,6 @@ function scopeFinder() {
         return (afterStartLine || afterStartCharacter) && (beforeEndLine || beforeEndCharacter);
     }
 
-    function isRootScope(node) {
-        return node.type === 'Program';
-    }
-
     function getAst(source) {
         try {
             return babylon.parse(source, { sourceType: 'script', plugins: babylonPlugins });

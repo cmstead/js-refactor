@@ -1,6 +1,5 @@
 'use strict';
 
-
 function convertToNamedFunctionAction(
     templateUtils) {
 
