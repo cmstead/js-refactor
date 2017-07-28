@@ -2,40 +2,38 @@
 
 var container = require('../container');
 var mocker = require('./mocker');
-var sinon = require('sinon');
-var assert = require('chai').assert;
+
+var testHelperFactory = require('./test-utils/testHelperFactory');
+
 var readSource = require('./test-utils/read-source');
-var testUtils = require('./test-utils/test-utils');
-var prettyJson = testUtils.prettyJson;
+var prettyJson = require('./test-utils/test-utils').prettyJson;
 
 var approvalsConfig = require('./test-utils/approvalsConfig');
 var approvals = require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
+var sinon = require('sinon');
+
 describe('Inline Variable', function () {
     var subcontainer;
-    var inlineVariableFactory;
     var applySetEditSpy;
     var vsCodeProperties;
 
     beforeEach(function () {
-        subcontainer = container.new();
+        var testHelper = testHelperFactory();
 
-        vsCodeProperties = {};
-        mocker.registerMock('vsCodeFactory');
+        subcontainer = testHelper.subcontainer;
+        applySetEditSpy = testHelper.applySetEditSpy;
+        vsCodeProperties = testHelper.vsCodeProperties;
 
-        var vsCodeFactoryFake = mocker.getMock('vsCodeFactory').mock(vsCodeProperties);
+        applySetEditSpy = sinon.spy(function (text, coords) {
+            return {
+                then: function (callback) {
 
-        subcontainer.register(vsCodeFactoryFake);
+                }
+            };
+        });
 
-        mocker.registerMock('logger');
-        mocker.registerMock('editActionsFactory');
-
-        subcontainer.register(mocker.getMock('logger').mock);
-        subcontainer.register(mocker.getMock('editActionsFactory').mock);
-
-        applySetEditSpy = sinon.spy();
-
-        mocker.getMock('editActionsFactory').api.applyDeleteEdit = function (coords) {
+        function applyDeleteEdit(coords) {
             applySetEditSpy(text, coords);
 
             return {
@@ -43,20 +41,10 @@ describe('Inline Variable', function () {
                     callback()
                 }
             };
-        };
+        }
 
-        mocker.getMock('editActionsFactory').api.applySetEdit = function (text, coords) {
-            applySetEditSpy(text, coords);
-
-            return {
-                then: function (callback) {
-
-                }
-            };
-        };
-
-        mocker.getMock('logger').api.log = sinon.spy();
-        mocker.getMock('logger').api.info = sinon.spy();
+        mocker.getMock('editActionsFactory').api.applySetEdit = applySetEditSpy;
+        mocker.getMock('editActionsFactory').api.applyDeleteEdit = applyDeleteEdit;
     });
 
     it('should log an error if selection is empty', function () {

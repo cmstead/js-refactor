@@ -2,12 +2,11 @@
 
 var container = require('../container');
 var mocker = require('./mocker');
-var sinon = require('sinon');
-var assert = require('chai').assert;
+
+var testHelperFactory = require('./test-utils/testHelperFactory');
+
 var readSource = require('./test-utils/read-source');
-var vsCodeFakeFactory = require('./test-utils/vscode-fake-factory');
-var testUtils = require('./test-utils/test-utils');
-var prettyJson = testUtils.prettyJson;
+var prettyJson = require('./test-utils/test-utils').prettyJson;
 
 var approvalsConfig = require('./test-utils/approvalsConfig');
 var approvals = require('approvals').configure(approvalsConfig).mocha('./test/approvals');
@@ -15,36 +14,15 @@ var approvals = require('approvals').configure(approvalsConfig).mocha('./test/ap
 describe('Convert To Member Function', function () {
 
     var subcontainer;
-    var convertToMemberFunctionFactory;
     var applySetEditSpy;
     var vsCodeProperties;
 
     beforeEach(function () {
-        subcontainer = container.new();
-
-        vsCodeProperties = {};
-        mocker.registerMock('vsCodeFactory');
-
-        var vsCodeFactoryFake = mocker.getMock('vsCodeFactory').mock(vsCodeProperties);
-
-        subcontainer.register(vsCodeFactoryFake);
-
-        mocker.registerMock('logger');
-        mocker.registerMock('editActionsFactory');
-
-        subcontainer.register(mocker.getMock('logger').mock);
-        subcontainer.register(mocker.registerMock('editActionsFactory').mock);
-
-        applySetEditSpy = sinon.spy();
-        mocker.getMock('editActionsFactory').api.applySetEdit = function (text, coords) {
-            applySetEditSpy(text, coords);
-
-            return {
-                then: function () { }
-            };
-        };
-
-        mocker.getMock('logger').api.log = sinon.spy();
+        var testHelper = testHelperFactory();
+        
+        subcontainer = testHelper.subcontainer;
+        applySetEditSpy = testHelper.applySetEditSpy;
+        vsCodeProperties = testHelper.vsCodeProperties;
     });
 
     it('should log an error if selection is empty', function () {
@@ -91,7 +69,6 @@ describe('Convert To Member Function', function () {
 
     it('should convert function to member function', function () {
         var sourceTokens = readSource('./test/fixtures/convertToMemberFunction/convertToMemberFunction.js');
-        var vsCodeFake = vsCodeFakeFactory();
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {

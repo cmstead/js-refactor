@@ -2,7 +2,7 @@
 var BeyondCompare4 = require('./BeyondCompare4Reporter');
 
 module.exports = {
-    reporters: [new BeyondCompare4()],
+    reporters: ['kdiff3'],
 
     normalizeLineEndingsTo: '\n',
 

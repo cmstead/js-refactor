@@ -2,12 +2,11 @@
 
 var container = require('../container');
 var mocker = require('./mocker');
-var sinon = require('sinon');
-var assert = require('chai').assert;
+
+var testHelperFactory = require('./test-utils/testHelperFactory');
+
 var readSource = require('./test-utils/read-source');
-var vsCodeFakeFactory = require('./test-utils/vscode-fake-factory');
-var testUtils = require('./test-utils/test-utils');
-var prettyJson = testUtils.prettyJson;
+var prettyJson = require('./test-utils/test-utils').prettyJson;
 
 var approvalsConfig = require('./test-utils/approvalsConfig');
 var approvals = require('approvals').configure(approvalsConfig).mocha('./test/approvals');
@@ -15,38 +14,15 @@ var approvals = require('approvals').configure(approvalsConfig).mocha('./test/ap
 describe('Add Export', function () {
 
     var subcontainer;
-    var addExportFactory;
     var applySetEditSpy;
     var vsCodeProperties;
 
     beforeEach(function () {
-        subcontainer = container.new();
-
-        vsCodeProperties = {};
-        mocker.registerMock('vsCodeFactory');
-
-        var vsCodeFactoryFake = mocker.getMock('vsCodeFactory').mock(vsCodeProperties);
-
-        subcontainer.register(vsCodeFactoryFake);
-
-        mocker.registerMock('logger');
-        mocker.registerMock('editActionsFactory');
-        subcontainer.register(mocker.getMock('logger').mock);
-        subcontainer.register(mocker.getMock('editActionsFactory').mock);
-
-
-        applySetEditSpy = sinon.spy();
-        mocker.getMock('editActionsFactory').api.applySetEdit = function (text, coords) {
-            applySetEditSpy(text, coords);
-
-            return {
-                then: function () { }
-            };
-        };
-
-        mocker.getMock('logger').api.log = sinon.spy();
-
-        addExportFactory = subcontainer.build('addExportFactory');
+        var testHelper = testHelperFactory();
+        
+        subcontainer = testHelper.subcontainer;
+        applySetEditSpy = testHelper.applySetEditSpy;
+        vsCodeProperties = testHelper.vsCodeProperties;
     });
 
     it('should log an error if function name comes back blank', function () {
@@ -67,7 +43,6 @@ describe('Add Export', function () {
 
     it('should add an export to file source when one does not exist', function () {
         var sourceTokens = readSource('./test/fixtures/addExport/addExport-no-exports.js');
-        var vsCodeFake = vsCodeFakeFactory();
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -92,7 +67,6 @@ describe('Add Export', function () {
 
     it('should add a single line export to file sourceif other exports are single line', function () {
         var sourceTokens = readSource('./test/fixtures/addExport/addExport-line-exports.js');
-        var vsCodeFake = vsCodeFakeFactory();
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -110,14 +84,13 @@ describe('Add Export', function () {
             }]
         };
 
-        subcontainer.build('addExportFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('addExportFactory')(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
     it('should add an export line to existing exported object', function () {
         var sourceTokens = readSource('./test/fixtures/addExport/addExport-object-exports.js');
-        var vsCodeFake = vsCodeFakeFactory();
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -135,7 +108,7 @@ describe('Add Export', function () {
             }]
         };
 
-        subcontainer.build('addExportFactory')(vsCodeFake.window.activeTextEditor, function () { })();
+        subcontainer.build('addExportFactory')(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
