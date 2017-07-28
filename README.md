@@ -14,67 +14,6 @@ Open VS Code, press F1 and enter `ext install jsrefactor`
 For early release access prior to deployment to the Visual Studio Marketplace, this extension can be downloaded
 and side-loaded into your editor.
 
-## Updates
-
-### v0.15.0 ###
-
-- Replaced Esprima with Babylon to support ES Next and JSX features
-
-### v0.14.0
-
-- Added Negate Expression
-
-### v0.13.0
-
-- Added Wrap in Try/Catch Block
-
-### v0.12.0
-
-- Added inline variable
-
-### v0.10.0
-
-- Added hotkey menu of available refactorings
-- Updated keybindings to simpler key combinations
-
-### v0.9.0
-
-- Wrap in Generator
-- Wrap in Arrow Function
-- Wrap in Async Function
-
-### v0.8.1
-
-- Added "Wrap Selection" top-level option for wrapping code in generated code
-- Removed Wrap In "Name" actions from context menu
-
-### v0.7.0
-
-- Added refactorings to context (right-click) menu
-- Moved to DJect IoC library for dependency management to enhance testing
-- Removed potentially buggy indent logic
-
-### v0.6.1
-
-- Added lambda function snippet (lfn)
-- Fixed indentation issue in code block wrapping
-
-### V0.5.0
-
-- Shift parameters left
-- Shift parameters right
-- Added keybindings for common actions
-
-### V0.4.0
-
-- Added extract variable behavior.
-- Enhanced refactor to named function behavior to work with member functions
-
-### V0.3.0
-
-- Added export function action
-- Fixed inconsistent indentation for wrap refactorings
-
 ## Keep In Touch
 
 - [ChrisStead.com](http://www.chrisstead.com)
@@ -213,3 +152,70 @@ Nevertheless, following are the required elements of a good pull request:
 - **All tests must continue to pass. Any pull requests with failing tests cannot be accepted.**
 - **Pull request must explain changes which are made, referring to an issue number as available.**
 - **Pull requests may not be claimed as intellectual property of a company or other external agency.**
+
+## Updates ##
+
+### v1.4.0 ###
+
+- Added support for const and let to extract variable
+- Fixed extract variable bug where all tokens were not replaced
+- Fixed bug where activeEditor was not properly captured on document change
+
+### v0.15.0 ###
+
+- Replaced Esprima with Babylon to support ES Next and JSX features
+
+### v0.14.0
+
+- Added Negate Expression
+
+### v0.13.0
+
+- Added Wrap in Try/Catch Block
+
+### v0.12.0
+
+- Added inline variable
+
+### v0.10.0
+
+- Added hotkey menu of available refactorings
+- Updated keybindings to simpler key combinations
+
+### v0.9.0
+
+- Wrap in Generator
+- Wrap in Arrow Function
+- Wrap in Async Function
+
+### v0.8.1
+
+- Added "Wrap Selection" top-level option for wrapping code in generated code
+- Removed Wrap In "Name" actions from context menu
+
+### v0.7.0
+
+- Added refactorings to context (right-click) menu
+- Moved to DJect IoC library for dependency management to enhance testing
+- Removed potentially buggy indent logic
+
+### v0.6.1
+
+- Added lambda function snippet (lfn)
+- Fixed indentation issue in code block wrapping
+
+### V0.5.0
+
+- Shift parameters left
+- Shift parameters right
+- Added keybindings for common actions
+
+### V0.4.0
+
+- Added extract variable behavior.
+- Enhanced refactor to named function behavior to work with member functions
+
+### V0.3.0
+
+- Added export function action
+- Fixed inconsistent indentation for wrap refactorings
