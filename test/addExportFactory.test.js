@@ -1,6 +1,5 @@
 'use strict';
 
-var container = require('../container');
 var mocker = require('./mocker');
 
 var testHelperFactory = require('./test-utils/testHelperFactory');
@@ -9,7 +8,7 @@ var readSource = require('./test-utils/read-source');
 var prettyJson = require('./test-utils/test-utils').prettyJson;
 
 var approvalsConfig = require('./test-utils/approvalsConfig');
-var approvals = require('approvals').configure(approvalsConfig).mocha('./test/approvals');
+require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
 describe('Add Export', function () {
 
@@ -27,7 +26,6 @@ describe('Add Export', function () {
 
     it('should log an error if function name comes back blank', function () {
         var sourceTokens = readSource('./test/fixtures/addExport/addExport-no-exports.js');
-        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {

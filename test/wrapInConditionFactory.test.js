@@ -1,6 +1,5 @@
 'use strict';
 
-var container = require('../container');
 var mocker = require('./mocker');
 
 var testHelperFactory = require('./test-utils/testHelperFactory');
@@ -9,7 +8,7 @@ var readSource = require('./test-utils/read-source');
 var prettyJson = require('./test-utils/test-utils').prettyJson;
 
 var approvalsConfig = require('./test-utils/approvalsConfig');
-var approvals = require('approvals').configure(approvalsConfig).mocha('./test/approvals');
+require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
 var sinon = require('sinon');
 
@@ -38,7 +37,6 @@ describe('Wrap In Condition', function () {
 
     it('should log an error if selection is empty', function () {
         var sourceTokens = readSource('./test/fixtures/wrapInWrapper/wrapInWrapper.js');
-        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -54,7 +52,6 @@ describe('Wrap In Condition', function () {
 
     it('should wrap selection in a condition', function () {
         var sourceTokens = readSource('./test/fixtures/wrapInWrapper/wrapInWrapper.js');
-        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {

@@ -291,6 +291,7 @@
   "devDependencies": {
     "approvals": "^2.1.2",
     "chai": "^3.4.1",
+    "eslint": "^4.3.0",
     "mocha": "^2.3.4",
     "mockery": "^1.4.0",
     "sinon": "^1.17.2",

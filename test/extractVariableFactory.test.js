@@ -1,6 +1,5 @@
 'use strict';
 
-var container = require('../container');
 var mocker = require('./mocker');
 
 var testHelperFactory = require('./test-utils/testHelperFactory');
@@ -9,7 +8,7 @@ var readSource = require('./test-utils/read-source');
 var prettyJson = require('./test-utils/test-utils').prettyJson;
 
 var approvalsConfig = require('./test-utils/approvalsConfig');
-var approvals = require('approvals').configure(approvalsConfig).mocha('./test/approvals');
+require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
 var sinon = require('sinon');
 
@@ -38,7 +37,6 @@ describe('Extract Variable', function () {
 
     it('should log an error if selection is empty', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
-        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -54,7 +52,6 @@ describe('Extract Variable', function () {
 
     it('should log an error if multiple selections are made', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
-        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -90,7 +87,6 @@ describe('Extract Variable', function () {
 
     it('should log an error if selection is not inside a function', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
-        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -116,7 +112,6 @@ describe('Extract Variable', function () {
 
     it('should extract variable when selection is safe', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
-        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -141,7 +136,6 @@ describe('Extract Variable', function () {
 
     it('should extract complex variable', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
-        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -166,7 +160,6 @@ describe('Extract Variable', function () {
 
     it('should extract complex variable in arrow function', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
-        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {

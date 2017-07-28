@@ -1,6 +1,5 @@
 'use strict';
 
-var container = require('../container');
 var mocker = require('./mocker');
 
 var testHelperFactory = require('./test-utils/testHelperFactory');
@@ -9,7 +8,7 @@ var readSource = require('./test-utils/read-source');
 var prettyJson = require('./test-utils/test-utils').prettyJson;
 
 var approvalsConfig = require('./test-utils/approvalsConfig');
-var approvals = require('approvals').configure(approvalsConfig).mocha('./test/approvals');
+require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
 describe('Convert to Named Function', function () {
     var subcontainer;
@@ -26,7 +25,6 @@ describe('Convert to Named Function', function () {
 
     it('should log an error if selection is empty', function () {
         var sourceTokens = readSource('./test/fixtures/convertToNamedFunction/convertToNamedFunction.js');
-        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -43,7 +41,6 @@ describe('Convert to Named Function', function () {
 
     it('should log an error if selection is invalid', function () {
         var sourceTokens = readSource('./test/fixtures/convertToNamedFunction/convertToNamedFunction.js');
-        var applySetEdit = mocker.getMock('editActionsFactory').api.applySetEdit;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
