@@ -5,9 +5,10 @@ var templates = require('../json/templates.json');
 
 function templateUtils() {
 
-    function getNewVariableContext(name, selectionData) {
+    function getNewVariableContext(name, varType, selectionData) {
         return {
             name: name,
+            varType: varType,
             value: selectionData.selection[0]
         };
     }

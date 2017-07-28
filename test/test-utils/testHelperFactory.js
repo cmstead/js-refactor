@@ -34,6 +34,10 @@ function testHelperFactory() {
         callback('foo');
     }
 
+    loggerMock.api.quickPick = function (items, options, callback) {
+        callback('var');
+    }
+
     subcontainer.register(loggerMock.mock);
 
     return {

@@ -24,7 +24,7 @@ describe('Extract Variable', function () {
         applySetEditSpy = testHelper.applySetEditSpy;
         vsCodeProperties = testHelper.vsCodeProperties;
 
-        applySetEditSpy = sinon.spy(function (text, coords) {
+        applySetEditSpy = sinon.spy(function () {
             return {
                 then: function (callback) {
                     callback()
@@ -172,6 +172,30 @@ describe('Extract Variable', function () {
                 },
                 _end: {
                     _line: 15,
+                    _character: 26
+                }
+            }]
+        };
+
+        subcontainer.build('extractVariableFactory')(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
+    it('should extract variable from all use locations', function () {
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 19,
+                    _character: 21
+                },
+                _end: {
+                    _line: 19,
                     _character: 26
                 }
             }]

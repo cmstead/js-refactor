@@ -1,0 +1,28 @@
+[
+    [
+        "{\n    console.log(baz, foo);\n    doSomethingElse(foo);\n};",
+        {
+            "start": [
+                18,
+                24
+            ],
+            "end": [
+                21,
+                1
+            ]
+        }
+    ],
+    [
+        "var foo = 7 + 8;\n",
+        {
+            "start": [
+                19,
+                0
+            ],
+            "end": [
+                19,
+                0
+            ]
+        }
+    ]
+]

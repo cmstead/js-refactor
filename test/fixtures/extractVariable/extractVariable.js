@@ -15,3 +15,8 @@ function someFn (){
 const myFn = () => {
     console.log(baz, 7 + 8);
 };
+
+const myOtherFn = () => {
+    console.log(baz, 7 + 8);
+    doSomethingElse(7 + 8);
+};

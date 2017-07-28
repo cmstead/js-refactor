@@ -25,24 +25,35 @@ function extractVariableFactory(
             } else if (!valueInScope) {
                 logger.info('Cannot extract variable if it is not inside a function');
             } else {
-                logger.input({ prompt: 'Name of your variable' }, function (name) {
-                    buildAndApply(vsEditor, selectionData, scopeData, name, lines);
+                const items = ['const', 'let', 'var'];
+                const options = {
+                    prompt: 'Choose your variable type:'
+                };
+
+                logger.quickPick(items, options, function (varType) {
+                    logger.input({ prompt: 'Name of your variable' }, function (name) {
+                        buildAndApply(vsEditor, selectionData, scopeData, name, varType, lines);
+                    });
                 });
             }
         }
 
-        function buildAndApply(vsEditor, selectionData, scopeData, name, lines) {
+        function buildAndApply(vsEditor, selectionData, scopeData, name, varType, lines) {
             var bounds = scopeData.scopeBounds;
 
 
-            var selection = selectionData.selection[0];
+            const escapePattern = /([.+*[\]()\\])/g;
+            const selection = selectionData.selection[0];
+            const escapedSelection = selection.replace(escapePattern, '\\$1');
+            const selectionPattern = new RegExp(escapedSelection, 'g');
+
             var scopeSource = sourceUtils.getScopeLines(lines, bounds).join('\n');
-            var replacementSource = scopeSource.replace(selection, name);
+            var replacementSource = scopeSource.replace(selectionPattern, name);
 
             var editActions = editActionsFactory(vsEditor);
 
             var varCoords = extractVariableAction.buildVarCoords(scopeData);
-            var variableString = extractVariableAction.buildVariableString(name, selectionData);
+            var variableString = extractVariableAction.buildVariableString(name, varType, selectionData);
 
             editActions.applySetEdit(replacementSource, bounds).then(function () {
                 editActions.applySetEdit(variableString, varCoords).then(callback);
@@ -59,7 +70,7 @@ function extractVariableFactory(
 
         return function extractAction() {
             var vsEditor = vsCodeFactory.get().window.activeTextEditor;
-            
+
             var getScopeBounds = extensionHelper.returnOrDefault(null, sourceUtils.scopeDataFactory);
             var selectionData = getSelectionData(vsEditor);
 

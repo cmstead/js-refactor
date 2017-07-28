@@ -46,7 +46,7 @@
     ],
 
     "newVariable": [
-        "var {name} = {value};",
+        "{varType} {name} = {value};",
         ""
     ],
 

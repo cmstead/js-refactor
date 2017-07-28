@@ -28,8 +28,8 @@ function extractVariableAction(
         return varCoords;
     }
 
-    function buildVariableString (name, selectionData){
-        return templateUtils.templateFactory('newVariable')(name, selectionData);
+    function buildVariableString (name, varType, selectionData){
+        return templateUtils.templateFactory('newVariable')(name, varType, selectionData);
     }
 
     return {
