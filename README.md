@@ -30,6 +30,7 @@ refactorings you might want.
 
 JS Refactor supports the following refactorings (explanations below):
 
+- Convert To Arrow Function
 - Convert To Member Function
 - Convert To Named Function
 - Export Function
@@ -64,6 +65,8 @@ Select the code you wish to refactor and then press the F1 key to open the comma
 the refactoring and select the correct refactoring from the list. You will be prompted for any necessary information.
 
 ### Explanations
+
+**Convert To Arrow Function** Converts a function expression to an arrow function.
 
 **Convert To Member Function** Converts a named function to a member function for an object prototype definition.
 
@@ -154,6 +157,10 @@ Nevertheless, following are the required elements of a good pull request:
 - **Pull requests may not be claimed as intellectual property of a company or other external agency.**
 
 ## Updates ##
+
+### v1.5.0 ###
+
+- Added basic convert to arrow function behavior
 
 ### v1.4.0 ###
 

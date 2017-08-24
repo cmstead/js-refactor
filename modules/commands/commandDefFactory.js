@@ -2,6 +2,7 @@
 
 function commandDefFactory(
     addExportFactory,
+    convertToArrowFunctionFactory,
     convertToMemberFunctionFactory,
     convertToNamedFunctionFactory,
     extractVariableFactory,
@@ -22,6 +23,10 @@ function commandDefFactory(
         {
             name: 'cmstead.jsRefactor.exportFunction',
             behavior: addExportFactory
+        },
+        {
+            name: 'cmstead.jsRefactor.convertToArrowFunction',
+            behavior: convertToArrowFunctionFactory
         },
         {
             name: 'cmstead.jsRefactor.convertToMemberFunction',
