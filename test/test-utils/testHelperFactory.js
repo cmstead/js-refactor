@@ -18,7 +18,8 @@ function testHelperFactory() {
 
     let applySetEditSpy = sinon.spy(function (text, coords) {
         return {
-            then: function () { }
+            then: function () { return this; },
+            catch: function () { return this; }
         };
     });
 

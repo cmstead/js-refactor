@@ -36,7 +36,7 @@ describe('Extract Variable', function () {
     });
 
     it('should log an error if selection is empty', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -51,7 +51,7 @@ describe('Extract Variable', function () {
     });
 
     it('should log an error if multiple selections are made', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -86,7 +86,7 @@ describe('Extract Variable', function () {
     });
 
     it('should log an error if selection is not inside a function', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -111,7 +111,7 @@ describe('Extract Variable', function () {
     });
 
     it('should extract variable when selection is safe', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -135,7 +135,7 @@ describe('Extract Variable', function () {
     });
 
     it('should extract complex variable', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -159,7 +159,7 @@ describe('Extract Variable', function () {
     });
 
     it('should extract complex variable in arrow function', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -183,7 +183,7 @@ describe('Extract Variable', function () {
     });
 
     it('should extract variable from all use locations', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {

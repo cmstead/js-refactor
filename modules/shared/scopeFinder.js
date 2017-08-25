@@ -62,11 +62,22 @@ function scopeFinder() {
         return (afterStartLine || afterStartCharacter) && (beforeEndLine || beforeEndCharacter);
     }
 
-    function getAst(source) {
+    function babylonParse(source) {
         try {
             return babylon.parse(source, { sourceType: 'script', plugins: babylonPlugins });
         } catch (e) {
             return babylon.parse(source, { sourceType: 'module', plugins: babylonPlugins });
+        }
+    }
+
+    function getAst(source) {
+        try {
+            return babylonParse(source);
+        } catch (e) {
+            // Babylon doesn't currently have production-ready typescript parsing
+            // and the typescript module docs are tremendously frustrating
+            // so for now, if something goes really wrong, we pass null.
+            return null;
         }
     }
 

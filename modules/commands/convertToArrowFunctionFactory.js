@@ -23,7 +23,8 @@ function convertToArrowFunctionFactory(
 
                 editActions
                     .applySetEdit(refactoredSelection, coords)
-                    .then(callback);
+                    .then(callback)
+                    .catch(() => logger.log('An unexpected error occurred, sorry. :-('));
             }
 
         }
