@@ -1,0 +1,275 @@
+<html>
+
+<head>
+    <title>Mochadoc Test Documentation</title>
+
+    <link rel="stylesheet" href="../assets/doc-style.css" media="screen">
+    <link rel="stylesheet" href="../assets/github-gist.css" media="screen">
+</head>
+
+<body>
+    <header>
+        <a href="../index.html"><span id="library-name">JS Refactorings</span>
+        <span id="subtitle">Mochadoc-Generated Test Documents</span></a>
+    </header>
+
+    <div class="content">
+        <h1>Extract Variable</h1>
+
+<ul>
+    <ul>
+    <li>
+        <strong>should log an error if selection is empty</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractVariableFactory.test.js</span></li>
+    <li>
+        <pre>
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            }
+        };
+
+        var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
+        subcontainer.build(&#x27;extractVariableFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(info.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should log an error if multiple selections are made</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractVariableFactory.test.js</span></li>
+    <li>
+        <pre>
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 0,
+                    _character: 0
+                },
+                _end: {
+                    _line: 1,
+                    _character: 0
+                }
+            },
+            {
+                _start: {
+                    _line: 2,
+                    _character: 0
+                },
+                _end: {
+                    _line: 3,
+                    _character: 0
+                }
+            }]
+        };
+
+        var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
+        subcontainer.build(&#x27;extractVariableFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(info.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should log an error if selection is not inside a function</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractVariableFactory.test.js</span></li>
+    <li>
+        <pre>
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 2,
+                    _character: 12
+                },
+                _end: {
+                    _line: 2,
+                    _character: 17
+                }
+            }]
+        };
+
+        var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
+        subcontainer.build(&#x27;extractVariableFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(info.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should extract variable when selection is safe</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractVariableFactory.test.js</span></li>
+    <li>
+        <pre>
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 11,
+                    _character: 16
+                },
+                _end: {
+                    _line: 11,
+                    _character: 19
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;extractVariableFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should extract complex variable</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractVariableFactory.test.js</span></li>
+    <li>
+        <pre>
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 11,
+                    _character: 21
+                },
+                _end: {
+                    _line: 11,
+                    _character: 26
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;extractVariableFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should extract complex variable in arrow function</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractVariableFactory.test.js</span></li>
+    <li>
+        <pre>
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 15,
+                    _character: 21
+                },
+                _end: {
+                    _line: 15,
+                    _character: 26
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;extractVariableFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should extract variable from all use locations</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractVariableFactory.test.js</span></li>
+    <li>
+        <pre>
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 19,
+                    _character: 21
+                },
+                _end: {
+                    _line: 19,
+                    _character: 26
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;extractVariableFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+</ul>
+    </div>
+
+    <script src="../assets/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+</html>

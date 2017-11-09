@@ -1,0 +1,5 @@
+{
+    "projectName": "JS Refactorings",
+    "files": "./test/**/*.js",
+    "dest": "./docs/api"
+}
