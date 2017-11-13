@@ -7,6 +7,10 @@ seconds to do these things by hand, but those seconds add up quite quickly.
 
 JS Refactor has two key components: automated refactorings and code snippets.
 
+Find me online:
+- [@cm_stead](https://twitter.com/cm_stead)
+- [ChrisStead.com](http://www.chrisstead.com)
+
 ## Installation
 
 Open VS Code, press F1 and enter `ext install jsrefactor`
