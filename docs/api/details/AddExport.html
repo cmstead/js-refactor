@@ -22,8 +22,11 @@
         <strong>should log an error if function name comes back blank</strong>
     </li>
     <li>File location: <span class="filename">./test/addExportFactory.test.js</span></li>
-    <li>
-        <pre>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#"></a>
+        </div>
+        <pre class="code-sample">
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/addExport/addExport-no-exports.js&#x27;);
@@ -48,8 +51,11 @@
         <strong>should add an export to file source when one does not exist</strong>
     </li>
     <li>File location: <span class="filename">./test/addExportFactory.test.js</span></li>
-    <li>
-        <pre>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#"></a>
+        </div>
+        <pre class="code-sample">
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/addExport/addExport-no-exports.js&#x27;);
@@ -83,8 +89,11 @@
         <strong>should add a single line export to file sourceif other exports are single line</strong>
     </li>
     <li>File location: <span class="filename">./test/addExportFactory.test.js</span></li>
-    <li>
-        <pre>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#"></a>
+        </div>
+        <pre class="code-sample">
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/addExport/addExport-line-exports.js&#x27;);
@@ -118,8 +127,11 @@
         <strong>should add an export line to existing exported object</strong>
     </li>
     <li>File location: <span class="filename">./test/addExportFactory.test.js</span></li>
-    <li>
-        <pre>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#"></a>
+        </div>
+        <pre class="code-sample">
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/addExport/addExport-object-exports.js&#x27;);
@@ -151,6 +163,7 @@
 </ul>
     </div>
 
+    <script src="../assets/code-collapse.js"></script>
     <script src="../assets/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 </body>

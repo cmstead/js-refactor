@@ -127,3 +127,7 @@ header > a > #library-name {
 header > a > #subtitle {
     font-size: 1.2rem;
 }
+
+.hidden {
+    display: none;
+}
