@@ -1,0 +1,324 @@
+<html>
+
+<head>
+    <title>JS Refactorings -- Mochadoc Test Documentation</title>
+
+    <link rel="stylesheet" href="../assets/doc-style.css" media="screen">
+    <link rel="stylesheet" href="../assets/github-gist.css" media="screen">
+</head>
+
+<body>
+    <header>
+        <a href="../index.html"><span id="library-name">JS Refactorings</span>
+        <span id="subtitle">Mochadoc-Generated Test Documents</span></a>
+    </header>
+
+    <div class="content">
+        <h1>InternalAPI/coordsHelper</h1>
+<div>
+    <a href="#" class="collapse-all collapse-link">Collapse All</a>
+</div>
+<ul>
+    <li class="describe-item">
+    <h3>coordsFromEditorToAst</h3>
+    <div><a href="#" class="describe-link collapse-link"></a></div>
+    <ul class="describe-collapsible shown">
+        <ul>
+    <li>
+        <strong>should convert VS Code editor selection coordinates to AST format</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/coords-helper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+            const editorCoords &#x3D; {
+                start: [0, 0],
+                end: [10, 11]
+            };
+
+            const astCoords &#x3D; coordsHelper.coordsFromEditorToAst(editorCoords);
+
+            this.verify(testUtils.prettyJson(astCoords));
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+    </ul>
+</li>
+<li class="describe-item">
+    <h3>coordsFromAstToEditor</h3>
+    <div><a href="#" class="describe-link collapse-link"></a></div>
+    <ul class="describe-collapsible shown">
+        <ul>
+    <li>
+        <strong>should convert AST formatted coords to editor coords</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/coords-helper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+            const astCoords &#x3D; {
+                start: {
+                    line: 1,
+                    column: 0
+                },
+                end: {
+                    line: 11,
+                    column: 13
+                }
+            };
+
+            const editorCoords &#x3D; coordsHelper.coordsFromAstToEditor(astCoords);
+
+            this.verify(testUtils.prettyJson(editorCoords));
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+    </ul>
+</li>
+<li class="describe-item">
+    <h3>coordsInNode</h3>
+    <div><a href="#" class="describe-link collapse-link"></a></div>
+    <ul class="describe-collapsible shown">
+        <ul>
+    <li>
+        <strong>should return true if coords are within the scope of the AST node</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/coords-helper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+            const selectionCoords &#x3D; {
+                start: {
+                    line: 10,
+                    column: 0
+                },
+                end: {
+                    line: 11,
+                    column: 12
+                }
+            };
+
+            const astNode &#x3D; {
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
+                    },
+                    end: {
+                        line: 20,
+                        column: 0
+                    }
+                }
+            };
+
+            const result &#x3D; coordsHelper.coordsInNode(selectionCoords, astNode);
+
+            assert.isTrue(result);
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should return true if coords are the same as the scope of the AST node</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/coords-helper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+            const selectionCoords &#x3D; {
+                start: {
+                    line: 10,
+                    column: 0
+                },
+                end: {
+                    line: 11,
+                    column: 12
+                }
+            };
+
+            const astNode &#x3D; {
+                loc: {
+                    start: {
+                        line: 10,
+                        column: 0
+                    },
+                    end: {
+                        line: 11,
+                        column: 12
+                    }
+                }
+            };
+
+            const result &#x3D; coordsHelper.coordsInNode(selectionCoords, astNode);
+
+            assert.isTrue(result);
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should return true if coords are on the leading edge of the scope of the AST node</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/coords-helper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+            const selectionCoords &#x3D; {
+                start: {
+                    line: 10,
+                    column: 0
+                },
+                end: {
+                    line: 11,
+                    column: 12
+                }
+            };
+
+            const astNode &#x3D; {
+                loc: {
+                    start: {
+                        line: 10,
+                        column: 0
+                    },
+                    end: {
+                        line: 20,
+                        column: 12
+                    }
+                }
+            };
+
+            const result &#x3D; coordsHelper.coordsInNode(selectionCoords, astNode);
+
+            assert.isTrue(result);
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should return true if coords are on the trailing edge of the scope of the AST node</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/coords-helper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+            const selectionCoords &#x3D; {
+                start: {
+                    line: 10,
+                    column: 0
+                },
+                end: {
+                    line: 11,
+                    column: 12
+                }
+            };
+
+            const astNode &#x3D; {
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
+                    },
+                    end: {
+                        line: 11,
+                        column: 12
+                    }
+                }
+            };
+
+            const result &#x3D; coordsHelper.coordsInNode(selectionCoords, astNode);
+
+            assert.isTrue(result);
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should return false if coords are not within the scope of the AST node</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/coords-helper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+            const selectionCoords &#x3D; {
+                start: {
+                    line: 10,
+                    column: 0
+                },
+                end: {
+                    line: 11,
+                    column: 12
+                }
+            };
+
+            const astNode &#x3D; {
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
+                    },
+                    end: {
+                        line: 5,
+                        column: 0
+                    }
+                }
+            };
+
+            const result &#x3D; coordsHelper.coordsInNode(selectionCoords, astNode);
+
+            assert.isFalse(result);
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+    </ul>
+</li>
+</ul>
+    </div>
+
+    <script src="../assets/code-collapse.js"></script>
+    <script src="../assets/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+</html>

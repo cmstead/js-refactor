@@ -10,7 +10,8 @@ var config = {
         'helpers',
         'refactoring-logic',
         'refactoring-logic' + sep + 'generic',
-        'shared'
+        'shared',
+        'shared' + sep + 'ast-tools'
     ]
 }
 

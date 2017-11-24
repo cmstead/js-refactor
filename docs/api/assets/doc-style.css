@@ -131,3 +131,7 @@ header > a > #subtitle {
 .hidden {
     display: none;
 }
+
+.collapse-link {
+    font-size: 12px;
+}

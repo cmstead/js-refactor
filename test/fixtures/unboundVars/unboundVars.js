@@ -2,8 +2,12 @@ var foo = 'hi';
 
 console.log(foo, bar);
 
-function testFn (baz) {
-    console.log(foo, baz);
-}
+const obj = {
+    testMethod: function () {
+        return function (baz) {
+            console.log(foo, baz);
+        };
+    }
+};
 
-(baz) => {}
+(baz) => { }
