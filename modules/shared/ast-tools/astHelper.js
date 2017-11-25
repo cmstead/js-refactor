@@ -2,21 +2,21 @@
 
 const estraverse = require('estraverse');
 
-function astHelper() {
+function astHelper(typeHelper) {
 
     function noOp() { }
 
-    function onMatch(matchCheck, action) {
-        return function (node) {
-            if (matchCheck(node)) {
-                action(node);
+    function onMatch(nodeMatchCheck, nodeAction) {
+        return function (astNode) {
+            if (nodeMatchCheck(astNode)) {
+                nodeAction(astNode);
             }
         }
     }
 
     function isNodeType(nodeTypes) {
-        return function (node) {
-            return nodeTypes.indexOf(node.type) > -1;
+        return function (astNode) {
+            return nodeTypes.indexOf(astNode.type) > -1;
         };
     }
 
@@ -24,23 +24,31 @@ function astHelper() {
         return typeof userFunction === 'function' ? userFunction : noOp;
     }
 
-    function traverse(ast, options) {
-        const enterFn = functionOrDefault(options.enter);
+    function traverse(ast, traversalOptions) {
+        const enterFn = functionOrDefault(traversalOptions.enter);
 
         const traversal = {
             enter: function (node) {
                 enterFn(node);
             },
-            leave: functionOrDefault(options.leave)
+            leave: functionOrDefault(traversalOptions.leave)
         }
 
         estraverse.traverse(ast, traversal);
     }
 
     return {
-        isNodeType: isNodeType,
-        onMatch: onMatch,
-        traverse: traverse
+        isNodeType: typeHelper.enforce(
+            'nodeTypes => astNode => boolean', 
+            isNodeType),
+
+        onMatch: typeHelper.enforce(
+            'nodeMatchCheck:(astNode => boolean), nodeAction:(astNode => undefined) => undefined', 
+            onMatch),
+            
+        traverse: typeHelper.enforce(
+            'ast, traversalOptions => undefined', 
+            traverse)
     };
 
 }

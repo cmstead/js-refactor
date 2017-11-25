@@ -33,6 +33,14 @@ const signet = require('signet')();
 
     signet.alias('sourceText', 'string');
     signet.alias('sourceLines', 'array<string>');
+
+    signet.alias('nodeTypes', 'array<string>');
+
+    signet.defineDuckType('traversalOptions', {
+        enter: '?function<astNode => undefined>',
+        leave: '?function<astNode => undefined>'
+    });
+
 })();
 
 
