@@ -24,7 +24,15 @@ const signet = require('signet')();
         loc: 'astCoords'
     });
 
+    signet.defineDuckType('ast', {
+        type: 'formattedString<Program>',
+        loc: 'astCoords'
+    });
+
     signet.alias('selectionCoords', 'astCoords');
+
+    signet.alias('sourceText', 'string');
+    signet.alias('sourceLines', 'array<string>');
 })();
 
 
