@@ -1,8 +1,19 @@
 'use strict';
 
+function functionToString(fn) {
+    const name = fn.name.trim() === '' ? 'anonymous' : fn.name;
+    return `[function: ${name}]`;
+}
+
+function transformValue(key, value) {
+    return typeof value === 'function'
+        ? functionToString(value)
+        : value;
+}
+
 function prettyJson(data) {
     var indent = 4;
-    return JSON.stringify(data, null, indent);
+    return JSON.stringify(data, transformValue, indent);
 }
 
 function functionToSource (value){

@@ -1,0 +1,239 @@
+<html>
+
+<head>
+    <title>JS Refactorings -- Mochadoc Test Documentation</title>
+
+    <link rel="stylesheet" href="../assets/doc-style.css" media="screen">
+    <link rel="stylesheet" href="../assets/github-gist.css" media="screen">
+</head>
+
+<body>
+    <header>
+        <a href="../index.html"><span id="library-name">JS Refactorings</span>
+        <span id="subtitle">Mochadoc-Generated Test Documents</span></a>
+    </header>
+
+    <div class="content">
+        <h1>astHelper</h1>
+<div>
+    <a href="#" class="collapse-all collapse-link">Collapse All</a>
+</div>
+<ul>
+    <li class="describe-item">
+    <h3>isNodeType</h3>
+    <div><a href="#" class="describe-link collapse-link"></a></div>
+    <ul class="describe-collapsible shown">
+        <ul>
+    <li>
+        <strong>should return true when a node match is found</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/astHelper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+            const isFunctionExpression &#x3D; astHelper.isNodeType([&#x27;FunctionExpression&#x27;]);
+
+            const astNode &#x3D; motherContainer.buildData(&#x27;astNode&#x27;);
+            astNode.type &#x3D; &#x27;FunctionExpression&#x27;;
+
+            const result &#x3D; isFunctionExpression(astNode);
+
+            assert.isTrue(result);
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should correctly match on multiple properties</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/astHelper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+            const isFunctionExpression &#x3D; astHelper.isNodeType([&#x27;FunctionExpression&#x27;, &#x27;ObjectExpression&#x27;]);
+
+            const functionNode &#x3D; motherContainer.buildData(&#x27;astNode&#x27;);
+            functionNode.type &#x3D; &#x27;FunctionExpression&#x27;;
+
+            const objectNode &#x3D; motherContainer.buildData(&#x27;astNode&#x27;);
+            objectNode.type &#x3D; &#x27;ObjectExpression&#x27;;
+
+            const otherNode &#x3D; motherContainer.buildData(&#x27;astNode&#x27;);
+
+            const result &#x3D; [functionNode, objectNode, otherNode].map(isFunctionExpression);
+
+            this.verify(testUtils.prettyJson(result));
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should return true when a node match is found</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/astHelper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+            const isFunctionExpression &#x3D; astHelper.isNodeType([&#x27;FunctionExpression&#x27;]);
+
+            const astNode &#x3D; motherContainer.buildData(&#x27;astNode&#x27;);
+            astNode.type &#x3D; &#x27;NonMatchingNode&#x27;;
+
+            const result &#x3D; isFunctionExpression(astNode);
+
+            assert.isFalse(result);
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+    </ul>
+</li>
+<li class="describe-item">
+    <h3>onMatch</h3>
+    <div><a href="#" class="describe-link collapse-link"></a></div>
+    <ul class="describe-collapsible shown">
+        <ul>
+    <li>
+        <strong>should call action when test condition is matched</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/astHelper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+            const isFunctionExpression &#x3D; astHelper.isNodeType([&#x27;FunctionExpression&#x27;]);
+            const actionSpy &#x3D; sinon.spy();
+
+            const callSpyOnMatch &#x3D; astHelper.onMatch(isFunctionExpression, actionSpy);
+
+            const functionNode &#x3D; motherContainer.buildData(&#x27;astNode&#x27;);
+            functionNode.type &#x3D; &#x27;FunctionExpression&#x27;;
+
+            callSpyOnMatch(functionNode);
+
+            this.verify(&#x27;Action called with astNode: \n&#x27; + testUtils.prettyJson(actionSpy.args));
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should not call action when test condition is not matched</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/astHelper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+            const isFunctionExpression &#x3D; astHelper.isNodeType([&#x27;FunctionExpression&#x27;]);
+            const actionSpy &#x3D; sinon.spy();
+
+            const callSpyOnMatch &#x3D; astHelper.onMatch(isFunctionExpression, actionSpy);
+
+            const functionNode &#x3D; motherContainer.buildData(&#x27;astNode&#x27;);
+
+            callSpyOnMatch(functionNode);
+
+            this.verify(&#x27;Action not called: \n&#x27; + testUtils.prettyJson(actionSpy.args));
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+    </ul>
+</li>
+<li class="describe-item">
+    <h3>traverse</h3>
+    <div><a href="#" class="describe-link collapse-link"></a></div>
+    <ul class="describe-collapsible shown">
+        <ul>
+    <li>
+        <strong>should call estraverse.traverse with properly formed traversal object</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/astHelper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+            function enterFake() { }
+            function leaveFake() { }
+
+            const traversalOptions &#x3D; {
+                enter: enterFake,
+                leave: leaveFake
+            };
+
+            const ast &#x3D; motherContainer.buildData(&#x27;ast&#x27;);
+
+            astHelper.traverse(ast, traversalOptions);
+
+            this.verify(&#x27;Estraverse was called with given functions: \n&#x27;
+                + testUtils.prettyJson(estraverseFake.traverse.args));
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should use default functions for missing enter or leave functions</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/astHelper.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+            const emptyOptions &#x3D; {};
+
+            const ast &#x3D; motherContainer.buildData(&#x27;ast&#x27;);
+
+            astHelper.traverse(ast, emptyOptions);
+
+            this.verify(&#x27;Estraverse was called with default functions: \n&#x27;
+                + testUtils.prettyJson(estraverseFake.traverse.args));
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
+    </ul>
+</li>
+</ul>
+    </div>
+
+    <script src="../assets/code-collapse.js"></script>
+    <script src="../assets/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+</html>

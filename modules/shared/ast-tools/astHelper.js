@@ -1,8 +1,6 @@
 'use strict';
 
-const estraverse = require('estraverse');
-
-function astHelper(typeHelper) {
+function astHelper(estraverse, typeHelper) {
 
     function noOp() { }
 
@@ -25,12 +23,8 @@ function astHelper(typeHelper) {
     }
 
     function traverse(ast, traversalOptions) {
-        const enterFn = functionOrDefault(traversalOptions.enter);
-
         const traversal = {
-            enter: function (node) {
-                enterFn(node);
-            },
+            enter: functionOrDefault(traversalOptions.enter),
             leave: functionOrDefault(traversalOptions.leave)
         }
 
@@ -43,9 +37,11 @@ function astHelper(typeHelper) {
             isNodeType),
 
         onMatch: typeHelper.enforce(
-            'nodeMatchCheck:(astNode => boolean), nodeAction:(astNode => undefined) => undefined', 
+            `nodeMatchCheck:function, nodeAction:function 
+            => astNode
+            => undefined`, 
             onMatch),
-            
+
         traverse: typeHelper.enforce(
             'ast, traversalOptions => undefined', 
             traverse)
