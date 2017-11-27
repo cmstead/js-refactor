@@ -4,16 +4,13 @@ function scopePathHelper(
     astHelper,
     coordsHelper) {
 
-    const isFunction = astHelper.isNodeType(['FunctionExpression', 'MethodDefinition']);
-    const isObject = astHelper.isNodeType(['ObjectExpression']);
-
     const isScopePath = astHelper.isNodeType(['ObjectExpression', 'FunctionExpression']);
 
     const isScopePathElement =
         (coords) =>
             (node) =>
                 coordsHelper.coordsInNode(coords, node)
-                && (isFunction(node) || isObject(node));
+                && isScopePath(node);
 
     function buildScopePath(coords, ast) {
         const scopePath = [ast];

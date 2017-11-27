@@ -1,0 +1,7 @@
+Constructed scope path types: 
+[
+    "Program",
+    "ObjectExpression",
+    "FunctionExpression",
+    "FunctionExpression"
+]
