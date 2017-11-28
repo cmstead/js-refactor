@@ -4,6 +4,21 @@ function astHelper(estraverse, typeHelper) {
 
     function noOp() { }
 
+    function coordsInNode(selectionCoords, astNode) {
+        const nodeStart = astNode.loc.start;
+        const nodeEnd = astNode.loc.end;
+
+        const afterStartLine = selectionCoords.start.line > nodeStart.line;
+        const afterStartCharacter = selectionCoords.start.line === nodeStart.line
+            && selectionCoords.start.column >= nodeStart.column;
+
+        const beforeEndLine = selectionCoords.end.line < nodeEnd.line;
+        const beforeEndCharacter = selectionCoords.end.line === nodeEnd.line
+            && selectionCoords.end.column <= nodeEnd.column;
+
+        return (afterStartLine || afterStartCharacter) && (beforeEndLine || beforeEndCharacter);
+    }
+
     function onMatch(nodeMatchCheck, nodeAction) {
         return function (astNode) {
             if (nodeMatchCheck(astNode)) {
@@ -32,18 +47,22 @@ function astHelper(estraverse, typeHelper) {
     }
 
     return {
+        coordsInNode: typeHelper.enforce(
+            'selectionCoords, astNode => boolean',
+            coordsInNode),
+
         isNodeType: typeHelper.enforce(
-            'nodeTypes => astNode => boolean', 
+            'nodeTypes => astNode => boolean',
             isNodeType),
 
         onMatch: typeHelper.enforce(
             `nodeMatchCheck:function, nodeAction:function 
             => astNode
-            => undefined`, 
+            => undefined`,
             onMatch),
 
         traverse: typeHelper.enforce(
-            'ast, traversalOptions => undefined', 
+            'ast, traversalOptions => undefined',
             traverse)
     };
 

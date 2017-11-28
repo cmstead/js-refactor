@@ -11,7 +11,8 @@ var config = {
         'refactoring-logic',
         'refactoring-logic' + sep + 'generic',
         'shared',
-        'shared' + sep + 'ast-tools'
+        'shared' + sep + 'ast-tools',
+        'shared' + sep + 'refactoring-tools'
     ]
 }
 

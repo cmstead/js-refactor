@@ -4,7 +4,19 @@ const signet = require('signet')();
 
 
 (function () {
+
+    signet.defineDuckType('documentPosition', {
+        _line: 'leftBoundedInt<0>',
+        _character: 'leftBoundedInt<0>'
+    });
+
+    signet.defineDuckType('documentCoords', {
+        _start: 'documentPosition',
+        _end: 'documentPosition'
+    });
+
     signet.alias('editorPosition', 'tuple<leftBoundedInt<0>, leftBoundedInt<0>>');
+    
     signet.defineDuckType('editorCoords', {
         start: 'editorPosition',
         end: 'editorPosition'
@@ -29,6 +41,15 @@ const signet = require('signet')();
         loc: 'astCoords'
     });
 
+    signet.alias('scopePath', 'array<astNode>');
+
+    signet.defineDuckType('scopePathInitialLineObject', {
+        type: 'string',
+        line: 'string'
+    });
+
+    signet.alias('scopePathInitialLineData', 'array<scopePathInitialLineObject>');
+
     signet.alias('selectionCoords', 'astCoords');
 
     signet.alias('sourceText', 'string');
@@ -45,9 +66,7 @@ const signet = require('signet')();
 
 
 function typeHelper() {
-
     return signet;
-
 }
 
 module.exports = typeHelper;

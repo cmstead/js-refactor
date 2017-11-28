@@ -5,6 +5,8 @@ function extractMethodFactory(
     logger,
     parser,
     scopePathHelper,
+    scopePathTools,
+    selectionHelper,
     utilities,
     vsCodeFactory
 ) {
@@ -15,24 +17,28 @@ function extractMethodFactory(
         function getScopePath(coords, sourceLines) {
             const ast = parser.parseSourceLines(sourceLines);
             const astCoords = coordsHelper.coordsFromEditorToAst(coords);
+
             return scopePathHelper.buildScopePath(astCoords, ast);
         }
 
         return function () {
-            const vsEditor = vsCodeFactory.get().window.activeTextEditor;
-            const lines = utilities.getEditorDocument(vsEditor)._lines;
-            const coords = utilities.buildCoords(vsEditor, 0);
-
-            const selectionNotEmpty = coords.start[0] !== coords.end[0] || coords.start[1] !== coords.end[1];
-            const scopePath = selectionNotEmpty
-                ? getScopePath(coords, lines)
-                : [];
+            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
             
-            if(scopePath.length === 0) {
-                logger.error('Cannot extract an empty selection.');
+            const lines = utilities.getDocumentLines(activeEditor);
+            const allSelectionCoords = utilities.getAllSelectionCoords(activeEditor);
+
+            const coords = coordsHelper.coordsFromDocumentToEditor(allSelectionCoords[0]);
+            const scopePath = getScopePath(coords, lines);
+
+            
+            if(selectionHelper.isEmptySelection(coords)) {
+                logger.info('Cannot extract an empty selection as a method.');
                 callback();
             } else {
+
+                logger.info('Extract method development is still underway.');
                 // stuff here
+                callback();
             }
 
         }

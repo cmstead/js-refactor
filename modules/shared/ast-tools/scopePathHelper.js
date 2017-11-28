@@ -1,15 +1,13 @@
 'use strict';
 
-function scopePathHelper(
-    astHelper,
-    coordsHelper) {
+function scopePathHelper(astHelper) {
 
     const isScopePath = astHelper.isNodeType(['ObjectExpression', 'FunctionExpression']);
 
     const isScopePathElement =
         (coords) =>
             (node) =>
-                coordsHelper.coordsInNode(coords, node)
+                astHelper.coordsInNode(coords, node)
                 && isScopePath(node);
 
     function buildScopePath(coords, ast) {

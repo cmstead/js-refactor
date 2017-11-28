@@ -25,8 +25,13 @@ function utilities() {
         return getEditorDocument(vsEditor)._lines;
     }
 
+    function getAllSelectionCoords(vsEditor) {
+        return vsEditor._selections;
+    }
+
     return {
         buildCoords: buildCoords,
+        getAllSelectionCoords: getAllSelectionCoords,
         getDocumentLines: getDocumentLines,
         getEditorDocument: getEditorDocument
     };

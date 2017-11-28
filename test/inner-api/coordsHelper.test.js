@@ -14,6 +14,42 @@ describe('coordsHelper', function () {
         coordsHelper = container.build('coordsHelper');
     });
 
+    describe('coordsFromDocumentToEditor', function () {
+
+        it('should convert VS Code document selection coordinates to editor format', function () {
+            const editorCoords = {
+                _start: {
+                    _line: 0,
+                    _character: 0
+                },
+                _end: {
+                    _line: 10,
+                    _character: 11
+                }
+            };
+
+            const documentCoords = coordsHelper.coordsFromDocumentToEditor(editorCoords);
+
+            this.verify(testUtils.prettyJson(documentCoords));
+        });
+
+    });
+
+    describe('coordsFromEditorToDocument', function () {
+
+        it('should convert VS Code editor coordinates to document format', function () {
+            const documentCoords = {
+                start: [0, 0],
+                end: [10, 11]
+            };
+
+            const editorCoords = coordsHelper.coordsFromEditorToDocument(documentCoords);
+
+            this.verify(testUtils.prettyJson(editorCoords));
+        });
+
+    });
+
     describe('coordsFromEditorToAst', function () {
 
         it('should convert VS Code editor selection coordinates to AST format', function () {
@@ -47,160 +83,6 @@ describe('coordsHelper', function () {
 
             this.verify(testUtils.prettyJson(editorCoords));
         });
-    });
-
-    describe('coordsInNode', function() {
-        
-        it('should return true if coords are within the scope of the AST node', function() {
-            const selectionCoords = {
-                start: {
-                    line: 10,
-                    column: 0
-                },
-                end: {
-                    line: 11,
-                    column: 12
-                }
-            };
-
-            const astNode = {
-                loc: {
-                    start: {
-                        line: 1,
-                        column: 0
-                    },
-                    end: {
-                        line: 20,
-                        column: 0
-                    }
-                }
-            };
-
-            const result = coordsHelper.coordsInNode(selectionCoords, astNode);
-
-            assert.isTrue(result);
-        });
-
-        it('should return true if coords are the same as the scope of the AST node', function() {
-            const selectionCoords = {
-                start: {
-                    line: 10,
-                    column: 0
-                },
-                end: {
-                    line: 11,
-                    column: 12
-                }
-            };
-
-            const astNode = {
-                loc: {
-                    start: {
-                        line: 10,
-                        column: 0
-                    },
-                    end: {
-                        line: 11,
-                        column: 12
-                    }
-                }
-            };
-
-            const result = coordsHelper.coordsInNode(selectionCoords, astNode);
-
-            assert.isTrue(result);
-        });
-
-        it('should return true if coords are on the leading edge of the scope of the AST node', function() {
-            const selectionCoords = {
-                start: {
-                    line: 10,
-                    column: 0
-                },
-                end: {
-                    line: 11,
-                    column: 12
-                }
-            };
-
-            const astNode = {
-                loc: {
-                    start: {
-                        line: 10,
-                        column: 0
-                    },
-                    end: {
-                        line: 20,
-                        column: 12
-                    }
-                }
-            };
-
-            const result = coordsHelper.coordsInNode(selectionCoords, astNode);
-
-            assert.isTrue(result);
-        });
-
-        it('should return true if coords are on the trailing edge of the scope of the AST node', function() {
-            const selectionCoords = {
-                start: {
-                    line: 10,
-                    column: 0
-                },
-                end: {
-                    line: 11,
-                    column: 12
-                }
-            };
-
-            const astNode = {
-                loc: {
-                    start: {
-                        line: 1,
-                        column: 0
-                    },
-                    end: {
-                        line: 11,
-                        column: 12
-                    }
-                }
-            };
-
-            const result = coordsHelper.coordsInNode(selectionCoords, astNode);
-
-            assert.isTrue(result);
-        });
-
-        it('should return false if coords are not within the scope of the AST node', function() {
-            const selectionCoords = {
-                start: {
-                    line: 10,
-                    column: 0
-                },
-                end: {
-                    line: 11,
-                    column: 12
-                }
-            };
-
-            const astNode = {
-                loc: {
-                    start: {
-                        line: 1,
-                        column: 0
-                    },
-                    end: {
-                        line: 5,
-                        column: 0
-                    }
-                }
-            };
-
-            const result = coordsHelper.coordsInNode(selectionCoords, astNode);
-
-            assert.isFalse(result);
-        });
-
     });
 
 });
