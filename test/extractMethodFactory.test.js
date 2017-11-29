@@ -43,14 +43,19 @@ describe('Extract Method', function () {
                 lines: sourceTokens
             }
         };
-        
+
         const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
         vsCodeProperties.activeTextEditor = activeTextEditor;
 
-        const info = mocker.getMock('logger').api.info;
-        subcontainer.build('extractMethodFactory')(null, function () { })();
+        const infoAction = mocker.getMock('logger').api.info;
+        const extractMethodFactory = subcontainer.build('extractMethodFactory');
 
-        this.verify(prettyJson(info.args));
+        const unusedObject = null;
+        const callback = function () { };
+
+        extractMethodFactory(unusedObject, callback)();
+
+        this.verify(prettyJson(infoAction.args));
     });
 
 });
