@@ -1,6 +1,6 @@
 'use strict';
 
-function selectionHelper() {
+function selectionHelper(typeHelper) {
 
     function isEmptySelection(editorCoords) {
         return editorCoords.start[0] === editorCoords.end[0]
@@ -49,9 +49,17 @@ function selectionHelper() {
 
 
     return {
-        getSelection: getSelection,
-        isEmptySelection: isEmptySelection,
-        isMultilineSelection: isMultilineSelection
+        getSelection: typeHelper.enforce(
+            'sourceLines, editorCoords => sourceLines',
+            getSelection),
+
+        isEmptySelection: typeHelper.enforce(
+            'editorCoords => boolean',
+            isEmptySelection),
+
+        isMultilineSelection: typeHelper.enforce(
+            'editorCoords => boolean',
+            isMultilineSelection)
     };
 
 }

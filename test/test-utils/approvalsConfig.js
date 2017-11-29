@@ -18,6 +18,6 @@ module.exports = {
 
     forceApproveAll: false,
 
-    failOnLineEndingDifferences: false
+    failOnLineEndingDifferences: true
 
 }

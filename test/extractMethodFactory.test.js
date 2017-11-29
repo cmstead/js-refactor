@@ -1,6 +1,7 @@
 'use strict';
 
 var mocker = require('./mocker');
+var motherContainer = require('./test-utils/mother-container');
 
 var testHelperFactory = require('./test-utils/testHelperFactory');
 
@@ -36,15 +37,17 @@ describe('Extract Method', function () {
     });
 
     it('should log an error if selection is empty', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
-
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
+        const sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
+        const activeTextEditorOptions = {
+            optionsData: {
+                lines: sourceTokens
             }
         };
+        
+        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor = activeTextEditor;
 
-        var info = mocker.getMock('logger').api.info;
+        const info = mocker.getMock('logger').api.info;
         subcontainer.build('extractMethodFactory')(null, function () { })();
 
         this.verify(prettyJson(info.args));

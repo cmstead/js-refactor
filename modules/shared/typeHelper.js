@@ -16,7 +16,7 @@ const signet = require('signet')();
     });
 
     signet.alias('editorPosition', 'tuple<leftBoundedInt<0>, leftBoundedInt<0>>');
-    
+
     signet.defineDuckType('editorCoords', {
         start: 'editorPosition',
         end: 'editorPosition'
@@ -33,6 +33,7 @@ const signet = require('signet')();
     });
 
     signet.defineDuckType('astNode', {
+        type: '?string',
         loc: 'astCoords'
     });
 
@@ -65,8 +66,22 @@ const signet = require('signet')();
 })();
 
 
+function errorBuilder(validationResult, args, signatureTree, functionName) {
+    const defaultError =  signet.buildInputErrorMessage(validationResult, args, signatureTree, functionName);
+    return defaultError + '\n\nJS Refactoring types are defined in the typeHelper file; more info can be found in type definitions.';
+}
+
+function enforce(signature, fn) {
+    return signet.enforce(signature, fn, {
+        inputErrorBuilder: errorBuilder,
+        outputErrorBuilder: errorBuilder
+    });
+}
+
 function typeHelper() {
-    return signet;
+    return {
+        enforce: enforce
+    };
 }
 
 module.exports = typeHelper;
