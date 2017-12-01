@@ -46,7 +46,7 @@ const signet = require('signet')();
 
     signet.defineDuckType('scopePathInitialLineObject', {
         type: 'string',
-        line: 'string'
+        initialLine: 'string'
     });
 
     signet.alias('scopePathInitialLineData', 'array<scopePathInitialLineObject>');

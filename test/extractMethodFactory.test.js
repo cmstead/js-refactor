@@ -1,25 +1,26 @@
 'use strict';
 
-var mocker = require('./mocker');
-var motherContainer = require('./test-utils/mother-container');
+let mocker = require('./mocker');
+let motherContainer = require('./test-utils/mother-container');
 
-var testHelperFactory = require('./test-utils/testHelperFactory');
+let testHelperFactory = require('./test-utils/testHelperFactory');
 
-var readSource = require('./test-utils/read-source');
-var prettyJson = require('./test-utils/test-utils').prettyJson;
+let readSource = require('./test-utils/read-source');
+let prettyJson = require('./test-utils/test-utils').prettyJson;
 
-var approvalsConfig = require('./test-utils/approvalsConfig');
+let approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
-var sinon = require('sinon');
+let sinon = require('sinon');
 
 describe('Extract Method', function () {
-    var subcontainer;
-    var applySetEditSpy;
-    var vsCodeProperties;
+
+    let applySetEditSpy;
+    let subcontainer;
+    let vsCodeProperties;
 
     beforeEach(function () {
-        var testHelper = testHelperFactory();
+        const testHelper = testHelperFactory();
 
         subcontainer = testHelper.subcontainer;
         applySetEditSpy = testHelper.applySetEditSpy;
@@ -34,10 +35,11 @@ describe('Extract Method', function () {
         });
 
         mocker.getMock('editActionsFactory').api.applySetEdit = applySetEditSpy;
+
     });
 
     it('should log an error if selection is empty', function () {
-        const sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
+        const sourceTokens = readSource('./test/fixtures/extractMethod/extractMethod.js');
         const activeTextEditorOptions = {
             optionsData: {
                 lines: sourceTokens
@@ -58,4 +60,31 @@ describe('Extract Method', function () {
         this.verify(prettyJson(infoAction.args));
     });
 
+    it('should provide scope options', function () {
+        const sourceTokens = readSource('./test/fixtures/extractMethod/extractMethod.js');
+        const activeTextEditorOptions = {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [5, 12],
+                    end: [7, 13]
+                }
+            }
+        };
+
+        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor = activeTextEditor;
+
+        const quickPickSpy = sinon.spy();
+        mocker.getMock('logger').api.quickPick = quickPickSpy;
+
+        const extractMethodFactory = subcontainer.build('extractMethodFactory');
+
+        const unusedObject = null;
+        const callback = function () { };
+
+        extractMethodFactory(unusedObject, callback)();
+
+        this.verify(prettyJson(quickPickSpy.args));
+    });
 });

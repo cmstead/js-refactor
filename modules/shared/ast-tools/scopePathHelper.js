@@ -2,7 +2,12 @@
 
 function scopePathHelper(astHelper) {
 
-    const isScopePath = astHelper.isNodeType(['ObjectExpression', 'FunctionExpression']);
+    const isScopePath = astHelper.isNodeType([
+        'ObjectExpression', 
+        'FunctionExpression', 
+        'FunctionDeclaration',
+        'ArrowFunctionExpression'
+    ]);
 
     const isScopePathElement =
         (coords) =>
@@ -15,7 +20,15 @@ function scopePathHelper(astHelper) {
         const capturePath = (node) => scopePath.push(node);
 
         astHelper.traverse(ast, {
-            enter: astHelper.onMatch(isScopePathElement(coords), capturePath)
+            enter: astHelper.onMatch(function (node) {
+                if(typeof node.type === 'string' && node.type.indexOf('Function') >= 0) {
+                    console.log(coords)
+                    console.log(node.loc);
+                    console.log(node.type);
+                }
+
+                return isScopePathElement(coords)(node);
+            }, capturePath)
         });
 
         return scopePath;

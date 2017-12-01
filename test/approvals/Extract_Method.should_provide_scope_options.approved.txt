@@ -1,0 +1,14 @@
+[
+    [
+        [
+            "0: Program - 'use strict';",
+            "1: ObjectExpression - {",
+            "2: FunctionExpression - function () {",
+            "3: FunctionExpression - function bar (whatever) {"
+        ],
+        {
+            "message": "Select method extraction scope:"
+        },
+        "[function: anonymous]"
+    ]
+]
