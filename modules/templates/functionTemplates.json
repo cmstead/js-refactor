@@ -1,0 +1,18 @@
+{
+    "function": [
+        "function {name} ({arguments}) {",
+        "{body}",
+        "}\n\n"
+    ],
+    "method": [
+        "{name}: function ({arguments}) {",
+        "{body}",
+        "},\n"
+    ],
+    "functionCall": [
+        "{name}({arguments});"
+    ],
+    "methodCall": [
+        "this.{name}({arguments});"
+    ]
+}

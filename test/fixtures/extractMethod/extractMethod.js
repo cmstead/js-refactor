@@ -7,6 +7,11 @@ const obj = {
                 console.log('Do the thing');
             }
         };
+    },
+    baz: function() {
+        if(1 !== 3) {
+            console.log('This is definitional!');
+        }
     }
 }
 

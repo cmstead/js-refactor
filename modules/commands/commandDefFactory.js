@@ -5,6 +5,7 @@ function commandDefFactory(
     convertToArrowFunctionFactory,
     convertToMemberFunctionFactory,
     convertToNamedFunctionFactory,
+    extractMethodFactory,
     extractVariableFactory,
     inlineVariableFactory,
     negateExpressionFactory,
@@ -35,6 +36,10 @@ function commandDefFactory(
         {
             name: 'cmstead.jsRefactor.convertToNamedFunction',
             behavior: convertToNamedFunctionFactory
+        },
+        {
+            name: 'cmstead.jsRefactor.extractMethod',
+            behavior: extractMethodFactory
         },
         {
             name: 'cmstead.jsRefactor.extractVariable',

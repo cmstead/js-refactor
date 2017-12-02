@@ -21,12 +21,6 @@ function scopePathHelper(astHelper) {
 
         astHelper.traverse(ast, {
             enter: astHelper.onMatch(function (node) {
-                if(typeof node.type === 'string' && node.type.indexOf('Function') >= 0) {
-                    console.log(coords)
-                    console.log(node.loc);
-                    console.log(node.type);
-                }
-
                 return isScopePathElement(coords)(node);
             }, capturePath)
         });

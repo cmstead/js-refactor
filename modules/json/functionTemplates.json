@@ -1,0 +1,15 @@
+{
+    "function": [
+        "function {name} ({arguments}) {",
+        "{body}",
+        "}"
+    ],
+    "method": [
+        "{name}: function ({arguments}) {",
+        "{body}",
+        "},"
+    ],
+    "functionCall": [
+        "{name}({arguments});"
+    ]
+}

@@ -24,6 +24,7 @@
     "onCommand:cmstead.jsRefactor.convertToMemberFunction",
     "onCommand:cmstead.jsRefactor.convertToNamedFunction",
     "onCommand:cmstead.jsRefactor.exportFunction",
+    "onCommand:cmstead.jsRefactor.extractMethod",
     "onCommand:cmstead.jsRefactor.extractVariable",
     "onCommand:cmstead.jsRefactor.inlineVariable",
     "onCommand:cmstead.jsRefactor.negateExpression",
@@ -117,6 +118,11 @@
         "description": "Export function in a node module for external use"
       },
       {
+        "command": "cmstead.jsRefactor.extractMethod",
+        "title": "JS Refactorings: Extract Method",
+        "description": "Extract selection into a new function"
+      },
+      {
         "command": "cmstead.jsRefactor.extractVariable",
         "title": "JS Refactorings: Extract Variable",
         "description": "Extract value into a variable"
@@ -203,6 +209,11 @@
         "key": "ctrl+shift+j r"
       },
       {
+        "command": "cmstead.jsRefactor.extractMethod",
+        "key": "ctrl+shift+j t",
+        "when": "editorHasSelection"
+      },
+      {
         "command": "cmstead.jsRefactor.extractVariable",
         "key": "ctrl+shift+j e",
         "when": "editorHasSelection"
@@ -259,6 +270,10 @@
         },
         {
           "command": "cmstead.jsRefactor.exportFunction",
+          "when": "editorHasSelection && resourceLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.extractMethod",
           "when": "editorHasSelection && resourceLangId == javascript"
         },
         {
@@ -345,6 +360,11 @@
         {
           "when": "editorHasSelection && resourceLangId == javascript",
           "command": "cmstead.jsRefactor.exportFunction",
+          "group": "5_refactor"
+        },
+        {
+          "when": "editorHasSelection && resourceLangId == javascript",
+          "command": "cmstead.jsRefactor.extractMethod",
           "group": "5_refactor"
         },
         {
