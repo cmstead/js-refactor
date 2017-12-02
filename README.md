@@ -38,6 +38,7 @@ JS Refactor supports the following refactorings (explanations below):
 - Convert To Member Function
 - Convert To Named Function
 - Export Function
+- Extract Method
 - Extract Variable
 - Inline Variable
 - Negate Expression
@@ -55,6 +56,7 @@ JS Refactor supports the following refactorings (explanations below):
 ### Keybindings
 
 - Menu of available refactorings - ctrl+shift+j r
+- Extract method - ctrl+shift+j t
 - Extract variable - ctrl+shift+j e
 - Inline variable - ctrl+shift+j i
 - Convert to member function - ctrl+shift+j m
@@ -161,6 +163,12 @@ Nevertheless, following are the required elements of a good pull request:
 - **Pull requests may not be claimed as intellectual property of a company or other external agency.**
 
 ## Updates ##
+
+### v1.6.0 ###
+
+- Added extract method
+
+**Known issue:** Extract method does not support class syntax
 
 ### v1.5.0 ###
 
