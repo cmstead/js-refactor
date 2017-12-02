@@ -5,6 +5,15 @@ const signet = require('signet')();
 
 (function () {
 
+    const commonNativeIdentifiers = require('../json/commonNativeIdentifiers.json');
+
+    function isNonNativeIdentifier(node) {
+        return (node.type === 'Identifier'
+            && commonNativeIdentifiers.indexOf(node.name) === -1)
+            || (node.type === 'MemberExpression'
+                && commonNativeIdentifiers.indexOf(node.object.name) === -1);
+    }
+
     signet.defineDuckType('documentPosition', {
         _line: 'leftBoundedInt<0>',
         _character: 'leftBoundedInt<0>'
@@ -37,6 +46,8 @@ const signet = require('signet')();
         loc: 'astCoords'
     });
 
+    signet.subtype('astNode')('nonNativeIdentifier', isNonNativeIdentifier);
+
     signet.defineDuckType('ast', {
         type: 'formattedString<Program>',
         loc: 'astCoords'
@@ -56,6 +67,8 @@ const signet = require('signet')();
     signet.alias('sourceText', 'string');
     signet.alias('sourceLines', 'array<string>');
 
+    signet.alias('unboundVars', 'array<string>');
+
     signet.alias('nodeTypes', 'array<string>');
 
     signet.defineDuckType('traversalOptions', {
@@ -67,7 +80,7 @@ const signet = require('signet')();
 
 
 function errorBuilder(validationResult, args, signatureTree, functionName) {
-    const defaultError =  signet.buildInputErrorMessage(validationResult, args, signatureTree, functionName);
+    const defaultError = signet.buildInputErrorMessage(validationResult, args, signatureTree, functionName);
     return defaultError + '\n\nJS Refactoring types are defined in the typeHelper file; more info can be found in type definitions.';
 }
 
@@ -80,7 +93,8 @@ function enforce(signature, fn) {
 
 function typeHelper() {
     return {
-        enforce: enforce
+        enforce: enforce,
+        isTypeOf: signet.isTypeOf
     };
 }
 

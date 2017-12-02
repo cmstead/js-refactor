@@ -1,0 +1,28 @@
+[
+    [
+        "this.aNewFunction(whatever);",
+        {
+            "start": [
+                5,
+                12
+            ],
+            "end": [
+                8,
+                13
+            ]
+        }
+    ],
+    [
+        "aNewFunction: function (whatever) {\nif(whatever) {\n                var aThing = 5\n                console.log('Do the thing', aThing);\n            }\n},\n",
+        {
+            "start": [
+                2,
+                13
+            ],
+            "end": [
+                2,
+                13
+            ]
+        }
+    ]
+]

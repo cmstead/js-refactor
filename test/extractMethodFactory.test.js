@@ -77,8 +77,8 @@ describe('Extract Method', function () {
             optionsData: {
                 lines: sourceTokens,
                 selection: {
-                    start: [5, 12],
-                    end: [7, 13]
+                    start: [6, 12],
+                    end: [8, 13]
                 }
             }
         };
@@ -104,8 +104,35 @@ describe('Extract Method', function () {
             optionsData: {
                 lines: sourceTokens,
                 selection: {
-                    start: [11, 8],
-                    end: [13, 9]
+                    start: [12, 8],
+                    end: [14, 9]
+                }
+            }
+        };
+
+        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor = activeTextEditor;
+
+        const extractMethodFactory = subcontainer.build('extractMethodFactory');
+
+        const unusedObject = null;
+        const callback = function () { };
+
+        extractMethodFactory(unusedObject, callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
+    it('should extract selected lines to an object context with rebound arguments', function() {
+        setupOptions.selectedScopeIndex = 1;
+
+        const sourceTokens = readSource('./test/fixtures/extractMethod/extractMethod.js');
+        const activeTextEditorOptions = {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [5, 12],
+                    end: [8, 13]
                 }
             }
         };

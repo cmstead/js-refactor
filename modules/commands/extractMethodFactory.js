@@ -8,6 +8,7 @@ function extractMethodFactory(
     scopePathHelper,
     scopePathTools,
     selectionHelper,
+    selectionVariableHelper,
     templateHelper,
     utilities,
     vsCodeFactory
@@ -22,11 +23,16 @@ function extractMethodFactory(
                 .map(buildScopePathString)
         }
 
-        function getScopePath(coords, sourceLines) {
-            const ast = parser.parseSourceLines(sourceLines);
+        function getScopePath(coords, ast) {
             const astCoords = coordsHelper.coordsFromEditorToAst(coords);
 
             return scopePathHelper.buildScopePath(astCoords, ast);
+        }
+
+        function getUnboundVars(coords, ast) {
+            const astCoords = coordsHelper.coordsFromEditorToAst(coords);
+            const unboundVars = selectionVariableHelper.getUnboundVars(astCoords, ast);
+            return unboundVars.join(', ');
         }
 
         function buildScopePathString(scopeNode, index) {
@@ -122,7 +128,11 @@ function extractMethodFactory(
             if (selectionHelper.isEmptySelection(selectionEditorCoords)) {
                 logger.info('Cannot extract an empty selection as a method.');
             } else {
-                const scopePath = getScopePath(selectionEditorCoords, sourceLines);
+                const ast = parser.parseSourceLines(sourceLines);
+                const scopePath = getScopePath(selectionEditorCoords, ast);
+                const unboundVars = getUnboundVars(selectionEditorCoords, ast);
+
+                extractMethodContext.arguments = unboundVars;
 
                 getScopeQuickPick(scopePath, sourceLines, function (selectedOption) {
                     getFunctionName(function (functionName) {

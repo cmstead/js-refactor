@@ -4,7 +4,8 @@ const obj = {
     foo: function () {
         return function bar (whatever) {
             if(whatever) {
-                console.log('Do the thing');
+                var aThing = 5
+                console.log('Do the thing', aThing);
             }
         };
     },
