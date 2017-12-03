@@ -31,7 +31,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+        const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
         const activeTextEditorOptions &#x3D; {
             optionsData: {
                 lines: sourceTokens
@@ -50,6 +50,127 @@
         extractMethodFactory(unusedObject, callback)();
 
         this.verify(prettyJson(infoAction.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should provide scope options</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractMethodFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [6, 12],
+                    end: [8, 13]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
+
+        const unusedObject &#x3D; null;
+        const callback &#x3D; function () { };
+
+        extractMethodFactory(unusedObject, callback)();
+
+        this.verify(prettyJson(quickPickSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should extract selected lines to the local function scope as chosen by the user</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractMethodFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+        setupOptions.selectedScopeIndex &#x3D; 2;
+
+        const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [12, 8],
+                    end: [14, 9]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
+
+        const unusedObject &#x3D; null;
+        const callback &#x3D; function () { };
+
+        extractMethodFactory(unusedObject, callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should extract selected lines to an object context with rebound arguments</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractMethodFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+        setupOptions.selectedScopeIndex &#x3D; 1;
+
+        const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [5, 12],
+                    end: [8, 13]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
+
+        const unusedObject &#x3D; null;
+        const callback &#x3D; function () { };
+
+        extractMethodFactory(unusedObject, callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
     }
             </code>
         </pre>

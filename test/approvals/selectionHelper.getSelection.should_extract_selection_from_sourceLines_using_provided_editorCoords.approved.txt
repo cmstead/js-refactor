@@ -1,0 +1,6 @@
+[
+    "if(whatever) {",
+    "                var aThing = 5",
+    "                console.log('Do the thing', aThing);",
+    "            }"
+]

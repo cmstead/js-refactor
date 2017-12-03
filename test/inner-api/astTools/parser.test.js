@@ -1,9 +1,9 @@
 'use strict';
 
-const container = require('../../container');
-const testUtils = require('../test-utils/test-utils');
+const container = require('../../../container');
+const testUtils = require('../../test-utils/test-utils');
 
-require('../test-utils/approvalsConfig');
+require('../../test-utils/approvalsConfig');
 
 describe('parser', function () {
 

@@ -1,10 +1,10 @@
 'use strict';
 
 const assert = require('chai').assert;
-const container = require('../../container.js');
-const testUtils = require('../test-utils/test-utils');
+const container = require('../../../container.js');
+const testUtils = require('../../test-utils/test-utils');
 
-require('../test-utils/approvalsConfig');
+require('../../test-utils/approvalsConfig');
 
 describe('coordsHelper', function () {
 

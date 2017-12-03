@@ -1,10 +1,10 @@
 'use strict';
 
 const fs = require('fs');
-const container = require('../../container');
+const container = require('../../../container');
 
-const testUtils = require('../test-utils/test-utils');
-require('../test-utils/approvalsConfig');
+const testUtils = require('../../test-utils/test-utils');
+require('../../test-utils/approvalsConfig');
 
 describe('scopePathHelper', function () {
 

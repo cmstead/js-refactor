@@ -1,0 +1,18 @@
+[
+    {
+        "type": "Program",
+        "initialLine": "'use strict';"
+    },
+    {
+        "type": "ObjectExpression",
+        "initialLine": "{"
+    },
+    {
+        "type": "FunctionExpression",
+        "initialLine": "function () {"
+    },
+    {
+        "type": "FunctionExpression",
+        "initialLine": "function bar (whatever) {"
+    }
+]

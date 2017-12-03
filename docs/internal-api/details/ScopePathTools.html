@@ -14,20 +14,20 @@
     </header>
 
     <div class="content">
-        <h1>scopePathHelper</h1>
+        <h1>scopePathTools</h1>
 <div>
     <a href="#" class="collapse-all collapse-link">Collapse All</a>
 </div>
 <ul>
     <li class="describe-item">
-    <h3>buildScopePath</h3>
+    <h3>getInitialLineData</h3>
     <div><a href="#" class="describe-link collapse-link"></a></div>
     <ul class="describe-collapsible shown">
         <ul>
     <li>
-        <strong>should build a correct scope path</strong>
+        <strong>should get the initial lines from an array of scope paths</strong>
     </li>
-    <li>File location: <span class="filename">./test/inner-api/astTools/scopePathHelper.test.js</span></li>
+    <li>File location: <span class="filename">./test/inner-api/refactoringTools/scopePathTools.test.js</span></li>
     <li class="code-sample-wrapper">
         <div class="code-expand">
             <a href="#" class="collapse-link"></a>
@@ -35,16 +35,24 @@
         <pre class="code-sample">
             <code>
         function () {
-            const editorCoords &#x3D; {
-                start: [7, 24],
-                end: [7, 27]
+            const sourceLines &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
+            const ast &#x3D; parser.parseSourceLines(sourceLines);
+            const astCoords &#x3D; {
+                start: {
+                    line: 6,
+                    column: 12
+                },
+                end: {
+                    line: 9,
+                    column: 13
+                }
             };
-            const coords &#x3D; coordsHelper.coordsFromEditorToAst(editorCoords);
 
-            const scopePath &#x3D; scopePathHelper.buildScopePath(coords, astFixture);
-            const scopePathTypes &#x3D; scopePath.map(node &#x3D;&gt; node.type);
+            const scopePath &#x3D; scopePathHelper.buildScopePath(astCoords, ast);
 
-            this.verify(&#x27;Constructed scope path types: \n&#x27; + testUtils.prettyJson(scopePathTypes));
+            const initialLineData &#x3D; scopePathTools.getInitialLineData(scopePath, sourceLines);
+
+            this.verify(prettyJson(initialLineData));
         }
             </code>
         </pre>

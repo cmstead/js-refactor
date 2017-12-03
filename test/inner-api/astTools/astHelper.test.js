@@ -3,11 +3,11 @@
 const assert = require('chai').assert;
 const sinon = require('sinon');
 
-const container = require('../../container');
-const motherContainer = require('../test-utils/mother-container');
-const testUtils = require('../test-utils/test-utils');
+const container = require('../../../container');
+const motherContainer = require('../../test-utils/mother-container');
+const testUtils = require('../../test-utils/test-utils');
 
-require('../test-utils/approvalsConfig');
+require('../../test-utils/approvalsConfig');
 
 describe('astHelper', function () {
 
