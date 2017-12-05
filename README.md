@@ -34,12 +34,12 @@ refactorings you might want.
 
 JS Refactor supports the following refactorings (explanations below):
 
-- Convert To Arrow Function
-- Convert To Member Function
-- Convert To Named Function
-- Export Function
 - Extract Method
 - Extract Variable
+- Rename Variable (Alias of VS Code internal)
+
+- Convert To Arrow Function
+- Export Function
 - Inline Variable
 - Negate Expression
 - Shift Parameters Left
@@ -47,7 +47,6 @@ JS Refactor supports the following refactorings (explanations below):
 - Wrap in Arrow Function
 - Wrap in Async Function
 - Wrap In Condition
-- Wrap In Executed Function
 - Wrap in Function
 - Wrap in Generator
 - Wrap in IIFE
@@ -55,12 +54,12 @@ JS Refactor supports the following refactorings (explanations below):
 
 ### Keybindings
 
+- Extract method - ctrl+shift+j m
+- Extract variable - ctrl+shift+j v
+- Rename variable (VS Code internal) - F2
+
 - Menu of available refactorings - ctrl+shift+j r
-- Extract method - ctrl+shift+j t
-- Extract variable - ctrl+shift+j e
 - Inline variable - ctrl+shift+j i
-- Convert to member function - ctrl+shift+j m
-- Convert to named function - ctrl+shift+j n
 - Export function - ctrl+shift+j x
 - Shift params to the left - ctrl+shift+j s
 - Wrap selection - ctrl+shift+j w",
@@ -163,6 +162,17 @@ Nevertheless, following are the required elements of a good pull request:
 - **Pull requests may not be claimed as intellectual property of a company or other external agency.**
 
 ## Updates ##
+
+### v2.1.0 ###
+
+- Rewrote Extract Variable
+- Removed legacy refactorings 
+    - Convert to member function
+    - Convert to named function
+    - Wrap in executed function
+- Updated hotkey combinations
+    - Extract Method: ctrl+shift+j m
+    - Extract Variable: ctrl+shift+j v
 
 ### v1.6.0 ###
 

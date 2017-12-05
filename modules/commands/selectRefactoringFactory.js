@@ -3,8 +3,6 @@
 
 function selectRefactoringFactory(
     addExportFactory,
-    convertToMemberFunctionFactory,
-    convertToNamedFunctionFactory,
     extractVariableFactory,
     shiftParamsLeftFactory,
     shiftParamsRightFactory,
@@ -15,8 +13,6 @@ function selectRefactoringFactory(
 
         var refactoringBehaviors = {
             "Add Export": addExportFactory,
-            "Convert to Member Function": convertToMemberFunctionFactory,
-            "Convert to Named Function": convertToNamedFunctionFactory,
             "extractVariableFactory": extractVariableFactory,
             "Shift Params Left": shiftParamsLeftFactory,
             "Shift Params Right": shiftParamsRightFactory,

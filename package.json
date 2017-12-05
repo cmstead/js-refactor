@@ -21,8 +21,6 @@
   ],
   "activationEvents": [
     "onCommand:cmstead.jsRefactor.convertToArrowFunction",
-    "onCommand:cmstead.jsRefactor.convertToMemberFunction",
-    "onCommand:cmstead.jsRefactor.convertToNamedFunction",
     "onCommand:cmstead.jsRefactor.exportFunction",
     "onCommand:cmstead.jsRefactor.extractMethod",
     "onCommand:cmstead.jsRefactor.extractVariable",
@@ -91,16 +89,6 @@
         "command": "cmstead.jsRefactor.convertToArrowFunction",
         "title": "JS Refactorings: Convert To Arrow Function",
         "description": "Convert function from a function expression to an arrow function"
-      },
-      {
-        "command": "cmstead.jsRefactor.convertToMemberFunction",
-        "title": "JS Refactorings: Convert To Member Function",
-        "description": "Convert function from a named function to a prototype member function"
-      },
-      {
-        "command": "cmstead.jsRefactor.convertToNamedFunction",
-        "title": "JS Refactorings: Convert To Named Function",
-        "description": "Convert function from an assigned anonymous function to a fully qualified named function"
       },
       {
         "command": "cmstead.jsRefactor.exportFunction",
@@ -195,12 +183,12 @@
       },
       {
         "command": "cmstead.jsRefactor.extractMethod",
-        "key": "ctrl+shift+j t",
+        "key": "ctrl+shift+j m",
         "when": "editorHasSelection"
       },
       {
         "command": "cmstead.jsRefactor.extractVariable",
-        "key": "ctrl+shift+j e",
+        "key": "ctrl+shift+j v",
         "when": "editorHasSelection"
       },
       {
@@ -211,16 +199,6 @@
       {
         "command": "cmstead.jsRefactor.convertToArrowFunction",
         "key": "ctrl+shift+j a",
-        "when": "editorHasSelection"
-      },
-      {
-        "command": "cmstead.jsRefactor.convertToMemberFunction",
-        "key": "ctrl+shift+j m",
-        "when": "editorHasSelection"
-      },
-      {
-        "command": "cmstead.jsRefactor.convertToNamedFunction",
-        "key": "ctrl+shift+j n",
         "when": "editorHasSelection"
       },
       {
@@ -243,14 +221,6 @@
       "commandPalette": [
         {
           "command": "cmstead.jsRefactor.convertToArrowFunction",
-          "when": "editorHasSelection && resourceLangId == javascript"
-        },
-        {
-          "command": "cmstead.jsRefactor.convertToMemberFunction",
-          "when": "editorHasSelection && resourceLangId == javascript"
-        },
-        {
-          "command": "cmstead.jsRefactor.convertToNamedFunction",
           "when": "editorHasSelection && resourceLangId == javascript"
         },
         {
@@ -326,16 +296,6 @@
         {
           "when": "editorHasSelection && resourceLangId == javascript",
           "command": "cmstead.jsRefactor.convertToArrowFunction",
-          "group": "5_refactor"
-        },
-        {
-          "when": "editorHasSelection && resourceLangId == javascript",
-          "command": "cmstead.jsRefactor.convertToMemberFunction",
-          "group": "5_refactor"
-        },
-        {
-          "when": "editorHasSelection && resourceLangId == javascript",
-          "command": "cmstead.jsRefactor.convertToNamedFunction",
           "group": "5_refactor"
         },
         {

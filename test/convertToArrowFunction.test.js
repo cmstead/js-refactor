@@ -90,28 +90,4 @@ describe('Convert to Arrow Function', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    // it('should convert variable assigned a function to named function', function () {
-    //     var sourceTokens = readSource('./test/fixtures/convertToNamedFunction/convertToNamedFunction.js');
-
-    //     vsCodeProperties.activeTextEditor = {
-    //         _documentData: {
-    //             _lines: sourceTokens
-    //         },
-    //         _selections: [{
-    //             _start: {
-    //                 _line: 8,
-    //                 _character: 0
-    //             },
-    //             _end: {
-    //                 _line: 8,
-    //                 _character: 25
-    //             }
-    //         }]
-    //     };
-
-    //     subcontainer.build('convertToNamedFunctionFactory')(null, function () { })();
-
-    //     this.verify(prettyJson(applySetEditSpy.args));
-    // });
-
 });
