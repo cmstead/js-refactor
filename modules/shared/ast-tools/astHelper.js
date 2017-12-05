@@ -34,6 +34,15 @@ function astHelper(estraverse, typeHelper) {
         return (afterStartLine || afterStartCharacter) && (beforeEndLine || beforeEndCharacter);
     }
 
+    function nodeMatchesCoords(selectionCoords, astNode) {
+        const isNodeMatch = selectionCoords.start.line === astNode.loc.start.line
+            && selectionCoords.start.column === astNode.loc.start.column
+            && selectionCoords.end.line === astNode.loc.end.line
+            && selectionCoords.end.column === astNode.loc.end.column;
+
+        return isNodeMatch;
+    }
+
     function onMatch(nodeMatchCheck, nodeAction) {
         return function (astNode) {
             if (nodeMatchCheck(astNode)) {
@@ -69,6 +78,10 @@ function astHelper(estraverse, typeHelper) {
         nodeInCoords: typeHelper.enforce(
             'selectionCoords, astNode => boolean',
             nodeInCoords),
+
+        nodeMatchesCoords: typeHelper.enforce(
+            'selectionCoords, astNode => boolean',
+            nodeMatchesCoords),
 
         isNodeType: typeHelper.enforce(
             'nodeTypes => astNode => boolean',

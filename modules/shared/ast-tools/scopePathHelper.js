@@ -22,6 +22,7 @@ function scopePathHelper(astHelper) {
         (coords) =>
             (node) =>
                 astHelper.coordsInNode(coords, node)
+                && !astHelper.nodeMatchesCoords(coords, node)
                 && isScopePath(node);
 
     function buildScopePath(coords, ast) {
