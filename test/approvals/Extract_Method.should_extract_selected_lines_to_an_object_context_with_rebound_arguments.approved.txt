@@ -1,6 +1,6 @@
 [
     [
-        "this.aNewFunction(whatever);",
+        "this.aNewFunction(whatever)",
         {
             "start": [
                 5,
@@ -16,12 +16,12 @@
         "aNewFunction: function (whatever) {\nif(whatever) {\n                var aThing = 5\n                console.log('Do the thing', aThing);\n            }\n},\n",
         {
             "start": [
-                2,
-                13
+                3,
+                9
             ],
             "end": [
-                2,
-                13
+                3,
+                9
             ]
         }
     ]

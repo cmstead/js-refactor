@@ -93,21 +93,30 @@ function extractMethodFactory(
             return coordsHelper.coordsFromDocumentToEditor(firstSelectionCoords);
         }
 
-        function getNewMethodLocation(scopePath, selectedOptionIndex, selectionCoords) {
-            const isLocalScope = selectedOptionIndex === (scopePath.length - 1);
+        function isProgramScope(selectedScope) {
+            return selectedScope.type.toLowerCase().indexOf('Program') > -1;
+        }
+        
+        function getNewMethodLocation(scopePath, selectedOptionIndex) {
             const selectedScope = scopePath[selectedOptionIndex];
             const nextScope = scopePath[selectedOptionIndex + 1];
-            
-            let destinationEditorCoords;
-            let bodyOffset = 0;
 
-            if(isLocalScope) {
-                destinationEditorCoords = selectionCoords;
-            } else if(isObjectScope(selectedScope)) {
-                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.loc);
-                bodyOffset = 1;
-            } else {
+            const isFunctionScope = !isProgramScope(selectedScope) && !isObjectScope(selectedScope);
+            const isLocalScope = scopePath.length - 1 === selectedOptionIndex;
+
+            let destinationEditorCoords;
+            let bodyOffset = 1;
+
+            if (!isLocalScope) {
                 destinationEditorCoords = coordsHelper.coordsFromAstToEditor(nextScope.loc);
+                bodyOffset = 0;
+            } else if (isObjectScope(selectedScope)) {
+                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.loc);
+            } else if (isLocalScope && isFunctionScope) {
+                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.body.loc);
+            } else {
+                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.loc);
+                bodyOffset = 0;
             }
 
             return {

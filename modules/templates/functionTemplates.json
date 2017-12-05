@@ -2,7 +2,7 @@
     "function": [
         "function {name} ({arguments}) {",
         "{body}",
-        "}\n\n"
+        "}\n"
     ],
     "method": [
         "{name}: function ({arguments}) {",
@@ -10,9 +10,9 @@
         "},\n"
     ],
     "functionCall": [
-        "{name}({arguments});"
+        "{name}({arguments})"
     ],
     "methodCall": [
-        "this.{name}({arguments});"
+        "this.{name}({arguments})"
     ]
 }
