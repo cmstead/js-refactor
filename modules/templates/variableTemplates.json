@@ -1,0 +1,8 @@
+{
+    "variable": [
+        "{type} {name} = {body};"
+    ],
+    "property": [
+        "{name}: {body},"
+    ]
+}

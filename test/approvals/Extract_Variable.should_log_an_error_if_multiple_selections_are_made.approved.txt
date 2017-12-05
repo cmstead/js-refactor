@@ -1,5 +1,0 @@
-[
-    [
-        "Extract variable does not currently support multiline values"
-    ]
-]

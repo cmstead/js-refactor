@@ -16,9 +16,14 @@ describe('Extract Variable', function () {
     var subcontainer;
     var applySetEditSpy;
     var vsCodeProperties;
+    let setupOptions;
+    let quickPickSpy;
 
     beforeEach(function () {
         var testHelper = testHelperFactory();
+        setupOptions = {
+            selectedScopeIndex: 0
+        };
 
         subcontainer = testHelper.subcontainer;
         applySetEditSpy = testHelper.applySetEditSpy;
@@ -32,6 +37,13 @@ describe('Extract Variable', function () {
             };
         });
 
+        quickPickSpy = sinon.spy(function (selectionItems, options, callback) {
+            let selection = selectionItems[setupOptions.selectedScopeIndex];
+            selection = typeof selection === 'undefined' ? selectionItems[0] : selection;
+            callback(selection);
+        });
+
+        mocker.getMock('logger').api.quickPick = quickPickSpy;
         mocker.getMock('editActionsFactory').api.applySetEdit = applySetEditSpy;
     });
 
@@ -50,7 +62,7 @@ describe('Extract Variable', function () {
         this.verify(prettyJson(info.args));
     });
 
-    it('should log an error if multiple selections are made', function () {
+    it('should log an error if selection is not a single expression', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
 
         vsCodeProperties.activeTextEditor = {
@@ -59,22 +71,12 @@ describe('Extract Variable', function () {
             },
             _selections: [{
                 _start: {
-                    _line: 0,
-                    _character: 0
+                    _line: 20,
+                    _character: 20
                 },
                 _end: {
-                    _line: 1,
-                    _character: 0
-                }
-            },
-            {
-                _start: {
-                    _line: 2,
-                    _character: 0
-                },
-                _end: {
-                    _line: 3,
-                    _character: 0
+                    _line: 21,
+                    _character: 23
                 }
             }]
         };
@@ -85,57 +87,9 @@ describe('Extract Variable', function () {
         this.verify(prettyJson(info.args));
     });
 
-    it('should log an error if selection is not inside a function', function () {
+    it('should extract variable when selection is a single-line value', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
-
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 12
-                },
-                _end: {
-                    _line: 2,
-                    _character: 17
-                }
-            }]
-        };
-
-        var info = mocker.getMock('logger').api.info;
-        subcontainer.build('extractVariableFactory')(null, function () { })();
-
-        this.verify(prettyJson(info.args));
-    });
-
-    it('should extract variable when selection is safe', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
-
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 11,
-                    _character: 16
-                },
-                _end: {
-                    _line: 11,
-                    _character: 19
-                }
-            }]
-        };
-
-        subcontainer.build('extractVariableFactory')(null, function () { })();
-
-        this.verify(prettyJson(applySetEditSpy.args));
-    });
-
-    it('should extract complex variable', function () {
-        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
+        setupOptions.selectedScopeIndex = 1;
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
@@ -158,21 +112,22 @@ describe('Extract Variable', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    it('should extract complex variable in arrow function', function () {
+    it('should extract multiline variable to the local scope', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
-
+        setupOptions.selectedScopeIndex = 3;
+        
         vsCodeProperties.activeTextEditor = {
             _documentData: {
                 _lines: sourceTokens
             },
             _selections: [{
                 _start: {
-                    _line: 15,
-                    _character: 21
+                    _line: 26,
+                    _character: 24
                 },
                 _end: {
-                    _line: 15,
-                    _character: 26
+                    _line: 28,
+                    _character: 13
                 }
             }]
         };
@@ -182,21 +137,97 @@ describe('Extract Variable', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    it('should extract variable from all use locations', function () {
+    it('should extract multiline variable to a function scope', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
-
+        setupOptions.selectedScopeIndex = 2;
+        
         vsCodeProperties.activeTextEditor = {
             _documentData: {
                 _lines: sourceTokens
             },
             _selections: [{
                 _start: {
-                    _line: 19,
-                    _character: 21
+                    _line: 26,
+                    _character: 24
                 },
                 _end: {
-                    _line: 19,
-                    _character: 26
+                    _line: 28,
+                    _character: 13
+                }
+            }]
+        };
+
+        subcontainer.build('extractVariableFactory')(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
+    it('should extract multiline variable to an object scope', function () {
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
+        setupOptions.selectedScopeIndex = 1;
+        
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 26,
+                    _character: 24
+                },
+                _end: {
+                    _line: 28,
+                    _character: 13
+                }
+            }]
+        };
+
+        subcontainer.build('extractVariableFactory')(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
+    it('should extract multiline variable to the program scope', function () {
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
+        setupOptions.selectedScopeIndex = 0;
+        
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 26,
+                    _character: 24
+                },
+                _end: {
+                    _line: 28,
+                    _character: 13
+                }
+            }]
+        };
+
+        subcontainer.build('extractVariableFactory')(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
+    it('should adjust for terminating semicolon', function () {
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.ts');
+        setupOptions.selectedScopeIndex = 3;
+        
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 30,
+                    _character: 29
+                },
+                _end: {
+                    _line: 30,
+                    _character: 34
                 }
             }]
         };

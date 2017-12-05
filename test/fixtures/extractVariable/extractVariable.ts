@@ -20,3 +20,15 @@ const myOtherFn = () => {
     console.log(baz, 7 + 8);
     doSomethingElse(7 + 8);
 };
+
+const myObj = {
+    foo: function () {
+        return function bar() {
+            console.log({
+                baz: 'quux'
+            });
+
+            const test = 1 + 2 + 3;
+        }
+    }
+};
