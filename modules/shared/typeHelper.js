@@ -63,6 +63,7 @@ const signet = require('signet')();
     signet.alias('scopePathInitialLineData', 'array<scopePathInitialLineObject>');
 
     signet.alias('selectionCoords', 'astCoords');
+    signet.alias('selectedOptionIndex', 'leftBoundedInt<0>');
 
     signet.alias('sourceText', 'string');
     signet.alias('sourceLines', 'array<string>');

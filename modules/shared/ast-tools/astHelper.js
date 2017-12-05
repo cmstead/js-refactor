@@ -4,35 +4,25 @@ function astHelper(estraverse, typeHelper) {
 
     function noOp() { }
 
-    function coordsInNode(selectionCoords, astNode) {
-        const nodeStart = astNode.loc.start;
-        const nodeEnd = astNode.loc.end;
+    function coordsContainedIn(containerCoords, testCoords) {
+        const onOrAfterStart = testCoords.start.line > containerCoords.start.line
+            || (testCoords.start.line === containerCoords.start.line
+                && testCoords.start.column >= containerCoords.start.column);
 
-        const afterStartLine = selectionCoords.start.line > nodeStart.line;
-        const afterStartCharacter = selectionCoords.start.line === nodeStart.line
-            && selectionCoords.start.column >= nodeStart.column;
+        const onOrBeforeEnd = testCoords.end.line < containerCoords.end.line
+            || (testCoords.end.line === containerCoords.end.line
+                && testCoords.end.column <= containerCoords.end.column);
 
-        const beforeEndLine = selectionCoords.end.line < nodeEnd.line;
-        const beforeEndCharacter = selectionCoords.end.line === nodeEnd.line
-            && selectionCoords.end.column <= nodeEnd.column;
-
-        return (afterStartLine || afterStartCharacter) && (beforeEndLine || beforeEndCharacter);
+        return onOrAfterStart && onOrBeforeEnd;
     }
 
-    function nodeInCoords(selectionCoords, astNode) {
-        const nodeStart = astNode.loc.start;
-        const nodeEnd = astNode.loc.end;
+    const coordsInNode =
+        (selectionCoords, astNode) =>
+            coordsContainedIn(astNode.loc, selectionCoords);
 
-        const afterStartLine = selectionCoords.start.line < nodeStart.line;
-        const afterStartCharacter = selectionCoords.start.line === nodeStart.line
-            && selectionCoords.start.column <= nodeStart.column;
-
-        const beforeEndLine = selectionCoords.end.line > nodeEnd.line;
-        const beforeEndCharacter = selectionCoords.end.line === nodeEnd.line
-            && selectionCoords.end.column >= nodeEnd.column;
-
-        return (afterStartLine || afterStartCharacter) && (beforeEndLine || beforeEndCharacter);
-    }
+    const nodeInCoords =
+        (selectionCoords, astNode) =>
+            coordsContainedIn(selectionCoords, astNode.loc);
 
     function nodeMatchesCoords(selectionCoords, astNode) {
         const isNodeMatch = selectionCoords.start.line === astNode.loc.start.line

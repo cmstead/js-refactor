@@ -3,9 +3,9 @@
 function extractMethodFactory(
     coordsHelper,
     editActionsFactory,
+    extractHelper,
     logger,
     parser,
-    scopePathHelper,
     scopePathTools,
     selectionHelper,
     selectionVariableHelper,
@@ -21,12 +21,6 @@ function extractMethodFactory(
             return scopePathTools
                 .getInitialLineData(scopePath, sourceLines)
                 .map(buildScopePathString)
-        }
-
-        function getScopePath(coords, ast) {
-            const astCoords = coordsHelper.coordsFromEditorToAst(coords);
-
-            return scopePathHelper.buildScopePath(astCoords, ast);
         }
 
         function getUnboundVars(coords, ast) {
@@ -62,13 +56,11 @@ function extractMethodFactory(
             logger.input(inputOptions, callback);
         }
 
-        function isObjectScope(selectedScope) {
-            return selectedScope.type.toLowerCase().indexOf('object') > -1;
-        }
-
         function buildFunctionStrings(context, selectedScope) {
-            const functionTemplateKey = isObjectScope(selectedScope) ? 'method' : 'function';
-            const functionCallTemplateKey = isObjectScope(selectedScope) ? 'methodCall' : 'functionCall';
+            const scopeIsObject = extractHelper.isObjectScope(selectedScope);
+
+            const functionTemplateKey = scopeIsObject ? 'method' : 'function';
+            const functionCallTemplateKey = scopeIsObject ? 'methodCall' : 'functionCall';
 
             const newFunction = templateHelper.templates[functionTemplateKey].build(context);
             const newFunctionCall = templateHelper.templates[functionCallTemplateKey].build(context);
@@ -93,38 +85,6 @@ function extractMethodFactory(
             return coordsHelper.coordsFromDocumentToEditor(firstSelectionCoords);
         }
 
-        function isProgramScope(selectedScope) {
-            return selectedScope.type.toLowerCase().indexOf('Program') > -1;
-        }
-        
-        function getNewMethodLocation(scopePath, selectedOptionIndex) {
-            const selectedScope = scopePath[selectedOptionIndex];
-            const nextScope = scopePath[selectedOptionIndex + 1];
-
-            const isFunctionScope = !isProgramScope(selectedScope) && !isObjectScope(selectedScope);
-            const isLocalScope = scopePath.length - 1 === selectedOptionIndex;
-
-            let destinationEditorCoords;
-            let bodyOffset = 1;
-
-            if (!isLocalScope) {
-                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(nextScope.loc);
-                bodyOffset = 0;
-            } else if (isObjectScope(selectedScope)) {
-                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.loc);
-            } else if (isLocalScope && isFunctionScope) {
-                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.body.loc);
-            } else {
-                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.loc);
-                bodyOffset = 0;
-            }
-
-            return {
-                start: [destinationEditorCoords.start[0], destinationEditorCoords.start[1] + bodyOffset],
-                end: [destinationEditorCoords.start[0], destinationEditorCoords.start[1] + bodyOffset]
-            };
-        }
-
         return function () {
             const activeEditor = vsCodeFactory.get().window.activeTextEditor;
             const selectionEditorCoords = getSelectionEditorCoords(activeEditor);
@@ -138,7 +98,7 @@ function extractMethodFactory(
                 logger.info('Cannot extract an empty selection as a method.');
             } else {
                 const ast = parser.parseSourceLines(sourceLines);
-                const scopePath = getScopePath(selectionEditorCoords, ast);
+                const scopePath = extractHelper.getScopePath(selectionEditorCoords, ast);
                 const unboundVars = getUnboundVars(selectionEditorCoords, ast);
 
                 extractMethodContext.arguments = unboundVars;
@@ -156,7 +116,7 @@ function extractMethodFactory(
                             newFunctionCall
                         } = buildFunctionStrings(extractMethodContext, selectedScope);
 
-                        const newMethodLocation = getNewMethodLocation(scopePath, selectedOptionIndex, selectionEditorCoords);
+                        const newMethodLocation = extractHelper.getNewMethodLocation(scopePath, selectedOptionIndex, selectionEditorCoords);
                         const editActions = editActionsFactory(activeEditor);
 
                         editActions.applySetEdit(newFunctionCall, selectionEditorCoords).then(function () {
