@@ -35,7 +35,6 @@
     "onCommand:cmstead.jsRefactor.wrapInArrowFunction",
     "onCommand:cmstead.jsRefactor.wrapInAsyncFunction",
     "onCommand:cmstead.jsRefactor.wrapInCondition",
-    "onCommand:cmstead.jsRefactor.wrapInExecutedFunction",
     "onCommand:cmstead.jsRefactor.wrapInFunction",
     "onCommand:cmstead.jsRefactor.wrapInGenerator",
     "onCommand:cmstead.jsRefactor.wrapInIIFE",
@@ -74,15 +73,6 @@
         ],
         "aliases": [
           "JS"
-        ]
-      },
-      {
-        "id": "typescript",
-        "extensions": [
-          ".ts"
-        ],
-        "aliases": [
-          "TS"
         ]
       }
     ],
@@ -171,11 +161,6 @@
         "command": "cmstead.jsRefactor.wrapInCondition",
         "title": "JS Refactorings: Wrap In Condition",
         "description": "Wrap code in a condition block"
-      },
-      {
-        "command": "cmstead.jsRefactor.wrapInExecutedFunction",
-        "title": "JS Refactorings: Wrap In Executed Function",
-        "description": "Wrap code in a named function and execute it immediately"
       },
       {
         "command": "cmstead.jsRefactor.wrapInFunction",
@@ -314,10 +299,6 @@
         },
         {
           "command": "cmstead.jsRefactor.wrapInCondition",
-          "when": "editorHasSelection && resourceLangId == javascript"
-        },
-        {
-          "command": "cmstead.jsRefactor.wrapInExecutedFunction",
           "when": "editorHasSelection && resourceLangId == javascript"
         },
         {

@@ -13,7 +13,6 @@ function commandDefFactory(
     shiftParamsLeftFactory,
     shiftParamsRightFactory,
     wrapInConditionFactory,
-    wrapInExecutedFunctionFactory,
     wrapInFunctionFactory,
     wrapInIIFEFactory,
     wrapSelectionFactory,
@@ -68,10 +67,6 @@ function commandDefFactory(
         {
             name: 'cmstead.jsRefactor.wrapInCondition',
             behavior: wrapInConditionFactory
-        },
-        {
-            name: 'cmstead.jsRefactor.wrapInExecutedFunction',
-            behavior: wrapInExecutedFunctionFactory
         },
         {
             name: 'cmstead.jsRefactor.wrapInFunction',

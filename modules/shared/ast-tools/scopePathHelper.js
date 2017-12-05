@@ -2,12 +2,21 @@
 
 function scopePathHelper(astHelper) {
 
-    const isScopePath = astHelper.isNodeType([
-        'ObjectExpression', 
-        'FunctionExpression', 
+    const isScopeElement = astHelper.isNodeType([
+        'ObjectExpression',
+        'FunctionExpression',
         'FunctionDeclaration',
         'ArrowFunctionExpression'
     ]);
+
+    function isBlockArrowFunction(node) {
+        return node.type !== 'ArrowFunctionExpression'
+            || node.body.type === 'BlockStatement';
+    }
+
+    function isScopePath(node) {
+        return isScopeElement(node) && isBlockArrowFunction(node);
+    }
 
     const isScopePathElement =
         (coords) =>

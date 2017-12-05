@@ -185,7 +185,10 @@ function extractVariableFactory(
                             const newMethodLocation = getExtractionLocation(scopePath, selectedOptionIndex, selectionEditorCoords);
                             const editActions = editActionsFactory(activeEditor);
 
-                            editActions.applySetEdit(variableName, selectionEditorCoords).then(function () {
+                            const variableRef = isObjectScope(scopePath[selectedOptionIndex])
+                                ? 'this.' + variableName : variableName;
+
+                            editActions.applySetEdit(variableRef, selectionEditorCoords).then(function () {
                                 editActions.applySetEdit(variableString, newMethodLocation).then(callback);
                             });
                         })
