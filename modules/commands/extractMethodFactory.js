@@ -116,7 +116,13 @@ function extractMethodFactory(
                             newFunctionCall
                         } = buildFunctionStrings(extractMethodContext, selectedScope);
 
-                        const newMethodLocation = extractHelper.getNewMethodLocation(scopePath, selectedOptionIndex, selectionEditorCoords);
+                        const newMethodLocation = extractHelper
+                            .getNewExtractionLocation(
+                            scopePath,
+                            selectedOptionIndex,
+                            selectionEditorCoords,
+                            ast
+                            );
                         const editActions = editActionsFactory(activeEditor);
 
                         editActions.applySetEdit(newFunctionCall, selectionEditorCoords).then(function () {

@@ -13,15 +13,15 @@
         }
     ],
     [
-        "\nvar foo = {\n                baz: 'quux'\n            };\n",
+        "\nvar foo = {\n                baz: 'quux'\n            };\n\n",
         {
             "start": [
                 25,
-                15
+                8
             ],
             "end": [
                 25,
-                15
+                8
             ]
         }
     ]

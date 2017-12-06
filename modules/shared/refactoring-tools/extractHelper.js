@@ -1,9 +1,10 @@
 'use strict';
 
 function extractHelper(
-    typeHelper,
     coordsHelper,
-    scopePathHelper
+    scopePathHelper,
+    selectionExpressionHelper,
+    typeHelper
 ) {
 
     function getScopePath(editorCoords, ast) {
@@ -20,38 +21,32 @@ function extractHelper(
     const isObjectScope = isScopeType('object');
     const isProgramScope = isScopeType('program');
 
-    function getNewMethodLocation(scopePath, selectedOptionIndex) {
-        const selectedScope = scopePath[selectedOptionIndex];
+    function getNewExtractionLocation(scopePath, selectedOptionIndex, selectionCoords, ast) {
         const nextScope = scopePath[selectedOptionIndex + 1];
 
-        const isFunctionScope = !isProgramScope(selectedScope) && !isObjectScope(selectedScope);
-        const isLocalScope = scopePath.length - 1 === selectedOptionIndex;
+        const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionCoords);
+        const isLocalScope = typeof nextScope === 'undefined';
 
-        let destinationEditorCoords;
-        let bodyOffset = 1;
+        let destinationExpression;
 
-        if (!isLocalScope) {
-            destinationEditorCoords = coordsHelper.coordsFromAstToEditor(nextScope.loc);
-            bodyOffset = 0;
-        } else if (isObjectScope(selectedScope)) {
-            destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.loc);
-        } else if (isLocalScope && isFunctionScope) {
-            destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.body.loc);
+        if(isLocalScope) {
+            destinationExpression = selectionExpressionHelper.getNearestExpression(selectionAstCoords, ast);
         } else {
-            destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.loc);
-            bodyOffset = 0;
+            destinationExpression = selectionExpressionHelper.getNearestExpression(nextScope.loc, ast);
         }
 
+        let destinationEditorCoords = coordsHelper.coordsFromAstToEditor(destinationExpression.loc);
+
         return {
-            start: [destinationEditorCoords.start[0], destinationEditorCoords.start[1] + bodyOffset],
-            end: [destinationEditorCoords.start[0], destinationEditorCoords.start[1] + bodyOffset]
+            start: [destinationEditorCoords.start[0], destinationEditorCoords.start[1]],
+            end: [destinationEditorCoords.start[0], destinationEditorCoords.start[1]]
         };
     }
 
     return {
-        getNewMethodLocation: typeHelper.enforce(
+        getNewExtractionLocation: typeHelper.enforce(
             'scopePath, selectedOptionIndex => editorCoords',
-            getNewMethodLocation),
+            getNewExtractionLocation),
 
         getScopePath: typeHelper.enforce(
             'editorCoords, ast => array<astNode>',

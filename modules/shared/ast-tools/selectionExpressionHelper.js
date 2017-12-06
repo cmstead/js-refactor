@@ -5,9 +5,20 @@ function selectionExpressionHelper(
     typeHelper
 ) {
 
+    const wrappingNodeTypes = [
+        'VariableDeclaration',
+        'ReturnStatement',
+        'CallExpression',
+        'Property'
+    ];
+
+    const isWrappingNode = astHelper.isNodeType(wrappingNodeTypes);
+
     function isExpressionNode(node) {
-        return typeof node.type === 'string'
-            && (/expression/i).test(node.type);
+        const isExpression = typeof node.type === 'string'
+            && (isWrappingNode(node) || (/expression/i).test(node.type));
+
+        return isExpression;
     }
 
     function lineAndColumnMatch(selectionPosition, nodePosition) {
@@ -26,14 +37,40 @@ function selectionExpressionHelper(
                 isExpressionNode(node)
                 && nodeCoordsMatch(astCoords, node);
 
+    const isNearNode =
+        (astCoords) =>
+            (node) =>
+                isExpressionNode(node)
+                && astHelper.coordsInNode(astCoords, node);
+
     function getSelectionExpression(astCoords, ast) {
         let currentScope = null;
         const isSelectedNode = isMatchingNode(astCoords);
 
         astHelper.traverse(ast, {
             enter: astHelper.onMatch(
-                (node) => currentScope === null &&isSelectedNode(node),
+                (node) => currentScope === null && isSelectedNode(node),
                 (node) => currentScope = node
+            )
+        });
+
+        return currentScope;
+    }
+
+    function getNearestExpression(astCoords, ast) {
+        let currentScope = null;
+        let lastScope = ast;
+
+        astHelper.traverse(ast, {
+            enter: astHelper.onMatch(
+                isNearNode(astCoords),
+                function (node) {
+                    if(!isWrappingNode(lastScope)) {
+                        currentScope = node;
+                    }
+
+                    lastScope = node;
+                }
             )
         });
 
@@ -43,7 +80,11 @@ function selectionExpressionHelper(
     return {
         getSelectionExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
-            getSelectionExpression)
+            getSelectionExpression),
+
+        getNearestExpression: typeHelper.enforce(
+            'astCoords, ast => variant<null, astNode>',
+            getNearestExpression),
     };
 }
 

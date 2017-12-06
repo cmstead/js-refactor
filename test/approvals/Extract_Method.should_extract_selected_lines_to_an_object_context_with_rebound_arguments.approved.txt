@@ -13,15 +13,15 @@
         }
     ],
     [
-        "aNewFunction: function (whatever) {\nif(whatever) {\n                var aThing = 5\n                console.log('Do the thing', aThing);\n            }\n},\n",
+        "aNewFunction: function (whatever) {\nif(whatever) {\n                var aThing = 5\n                console.log('Do the thing', aThing);\n            }\n},\n\n",
         {
             "start": [
                 3,
-                9
+                4
             ],
             "end": [
                 3,
-                9
+                4
             ]
         }
     ]

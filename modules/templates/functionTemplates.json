@@ -2,12 +2,12 @@
     "function": [
         "function {name} ({arguments}) {",
         "{body}",
-        "}\n"
+        "}\n\n"
     ],
     "method": [
         "{name}: function ({arguments}) {",
         "{body}",
-        "},\n"
+        "},\n\n"
     ],
     "functionCall": [
         "{name}({arguments})"

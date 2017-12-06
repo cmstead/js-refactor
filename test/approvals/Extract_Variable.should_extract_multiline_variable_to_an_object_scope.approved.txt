@@ -13,15 +13,15 @@
         }
     ],
     [
-        "\nfoo: {\n                baz: 'quux'\n            },\n",
+        "\nfoo: {\n                baz: 'quux'\n            },\n\n",
         {
             "start": [
                 24,
-                9
+                4
             ],
             "end": [
                 24,
-                9
+                4
             ]
         }
     ]

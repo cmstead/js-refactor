@@ -1,8 +1,8 @@
 {
     "variable": [
-        "{type} {name} = {body};"
+        "{type} {name} = {body};\n"
     ],
     "property": [
-        "{name}: {body},"
+        "{name}: {body},\n"
     ]
 }

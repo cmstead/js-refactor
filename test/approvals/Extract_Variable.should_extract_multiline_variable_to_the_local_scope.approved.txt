@@ -13,15 +13,15 @@
         }
     ],
     [
-        "\nconst foo = {\n                baz: 'quux'\n            };\n",
+        "\nconst foo = {\n                baz: 'quux'\n            };\n\n",
         {
             "start": [
-                25,
-                31
+                26,
+                12
             ],
             "end": [
-                25,
-                31
+                26,
+                12
             ]
         }
     ]

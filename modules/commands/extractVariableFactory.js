@@ -5,6 +5,7 @@ var j = require('jfp');
 function extractVariableFactory(
     coordsHelper,
     editActionsFactory,
+    extractHelper,
     logger,
     parser,
     scopePathHelper,
@@ -33,38 +34,6 @@ function extractVariableFactory(
 
         function isObjectScope(selectedScope) {
             return selectedScope.type.toLowerCase().indexOf('object') > -1;
-        }
-
-        function isProgramScope(selectedScope) {
-            return selectedScope.type.toLowerCase().indexOf('Program') > -1;
-        }
-
-        function getExtractionLocation(scopePath, selectedOptionIndex) {
-            const selectedScope = scopePath[selectedOptionIndex];
-            const nextScope = scopePath[selectedOptionIndex + 1];
-
-            const isFunctionScope = !isProgramScope(selectedScope) && !isObjectScope(selectedScope);
-            const isLocalScope = scopePath.length - 1 === selectedOptionIndex;
-
-            let destinationEditorCoords;
-            let bodyOffset = 1;
-
-            if (!isLocalScope) {
-                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(nextScope.loc);
-                bodyOffset = 0;
-            } else if (isObjectScope(selectedScope)) {
-                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.loc);
-            } else if(isLocalScope && isFunctionScope) {
-                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.body.loc);
-            } else {
-                destinationEditorCoords = coordsHelper.coordsFromAstToEditor(selectedScope.loc);
-                bodyOffset = 0;
-            }
-
-            return {
-                start: [destinationEditorCoords.start[0], destinationEditorCoords.start[1] + bodyOffset],
-                end: [destinationEditorCoords.start[0], destinationEditorCoords.start[1] + bodyOffset]
-            };
         }
 
         function buildScopePathString(scopeNode, index) {
@@ -182,7 +151,12 @@ function extractVariableFactory(
 
                             const variableString = buildVariableString(extractVariableContext, selectedScope);
 
-                            const newMethodLocation = getExtractionLocation(scopePath, selectedOptionIndex, selectionEditorCoords);
+                            const newMethodLocation = extractHelper
+                                .getNewExtractionLocation(
+                                    scopePath, 
+                                    selectedOptionIndex, 
+                                    selectionEditorCoords, 
+                                    ast);
                             const editActions = editActionsFactory(activeEditor);
 
                             const variableRef = isObjectScope(scopePath[selectedOptionIndex])
