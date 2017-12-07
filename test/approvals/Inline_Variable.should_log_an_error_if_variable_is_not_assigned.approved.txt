@@ -1,5 +1,5 @@
 [
     [
-        "Variable is either not local or unassigned, cannot inline"
+        "Cannot inline an unassigned variable."
     ]
 ]

@@ -1,75 +1,119 @@
 'use strict';
 
-var j = require('jfp');
-
 function inlineVariableFactory(
+    astHelper,
+    coordsHelper,
     logger,
     editActionsFactory,
-    extensionHelper,
-    sourceUtils,
-    selectionFactory,
+    parser,
+    scopePathHelper,
+    selectionHelper,
+    selectionExpressionHelper,
     utilities,
-    inlineVariableAction,
-    vsCodeFactory) {
+    vsCodeFactory
+) {
 
-    return function (vsEditor, callback) {
+    return function (_, callback) {
 
-        function applyRefactor(vsEditor, selectionData, scopeData, lines) {
-            var scopeBounds = j.deref('scopeBounds')(scopeData);
-            var selectedVar = j.eitherString('')(j.deref('selection.0')(selectionData));
+        function getSelectionEditorCoords(activeEditor) {
+            const firstSelectionCoords = utilities.getAllSelectionCoords(activeEditor)[0];
+            return coordsHelper.coordsFromDocumentToEditor(firstSelectionCoords);
+        }
 
-            var isAssignedVariable = inlineVariableAction.isAssigned(selectedVar);
-            var valueInFunctionScope = inlineVariableAction.isValueInScope(scopeBounds, selectionData.selectionCoords);
+        const isMatchingIdentifier =
+            (identifierName) =>
+                (node) =>
+                    node.name === identifierName;
 
-            if (selectionData.selection === null) {
-                logger.info('Cannot inline empty selection');
-            } else if (selectionData.selection.length > 1) {
-                logger.info('Inline variable does not currently support multiline values');
-            } else if(!isAssignedVariable) {
-                logger.info('Variable is either not local or unassigned, cannot inline');
-            } else if (!valueInFunctionScope) {
-                logger.info('Cannot inline variable if it is not inside a function');
-            } else {
-                buildAndApply(vsEditor, selectionData, scopeData, lines);
+        const isNotMatchingLoc =
+            (identifierLoc) =>
+                (node) =>
+                    !astHelper.nodeMatchesCoords(identifierLoc, node);
+
+        function buildUpdateData(replacementExpression) {
+            return function (node) {
+                return {
+                    coords: coordsHelper.coordsFromAstToEditor(node.loc),
+                    replacementValue: replacementExpression
+                }
             }
         }
 
-        function buildAndApply(vsEditor, selectionData, scopeData, lines) {
-            var editActions = editActionsFactory(vsEditor);
-
-            var bounds = scopeData.scopeBounds;
-            var selection = selectionData.selection[0];
-
-            var replacementSource = inlineVariableAction.getReplacementSource(selection, bounds, lines);
-
-
-            editActions.applySetEdit(replacementSource, bounds).then(callback);
+        function isAscendingOrder(update1, update2) {
+            return update1.end[0] < update2.end[0]
+                || (update1.end[0] === update2.end[0]
+                    && update1.end[1] < update2.end[1]);
         }
 
-        function getSelectionData(vsEditor) {
-            var selection = selectionFactory(vsEditor).getSelection(0);
-            var selectionCoords = utilities.buildCoords(vsEditor, 0);
-
-            var lineOffset = inlineVariableAction.getWhitespaceOffset(j.eitherArray([''])(selection)[0]);
-
-            selectionCoords.start[1] = selectionCoords.start[1] + lineOffset;
-
-            return {
-                selection: selection,
-                selectionCoords: selectionCoords
-            };
+        function compareCoords(update1, update2) {
+            if (isAscendingOrder(update1.coords, update2.coords)) {
+                return -1;
+            } else if (isAscendingOrder(update2.coords, update1.coords)) {
+                return 1
+            } else {
+                return 0;
+            }
         }
 
-        return function inlineAction() {
-            var vsEditor = vsCodeFactory.get().window.activeTextEditor;
-            var getScopeBounds = extensionHelper.returnOrDefault(null, sourceUtils.scopeDataFactory);
-            var selectionData = getSelectionData(vsEditor);
+        function applyEdits(activeEditor, updateEdits) {
+           const editActions = editActionsFactory(activeEditor);
+           const currentEdit = updateEdits.pop();
 
-            var lines = utilities.getEditorDocument(vsEditor)._lines;
-            var scopeData = getScopeBounds(lines, selectionData);
-
-            applyRefactor(vsEditor, selectionData, scopeData, lines);
+           editActions.applySetEdit(currentEdit.replacementValue, currentEdit.coords).then(function () {
+               if(updateEdits.length > 0) {
+                   applyEdits(activeEditor, updateEdits);
+               } else {
+                   callback();
+               }
+           });
         }
+
+        function inlineVariable(activeEditor, variableExpression, sourceLines, ast) {
+            const scopePath = scopePathHelper.buildScopePath(variableExpression.loc, ast);
+            const varScope = scopePath[scopePath.length - 1];
+
+            const identifierName = variableExpression.declarations[0].id.name;
+            const identifierLoc = variableExpression.declarations[0].id.loc;
+
+            const expressionLoc = variableExpression.declarations[0].init.loc;
+            const expressionCoords = coordsHelper.coordsFromAstToEditor(expressionLoc);
+
+            const expressionString = selectionHelper
+                .getSelection(sourceLines, expressionCoords)
+                .join('\n');
+
+            const documentUpdates = selectionExpressionHelper
+                .getIdentifiersInScope(varScope.loc, ast)
+                .filter((node) =>
+                    isMatchingIdentifier(identifierName)(node)
+                    && isNotMatchingLoc(identifierLoc)(node))
+                .map(buildUpdateData(expressionString));
+
+            documentUpdates.sort(compareCoords);
+            documentUpdates.unshift(buildUpdateData('')(variableExpression));
+
+            applyEdits(activeEditor, documentUpdates);
+        }
+
+        return function () {
+            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
+            const selectionEditorCoords = getSelectionEditorCoords(activeEditor);
+            const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
+
+            const sourceLines = utilities.getDocumentLines(activeEditor);
+            const ast = parser.parseSourceLines(sourceLines);
+
+            const variableExpression = selectionExpressionHelper.getNearestVariableExpression(selectionAstCoords, ast);
+
+            if (variableExpression === null) {
+                logger.info('Cannot inline a non-variable value.');
+            } else if (variableExpression.declarations[0].init === null) {
+                logger.info('Cannot inline an unassigned variable.');
+            } else {
+                inlineVariable(activeEditor, variableExpression, sourceLines, ast);
+            }
+        }
+
     }
 }
 

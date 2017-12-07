@@ -12,4 +12,5 @@ function someFn (){
     var bad;
     var quux = 7 + 8;
     console.log(baz, quux);
+    var somethingElse = quux + 10;
 }

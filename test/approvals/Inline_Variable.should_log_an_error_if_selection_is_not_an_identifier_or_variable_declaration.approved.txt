@@ -1,0 +1,5 @@
+[
+    [
+        "Cannot inline a non-variable value."
+    ]
+]

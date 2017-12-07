@@ -27,7 +27,7 @@ describe('Inline Variable', function () {
         applySetEditSpy = sinon.spy(function (text, coords) {
             return {
                 then: function (callback) {
-
+                    callback();
                 }
             };
         });
@@ -35,73 +35,25 @@ describe('Inline Variable', function () {
         mocker.getMock('editActionsFactory').api.applySetEdit = applySetEditSpy;
     });
 
-    it('should log an error if selection is empty', function () {
+    it('should log an error if selection is not an identifier or variable declaration', function () {
         var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
 
         vsCodeProperties.activeTextEditor = {
             _documentData: {
-                _lines: sourceTokens
+                _lines: sourceTokens,
+                _selections: [
+                    {
+                        _start: {
+                            _line: 4,
+                            _column: 10
+                        },
+                        _end: {
+                            _line: 4,
+                            _column: 10
+                        }
+                    }
+                ]
             }
-        };
-
-        var info = mocker.getMock('logger').api.info;
-        subcontainer.build('inlineVariableFactory')(null, function () { })();
-
-        this.verify(prettyJson(info.args));
-    });
-
-    it('should log an error if multiple selections are made', function () {
-        var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
-
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 0,
-                    _character: 0
-                },
-                _end: {
-                    _line: 1,
-                    _character: 0
-                }
-            },
-            {
-                _start: {
-                    _line: 2,
-                    _character: 0
-                },
-                _end: {
-                    _line: 3,
-                    _character: 0
-                }
-            }]
-        };
-
-        var info = mocker.getMock('logger').api.info;
-        subcontainer.build('inlineVariableFactory')(null, function () { })();
-
-        this.verify(prettyJson(info.args));
-    });
-
-    it('should log an error if selection is not inside a function', function () {
-        var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
-
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 0
-                },
-                _end: {
-                    _line: 2,
-                    _character: 18
-                }
-            }]
         };
 
         var info = mocker.getMock('logger').api.info;
@@ -120,11 +72,11 @@ describe('Inline Variable', function () {
             _selections: [{
                 _start: {
                     _line: 11,
-                    _character: 0
+                    _character: 9
                 },
                 _end: {
                     _line: 11,
-                    _character: 12
+                    _character: 9
                 }
             }]
         };
@@ -135,7 +87,7 @@ describe('Inline Variable', function () {
         this.verify(prettyJson(info.args));
     });
 
-    it('should inline variable when selection is okay', function () {
+    it.only('should inline variable when selection is okay', function () {
         var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
 
         vsCodeProperties.activeTextEditor = {
@@ -145,11 +97,11 @@ describe('Inline Variable', function () {
             _selections: [{
                 _start: {
                     _line: 12,
-                    _character: 0
+                    _character: 10
                 },
                 _end: {
                     _line: 12,
-                    _character: 21
+                    _character: 10
                 }
             }]
         };
@@ -157,6 +109,14 @@ describe('Inline Variable', function () {
         subcontainer.build('inlineVariableFactory')(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
+    });
+
+    it('should inline from selected non-assignment identifier', function() {
+        // This test needs to be written to handle other valid variable type case
+    });
+
+    it.skip('should inline variable from comma-separated variable list', function() {
+        // I don't even know what this is going to look like yet.
     });
 
 });

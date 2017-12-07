@@ -1,6 +1,9 @@
 'use strict';
 
-function scopePathHelper(astHelper) {
+function scopePathHelper(
+    astHelper,
+    typeHelper
+) {
 
     const isScopeElement = astHelper.isNodeType([
         'ObjectExpression',
@@ -39,7 +42,9 @@ function scopePathHelper(astHelper) {
     }
 
     return {
-        buildScopePath: buildScopePath
+        buildScopePath: typeHelper.enforce(
+            'astCoords, ast => array<astNode>', 
+            buildScopePath)
     };
 }
 

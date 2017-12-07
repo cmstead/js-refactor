@@ -193,8 +193,7 @@
       },
       {
         "command": "cmstead.jsRefactor.inlineVariable",
-        "key": "ctrl+shift+j i",
-        "when": "editorHasSelection"
+        "key": "ctrl+shift+j i"
       },
       {
         "command": "cmstead.jsRefactor.convertToArrowFunction",
@@ -237,7 +236,7 @@
         },
         {
           "command": "cmstead.jsRefactor.inlineVariable",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "resourceLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.negateExpression",
@@ -311,6 +310,11 @@
         {
           "when": "editorHasSelection && resourceLangId == javascript",
           "command": "cmstead.jsRefactor.extractVariable",
+          "group": "5_refactor"
+        },
+        {
+          "when": "resourceLangId == javascript",
+          "command": "cmstead.jsRefactor.inlineVariable",
           "group": "5_refactor"
         },
         {
