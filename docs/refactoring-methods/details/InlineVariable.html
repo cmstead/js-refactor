@@ -21,7 +21,7 @@
 <ul>
     <ul>
     <li>
-        <strong>should log an error if selection is empty</strong>
+        <strong>should log an error if selection is not an identifier or variable declaration</strong>
     </li>
     <li>File location: <span class="filename">./test/inlineVariableFactory.test.js</span></li>
     <li class="code-sample-wrapper">
@@ -35,96 +35,20 @@
 
         vsCodeProperties.activeTextEditor &#x3D; {
             _documentData: {
-                _lines: sourceTokens
+                _lines: sourceTokens,
+                _selections: [
+                    {
+                        _start: {
+                            _line: 4,
+                            _column: 10
+                        },
+                        _end: {
+                            _line: 4,
+                            _column: 10
+                        }
+                    }
+                ]
             }
-        };
-
-        var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
-        subcontainer.build(&#x27;inlineVariableFactory&#x27;)(null, function () { })();
-
-        this.verify(prettyJson(info.args));
-    }
-            </code>
-        </pre>
-    </li>
-</ul>
-<ul>
-    <li>
-        <strong>should log an error if multiple selections are made</strong>
-    </li>
-    <li>File location: <span class="filename">./test/inlineVariableFactory.test.js</span></li>
-    <li class="code-sample-wrapper">
-        <div class="code-expand">
-            <a href="#" class="collapse-link"></a>
-        </div>
-        <pre class="code-sample">
-            <code>
-        function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/inlineVariable/inlineVariable.js&#x27;);
-
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 0,
-                    _character: 0
-                },
-                _end: {
-                    _line: 1,
-                    _character: 0
-                }
-            },
-            {
-                _start: {
-                    _line: 2,
-                    _character: 0
-                },
-                _end: {
-                    _line: 3,
-                    _character: 0
-                }
-            }]
-        };
-
-        var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
-        subcontainer.build(&#x27;inlineVariableFactory&#x27;)(null, function () { })();
-
-        this.verify(prettyJson(info.args));
-    }
-            </code>
-        </pre>
-    </li>
-</ul>
-<ul>
-    <li>
-        <strong>should log an error if selection is not inside a function</strong>
-    </li>
-    <li>File location: <span class="filename">./test/inlineVariableFactory.test.js</span></li>
-    <li class="code-sample-wrapper">
-        <div class="code-expand">
-            <a href="#" class="collapse-link"></a>
-        </div>
-        <pre class="code-sample">
-            <code>
-        function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/inlineVariable/inlineVariable.js&#x27;);
-
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 0
-                },
-                _end: {
-                    _line: 2,
-                    _character: 18
-                }
-            }]
         };
 
         var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
@@ -157,11 +81,11 @@
             _selections: [{
                 _start: {
                     _line: 11,
-                    _character: 0
+                    _character: 9
                 },
                 _end: {
                     _line: 11,
-                    _character: 12
+                    _character: 9
                 }
             }]
         };
@@ -196,11 +120,11 @@
             _selections: [{
                 _start: {
                     _line: 12,
-                    _character: 0
+                    _character: 10
                 },
                 _end: {
                     _line: 12,
-                    _character: 21
+                    _character: 10
                 }
             }]
         };
@@ -208,6 +132,24 @@
         subcontainer.build(&#x27;inlineVariableFactory&#x27;)(null, function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should inline from selected non-assignment identifier</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inlineVariableFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+        // This test needs to be written to handle other valid variable type case
     }
             </code>
         </pre>

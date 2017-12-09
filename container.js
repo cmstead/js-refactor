@@ -13,7 +13,8 @@ var config = {
         'shared',
         'shared' + sep + 'ast-tools',
         'shared' + sep + 'refactoring-tools',
-        'shared' + sep + 'wrapper-files',
+        'shared' + sep + 'selection-tools',
+        'shared' + sep + 'loader-files',
     ]
 }
 

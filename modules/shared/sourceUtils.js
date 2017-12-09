@@ -1,14 +1,6 @@
 'use strict';
 
-function sourceUtils(scopeFinder) {
-
-    function scopeDataFactory(lines, selectionData) {
-        var scopeBounds = scopeFinder.findScopeCoords(lines.join('\n'), selectionData.selectionCoords);
-
-        return {
-            scopeBounds: scopeBounds
-        };
-    }
+function sourceUtils() {
 
     function matchInLine(regex, line) {
         return typeof line === 'string' && line.match(regex) !== null;
@@ -38,8 +30,7 @@ function sourceUtils(scopeFinder) {
     return {
         getScopeLines: getScopeLines,
         matchInLine: matchInLine,
-        matchInSource: matchInSource,
-        scopeDataFactory: scopeDataFactory
+        matchInSource: matchInSource
     }
 }
 
