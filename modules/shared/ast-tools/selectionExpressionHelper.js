@@ -9,7 +9,13 @@ function selectionExpressionHelper(
         'VariableDeclaration',
         'ReturnStatement',
         'CallExpression',
+        'MemberExpression',
         'Property'
+    ];
+
+    const exclusionWrappingNodeTypes = [
+        'ArrowFunctionExpression',
+        'BinaryExpression'
     ];
 
     const variableExpression = [
@@ -18,11 +24,13 @@ function selectionExpressionHelper(
     ];
 
     const isWrappingNode = astHelper.isNodeType(wrappingNodeTypes);
+    const isExclusionWrappingNode = astHelper.isNodeType(exclusionWrappingNodeTypes);
     const isVariableExpression = astHelper.isNodeType(variableExpression);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
 
     function isExpressionNode(node) {
         const isExpression = typeof node.type === 'string'
+            && !isExclusionWrappingNode(node)
             && (isWrappingNode(node) || (/expression/i).test(node.type));
 
         return isExpression;
@@ -52,10 +60,10 @@ function selectionExpressionHelper(
 
     const isNearVariableExpression =
         (astCoords) =>
-            (node) => 
+            (node) =>
                 isVariableExpression(node)
                 && astHelper.coordsInNode(astCoords, node);
-    
+
     const isIdentifierInScope =
         (astCoords) =>
             (node) =>

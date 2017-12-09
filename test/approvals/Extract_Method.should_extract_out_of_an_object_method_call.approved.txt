@@ -1,0 +1,28 @@
+[
+    [
+        "aNewFunction(value)",
+        {
+            "start": [
+                19,
+                28
+            ],
+            "end": [
+                19,
+                43
+            ]
+        }
+    ],
+    [
+        "function aNewFunction (value) {\nvalue % 2 === 0\n}\n\n",
+        {
+            "start": [
+                19,
+                4
+            ],
+            "end": [
+                19,
+                4
+            ]
+        }
+    ]
+]

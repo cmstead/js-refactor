@@ -87,7 +87,7 @@ describe('Inline Variable', function () {
         this.verify(prettyJson(info.args));
     });
 
-    it.only('should inline variable when selection is okay', function () {
+    it('should inline variable when selection is okay', function () {
         var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
 
         vsCodeProperties.activeTextEditor = {

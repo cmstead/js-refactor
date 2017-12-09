@@ -1,5 +1,0 @@
-[
-    [
-        "Cannot inline variable if it is not inside a function"
-    ]
-]

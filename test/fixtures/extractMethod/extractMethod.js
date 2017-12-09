@@ -16,4 +16,8 @@ const obj = {
     }
 }
 
+function something(numbers) {
+    numbers.filter(value => value % 2 === 0);
+}
+
 module.exports = obj;

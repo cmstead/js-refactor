@@ -149,4 +149,31 @@ describe('Extract Method', function () {
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
+
+    it('should extract out of an object method call', function() {
+        setupOptions.selectedScopeIndex = 1;
+
+        const sourceTokens = readSource('./test/fixtures/extractMethod/extractMethod.js');
+        const activeTextEditorOptions = {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [19, 28],
+                    end: [19, 43]
+                }
+            }
+        };
+
+        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor = activeTextEditor;
+
+        const extractMethodFactory = subcontainer.build('extractMethodFactory');
+
+        const unusedObject = null;
+        const callback = function () { };
+
+        extractMethodFactory(unusedObject, callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
 });
