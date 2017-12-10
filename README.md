@@ -1,24 +1,21 @@
-JS-Refactor
-===========
+JS Refactorings
+===============
 
-JS Refactor is a Visual Studio Code extension for adding a few useful refactorings to help speed development and 
+JS Refactorings is a Visual Studio Code extension for adding a few useful refactorings to help speed development and 
 reduce the time a Javascript developer has to spend performing repeated actions. It may only take a few extra
 seconds to do these things by hand, but those seconds add up quite quickly.
 
 JS Refactor has two key components: automated refactorings and code snippets.
 
-Find me online:
-- [@cm_stead](https://twitter.com/cm_stead)
-- [ChrisStead.com](http://www.chrisstead.com)
-
 ## Installation
 
-Open VS Code, press F1 and enter `ext install jsrefactor`
+#### Extensions Panel:
+Click on the extensions icon on the left-hand side of your editor.  In the search bar type "JS Refactorings." Find the extension in the list and click the install button.
 
-For early release access prior to deployment to the Visual Studio Marketplace, this extension can be downloaded
-and side-loaded into your editor.
+#### Command Pallette
+Open VS Code, press F1 and enter `ext install` to open the extensions panel, follow the instructions above
 
-## Keep In Touch
+## Find Me Online
 
 - [ChrisStead.com](http://www.chrisstead.com)
 - [Visit me on Twitter](https://twitter.com/cm_stead)
@@ -26,43 +23,46 @@ and side-loaded into your editor.
 
 ## Automated Refactorings
 
-**Basic usage:** Press F1 and type `JS Refactorings` to select from a list of all refactorings
+**Basic usage:** Make a selection, right click and select the refactoring you want to perform from the context menu.
 
-**Alternative options:** You can also press F1 then simply type the name of the refactoring and press enter 
-if you know the name of the refactoring you need. Finally, there are hotkey combinations for some of the most common
-refactorings you might want.
+**Command Pallette:** You can press F1 then simply type the name of the refactoring and press enter 
+if you know the name of the refactoring you need.
+
+**Shortcuts:** Finally, there are hotkey combinations for some of the most common refactorings you might want. Hotkeys are listed in the keybindings section below.
 
 JS Refactor supports the following refactorings (explanations below):
 
+**Core Refactorings:**
 - Extract Method
 - Extract Variable
-- Rename Variable (Alias of VS Code internal)
+- Inline Variable
+- Rename Variable (Alias of VS Code internal command)
 
+**Other Utilities:**
 - Convert To Arrow Function
 - Export Function
-- Inline Variable
 - Negate Expression
 - Shift Parameters Left
 - Shift Parameters Right
-- Wrap in Arrow Function
-- Wrap in Async Function
-- Wrap In Condition
-- Wrap in Function
-- Wrap in Generator
-- Wrap in IIFE
-- Wrap in Try/Catch
+- Wrap selection options:
+    - Arrow Function
+    - Async Function
+    - Condition
+    - Function
+    - Generator
+    - IIFE
+    - Try/Catch
 
 ### Keybindings
 
 - Extract method - ctrl+shift+j m
 - Extract variable - ctrl+shift+j v
+- Inline variable - ctrl+shift+j i
 - Rename variable (VS Code internal) - F2
 
 - Menu of available refactorings - ctrl+shift+j r
-- Inline variable - ctrl+shift+j i
 - Export function - ctrl+shift+j x
-- Shift params to the left - ctrl+shift+j s
-- Wrap selection - ctrl+shift+j w",
+- Wrap selection - ctrl+shift+j w
 
 ### Usage
 
@@ -70,6 +70,16 @@ Select the code you wish to refactor and then press the F1 key to open the comma
 the refactoring and select the correct refactoring from the list. You will be prompted for any necessary information.
 
 ### Explanations
+
+#### Core Refactorings ####
+
+**Extract Method** Creates new function with original selection as the body.
+
+**Extract Variable** Creates new assigned variable declaration and replaces original selection.
+
+**Inline Variable** Replaces all references to variable with variable initialization expression, deletes variable declaration.
+
+#### Other Utilities ####
 
 **Convert To Arrow Function** Converts a function expression to an arrow function.
 
@@ -80,18 +90,11 @@ Convert to named function only searches the first line of your selection and wil
 
 **Export Function** creates new export declaration for selected function or function name
 
-**Extract Variable** Creates new assigned variable declaration and extracts repeated values.
-
 **Shift Parameters Left** Shifts all selected parameters to the left
 
 **Shift Parameters Right** Shifts all selected parameters to the right
 
 **Wrap In Condition** Wraps selected code in an if statement, adding indentation as necessary
-
-**Wrap In Executed Function** is an extra step on top of wrap in function.  Instead of simply wrapping your selected code
-in a new function declaration, JS Refactor encloses your code in a named function and immediately executes the
-new function on the next line.  This makes the "extract method/function" refactoring trivial to implement since
-the only work needed is to move the new function to an appropriate location in the code.
 
 **Wrap in function** takes your selected code, at line-level precision, and wraps all of the lines in a named function.
 
@@ -162,6 +165,13 @@ Nevertheless, following are the required elements of a good pull request:
 - **Pull requests may not be claimed as intellectual property of a company or other external agency.**
 
 ## Updates ##
+
+### 2.2.0 ###
+
+- Rewrite of Inline Variable
+    - Improved inlining capabilities
+    - Scoped inlining from variable use
+    - Click and inline functionality -- no need to select
 
 ### v2.1.0 ###
 
