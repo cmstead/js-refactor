@@ -13,7 +13,7 @@
         }
     ],
     [
-        "\nconst foo = 2 + 3;\n\n",
+        "const foo = 2 + 3;\n\n",
         {
             "start": [
                 30,

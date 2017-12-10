@@ -13,7 +13,7 @@
         }
     ],
     [
-        "\nconst foo = {\n                baz: 'quux'\n            };\n\n",
+        "const foo = {\n                baz: 'quux'\n            };\n\n",
         {
             "start": [
                 23,

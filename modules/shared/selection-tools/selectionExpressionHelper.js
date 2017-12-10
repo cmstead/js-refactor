@@ -18,15 +18,10 @@ function selectionExpressionHelper(
         'BinaryExpression'
     ];
 
-    const variableExpression = [
-        'VariableDeclaration',
-        'Identifier'
-    ];
-
     const isWrappingNode = astHelper.isNodeType(wrappingNodeTypes);
     const isExclusionWrappingNode = astHelper.isNodeType(exclusionWrappingNodeTypes);
-    const isVariableExpression = astHelper.isNodeType(variableExpression);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
+    const isVariabeDeclaration = astHelper.isNodeType(['VariableDeclaration']);
 
     function isExpressionNode(node) {
         const isExpression = typeof node.type === 'string'
@@ -58,16 +53,22 @@ function selectionExpressionHelper(
                 isExpressionNode(node)
                 && astHelper.coordsInNode(astCoords, node);
 
-    const isNearVariableExpression =
+    const isNearIdentifierExpression =
         (astCoords) =>
             (node) =>
-                isVariableExpression(node)
+                isIdentifier(node)
                 && astHelper.coordsInNode(astCoords, node);
 
     const isIdentifierInScope =
         (astCoords) =>
             (node) =>
                 isIdentifier(node)
+                && astHelper.nodeInCoords(astCoords, node);
+
+    const isVariableDeclarationInScope =
+        (astCoords) =>
+            (node) =>
+                isVariabeDeclaration(node)
                 && astHelper.nodeInCoords(astCoords, node);
 
     function getSelectionExpression(astCoords, ast) {
@@ -104,12 +105,12 @@ function selectionExpressionHelper(
         return currentScope;
     }
 
-    function getNearestVariableExpression(astCoords, ast) {
+    function getNearestIdentifierExpression(astCoords, ast) {
         let currentScope = null;
 
         astHelper.traverse(ast, {
             enter: astHelper.onMatch(
-                isNearVariableExpression(astCoords),
+                isNearIdentifierExpression(astCoords),
                 function (node) {
                     currentScope = currentScope === null ? node : currentScope;
                 }
@@ -134,6 +135,21 @@ function selectionExpressionHelper(
         return identifiers;
     }
 
+    function getVariableDeclarationsInScope(astCoords, ast) {
+        let variableDeclarations = [];
+
+        astHelper.traverse(ast, {
+            enter: astHelper.onMatch(
+                isVariableDeclarationInScope(astCoords),
+                function (node) {
+                    variableDeclarations.push(node);
+                }
+            )
+        });
+
+        return variableDeclarations;
+    }
+
     return {
         getIdentifiersInScope: typeHelper.enforce(
             'astCoords, ast => array<astNode>',
@@ -147,9 +163,13 @@ function selectionExpressionHelper(
             'astCoords, ast => variant<null, astNode>',
             getNearestExpression),
 
-        getNearestVariableExpression: typeHelper.enforce(
+        getNearestIdentifierExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
-            getNearestVariableExpression)
+            getNearestIdentifierExpression),
+
+        getVariableDeclarationsInScope: typeHelper.enforce(
+            'astCoords, ast => array<astNode>',
+            getVariableDeclarationsInScope)
     };
 }
 

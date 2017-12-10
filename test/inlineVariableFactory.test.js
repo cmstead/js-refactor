@@ -111,11 +111,55 @@ describe('Inline Variable', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    it('should inline from selected non-assignment identifier', function() {
-        // This test needs to be written to handle other valid variable type case
+    it('should inline from selected non-assignment identifier', function () {
+        var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
+
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 13,
+                    _character: 21
+                },
+                _end: {
+                    _line: 13,
+                    _character: 25
+                }
+            }]
+        };
+
+        subcontainer.build('inlineVariableFactory')(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    it.skip('should inline variable from comma-separated variable list', function() {
+    it('should inline from selected non-assignment identifier inside of another variable declaration', function () {
+        var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
+
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 14,
+                    _character: 24
+                },
+                _end: {
+                    _line: 14,
+                    _character: 28
+                }
+            }]
+        };
+
+        subcontainer.build('inlineVariableFactory')(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
+    it.skip('should inline variable from comma-separated variable list', function () {
         // I don't even know what this is going to look like yet.
     });
 

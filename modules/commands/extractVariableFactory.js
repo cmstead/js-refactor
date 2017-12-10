@@ -81,7 +81,7 @@ function extractVariableFactory(
             const variableTemplateKey = isObjectScope(selectedScope) ? 'property' : 'variable';
             const variableString = templateHelper.templates[variableTemplateKey].build(context);
 
-            return '\n' + variableString + '\n';
+            return variableString + '\n';
         }
 
         function getAdjustedEditorCoords(selectionLines, editorCoords) {

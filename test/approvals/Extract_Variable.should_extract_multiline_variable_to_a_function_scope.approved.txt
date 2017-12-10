@@ -13,7 +13,7 @@
         }
     ],
     [
-        "\nvar foo = {\n                baz: 'quux'\n            };\n\n",
+        "var foo = {\n                baz: 'quux'\n            };\n\n",
         {
             "start": [
                 25,

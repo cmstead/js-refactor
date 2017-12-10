@@ -56,16 +56,16 @@ function inlineVariableFactory(
         }
 
         function applyEdits(activeEditor, updateEdits) {
-           const editActions = editActionsFactory(activeEditor);
-           const currentEdit = updateEdits.pop();
+            const editActions = editActionsFactory(activeEditor);
+            const currentEdit = updateEdits.pop();
 
-           editActions.applySetEdit(currentEdit.replacementValue, currentEdit.coords).then(function () {
-               if(updateEdits.length > 0) {
-                   applyEdits(activeEditor, updateEdits);
-               } else {
-                   callback();
-               }
-           });
+            editActions.applySetEdit(currentEdit.replacementValue, currentEdit.coords).then(function () {
+                if (updateEdits.length > 0) {
+                    applyEdits(activeEditor, updateEdits);
+                } else {
+                    callback();
+                }
+            });
         }
 
         function inlineVariable(activeEditor, variableExpression, sourceLines, ast) {
@@ -95,6 +95,24 @@ function inlineVariableFactory(
             applyEdits(activeEditor, documentUpdates);
         }
 
+        function getVariableDeclarations(identifierNode, ast) {
+            const identifierName = identifierNode.name;
+            const scopePath = scopePathHelper.buildScopePath(identifierNode.loc, ast);
+            const localScope = scopePath[scopePath.length - 1];
+
+            const variableExpressions = selectionExpressionHelper
+                .getVariableDeclarationsInScope(localScope.loc, ast)
+                .filter(node => node.declarations[0].id.name === identifierName);
+            
+            return variableExpressions.length > 0 ? variableExpressions[0] : null;
+        }
+
+        function getVariableExpression(selectionAstCoords, ast) {
+            let identityExpression = selectionExpressionHelper.getNearestIdentifierExpression(selectionAstCoords, ast);
+
+            return identityExpression !== null ? getVariableDeclarations(identityExpression, ast) : null;
+        }
+
         return function () {
             const activeEditor = vsCodeFactory.get().window.activeTextEditor;
             const selectionEditorCoords = getSelectionEditorCoords(activeEditor);
@@ -103,7 +121,7 @@ function inlineVariableFactory(
             const sourceLines = utilities.getDocumentLines(activeEditor);
             const ast = parser.parseSourceLines(sourceLines);
 
-            const variableExpression = selectionExpressionHelper.getNearestVariableExpression(selectionAstCoords, ast);
+            const variableExpression = getVariableExpression(selectionAstCoords, ast);
 
             if (variableExpression === null) {
                 logger.info('Cannot inline a non-variable value.');
