@@ -148,8 +148,66 @@
         </div>
         <pre class="code-sample">
             <code>
-        function() {
-        // This test needs to be written to handle other valid variable type case
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/inlineVariable/inlineVariable.js&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 13,
+                    _character: 21
+                },
+                _end: {
+                    _line: 13,
+                    _character: 25
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;inlineVariableFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should inline from selected non-assignment identifier inside of another variable declaration</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inlineVariableFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/inlineVariable/inlineVariable.js&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 14,
+                    _character: 24
+                },
+                _end: {
+                    _line: 14,
+                    _character: 28
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;inlineVariableFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
     }
             </code>
         </pre>
