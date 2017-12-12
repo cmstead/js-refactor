@@ -19,7 +19,7 @@ function commandDefFactory(
 
     return [
         {
-            name: 'cmstead.jsRefactor.exportFunction',
+            name: 'cmstead.jsRefactor.addExport',
             behavior: addExportFactory
         },
         {

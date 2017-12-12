@@ -79,5 +79,3 @@ function addExportFactory(
         }
     };
 }
-
-module.exports = addExportFactory;
