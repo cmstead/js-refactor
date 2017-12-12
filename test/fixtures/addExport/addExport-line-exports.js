@@ -8,4 +8,4 @@ function bar () {
 
 }
 
-module.exports = bar;
+module.exports.bar = bar;

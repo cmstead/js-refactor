@@ -63,7 +63,7 @@ describe('Add Export', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    it.only('should add a single line export to file source if other exports are single line', function () {
+    it('should add a single line export to file source if other exports are single line', function () {
         var sourceTokens = readSource('./test/fixtures/addExport/addExport-line-exports.js');
 
         vsCodeProperties.activeTextEditor = {
@@ -73,11 +73,11 @@ describe('Add Export', function () {
             _selections: [{
                 _start: {
                     _line: 2,
-                    _character: 0
+                    _character: 10
                 },
                 _end: {
-                    _line: 5,
-                    _character: 1
+                    _line: 2,
+                    _character: 10
                 }
             }]
         };
@@ -97,11 +97,11 @@ describe('Add Export', function () {
             _selections: [{
                 _start: {
                     _line: 2,
-                    _character: 0
+                    _character: 10
                 },
                 _end: {
-                    _line: 5,
-                    _character: 1
+                    _line: 2,
+                    _character: 10
                 }
             }]
         };

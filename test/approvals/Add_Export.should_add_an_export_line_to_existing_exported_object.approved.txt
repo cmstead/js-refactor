@@ -1,0 +1,16 @@
+[
+    [
+        "\nfoo: foo\n",
+        {
+            "start": [
+                10,
+                18
+            ],
+            "end": [
+                10,
+                18
+            ]
+        },
+        "[function: anonymous]"
+    ]
+]

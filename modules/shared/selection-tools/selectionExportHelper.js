@@ -5,14 +5,42 @@ function selectionExportHelper(
     typeHelper
 ) {
 
+    const isExpressionStatement = astHelper.isNodeType(['ExpressionStatement']);
+    const isAssignmentExpression = astHelper.isNodeType(['AssignmentExpression']);
     const isMemberExpressionNode = astHelper.isNodeType(['MemberExpression']);
+    const isObjectExpression = astHelper.isNodeType(['ObjectExpression']);
 
-    function isExportNode(node) {
-        if(isMemberExpressionNode(node)) {
-            console.log(node);
-        }
 
-        return false;
+    function isSimpleExportExpression(node) {
+        return node.object.name === 'module'
+            && node.property.name === 'exports';
+    }
+
+    function isNestedExportExpression(node) {
+        return isMemberExpressionNode(node)
+            && isSimpleExportExpression(node);
+    }
+
+    function isExportExpression(node) {
+        return isMemberExpressionNode(node)
+            && (isSimpleExportExpression(node)
+                || isNestedExportExpression(node.object));
+    }
+
+    function isExportExpressionStatement(node) {
+        return isExpressionStatement(node)
+            && isAssignmentExpression(node.expression)
+            && isExportExpression(node.expression.left);
+    }
+
+    function isOneLineExport(left, right) {
+        return isNestedExportExpression(left.object)
+            || !isObjectExpression(right);
+    }
+
+    function isMultilineExport(left, right) {
+        return isSimpleExportExpression(left)
+            && isObjectExpression(right);
     }
 
     function getExportNode(ast) {
@@ -20,7 +48,7 @@ function selectionExportHelper(
 
         astHelper.traverse(ast, {
             enter: astHelper.onMatch(
-                isExportNode,
+                isExportExpressionStatement,
                 (node) => currentNode = node
             )
         });
@@ -31,7 +59,15 @@ function selectionExportHelper(
     return {
         getExportNode: typeHelper.enforce(
             'ast => variant<null, astNode>',
-            getExportNode)
+            getExportNode),
+        
+        isOneLineExport: typeHelper.enforce(
+            'left:astNode, right:astNode => boolean',
+            isOneLineExport),
+        
+        isMultilineExport: typeHelper.enforce(
+            'left:astNode, right:astNode => boolean',
+            isMultilineExport)
     };
 
 }

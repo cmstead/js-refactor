@@ -1,0 +1,16 @@
+[
+    [
+        "\nmodule.exports.foo = foo;",
+        {
+            "start": [
+                10,
+                25
+            ],
+            "end": [
+                10,
+                25
+            ]
+        },
+        "[function: anonymous]"
+    ]
+]

@@ -3,5 +3,11 @@
         "\n\nmodule.exports = {",
         "{name}: {name}",
         "}"
+    ],
+    "oneLineExport": [
+        "\nmodule.exports.{name} = {name};"
+    ],
+    "mulitilineExport": [
+        "\n{name}: {name}\n"
     ]
 }

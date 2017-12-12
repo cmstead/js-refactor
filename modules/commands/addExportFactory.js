@@ -23,9 +23,26 @@ function addExportFactory(
             
             const exportName = astNode.id.name;
 
-            // const exportNode = selectionExportHelper.getExportNode(ast);
+            const exportNode = selectionExportHelper.getExportNode(ast);
 
-            const exportLocation = coordsHelper.coordsFromAstToEditor(ast.loc).end;
+            let exportLocation = exportNode !== null
+                ? coordsHelper.coordsFromAstToEditor(exportNode.loc).end
+                : coordsHelper.coordsFromAstToEditor(ast.loc).end;
+
+            let exportTemplateKey;
+
+            if(exportNode === null) {
+                exportTemplateKey = 'newExport';
+                exportLocation = coordsHelper.coordsFromAstToEditor(ast.loc).end;
+            } else if(selectionExportHelper.isMultilineExport(exportNode.expression.left, exportNode.expression.right)) {
+                exportTemplateKey = 'mulitilineExport';
+                exportLocation = coordsHelper.coordsFromAstToEditor(exportNode.expression.right.loc).start;
+                exportLocation[1] += 1;
+            } else {
+                exportTemplateKey = 'oneLineExport';
+                exportLocation = coordsHelper.coordsFromAstToEditor(exportNode.loc).end;
+            }
+
             const exportEditorCoords = {
                 start: exportLocation,
                 end: exportLocation
@@ -35,10 +52,10 @@ function addExportFactory(
                 name: exportName
             };
 
-            const exportStr = templateHelper.templates.newExport.build(exportContext);
+            const exportStr = templateHelper.templates[exportTemplateKey].build(exportContext);
 
             editActions.applySetEdit(exportStr, exportEditorCoords, function () {
-                callback();s
+                callback();
             });
         }
 
