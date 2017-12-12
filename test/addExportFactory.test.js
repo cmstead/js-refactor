@@ -24,7 +24,7 @@ describe('Add Export', function () {
         vsCodeProperties = testHelper.vsCodeProperties;
     });
 
-    it('should log an error if function name comes back blank', function () {
+    it('should log an error if chosen expression is not a variable declaration or function', function () {
         var sourceTokens = readSource('./test/fixtures/addExport/addExport-no-exports.js');
 
         vsCodeProperties.activeTextEditor = {
@@ -33,10 +33,10 @@ describe('Add Export', function () {
             }
         };
 
-        var log = mocker.getMock('logger').api.log;
+        var info = mocker.getMock('logger').api.info;
         subcontainer.build('addExportFactory')(null, function () { })();
 
-        this.verify(prettyJson(log.args));
+        this.verify(prettyJson(info.args));
     });
 
     it('should add an export to file source when one does not exist', function () {
@@ -49,11 +49,11 @@ describe('Add Export', function () {
             _selections: [{
                 _start: {
                     _line: 2,
-                    _character: 0
+                    _character: 10
                 },
                 _end: {
-                    _line: 5,
-                    _character: 1
+                    _line: 2,
+                    _character: 10
                 }
             }]
         };
@@ -63,7 +63,7 @@ describe('Add Export', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    it('should add a single line export to file sourceif other exports are single line', function () {
+    it.only('should add a single line export to file source if other exports are single line', function () {
         var sourceTokens = readSource('./test/fixtures/addExport/addExport-line-exports.js');
 
         vsCodeProperties.activeTextEditor = {

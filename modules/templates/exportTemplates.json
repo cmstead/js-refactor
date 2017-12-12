@@ -1,0 +1,7 @@
+{
+    "newExport": [
+        "\n\nmodule.exports = {",
+        "{name}: {name}",
+        "}"
+    ]
+}

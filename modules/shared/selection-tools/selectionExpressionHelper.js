@@ -18,8 +18,14 @@ function selectionExpressionHelper(
         'BinaryExpression'
     ];
 
+    const variableOrFunctionTypes = [
+        'FunctionDeclaration',
+        'VariableDeclaration'
+    ];
+
     const isWrappingNode = astHelper.isNodeType(wrappingNodeTypes);
     const isExclusionWrappingNode = astHelper.isNodeType(exclusionWrappingNodeTypes);
+    const isVariableOrFunction = astHelper.isNodeType(variableOrFunctionTypes);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
     const isVariabeDeclaration = astHelper.isNodeType(['VariableDeclaration']);
 
@@ -57,6 +63,12 @@ function selectionExpressionHelper(
         (astCoords) =>
             (node) =>
                 isIdentifier(node)
+                && astHelper.coordsInNode(astCoords, node);
+
+    const isNearVariableOrFunction =
+        (astCoords) =>
+            (node) =>
+                isVariableOrFunction(node)
                 && astHelper.coordsInNode(astCoords, node);
 
     const isIdentifierInScope =
@@ -120,6 +132,21 @@ function selectionExpressionHelper(
         return currentScope;
     }
 
+    function getNearestFunctionOrVariable(astCoords, ast) {
+        let currentScope = null;
+
+        astHelper.traverse(ast, {
+            enter: astHelper.onMatch(
+                isNearVariableOrFunction(astCoords),
+                function (node) {
+                    currentScope = node;
+                }
+            )
+        });
+
+        return currentScope;
+    }
+
     function getIdentifiersInScope(astCoords, ast) {
         let identifiers = [];
 
@@ -162,6 +189,10 @@ function selectionExpressionHelper(
         getNearestExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
             getNearestExpression),
+
+        getNearestFunctionOrVariable: typeHelper.enforce(
+            'astCoords, ast => variant<null, astNode>',
+            getNearestFunctionOrVariable),
 
         getNearestIdentifierExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',

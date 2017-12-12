@@ -12,13 +12,25 @@ function getRawTemplates(templatePath) {
 const templatePath = __dirname + '/../../templates/';
 const rawTemplates = getRawTemplates(templatePath);
 
+function replaceAllKeyInstances(templateStr, key, value) {
+    const replacementKey = `{${key}}`;
+    let lastResult = null;
+    let finalResult = templateStr;
+
+    while(lastResult !== finalResult) {
+        lastResult = finalResult;
+        finalResult = finalResult.replace(replacementKey, value);
+    }
+
+    return finalResult;
+}
+
 function buildFromTemplate(templateStrings) {
     var template = templateStrings.join('\n');
 
     return function (context) {
         return Object.keys(context).reduce(function (result, key) {
-            const replacementKey = `{${key}}`;
-            return result.replace(replacementKey, context[key]);
+            return replaceAllKeyInstances(result, key, context[key]);
         }, template);
     };
 }
