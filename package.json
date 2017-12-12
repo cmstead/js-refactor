@@ -21,7 +21,7 @@
   ],
   "activationEvents": [
     "onCommand:cmstead.jsRefactor.convertToArrowFunction",
-    "onCommand:cmstead.jsRefactor.exportFunction",
+    "onCommand:cmstead.jsRefactor.addExport",
     "onCommand:cmstead.jsRefactor.extractMethod",
     "onCommand:cmstead.jsRefactor.extractVariable",
     "onCommand:cmstead.jsRefactor.inlineVariable",
@@ -91,9 +91,9 @@
         "description": "Convert function from a function expression to an arrow function"
       },
       {
-        "command": "cmstead.jsRefactor.exportFunction",
-        "title": "JS Refactorings: Export Function",
-        "description": "Export function in a node module for external use"
+        "command": "cmstead.jsRefactor.addExport",
+        "title": "JS Refactorings: Add Export",
+        "description": "Export function or variable declaration from local module"
       },
       {
         "command": "cmstead.jsRefactor.extractMethod",
@@ -201,9 +201,8 @@
         "when": "editorHasSelection"
       },
       {
-        "command": "cmstead.jsRefactor.exportFunction",
-        "key": "ctrl+shift+j x",
-        "when": "editorHasSelection"
+        "command": "cmstead.jsRefactor.addExport",
+        "key": "ctrl+shift+j x"
       },
       {
         "command": "cmstead.jsRefactor.shiftParamsLeft",
@@ -223,8 +222,8 @@
           "when": "editorHasSelection && resourceLangId == javascript"
         },
         {
-          "command": "cmstead.jsRefactor.exportFunction",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "command": "cmstead.jsRefactor.addExport",
+          "when": "resourceLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.extractMethod",
@@ -244,7 +243,7 @@
         },
         {
           "command": "cmstead.jsRefactor.rename",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "resourceLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.selectRefactoring",
@@ -298,8 +297,8 @@
           "group": "5_refactor"
         },
         {
-          "when": "editorHasSelection && resourceLangId == javascript",
-          "command": "cmstead.jsRefactor.exportFunction",
+          "when": "resourceLangId == javascript",
+          "command": "cmstead.jsRefactor.addExport",
           "group": "5_refactor"
         },
         {
@@ -323,7 +322,7 @@
           "group": "5_refactor"
         },
         {
-          "when": "editorHasSelection && resourceLangId == javascript",
+          "when": "resourceLangId == javascript",
           "command": "cmstead.jsRefactor.rename",
           "group": "5_refactor"
         },
@@ -350,7 +349,6 @@
     "babylon": "^6.17.4",
     "datamother": "^2.2.4",
     "dject": "^1.4.0",
-    "escope": "^3.6.0",
     "esprima": "^4.0.0",
     "estraverse": "^4.2.0",
     "gulp": "^3.9.1",

@@ -166,6 +166,12 @@ Nevertheless, following are the required elements of a good pull request:
 
 ## Updates ##
 
+### 2.3.0 ###
+
+- Rewite of Export Function to Add Export
+    - Allows export without selection
+    - Allows for export of functions and variable declarations
+
 ### 2.2.0 ###
 
 - Rewrite of Inline Variable
