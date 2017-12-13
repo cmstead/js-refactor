@@ -166,6 +166,12 @@ Nevertheless, following are the required elements of a good pull request:
 
 ## Updates ##
 
+### 2.4.0 ###
+
+- Rewrite of Convert to Arrow Function
+    - Allows conversion without selection
+    - Converts to arrow function without block braces if function is single line
+
 ### 2.3.0 ###
 
 - Rewite of Export Function to Add Export

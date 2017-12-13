@@ -1,0 +1,15 @@
+[
+    [
+        "(foo, { bar, baz }, ...rest) => {\nconsole.log(foo, bar);\n    console.log(baz, rest);\n};",
+        {
+            "start": [
+                15,
+                19
+            ],
+            "end": [
+                18,
+                1
+            ]
+        }
+    ]
+]

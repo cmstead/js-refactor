@@ -1,5 +1,5 @@
 [
     [
-        "No appropriate named function to convert did you select a line containing a function?"
+        "No acceptable function found which can be converted to arrow function."
     ]
 ]

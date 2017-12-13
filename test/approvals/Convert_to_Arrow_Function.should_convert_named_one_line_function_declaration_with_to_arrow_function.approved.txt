@@ -1,0 +1,15 @@
+[
+    [
+        "const myNamedFunction = (value) => value;",
+        {
+            "start": [
+                11,
+                0
+            ],
+            "end": [
+                13,
+                1
+            ]
+        }
+    ]
+]

@@ -1,0 +1,15 @@
+[
+    [
+        "const fnWithNoArgs = (foo, bar) => {\nconsole.log('testing 1');\n    console.log('testing 2');\n};",
+        {
+            "start": [
+                6,
+                0
+            ],
+            "end": [
+                9,
+                1
+            ]
+        }
+    ]
+]

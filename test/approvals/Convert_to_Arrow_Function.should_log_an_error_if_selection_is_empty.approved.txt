@@ -1,5 +1,5 @@
 [
     [
-        "Cannot perform member function conversion on an empty selection."
+        "No acceptable function found which can be converted to arrow function."
     ]
 ]

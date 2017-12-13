@@ -1,13 +1,19 @@
 'use strict';
 
 const mySimpleFunction = function (value) {
-    console.log(value);
+    return value;
+}
+
+function fnWithNoArgs(foo, bar) {
+    console.log('testing 1');
+    console.log('testing 2');
 }
 
 function myNamedFunction (value) {
-    console.log(value);
+    return value;
 }
 
-function myFunction(foo, { bar, baz }, ...rest) {
-    console.log(foo, bar, baz, rest);
+const myFunction = function (foo, { bar, baz }, ...rest) {
+    console.log(foo, bar);
+    console.log(baz, rest);
 }

@@ -1,42 +1,105 @@
 'use strict';
 
 function convertToArrowFunctionFactory(
-    logger,
-    selectionFactory,
+    astHelper,
+    coordsHelper,
     editActionsFactory,
+    logger,
+    parser,
+    selectionExpressionHelper,
+    selectionFactory,
+    selectionHelper,
+    templateHelper,
     utilities,
-    convertToArrowFunctionAction,
     vsCodeFactory) {
 
     return function (_, callback) {
 
-        const canConvertToArrow = convertToArrowFunctionAction.canConvertToArrow;
-        const refactorFunctionDef = convertToArrowFunctionAction.refactorFunctionDef;
-
-        function applyRefactoring(editActions, selection, coords) {
-            if (selection === null) {
-                logger.log('Cannot perform member function conversion on an empty selection.');
-            } else if (!canConvertToArrow(selection[0])) {
-                logger.log('No appropriate named function to convert did you select a line containing a function?');
-            } else {
-                var refactoredSelection = refactorFunctionDef(selection);
-
-                editActions
-                    .applySetEdit(refactoredSelection, coords)
-                    .then(callback)
-                    .catch(() => logger.log('An unexpected error occurred, sorry. :-('));
-            }
-
+        function first(values) {
+            return values[0];
         }
 
-        return function convertToArrowFunction() {
-            var vsEditor = vsCodeFactory.get().window.activeTextEditor;
+        function last(values) {
+            return values[values.length - 1];
+        }
 
-            var editActions = editActionsFactory(vsEditor);
-            var selection = selectionFactory(vsEditor).getSelection(0);
-            var coords = utilities.buildCoords(vsEditor, 0);
+        function getOuterAstCoords(expressionArray) {
+            return {
+                start: first(expressionArray).loc.start,
+                end: last(expressionArray).loc.end
+            }
+        }
 
-            applyRefactoring(editActions, selection, coords);
+        function getSelectionEditorCoords(activeEditor) {
+            const firstSelectionCoords = utilities.getAllSelectionCoords(activeEditor)[0];
+            return coordsHelper.coordsFromDocumentToEditor(firstSelectionCoords);
+        }
+
+        function getBodyContent(nearestFunctionExpression, sourceLines) {
+            const bodyContentAstCoords = getOuterAstCoords(nearestFunctionExpression.body.body);
+            const bodyContentEditorCoords = coordsHelper.coordsFromAstToEditor(bodyContentAstCoords);
+
+            const bodyContent = selectionHelper.getSelection(sourceLines, bodyContentEditorCoords).join('\n');
+
+            return nearestFunctionExpression.body.body.length === 1
+                ? bodyContent.replace('return ', '')
+                : bodyContent;
+        }
+
+        function getArgsContent(nearestFunctionExpression, sourceLines) {
+            const argumentsContentAstCoords = getOuterAstCoords(nearestFunctionExpression.params);
+            const argumentsContentEditorCoords = coordsHelper.coordsFromAstToEditor(argumentsContentAstCoords);
+
+            return selectionHelper.getSelection(sourceLines, argumentsContentEditorCoords).join('\n');
+        }
+
+        function getTemplateBuilder(nearestFunctionExpression) {
+            const isMultiline = nearestFunctionExpression.body.body.length > 1;
+            const isNamed = Boolean(nearestFunctionExpression.id);
+
+            if (isNamed && isMultiline) {
+                return templateHelper.templates.namedMultilineArrowFunction;
+            } else if (isMultiline) {
+                return templateHelper.templates.multilineArrowFunction;
+            } else if(isNamed) {
+                return templateHelper.templates.namedSingleLineArrowFunction;
+            } else {
+                return templateHelper.templates.singleLineArrowFunction;                
+            }
+        }
+
+        function getFunctionName(nearestFunctionExpression) {
+            return nearestFunctionExpression.id
+                ? nearestFunctionExpression.id.name
+                : '';
+        }
+
+        return function () {
+            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
+            const selectionEditorCoords = getSelectionEditorCoords(activeEditor);
+            const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
+
+            const sourceLines = utilities.getDocumentLines(activeEditor);
+            const ast = parser.parseSourceLines(sourceLines);
+
+            const nearestFunctionExpression = selectionExpressionHelper.getNearestFunctionExpression(selectionAstCoords, ast);
+
+            if (nearestFunctionExpression === null) {
+                logger.info('No acceptable function found which can be converted to arrow function.');
+            } else {
+                const editActions = editActionsFactory(activeEditor);
+
+                const arrowFunctionContext = {
+                    name: getFunctionName(nearestFunctionExpression),
+                    body: getBodyContent(nearestFunctionExpression, sourceLines),
+                    args: getArgsContent(nearestFunctionExpression, sourceLines)
+                };
+
+                const arrowFunction = getTemplateBuilder(nearestFunctionExpression).build(arrowFunctionContext);
+                const functionEditorCoords = coordsHelper.coordsFromAstToEditor(nearestFunctionExpression.loc);
+
+                editActions.applySetEdit(arrowFunction, functionEditorCoords).then(callback);
+            }
         };
     };
 }

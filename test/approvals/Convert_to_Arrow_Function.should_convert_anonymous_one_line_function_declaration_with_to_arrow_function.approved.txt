@@ -1,10 +1,6 @@
 [
     [
-        [
-            "(value) =>  {",
-            "    console.log(value);",
-            "}"
-        ],
+        "(value) => value;",
         {
             "start": [
                 2,

@@ -23,9 +23,15 @@ function selectionExpressionHelper(
         'VariableDeclaration'
     ];
 
+    const functionDeclarationOrExpression = [
+        'FunctionDeclaration',
+        'FunctionExpression'
+    ]
+
     const isWrappingNode = astHelper.isNodeType(wrappingNodeTypes);
     const isExclusionWrappingNode = astHelper.isNodeType(exclusionWrappingNodeTypes);
     const isVariableOrFunction = astHelper.isNodeType(variableOrFunctionTypes);
+    const isFunctionDeclarationOrExpression = astHelper.isNodeType(functionDeclarationOrExpression);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
     const isVariabeDeclaration = astHelper.isNodeType(['VariableDeclaration']);
 
@@ -69,6 +75,12 @@ function selectionExpressionHelper(
         (astCoords) =>
             (node) =>
                 isVariableOrFunction(node)
+                && astHelper.coordsInNode(astCoords, node);
+
+    const isNearFunctionExpression =
+        (astCoords) =>
+            (node) =>
+                isFunctionDeclarationOrExpression(node)
                 && astHelper.coordsInNode(astCoords, node);
 
     const isIdentifierInScope =
@@ -147,6 +159,21 @@ function selectionExpressionHelper(
         return currentScope;
     }
 
+    function getNearestFunctionExpression(astCoords, ast) {
+        let currentScope = null;
+
+        astHelper.traverse(ast, {
+            enter: astHelper.onMatch(
+                isNearFunctionExpression(astCoords),
+                function (node) {
+                    currentScope = node;
+                }
+            )
+        });
+
+        return currentScope;
+    }
+
     function getIdentifiersInScope(astCoords, ast) {
         let identifiers = [];
 
@@ -189,6 +216,10 @@ function selectionExpressionHelper(
         getNearestExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
             getNearestExpression),
+
+        getNearestFunctionExpression: typeHelper.enforce(
+            'astCoords, ast => variant<null, astNode>',
+            getNearestFunctionExpression),
 
         getNearestFunctionOrVariable: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
