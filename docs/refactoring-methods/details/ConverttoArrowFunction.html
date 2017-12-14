@@ -39,10 +39,10 @@
             }
         };
 
-        var log &#x3D; mocker.getMock(&#x27;logger&#x27;).api.log;
+        var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
         subcontainer.build(&#x27;convertToArrowFunctionFactory&#x27;)(null, function () { })();
 
-        this.verify(prettyJson(log.args));
+        this.verify(prettyJson(info.args));
 
     }
             </code>
@@ -69,21 +69,21 @@
             },
             _selections: [{
                 _start: {
-                    _line: 4,
+                    _line: 0,
                     _character: 0
                 },
                 _end: {
-                    _line: 5,
-                    _character: 1
+                    _line: 0,
+                    _character: 13
                 }
             }]
         };
 
 
-        var log &#x3D; mocker.getMock(&#x27;logger&#x27;).api.log;
+        var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
         subcontainer.build(&#x27;convertToArrowFunctionFactory&#x27;)(null, function () { })();
 
-        this.verify(prettyJson(log.args));
+        this.verify(prettyJson(info.args));
 
     }
             </code>
@@ -92,7 +92,121 @@
 </ul>
 <ul>
     <li>
-        <strong>should convert function to arrow function</strong>
+        <strong>should convert named function declaration with to arrow function</strong>
+    </li>
+    <li>File location: <span class="filename">./test/convertToArrowFunction.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToArrowFunction/convertToArrowFunction.js&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 6,
+                    _character: 14
+                },
+                _end: {
+                    _line: 6,
+                    _character: 14
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;convertToArrowFunctionFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should convert anonymous function declaration to arrow function</strong>
+    </li>
+    <li>File location: <span class="filename">./test/convertToArrowFunction.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToArrowFunction/convertToArrowFunction.js&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 15,
+                    _character: 27
+                },
+                _end: {
+                    _line: 15,
+                    _character: 27
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;convertToArrowFunctionFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should convert named one-line function declaration with to arrow function</strong>
+    </li>
+    <li>File location: <span class="filename">./test/convertToArrowFunction.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToArrowFunction/convertToArrowFunction.js&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 11,
+                    _character: 14
+                },
+                _end: {
+                    _line: 11,
+                    _character: 14
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;convertToArrowFunctionFactory&#x27;)(null, function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should convert anonymous one-line function declaration with to arrow function</strong>
     </li>
     <li>File location: <span class="filename">./test/convertToArrowFunction.test.js</span></li>
     <li class="code-sample-wrapper">
@@ -111,11 +225,11 @@
             _selections: [{
                 _start: {
                     _line: 2,
-                    _character: 25
+                    _character: 33
                 },
                 _end: {
-                    _line: 4,
-                    _character: 1
+                    _line: 2,
+                    _character: 33
                 }
             }]
         };

@@ -21,7 +21,7 @@
 <ul>
     <ul>
     <li>
-        <strong>should log an error if function name comes back blank</strong>
+        <strong>should log an error if chosen expression is not a variable declaration or function</strong>
     </li>
     <li>File location: <span class="filename">./test/addExportFactory.test.js</span></li>
     <li class="code-sample-wrapper">
@@ -39,10 +39,10 @@
             }
         };
 
-        var log &#x3D; mocker.getMock(&#x27;logger&#x27;).api.log;
+        var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
         subcontainer.build(&#x27;addExportFactory&#x27;)(null, function () { })();
 
-        this.verify(prettyJson(log.args));
+        this.verify(prettyJson(info.args));
     }
             </code>
         </pre>
@@ -69,11 +69,11 @@
             _selections: [{
                 _start: {
                     _line: 2,
-                    _character: 0
+                    _character: 10
                 },
                 _end: {
-                    _line: 5,
-                    _character: 1
+                    _line: 2,
+                    _character: 10
                 }
             }]
         };
@@ -88,7 +88,7 @@
 </ul>
 <ul>
     <li>
-        <strong>should add a single line export to file sourceif other exports are single line</strong>
+        <strong>should add a single line export to file source if other exports are single line</strong>
     </li>
     <li>File location: <span class="filename">./test/addExportFactory.test.js</span></li>
     <li class="code-sample-wrapper">
@@ -107,11 +107,11 @@
             _selections: [{
                 _start: {
                     _line: 2,
-                    _character: 0
+                    _character: 10
                 },
                 _end: {
-                    _line: 5,
-                    _character: 1
+                    _line: 2,
+                    _character: 10
                 }
             }]
         };
@@ -145,11 +145,11 @@
             _selections: [{
                 _start: {
                     _line: 2,
-                    _character: 0
+                    _character: 10
                 },
                 _end: {
-                    _line: 5,
-                    _character: 1
+                    _line: 2,
+                    _character: 10
                 }
             }]
         };

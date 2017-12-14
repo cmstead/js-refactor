@@ -7,7 +7,6 @@ function convertToArrowFunctionFactory(
     logger,
     parser,
     selectionExpressionHelper,
-    selectionFactory,
     selectionHelper,
     templateHelper,
     utilities,

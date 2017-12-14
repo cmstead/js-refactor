@@ -6,7 +6,8 @@ function extractMethodFactory(
     extractHelper,
     logger,
     parser,
-    scopePathTools,
+    scopeHelper,
+    selectionCoordsHelper,
     selectionHelper,
     selectionVariableHelper,
     templateHelper,
@@ -17,35 +18,10 @@ function extractMethodFactory(
 
     return function (_, callback) {
 
-        function getScopeSelectionOptions(scopePath, sourceLines) {
-            return scopePathTools
-                .getInitialLineData(scopePath, sourceLines)
-                .map(buildScopePathString)
-        }
-
         function getUnboundVars(coords, ast) {
             const astCoords = coordsHelper.coordsFromEditorToAst(coords);
             const unboundVars = selectionVariableHelper.getUnboundVars(astCoords, ast);
             return unboundVars.join(', ');
-        }
-
-        function buildScopePathString(scopeNode, index) {
-            return `${index}: ${scopeNode.type} - ${scopeNode.initialLine}`;
-        }
-
-        function getSelectedScopeIndex(selectedOption) {
-            return typeof selectedOption === 'string'
-                ? parseInt(selectedOption.split(':')[0])
-                : 0;
-        }
-
-        function getScopeQuickPick(scopePath, sourceLines, callback) {
-            const items = getScopeSelectionOptions(scopePath, sourceLines);
-            const quickPickOptions = {
-                message: 'Select method extraction scope:'
-            }
-
-            logger.quickPick(items, quickPickOptions, callback);
         }
 
         function getFunctionName(callback) {
@@ -71,7 +47,7 @@ function extractMethodFactory(
             };
         }
 
-        function buildInitialExtractMethodCotext(selectedLines) {
+        function buildInitialExtractMethodContext(selectedLines) {
             return {
                 selectedOptionIndex: 0,
                 name: '',
@@ -80,19 +56,14 @@ function extractMethodFactory(
             };
         }
 
-        function getSelectionEditorCoords(activeEditor) {
-            const firstSelectionCoords = utilities.getAllSelectionCoords(activeEditor)[0];
-            return coordsHelper.coordsFromDocumentToEditor(firstSelectionCoords);
-        }
-
         return function () {
             const activeEditor = vsCodeFactory.get().window.activeTextEditor;
-            const selectionEditorCoords = getSelectionEditorCoords(activeEditor);
+            const selectionEditorCoords = selectionCoordsHelper.getSelectionEditorCoords(activeEditor);
 
             const sourceLines = utilities.getDocumentLines(activeEditor);
             const selectedLines = selectionHelper.getSelection(sourceLines, selectionEditorCoords);
 
-            const extractMethodContext = buildInitialExtractMethodCotext(selectedLines);
+            const extractMethodContext = buildInitialExtractMethodContext(selectedLines);
 
             if (selectionHelper.isEmptySelection(selectionEditorCoords)) {
                 logger.info('Cannot extract an empty selection as a method.');
@@ -103,9 +74,9 @@ function extractMethodFactory(
 
                 extractMethodContext.arguments = unboundVars;
 
-                getScopeQuickPick(scopePath, sourceLines, function (selectedOption) {
+                scopeHelper.getScopeQuickPick(scopePath, sourceLines, function (selectedOption) {
                     getFunctionName(function (functionName) {
-                        const selectedOptionIndex = getSelectedScopeIndex(selectedOption);
+                        const selectedOptionIndex = scopeHelper.getSelectedScopeIndex(selectedOption);
                         const selectedScope = scopePath[selectedOptionIndex];
 
                         extractMethodContext.selectedOptionIndex = selectedOptionIndex;

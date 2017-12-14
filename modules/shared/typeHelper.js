@@ -60,6 +60,9 @@ const signet = require('signet')();
         initialLine: 'string'
     });
 
+    signet.alias('arrayIndex', 'leftBoundedInt<0>');
+    signet.alias('selectedScopeOption', 'formattedString<\\d:.+>');
+
     signet.alias('scopePathInitialLineData', 'array<scopePathInitialLineObject>');
 
     signet.alias('selectionCoords', 'astCoords');
