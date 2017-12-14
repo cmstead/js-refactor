@@ -1,5 +1,5 @@
 {
-    "projectName": "JS Refactorings",
+    "projectName": "JS Refactor",
     "files": "./test/*.test.js",
     "dest": "./docs/refactoring-methods"
 }

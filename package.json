@@ -1,6 +1,6 @@
 {
   "name": "jsrefactor",
-  "displayName": "JS Refactorings",
+  "displayName": "JS Refactor",
   "description": "JS refactoring tools for adding efficiency to your development workflow.",
   "version": "2.4.1",
   "publisher": "cmstead",
@@ -87,92 +87,92 @@
     "commands": [
       {
         "command": "cmstead.jsRefactor.convertToArrowFunction",
-        "title": "JS Refactorings: Convert To Arrow Function",
+        "title": "JS Refactor: Convert To Arrow Function",
         "description": "Convert function from a function expression to an arrow function"
       },
       {
         "command": "cmstead.jsRefactor.addExport",
-        "title": "JS Refactorings: Add Export",
+        "title": "JS Refactor: Add Export",
         "description": "Export function or variable declaration from local module"
       },
       {
         "command": "cmstead.jsRefactor.extractMethod",
-        "title": "JS Refactorings: Extract Method",
+        "title": "JS Refactor: Extract Method",
         "description": "Extract selection into a new function"
       },
       {
         "command": "cmstead.jsRefactor.extractVariable",
-        "title": "JS Refactorings: Extract Variable",
+        "title": "JS Refactor: Extract Variable",
         "description": "Extract value into a variable"
       },
       {
         "command": "cmstead.jsRefactor.inlineVariable",
-        "title": "JS Refactorings: Inline Variable",
+        "title": "JS Refactor: Inline Variable",
         "description": "Inline variable"
       },
       {
         "command": "cmstead.jsRefactor.negateExpression",
-        "title": "JS Refactorings: Negate Expression",
+        "title": "JS Refactor: Negate Expression",
         "description": "Negate Expression"
       },
       {
         "command": "cmstead.jsRefactor.rename",
-        "title": "JS Refactorings: Rename (F2 alias)",
+        "title": "JS Refactor: Rename (F2 alias)",
         "description": "Rename"
       },
       {
         "command": "cmstead.jsRefactor.selectRefactoring",
-        "title": "JS Refactorings: Select Refactoring",
+        "title": "JS Refactor: Select Refactoring",
         "description": "Select refactoring to apply"
       },
       {
         "command": "cmstead.jsRefactor.shiftParamsLeft",
-        "title": "JS Refactorings: Shift Parameters Left",
+        "title": "JS Refactor: Shift Parameters Left",
         "description": "Shift function parameters to the left"
       },
       {
         "command": "cmstead.jsRefactor.shiftParamsRight",
-        "title": "JS Refactorings: Shift Parameters Right",
+        "title": "JS Refactor: Shift Parameters Right",
         "description": "Shift function parameters to the right"
       },
       {
         "command": "cmstead.jsRefactor.wrapInArrowFunction",
-        "title": "JS Refactorings: Wrap In Arrow Function",
+        "title": "JS Refactor: Wrap In Arrow Function",
         "description": "Wrap code in an arrow function"
       },
       {
         "command": "cmstead.jsRefactor.wrapInAsyncFunction",
-        "title": "JS Refactorings: Wrap In Async Function",
+        "title": "JS Refactor: Wrap In Async Function",
         "description": "Wrap code in an async function"
       },
       {
         "command": "cmstead.jsRefactor.wrapInCondition",
-        "title": "JS Refactorings: Wrap In Condition",
+        "title": "JS Refactor: Wrap In Condition",
         "description": "Wrap code in a condition block"
       },
       {
         "command": "cmstead.jsRefactor.wrapInFunction",
-        "title": "JS Refactorings: Wrap In Function",
+        "title": "JS Refactor: Wrap In Function",
         "description": "Wrap code in a named function"
       },
       {
         "command": "cmstead.jsRefactor.wrapInGenerator",
-        "title": "JS Refactorings: Wrap In Generator",
+        "title": "JS Refactor: Wrap In Generator",
         "description": "Wrap code in a named generator"
       },
       {
         "command": "cmstead.jsRefactor.wrapInIIFE",
-        "title": "JS Refactorings: Wrap In IIFE",
+        "title": "JS Refactor: Wrap In IIFE",
         "description": "Wrap code in an immediately invoked function expression"
       },
       {
         "command": "cmstead.jsRefactor.wrapInTryCatch",
-        "title": "JS Refactorings: Wrap In Try/Catch Block",
+        "title": "JS Refactor: Wrap In Try/Catch Block",
         "description": "Wrap code in a try/catch block"
       },
       {
         "command": "cmstead.jsRefactor.wrapSelection",
-        "title": "JS Refactorings: Wrap Selection",
+        "title": "JS Refactor: Wrap Selection",
         "description": "Wrap selected code with generated code"
       }
     ],

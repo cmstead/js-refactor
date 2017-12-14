@@ -1,7 +1,7 @@
-JS Refactorings
-===============
+JS Refactor
+===========
 
-JS Refactorings is a Visual Studio Code extension for adding a few useful refactorings to help speed development and 
+JS Refactor is a Visual Studio Code extension for adding a few useful refactorings to help speed development and 
 reduce the time a Javascript developer has to spend performing repeated actions. It may only take a few extra
 seconds to do these things by hand, but those seconds add up quite quickly.
 
@@ -10,7 +10,7 @@ JS Refactor has two key components: automated refactorings and code snippets.
 ## Installation
 
 #### Extensions Panel:
-Click on the extensions icon on the left-hand side of your editor.  In the search bar type "JS Refactorings." Find the extension in the list and click the install button.
+Click on the extensions icon on the left-hand side of your editor.  In the search bar type "JS Refactor." Find the extension in the list and click the install button.
 
 #### Command Pallette
 Open VS Code, press F1 and enter `ext install` to open the extensions panel, follow the instructions above
@@ -149,10 +149,10 @@ tab-stops where you can fill in the information unique to your program.
 
 ### Contribution Rules and Guidelines
 
-JS Refactorings is open to pull requests for everything from code to documentation.  As with any project, there are certain
-needs which must be addressed.  JS Refactorings is, at its core, still in development. Since it was built on an early version
+JS Refactor is open to pull requests for everything from code to documentation.  As with any project, there are certain
+needs which must be addressed.  JS Refactor is, at its core, still in development. Since it was built on an early version
 of Visual Studio Code, so there is a fair amount of code that was originally exploratory in nature. In its current state, 
-JS Refactorings is fully tested and behaviors are vice-tested into place.  Going forward, code will be cleaned and, itself,
+JS Refactor is fully tested and behaviors are vice-tested into place.  Going forward, code will be cleaned and, itself,
 refactored, so a style guide is going to be relatively fluid.
 
 Nevertheless, following are the required elements of a good pull request:

@@ -51,7 +51,7 @@ and side-loaded into your editor.
 
 ## Automated Refactorings
 
-**Basic usage:** Press F1 and type `JS Refactorings` to select from a list of all refactorings
+**Basic usage:** Press F1 and type `JS Refactor` to select from a list of all refactorings
 
 **Alternative options:** You can also press F1 then simply type the name of the refactoring and press enter 
 if you know the name of the refactoring you need. Finally, there are hotkey combinations for some of the most common
