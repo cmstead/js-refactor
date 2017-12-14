@@ -1,37 +1,54 @@
 'use strict';
 
 function negateExpressionFactory(
-    logger,
-    selectionFactory,
+    coordsHelper,
     editActionsFactory,
+    logger,
+    parser,
+    selectionCoordsHelper,
+    selectionExpressionHelper,
+    selectionHelper,
     utilities,
-    negateExpressionAction,
     vsCodeFactory) {
 
     return function (_, callback) {
 
-        function applyRefactoring(vsEditor, selection, lines, coords) {
+        function negateExpression(expressionString, selectedExpressionNode) {
+            const test = selectedExpressionNode.test;
 
-            if (selection === null) {
-                logger.log('Cannot negate empty selection, be sure to select expression to negate');
-            } else if (selection.length > 1) {
-                logger.log('Negate expression does not support multi-line or mulitple selections')
+            console.log(test);
+
+            if(test.type === 'UnaryExpression' && test.operator === '!') {
+                return expressionString.substring(1);
+            } else if(test.type === 'LogicalExpression') {
+                return '!(' + expressionString + ')';
             } else {
-                var negatedExpression = negateExpressionAction.negateExpression(selection[0]);
-
-                editActionsFactory(vsEditor)
-                    .applySetEdit(negatedExpression, coords)
-                    .then(callback);
+                return '!' + expressionString;
             }
         }
 
         return function applyNegateExpression() {
-            var vsEditor = vsCodeFactory.get().window.activeTextEditor;
-            var selection = selectionFactory(vsEditor).getSelection(0);
-            var lines = utilities.getDocumentLines(vsEditor);
-            var coords = utilities.buildCoords(vsEditor, 0);
+            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
+            const editActions = editActionsFactory(activeEditor);
 
-            applyRefactoring(vsEditor, selection, lines, coords);
+            const selectionEditorCoords = selectionCoordsHelper.getSelectionEditorCoords(activeEditor);
+            const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
+
+            const sourceLines = utilities.getDocumentLines(activeEditor);
+            const ast = parser.parseSourceLines(sourceLines);
+
+            const nearestIfCondition = selectionExpressionHelper.getNearestIfCondition(selectionAstCoords, ast);
+
+            if(nearestIfCondition === null) {
+                logger.info('Cannot invert expression outside of an if condition');
+            } else {
+                const testExpressionEditorCoords = coordsHelper.coordsFromAstToEditor(nearestIfCondition.test.loc);
+                const selectedExpression = selectionHelper.getSelection(sourceLines, testExpressionEditorCoords).join('\n');
+                
+                const negatedExpression = negateExpression(selectedExpression, nearestIfCondition);
+
+                editActions.applySetEdit(negatedExpression, testExpressionEditorCoords).then(callback);
+            }
         }
 
     };

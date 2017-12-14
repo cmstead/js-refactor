@@ -238,7 +238,7 @@
         },
         {
           "command": "cmstead.jsRefactor.negateExpression",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "resourceLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.rename",
@@ -318,7 +318,7 @@
         {
           "command": "cmstead.jsRefactor.negateExpression",
           "group": "5_refactor",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "resourceLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.rename",

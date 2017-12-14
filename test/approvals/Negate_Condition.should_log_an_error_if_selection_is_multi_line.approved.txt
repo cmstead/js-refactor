@@ -1,5 +1,0 @@
-[
-    [
-        "Negate expression does not support multi-line or mulitple selections"
-    ]
-]

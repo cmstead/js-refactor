@@ -34,6 +34,7 @@ function selectionExpressionHelper(
     const isFunctionDeclarationOrExpression = astHelper.isNodeType(functionDeclarationOrExpression);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
     const isVariabeDeclaration = astHelper.isNodeType(['VariableDeclaration']);
+    const isIfStatement = astHelper.isNodeType(['IfStatement']);
 
     function isExpressionNode(node) {
         const isExpression = typeof node.type === 'string'
@@ -75,6 +76,12 @@ function selectionExpressionHelper(
         (astCoords) =>
             (node) =>
                 isVariableOrFunction(node)
+                && astHelper.coordsInNode(astCoords, node);
+
+    const isNearConditional =
+        (astCoords) =>
+            (node) =>
+                isIfStatement(node)
                 && astHelper.coordsInNode(astCoords, node);
 
     const isNearFunctionExpression =
@@ -204,6 +211,19 @@ function selectionExpressionHelper(
         return variableDeclarations;
     }
 
+    function getNearestIfCondition(astCoords, ast) {
+        let currentScope = null;
+
+        astHelper.traverse(ast, {
+            enter: astHelper.onMatch(
+                isNearConditional(astCoords),
+                node => currentScope = node
+            )
+        });
+
+        return currentScope;
+    }
+
     return {
         getIdentifiersInScope: typeHelper.enforce(
             'astCoords, ast => array<astNode>',
@@ -216,6 +236,10 @@ function selectionExpressionHelper(
         getNearestExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
             getNearestExpression),
+
+        getNearestIfCondition: typeHelper.enforce(
+            'astCoords, ast => variant<null, astNode>',
+            getNearestIfCondition),
 
         getNearestFunctionExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',

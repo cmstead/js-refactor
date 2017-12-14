@@ -36,7 +36,7 @@ describe('Negate Condition', function () {
         mocker.getMock('editActionsFactory').api.applySetEdit = applySetEditSpy;
     });
 
-    it('should log an error if selection is empty', function () {
+    it('should log an error if conditional cannot be found', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
 
         vsCodeProperties.activeTextEditor = {
@@ -45,35 +45,10 @@ describe('Negate Condition', function () {
             }
         };
 
-        var log = mocker.getMock('logger').api.log;
+        var info = mocker.getMock('logger').api.info;
         subcontainer.build('negateExpressionFactory')(null, function () { })();
 
-        this.verify(prettyJson(log.args));
-    });
-
-    it('should log an error if selection is multi-line', function () {
-        var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
-
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 0
-                },
-                _end: {
-                    _line: 5,
-                    _character: 1
-                }
-            }]
-        };
-
-        var log = mocker.getMock('logger').api.log;
-        subcontainer.build('negateExpressionFactory')(null, function () { })();
-
-        this.verify(prettyJson(log.args));
+        this.verify(prettyJson(info.args));
     });
 
     it('should negate a single value', function () {
@@ -86,11 +61,11 @@ describe('Negate Condition', function () {
             _selections: [{
                 _start: {
                     _line: 3,
-                    _character: 7
+                    _character: 8
                 },
                 _end: {
                     _line: 3,
-                    _character: 10
+                    _character: 8
                 }
             }]
         };
