@@ -8,8 +8,6 @@ var config = {
         'commands',
         'commands' + sep + 'generic',
         'helpers',
-        'refactoring-logic',
-        'refactoring-logic' + sep + 'generic',
         'shared',
         'shared' + sep + 'ast-tools',
         'shared' + sep + 'refactoring-tools',

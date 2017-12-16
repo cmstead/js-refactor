@@ -1,13 +1,16 @@
 'use strict';
 
 function wrapInIIFEFactory(
-    wrapInIIFEAction,
-    wrapInTemplateFactory) {
+    wrapInTemplateFactory,
+    wrapInTemplateAction) {
 
     return function (_, callback) {
 
+        function wrapSelection(selection) {
+            return wrapInTemplateAction.wrapSelection(['iife'], selection);
+        }
+
         return function wrapInCondition() {
-            var wrapSelection = wrapInIIFEAction.wrapSelection;
             var errorMessage = 'Cannot wrap empty selection. To create a new IIFE, use the IIFE (iife) snippet.';
 
             wrapInTemplateFactory(null, callback)(wrapSelection, errorMessage);

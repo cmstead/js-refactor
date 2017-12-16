@@ -1,10 +1,12 @@
 'use strict';
 
 function wrapInTemplateFactory(
-    logger,
-    selectionFactory,
-    utilities,
+    coordsHelper,
     editActionsFactory,
+    logger,
+    selectionCoordsHelper,
+    selectionHelper,
+    utilities,
     vsCodeFactory) {
 
     return function (_, callback) {
@@ -18,18 +20,20 @@ function wrapInTemplateFactory(
         }
 
         return function wrapInCondition(wrapSelection, errorMessage, prompt) {
-            var vsEditor = vsCodeFactory.get().window.activeTextEditor;
+            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
+            const editActions = editActionsFactory(activeEditor);
 
-            var selection = selectionFactory(vsEditor).getSelection(0);
+            const selectionEditorCoords = selectionCoordsHelper.getSelectionEditorCoords(activeEditor);
+            const sourceLines = utilities.getDocumentLines(activeEditor);
 
             function applyToDocument(value) {
-                var text = wrapSelection(selection, value);
-                var coords = utilities.buildCoords(vsEditor, 0);
+                const selection = selectionHelper.getSelection(sourceLines, selectionEditorCoords);
+                const text = wrapSelection(selection, value);
 
-                return editActionsFactory(vsEditor).applySetEdit(text, coords).then(callback);
+                return editActions.applySetEdit(text, selectionEditorCoords).then(callback);
             }
 
-            if (selection === null) {
+            if (selectionHelper.isEmptySelection(selectionEditorCoords)) {
                 logger.info(errorMessage);
             } else {
                 promptAndCall(applyToDocument, prompt);

@@ -1,15 +1,22 @@
 'use strict';
 
 function wrapInGeneratorFactory(
-    wrapInGeneratorAction,
-    wrapInTemplateFactory) {
+    extensionHelper,
+    wrapInTemplateFactory,
+    wrapInTemplateAction) {
 
     return function (_, callback) {
 
+        function wrapSelection(selection, functionName) {
+            var templates = ['generator'];
+            var contextExtension = { name: extensionHelper.cleanFunctionName(functionName) };
+
+            return wrapInTemplateAction.wrapSelection(templates, selection, contextExtension);
+        }
+
         return function wrapInGenerator() {
-            var wrapSelection = wrapInGeneratorAction.wrapSelection;
             var errorMessage = 'Cannot wrap empty selection. To create a new generator, use the generator snippet.';
-            var prompt = {prompt: 'Name of your function'};
+            var prompt = { prompt: 'Name of your function' };
 
             wrapInTemplateFactory(null, callback)(wrapSelection, errorMessage, prompt);
         }

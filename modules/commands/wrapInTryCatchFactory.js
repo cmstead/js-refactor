@@ -1,13 +1,16 @@
 'use strict';
 
 function wrapInTryCatchFactory(
-    wrapInTryCatchAction,
-    wrapInTemplateFactory) {
+    wrapInTemplateFactory,
+    wrapInTemplateAction) {
 
     return function (_, callback) {
 
+        function wrapSelection(selection) {
+            return wrapInTemplateAction.wrapSelection(['tryCatch'], selection);
+        }
+
         return function wrapInTryCatch() {
-            var wrapSelection = wrapInTryCatchAction.wrapSelection;
             var errorMessage = 'Cannot wrap empty selection. To create a new try/catch block, use the tryCatch snippet.';
 
             wrapInTemplateFactory(null, callback)(wrapSelection, errorMessage);

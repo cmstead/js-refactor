@@ -1,13 +1,16 @@
 'use strict';
 
 function wrapInConditionFactory(
-    wrapInConditionAction,
-    wrapInTemplateFactory) {
+    wrapInTemplateFactory,
+    wrapInTemplateAction) {
 
     return function (_, callback) {
 
+        function wrapSelection(selection) {
+            return wrapInTemplateAction.wrapSelection(['cond'], selection);
+        }
+
         return function wrapInCondition() {
-            var wrapSelection = wrapInConditionAction.wrapSelection;
             var errorMessage = 'Cannot wrap empty selection. To create a new if block, use the if (cond) snippet.';
 
             wrapInTemplateFactory(null, callback)(wrapSelection, errorMessage);
