@@ -22,21 +22,32 @@ describe('selectionVariableHelper', function() {
     describe('getUnboundVars', function() {
         
         it('should return unbound variable data when given astCoords and ast data', function() {
-            const sourceTokens = readSource('./test/fixtures/extractMethod/extractMethod.js');
+            const sourceTokens = readSource('./test/fixtures/unboundVars/unboundVars.js');
             const ast = parser.parseSourceLines(sourceTokens);
 
-            const astCoords = {
+            const selectionAstCoords = {
                 start: {
-                    line: 6,
+                    line: 8,
                     column: 12
                 },
                 end: {
-                    line: 9,
+                    line: 19,
                     column: 13
                 }
             };
 
-            const unboundVars = selectionVariableHelper.getUnboundVars(astCoords, ast);
+            const destinationAstCoords = {
+                start: {
+                    line: 6,
+                    column: 16
+                },
+                end: {
+                    line: 12,
+                    column: 5
+                }
+            };
+
+            const unboundVars = selectionVariableHelper.getUnboundVars(selectionAstCoords, destinationAstCoords, ast);
 
             this.verify(prettyJson(unboundVars));
         });

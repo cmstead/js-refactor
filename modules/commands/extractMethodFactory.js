@@ -18,9 +18,9 @@ function extractMethodFactory(
 
     return function (_, callback) {
 
-        function getUnboundVars(coords, ast) {
-            const astCoords = coordsHelper.coordsFromEditorToAst(coords);
-            const unboundVars = selectionVariableHelper.getUnboundVars(astCoords, ast);
+        function getUnboundVars(selectionAstCoords, destinationAstCoords, ast) {
+            const astCoords = coordsHelper.coordsFromEditorToAst(selectionAstCoords);
+            const unboundVars = selectionVariableHelper.getUnboundVars(astCoords, destinationAstCoords, ast);
             return unboundVars.join(', ');
         }
 
@@ -70,14 +70,15 @@ function extractMethodFactory(
             } else {
                 const ast = parser.parseSourceLines(sourceLines);
                 const scopePath = extractHelper.getScopePath(selectionEditorCoords, ast);
-                const unboundVars = getUnboundVars(selectionEditorCoords, ast);
-
-                extractMethodContext.arguments = unboundVars;
 
                 scopeHelper.getScopeQuickPick(scopePath, sourceLines, function (selectedOption) {
                     getFunctionName(function (functionName) {
                         const selectedOptionIndex = scopeHelper.getSelectedScopeIndex(selectedOption);
-                        const selectedScope = scopePath[selectedOptionIndex];
+                        const destinationScope = scopePath[selectedOptionIndex];
+
+                        const unboundVars = getUnboundVars(selectionEditorCoords, destinationScope.loc, ast);
+
+                        extractMethodContext.arguments = unboundVars;
 
                         extractMethodContext.selectedOptionIndex = selectedOptionIndex;
                         extractMethodContext.name = functionName;
@@ -85,7 +86,7 @@ function extractMethodFactory(
                         const {
                             newFunction,
                             newFunctionCall
-                        } = buildFunctionStrings(extractMethodContext, selectedScope);
+                        } = buildFunctionStrings(extractMethodContext, destinationScope);
 
                         const newMethodLocation = extractHelper
                             .getNewExtractionLocation(

@@ -5,27 +5,34 @@ function selectionVariableHelper(
     typeHelper
 ) {
 
+    const isFunctionScope = astHelper.isNodeType(['FunctionDeclaration', 'FunctionExpression']);
     const isVar = astHelper.isNodeType(['VariableDeclarator']);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
 
+    const isContainingFunctionScope =
+        (destinationAstCoords, node) =>
+                isFunctionScope(node)
+                && astHelper.coordsInNode(destinationAstCoords, node);
+
     const isNodeInSelection =
-        (coords) =>
-            (node) =>
-                astHelper.nodeInCoords(coords, node);
+        (astCoords, node) =>
+                astHelper.nodeInCoords(astCoords, node);
+
+    const isNonNativeIdentifier = typeHelper.isTypeOf('nonNativeIdentifier');
 
     function processIdentifiers(identifiers) {
         return function (node) {
-            const isNonNativeIdentifier = typeHelper.isTypeOf('nonNativeIdentifier')(node);
+            const nodeIsNonNativeIdentifier = isNonNativeIdentifier(node);
 
-            if (isNonNativeIdentifier && isIdentifier(node) && typeof node.name === 'string') {
+            if (nodeIsNonNativeIdentifier && isIdentifier(node) && typeof node.name === 'string') {
                 identifiers[node.name] = true;
-            } else if (isNonNativeIdentifier && typeof node.object.name === 'string') {
+            } else if (nodeIsNonNativeIdentifier && typeof node.object.name === 'string') {
                 identifiers[node.object.name] = true;
             }
         };
     }
 
-    function processBoundVars (boundVars) {
+    function processBoundVars(boundVars) {
         return function (node) {
             if (isVar(node)) {
                 const key = node.id.name;
@@ -34,33 +41,55 @@ function selectionVariableHelper(
         };
     }
 
-    function getUnboundVars(astCoords, ast) {
-        let currentMemberExpression = null;
-        
+    function processFunctionParams(boundVars) {
+        return function (params) {
+            return params
+                .filter(param => param.type === 'Identifier')
+                .reduce(function (boundVarsObj, param) {
+                    boundVarsObj[param.name] = true;
+                }, boundVars);
+        }
+    }
+
+    function getUnboundVars(selectionAstCoords, destinationAstCoords, ast) {
+        let currentScope = null;
+        let lastNativeIdentifierNode = null;
+
         let boundVars = {};
         let identifiers = {};
 
+        const processBoundParams = processFunctionParams(boundVars);
         const processIdentifier = processIdentifiers(identifiers);
         const processVariable = processBoundVars(boundVars);
 
         astHelper.traverse(ast, {
-            enter: astHelper.onMatch(isNodeInSelection(astCoords), function (node) {
-                if (currentMemberExpression === null) {
-                    const isMemberExpression = node.type === 'MemberExpression';
+            enter: function (node) {
+                const nodeIsNativeIdentifier = !isNonNativeIdentifier(node);
 
+                // Skip over native identifiers
+                if(nodeIsNativeIdentifier && node.type === 'Identifier') {
+                    lastNativeIdentifierNode = node;
+                } else if(lastNativeIdentifierNode !== null) {
+                    lastNativeIdentifierNode = null;
+                    return;
+                }
+
+                if (isContainingFunctionScope(destinationAstCoords, node)) {
+                    currentScope = node;
+                    processBoundParams(node.params);
+                } else if (currentScope !== null && !isFunctionScope(node)) {
+                    processVariable(node);
+                } else {
+                    currentScope = null;
+                }
+
+                if(isNodeInSelection(selectionAstCoords, node)) {
                     processVariable(node);
                     processIdentifier(node);
-
-                    if (isMemberExpression) {
-                        currentMemberExpression = isMemberExpression ? node : currentMemberExpression;
-                    }
                 }
 
-            }),
+            },
             leave: function (node) {
-                if (currentMemberExpression === node) {
-                    currentMemberExpression = null;
-                }
             }
         });
 
@@ -69,7 +98,7 @@ function selectionVariableHelper(
 
     return {
         getUnboundVars: typeHelper.enforce(
-            'astCoords, ast => unboundVars',
+            'selectionAstCoords: astCoords, destinationAstCoords: astCoords, ast => unboundVars',
             getUnboundVars)
     };
 

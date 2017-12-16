@@ -3,9 +3,12 @@ var foo = 'hi';
 console.log(foo, bar);
 
 const obj = {
-    testMethod: function () {
+    testMethod: function (foo) {
         return function (baz) {
-            console.log(foo, baz);
+            if(foo) {
+                console.log(foo, baz);
+                return quux;
+            }
         };
     }
 };
