@@ -45,7 +45,7 @@ describe('Wrap In Arrow', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('wrapInArrowFunctionFactory')(null, function () { })();
+        subcontainer.build('wrapInArrowFunctionFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -69,7 +69,7 @@ describe('Wrap In Arrow', function () {
             }]
         };
 
-        subcontainer.build('wrapInArrowFunctionFactory')(null, function () { })();
+        subcontainer.build('wrapInArrowFunctionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

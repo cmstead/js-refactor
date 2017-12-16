@@ -4,7 +4,7 @@ function wrapInConditionFactory(
     wrapInTemplateFactory,
     wrapInTemplateAction) {
 
-    return function (_, callback) {
+    return function (callback) {
 
         function wrapSelection(selection) {
             return wrapInTemplateAction.wrapSelection(['cond'], selection);

@@ -33,7 +33,7 @@ describe('Convert to Arrow Function', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('convertToArrowFunctionFactory')(null, function () { })();
+        subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
 
@@ -60,7 +60,7 @@ describe('Convert to Arrow Function', function () {
 
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('convertToArrowFunctionFactory')(null, function () { })();
+        subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
 
@@ -85,7 +85,7 @@ describe('Convert to Arrow Function', function () {
             }]
         };
 
-        subcontainer.build('convertToArrowFunctionFactory')(null, function () { })();
+        subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -109,7 +109,7 @@ describe('Convert to Arrow Function', function () {
             }]
         };
 
-        subcontainer.build('convertToArrowFunctionFactory')(null, function () { })();
+        subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -133,7 +133,7 @@ describe('Convert to Arrow Function', function () {
             }]
         };
 
-        subcontainer.build('convertToArrowFunctionFactory')(null, function () { })();
+        subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -157,7 +157,7 @@ describe('Convert to Arrow Function', function () {
             }]
         };
 
-        subcontainer.build('convertToArrowFunctionFactory')(null, function () { })();
+        subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

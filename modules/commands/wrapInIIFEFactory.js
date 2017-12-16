@@ -4,7 +4,7 @@ function wrapInIIFEFactory(
     wrapInTemplateFactory,
     wrapInTemplateAction) {
 
-    return function (_, callback) {
+    return function (callback) {
 
         function wrapSelection(selection) {
             return wrapInTemplateAction.wrapSelection(['iife'], selection);

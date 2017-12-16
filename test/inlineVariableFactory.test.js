@@ -57,7 +57,7 @@ describe('Inline Variable', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('inlineVariableFactory')(null, function () { })();
+        subcontainer.build('inlineVariableFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -82,7 +82,7 @@ describe('Inline Variable', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('inlineVariableFactory')(null, function () { })();
+        subcontainer.build('inlineVariableFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -106,7 +106,7 @@ describe('Inline Variable', function () {
             }]
         };
 
-        subcontainer.build('inlineVariableFactory')(null, function () { })();
+        subcontainer.build('inlineVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -130,7 +130,7 @@ describe('Inline Variable', function () {
             }]
         };
 
-        subcontainer.build('inlineVariableFactory')(null, function () { })();
+        subcontainer.build('inlineVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -154,7 +154,7 @@ describe('Inline Variable', function () {
             }]
         };
 
-        subcontainer.build('inlineVariableFactory')(null, function () { })();
+        subcontainer.build('inlineVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

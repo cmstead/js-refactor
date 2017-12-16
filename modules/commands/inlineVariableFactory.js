@@ -13,7 +13,7 @@ function inlineVariableFactory(
     vsCodeFactory
 ) {
 
-    return function (_, callback) {
+    return function (callback) {
 
         function getSelectionEditorCoords(activeEditor) {
             const firstSelectionCoords = utilities.getAllSelectionCoords(activeEditor)[0];

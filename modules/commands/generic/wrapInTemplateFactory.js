@@ -9,7 +9,7 @@ function wrapInTemplateFactory(
     utilities,
     vsCodeFactory) {
 
-    return function (_, callback) {
+    return function (callback) {
 
         function promptAndCall(callback, prompt) {
             if (prompt) {

@@ -12,7 +12,7 @@ function shiftParamsFactory (
     vsCodeFactory
 ) {
     
-    return function (_, callback) {
+    return function (callback) {
 
         function first(values) {
             return values[0];

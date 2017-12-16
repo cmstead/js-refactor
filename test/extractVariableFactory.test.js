@@ -57,7 +57,7 @@ describe('Extract Variable', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('extractVariableFactory')(null, function () { })();
+        subcontainer.build('extractVariableFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -82,7 +82,7 @@ describe('Extract Variable', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('extractVariableFactory')(null, function () { })();
+        subcontainer.build('extractVariableFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -107,7 +107,7 @@ describe('Extract Variable', function () {
             }]
         };
 
-        subcontainer.build('extractVariableFactory')(null, function () { })();
+        subcontainer.build('extractVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -132,7 +132,7 @@ describe('Extract Variable', function () {
             }]
         };
 
-        subcontainer.build('extractVariableFactory')(null, function () { })();
+        subcontainer.build('extractVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -157,7 +157,7 @@ describe('Extract Variable', function () {
             }]
         };
 
-        subcontainer.build('extractVariableFactory')(null, function () { })();
+        subcontainer.build('extractVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -182,7 +182,7 @@ describe('Extract Variable', function () {
             }]
         };
 
-        subcontainer.build('extractVariableFactory')(null, function () { })();
+        subcontainer.build('extractVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -207,7 +207,7 @@ describe('Extract Variable', function () {
             }]
         };
 
-        subcontainer.build('extractVariableFactory')(null, function () { })();
+        subcontainer.build('extractVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -232,7 +232,7 @@ describe('Extract Variable', function () {
             }]
         };
 
-        subcontainer.build('extractVariableFactory')(null, function () { })();
+        subcontainer.build('extractVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

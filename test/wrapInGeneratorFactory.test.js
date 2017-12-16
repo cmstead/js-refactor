@@ -45,7 +45,7 @@ describe('Wrap In Generator', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('wrapInGeneratorFactory')(null, function () { })();
+        subcontainer.build('wrapInGeneratorFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -69,7 +69,7 @@ describe('Wrap In Generator', function () {
             }]
         };
 
-        subcontainer.build('wrapInGeneratorFactory')(null, function () { })();
+        subcontainer.build('wrapInGeneratorFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

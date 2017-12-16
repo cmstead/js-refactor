@@ -46,7 +46,7 @@ describe('Negate Condition', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('negateExpressionFactory')(null, function () { })();
+        subcontainer.build('negateExpressionFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -70,7 +70,7 @@ describe('Negate Condition', function () {
             }]
         };
 
-        subcontainer.build('negateExpressionFactory')(null, function () { })();
+        subcontainer.build('negateExpressionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -94,7 +94,7 @@ describe('Negate Condition', function () {
             }]
         };
 
-        subcontainer.build('negateExpressionFactory')(null, function () { })();
+        subcontainer.build('negateExpressionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -118,7 +118,7 @@ describe('Negate Condition', function () {
             }]
         };
 
-        subcontainer.build('negateExpressionFactory')(null, function () { })();
+        subcontainer.build('negateExpressionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -142,7 +142,7 @@ describe('Negate Condition', function () {
             }]
         };
 
-        subcontainer.build('negateExpressionFactory')(null, function () { })();
+        subcontainer.build('negateExpressionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -166,7 +166,7 @@ describe('Negate Condition', function () {
             }]
         };
 
-        subcontainer.build('negateExpressionFactory')(null, function () { })();
+        subcontainer.build('negateExpressionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -190,7 +190,7 @@ describe('Negate Condition', function () {
             }]
         };
 
-        subcontainer.build('negateExpressionFactory')(null, function () { })();
+        subcontainer.build('negateExpressionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -214,7 +214,7 @@ describe('Negate Condition', function () {
             }]
         };
 
-        subcontainer.build('negateExpressionFactory')(null, function () { })();
+        subcontainer.build('negateExpressionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

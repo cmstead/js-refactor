@@ -45,7 +45,7 @@ describe('Wrap In Async', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('wrapInAsyncFunctionFactory')(null, function () { })();
+        subcontainer.build('wrapInAsyncFunctionFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -69,7 +69,7 @@ describe('Wrap In Async', function () {
             }]
         };
 
-        subcontainer.build('wrapInAsyncFunctionFactory')(null, function () { })();
+        subcontainer.build('wrapInAsyncFunctionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

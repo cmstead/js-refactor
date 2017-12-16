@@ -45,7 +45,7 @@ describe('Wrap In Condition', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('wrapInConditionFactory')(null, function () { })();
+        subcontainer.build('wrapInConditionFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -69,7 +69,7 @@ describe('Wrap In Condition', function () {
             }]
         };
 
-        subcontainer.build('wrapInConditionFactory')(null, function () { })();
+        subcontainer.build('wrapInConditionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

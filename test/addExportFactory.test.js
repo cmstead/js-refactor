@@ -34,7 +34,7 @@ describe('Add Export', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('addExportFactory')(null, function () { })();
+        subcontainer.build('addExportFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -58,7 +58,7 @@ describe('Add Export', function () {
             }]
         };
 
-        subcontainer.build('addExportFactory')(null, function () { })();
+        subcontainer.build('addExportFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -82,7 +82,7 @@ describe('Add Export', function () {
             }]
         };
 
-        subcontainer.build('addExportFactory')(null, function () { })();
+        subcontainer.build('addExportFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -106,7 +106,7 @@ describe('Add Export', function () {
             }]
         };
 
-        subcontainer.build('addExportFactory')(null, function () { })();
+        subcontainer.build('addExportFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

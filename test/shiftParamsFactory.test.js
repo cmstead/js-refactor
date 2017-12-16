@@ -59,7 +59,7 @@ describe('Shift Params', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('shiftParamsFactory')(null, function () { })();
+        subcontainer.build('shiftParamsFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -83,7 +83,7 @@ describe('Shift Params', function () {
             }]
         };
 
-        subcontainer.build('shiftParamsFactory')(null, function () { })();
+        subcontainer.build('shiftParamsFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -108,7 +108,7 @@ describe('Shift Params', function () {
             }]
         };
 
-        subcontainer.build('shiftParamsFactory')(null, function () { })();
+        subcontainer.build('shiftParamsFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -133,7 +133,7 @@ describe('Shift Params', function () {
             }]
         };
 
-        subcontainer.build('shiftParamsFactory')(null, function () { })();
+        subcontainer.build('shiftParamsFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

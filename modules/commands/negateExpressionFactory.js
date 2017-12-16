@@ -11,7 +11,7 @@ function negateExpressionFactory(
     utilities,
     vsCodeFactory) {
 
-    return function (_, callback) {
+    return function (callback) {
 
         function negateExpression(expressionString, selectedExpressionNode) {
             const test = selectedExpressionNode.test;

@@ -18,7 +18,7 @@ function extractVariableFactory(
     vsCodeFactory
 ) {
 
-    return function (_, callback) {
+    return function (callback) {
 
         function buildInitialExtractVariableContext(selectedLines) {
             return {

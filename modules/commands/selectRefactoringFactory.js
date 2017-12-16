@@ -9,7 +9,7 @@ function selectRefactoringFactory(
     wrapSelectionFactory,
     logger) {
 
-    return function (_, callback) {
+    return function (callback) {
 
         var refactoringBehaviors = {
             "Add Export": addExportFactory,

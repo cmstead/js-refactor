@@ -16,7 +16,7 @@ function extractMethodFactory(
 ) {
 
 
-    return function (_, callback) {
+    return function (callback) {
 
         function getUnboundVars(selectionAstCoords, destinationAstCoords, ast) {
             const astCoords = coordsHelper.coordsFromEditorToAst(selectionAstCoords);

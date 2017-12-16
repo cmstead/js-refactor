@@ -4,7 +4,7 @@ function wrapInAsyncFunctionFactory(
     wrapInTemplateFactory,
     wrapInTemplateAction) {
 
-    return function (_, callback) {
+    return function (callback) {
 
         function wrapSelection(selection, functionName) {
             var templates = ['asyncFunction'];

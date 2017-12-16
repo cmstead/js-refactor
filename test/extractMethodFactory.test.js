@@ -63,10 +63,9 @@ describe('Extract Method', function () {
         const infoAction = mocker.getMock('logger').api.info;
         const extractMethodFactory = subcontainer.build('extractMethodFactory');
 
-        const unusedObject = null;
         const callback = function () { };
 
-        extractMethodFactory(unusedObject, callback)();
+        extractMethodFactory(callback)();
 
         this.verify(prettyJson(infoAction.args));
     });
@@ -88,10 +87,9 @@ describe('Extract Method', function () {
 
         const extractMethodFactory = subcontainer.build('extractMethodFactory');
 
-        const unusedObject = null;
         const callback = function () { };
 
-        extractMethodFactory(unusedObject, callback)();
+        extractMethodFactory(callback)();
 
         this.verify(prettyJson(quickPickSpy.args));
     });
@@ -115,10 +113,9 @@ describe('Extract Method', function () {
 
         const extractMethodFactory = subcontainer.build('extractMethodFactory');
 
-        const unusedObject = null;
         const callback = function () { };
 
-        extractMethodFactory(unusedObject, callback)();
+        extractMethodFactory(callback)();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -142,10 +139,9 @@ describe('Extract Method', function () {
 
         const extractMethodFactory = subcontainer.build('extractMethodFactory');
 
-        const unusedObject = null;
         const callback = function () { };
 
-        extractMethodFactory(unusedObject, callback)();
+        extractMethodFactory(callback)();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -169,10 +165,9 @@ describe('Extract Method', function () {
 
         const extractMethodFactory = subcontainer.build('extractMethodFactory');
 
-        const unusedObject = null;
         const callback = function () { };
 
-        extractMethodFactory(unusedObject, callback)();
+        extractMethodFactory(callback)();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -196,10 +191,9 @@ describe('Extract Method', function () {
 
         const extractMethodFactory = subcontainer.build('extractMethodFactory');
 
-        const unusedObject = null;
         const callback = function () { };
 
-        extractMethodFactory(unusedObject, callback)();
+        extractMethodFactory(callback)();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

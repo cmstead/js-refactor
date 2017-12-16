@@ -45,7 +45,7 @@ describe('Wrap In Immediately Invoked Function Expression', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('wrapInIIFEFactory')(null, function () { })();
+        subcontainer.build('wrapInIIFEFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -69,7 +69,7 @@ describe('Wrap In Immediately Invoked Function Expression', function () {
             }]
         };
 
-        subcontainer.build('wrapInIIFEFactory')(null, function () { })();
+        subcontainer.build('wrapInIIFEFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

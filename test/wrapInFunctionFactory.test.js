@@ -45,7 +45,7 @@ describe('Wrap In Function', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('wrapInFunctionFactory')(null, function () { })();
+        subcontainer.build('wrapInFunctionFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -69,7 +69,7 @@ describe('Wrap In Function', function () {
             }]
         };
 
-        subcontainer.build('wrapInFunctionFactory')(null, function () { })();
+        subcontainer.build('wrapInFunctionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
@@ -93,7 +93,7 @@ describe('Wrap In Function', function () {
             }]
         };
 
-        subcontainer.build('wrapInFunctionFactory')(null, function () { })();
+        subcontainer.build('wrapInFunctionFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

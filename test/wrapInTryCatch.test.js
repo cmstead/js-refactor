@@ -45,7 +45,7 @@ describe('Wrap In Try/Catch', function () {
         };
 
         var info = mocker.getMock('logger').api.info;
-        subcontainer.build('wrapInTryCatchFactory')(null, function () { })();
+        subcontainer.build('wrapInTryCatchFactory')(function () { })();
 
         this.verify(prettyJson(info.args));
     });
@@ -69,7 +69,7 @@ describe('Wrap In Try/Catch', function () {
             }]
         };
 
-        subcontainer.build('wrapInTryCatchFactory')(null, function () { })();
+        subcontainer.build('wrapInTryCatchFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });

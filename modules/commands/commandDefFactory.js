@@ -9,55 +9,55 @@ function commandDefFactory() {
         return [
             {
                 name: 'cmstead.jsRefactor.addExport',
-                behavior: () => container.build('addExportFactory')(null, formatDocument)()
+                behavior: () => container.build('addExportFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.convertToArrowFunction',
-                behavior: () => container.build('convertToArrowFunctionFactory')(null, formatDocument)()
+                behavior: () => container.build('convertToArrowFunctionFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.extractMethod',
-                behavior: () => container.build('extractMethodFactory')(null, formatDocument)()
+                behavior: () => container.build('extractMethodFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.extractVariable',
-                behavior: () => container.build('extractVariableFactory')(null, formatDocument)()
+                behavior: () => container.build('extractVariableFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.inlineVariable',
-                behavior: () => container.build('inlineVariableFactory')(null, formatDocument)()
+                behavior: () => container.build('inlineVariableFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.negateExpression',
-                behavior: () => container.build('negateExpressionFactory')(null, formatDocument)()
+                behavior: () => container.build('negateExpressionFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.selectRefactoring',
-                behavior: () => container.build('selectRefactoringFactory')(null, formatDocument)()
+                behavior: () => container.build('selectRefactoringFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.shiftParams',
-                behavior: () => container.build('shiftParamsFactory')(null, formatDocument)()
+                behavior: () => container.build('shiftParamsFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.wrapInCondition',
-                behavior: () => container.build('wrapInConditionFactory')(null, formatDocument)()
+                behavior: () => container.build('wrapInConditionFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.wrapInFunction',
-                behavior: () => container.build('wrapInFunctionFactory')(null, formatDocument)()
+                behavior: () => container.build('wrapInFunctionFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.wrapInIIFE',
-                behavior: () => container.build('wrapInIIFEFactory')(null, formatDocument)()
+                behavior: () => container.build('wrapInIIFEFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.wrapInTryCatch',
-                behavior: () => container.build('wrapInTryCatchFactory')(null, formatDocument)()
+                behavior: () => container.build('wrapInTryCatchFactory')(formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.wrapSelection',
-                behavior: () => container.build('wrapSelectionFactory')(null, formatDocument)()
+                behavior: () => container.build('wrapSelectionFactory')(formatDocument)()
             }
         ];
 
