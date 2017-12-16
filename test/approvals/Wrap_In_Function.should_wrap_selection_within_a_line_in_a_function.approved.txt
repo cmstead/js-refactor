@@ -1,6 +1,6 @@
 [
     [
-        "\nfunction foo () {\na + b\n}\n",
+        "\nfunction foo() {\na + b\n}\n",
         {
             "start": [
                 4,

@@ -1,7 +1,6 @@
 'use strict';
 
 function wrapInGeneratorFactory(
-    extensionHelper,
     wrapInTemplateFactory,
     wrapInTemplateAction) {
 
@@ -9,7 +8,7 @@ function wrapInGeneratorFactory(
 
         function wrapSelection(selection, functionName) {
             var templates = ['generator'];
-            var contextExtension = { name: extensionHelper.cleanFunctionName(functionName) };
+            var contextExtension = { name: functionName };
 
             return wrapInTemplateAction.wrapSelection(templates, selection, contextExtension);
         }

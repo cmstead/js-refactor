@@ -1,7 +1,6 @@
 'use strict';
 
 function wrapInAsyncFunctionFactory(
-    extensionHelper,
     wrapInTemplateFactory,
     wrapInTemplateAction) {
 
@@ -9,7 +8,7 @@ function wrapInAsyncFunctionFactory(
 
         function wrapSelection(selection, functionName) {
             var templates = ['asyncFunction'];
-            var contextExtension = { name: extensionHelper.cleanFunctionName(functionName) };
+            var contextExtension = { name: functionName };
 
             return wrapInTemplateAction.wrapSelection(templates, selection, contextExtension);
         }

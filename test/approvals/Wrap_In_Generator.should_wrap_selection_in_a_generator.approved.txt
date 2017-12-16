@@ -1,6 +1,6 @@
 [
     [
-        "function* foo  () {\nfunction bar (a, b){\n        somethingElse(a + b);\n    }\n}",
+        "function* foo () {\nfunction bar (a, b){\n        somethingElse(a + b);\n    }\n}",
         {
             "start": [
                 3,

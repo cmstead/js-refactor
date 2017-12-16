@@ -1,7 +1,6 @@
 'use strict';
 
 function wrapInFunctionFactory(
-    extensionHelper,
     wrapInTemplateFactory,
     wrapInTemplateAction) {
 
@@ -9,7 +8,7 @@ function wrapInFunctionFactory(
         
         function wrapSelection(selection, functionName) {
             var templates = ['function'];
-            var contextExtension = { name: extensionHelper.cleanFunctionName(functionName) };
+            var contextExtension = { name: functionName };
     
             return wrapInTemplateAction.wrapSelection(templates, selection, contextExtension);
         }

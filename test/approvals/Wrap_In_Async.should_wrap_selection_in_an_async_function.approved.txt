@@ -1,6 +1,6 @@
 [
     [
-        "\nasync function foo () {\nfunction bar (a, b){\n        somethingElse(a + b);\n    }\n}\n",
+        "\nasync function foo() {\nfunction bar (a, b){\n        somethingElse(a + b);\n    }\n}\n",
         {
             "start": [
                 3,
