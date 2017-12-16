@@ -92,6 +92,7 @@ function shiftParamsFactory (
                         const paramsEditorCoords = coordsHelper.coordsFromAstToEditor(paramsAstCoords);
 
                         editActions.applySetEdit(shiftedParams, paramsEditorCoords);
+                        callback();
                     });
                 });
             }
