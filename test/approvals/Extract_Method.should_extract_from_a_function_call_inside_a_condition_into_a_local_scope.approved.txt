@@ -1,0 +1,28 @@
+[
+    [
+        "aNewFunction(foo)",
+        {
+            "start": [
+                23,
+                12
+            ],
+            "end": [
+                23,
+                19
+            ]
+        }
+    ],
+    [
+        "function aNewFunction (foo) {\nfoo + 1\n}\n\n",
+        {
+            "start": [
+                23,
+                4
+            ],
+            "end": [
+                23,
+                4
+            ]
+        }
+    ]
+]

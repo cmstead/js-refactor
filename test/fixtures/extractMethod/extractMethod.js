@@ -20,4 +20,10 @@ function something(numbers) {
     numbers.filter(value => value % 2 === 0);
 }
 
+function testing(foo) {
+    if(test(foo + 1)) {
+        console.log(foo);
+    }
+}
+
 module.exports = obj;
