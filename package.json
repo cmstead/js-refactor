@@ -27,8 +27,7 @@
     "onCommand:cmstead.jsRefactor.inlineVariable",
     "onCommand:cmstead.jsRefactor.negateExpression",
     "onCommand:cmstead.jsRefactor.selectRefactoring",
-    "onCommand:cmstead.jsRefactor.shiftParamsLeft",
-    "onCommand:cmstead.jsRefactor.shiftParamsRight",
+    "onCommand:cmstead.jsRefactor.shiftParams",
     "onCommand:cmstead.jsRefactor.rename",
     "onCommand:cmstead.jsRefactor.wrapInArrowFunction",
     "onCommand:cmstead.jsRefactor.wrapInAsyncFunction",
@@ -126,14 +125,9 @@
         "description": "Select refactoring to apply"
       },
       {
-        "command": "cmstead.jsRefactor.shiftParamsLeft",
-        "title": "JS Refactor: Shift Parameters Left",
-        "description": "Shift function parameters to the left"
-      },
-      {
-        "command": "cmstead.jsRefactor.shiftParamsRight",
-        "title": "JS Refactor: Shift Parameters Right",
-        "description": "Shift function parameters to the right"
+        "command": "cmstead.jsRefactor.shiftParams",
+        "title": "JS Refactor: Shift Parameters",
+        "description": "Shift function parameters to new positions"
       },
       {
         "command": "cmstead.jsRefactor.wrapInArrowFunction",
@@ -204,9 +198,8 @@
         "key": "ctrl+shift+j x"
       },
       {
-        "command": "cmstead.jsRefactor.shiftParamsLeft",
-        "key": "ctrl+shift+j s",
-        "when": "editorHasSelection"
+        "command": "cmstead.jsRefactor.shiftParams",
+        "key": "ctrl+shift+j s"
       },
       {
         "command": "cmstead.jsRefactor.wrapSelection",
@@ -249,12 +242,8 @@
           "when": "editorHasSelection && resourceLangId == javascript"
         },
         {
-          "command": "cmstead.jsRefactor.shiftParamsLeft",
-          "when": "editorHasSelection && resourceLangId == javascript"
-        },
-        {
-          "command": "cmstead.jsRefactor.shiftParamsRight",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "command": "cmstead.jsRefactor.shiftParams",
+          "when": "resourceLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.wrapInArrowFunction",
@@ -326,14 +315,9 @@
           "when": "resourceLangId == javascript"
         },
         {
-          "command": "cmstead.jsRefactor.shiftParamsLeft",
+          "command": "cmstead.jsRefactor.shiftParams",
           "group": "5_refactor",
-          "when": "editorHasSelection && resourceLangId == javascript"
-        },
-        {
-          "command": "cmstead.jsRefactor.shiftParamsRight",
-          "group": "5_refactor",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "resourceLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.wrapSelection",

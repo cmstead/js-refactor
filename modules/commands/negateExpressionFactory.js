@@ -16,8 +16,6 @@ function negateExpressionFactory(
         function negateExpression(expressionString, selectedExpressionNode) {
             const test = selectedExpressionNode.test;
 
-            console.log(test);
-
             if(test.type === 'UnaryExpression' && test.operator === '!') {
                 return expressionString.substring(1);
             } else if(test.type === 'LogicalExpression') {

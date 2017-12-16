@@ -1,5 +1,0 @@
-[
-    [
-        "Cannot shift parameters on an empty selection."
-    ]
-]

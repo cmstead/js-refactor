@@ -36,12 +36,8 @@ function commandDefFactory() {
                 behavior: () => container.build('selectRefactoringFactory')(null, formatDocument)()
             },
             {
-                name: 'cmstead.jsRefactor.shiftParamsLeft',
-                behavior: () => container.build('shiftParamsLeftFactory')(null, formatDocument)()
-            },
-            {
-                name: 'cmstead.jsRefactor.shiftParamsRight',
-                behavior: () => container.build('shiftParamsRightFactory')(null, formatDocument)()
+                name: 'cmstead.jsRefactor.shiftParams',
+                behavior: () => container.build('shiftParamsFactory')(null, formatDocument)()
             },
             {
                 name: 'cmstead.jsRefactor.wrapInCondition',

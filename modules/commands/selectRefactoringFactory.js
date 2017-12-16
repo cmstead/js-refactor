@@ -3,9 +3,9 @@
 
 function selectRefactoringFactory(
     addExportFactory,
+    extractMethodFactory,
     extractVariableFactory,
-    shiftParamsLeftFactory,
-    shiftParamsRightFactory,
+    shiftParamsFactory,
     wrapSelectionFactory,
     logger) {
 
@@ -13,9 +13,9 @@ function selectRefactoringFactory(
 
         var refactoringBehaviors = {
             "Add Export": addExportFactory,
-            "extractVariableFactory": extractVariableFactory,
-            "Shift Params Left": shiftParamsLeftFactory,
-            "Shift Params Right": shiftParamsRightFactory,
+            "Extract Method": extractMethodFactory,
+            "Extract Variable": extractVariableFactory,
+            "Shift Params": shiftParamsFactory,
             "Wrap Selection": wrapSelectionFactory
         };
 
