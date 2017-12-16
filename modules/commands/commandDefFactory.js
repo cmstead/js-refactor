@@ -16,6 +16,10 @@ function commandDefFactory() {
                 behavior: () => container.build('convertToArrowFunctionFactory')(formatDocument)()
             },
             {
+                name: 'cmstead.jsRefactor.convertToTemplateLiteral',
+                behavior: () => container.build('convertToTemplateLiteralFactory')(formatDocument)()
+            },
+            {
                 name: 'cmstead.jsRefactor.extractMethod',
                 behavior: () => container.build('extractMethodFactory')(formatDocument)()
             },

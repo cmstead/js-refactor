@@ -1,0 +1,16 @@
+[
+    [
+        "`this is a test ${value} and here is an object reference: ${obj.foo} and some more stuff`",
+        {
+            "start": [
+                9,
+                13
+            ],
+            "end": [
+                9,
+                112
+            ]
+        },
+        "[function: anonymous]"
+    ]
+]

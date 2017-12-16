@@ -40,6 +40,7 @@ JS Refactor supports the following refactorings (explanations below):
 
 **Other Utilities:**
 - Convert To Arrow Function
+- Convert To Template Literal
 - Export Function
 - Negate Expression
 - Shift Parameters
@@ -61,6 +62,8 @@ JS Refactor supports the following refactorings (explanations below):
 - Inline variable - ctrl+shift+j i
 - Rename variable (VS Code internal) - F2
 
+- Convert to Arrow Function - ctrl+shift+j a
+- Convert to Template Literal - ctrl+shift+j l
 - Export function - ctrl+shift+j x
 - Shift parameters - ctrl+shift+j s
 - Wrap selection - ctrl+shift+j w
@@ -84,10 +87,7 @@ the refactoring and select the correct refactoring from the list. You will be pr
 
 **Convert To Arrow Function** Converts a function expression to an arrow function.
 
-**Convert To Member Function** Converts a named function to a member function for an object prototype definition.
-
-**Convert To Named Function** Converts selected anonymous function assignment or member function declaration and converts it into a named function declaration.
-Convert to named function only searches the first line of your selection and will only convert one function at a time.
+**Convert To Template Literal** Converts a string concatenation expression to a template literal.
 
 **Export Function** creates new export declaration for selected function or function name
 

@@ -3,8 +3,12 @@
 
 function selectRefactoringFactory(
     addExportFactory,
+    convertToArrowFunctionFactory,
+    convertToTemplateLiteralFactory,
     extractMethodFactory,
     extractVariableFactory,
+    inlineVariableFactory,
+    negateExpressionFactory,
     shiftParamsFactory,
     wrapSelectionFactory,
     logger) {
@@ -13,8 +17,12 @@ function selectRefactoringFactory(
 
         var refactoringBehaviors = {
             "Add Export": addExportFactory,
+            "Convert to Arrow Function": convertToArrowFunctionFactory,
+            "Convert to Template Literal": convertToTemplateLiteralFactory,
             "Extract Method": extractMethodFactory,
             "Extract Variable": extractVariableFactory,
+            "Inline Variable": inlineVariableFactory,
+            "Negate Expression": negateExpressionFactory,
             "Shift Params": shiftParamsFactory,
             "Wrap Selection": wrapSelectionFactory
         };

@@ -21,6 +21,7 @@
   ],
   "activationEvents": [
     "onCommand:cmstead.jsRefactor.convertToArrowFunction",
+    "onCommand:cmstead.jsRefactor.convertToTemplateLiteral",
     "onCommand:cmstead.jsRefactor.addExport",
     "onCommand:cmstead.jsRefactor.extractMethod",
     "onCommand:cmstead.jsRefactor.extractVariable",
@@ -88,6 +89,11 @@
         "command": "cmstead.jsRefactor.convertToArrowFunction",
         "title": "JS Refactor: Convert To Arrow Function",
         "description": "Convert function from a function expression to an arrow function"
+      },
+      {
+        "command": "cmstead.jsRefactor.convertToTemplateLiteral",
+        "title": "JS Refactor: Convert String Concat To Template Literal",
+        "description": "Convert string concatenation expression to template literal"
       },
       {
         "command": "cmstead.jsRefactor.addExport",
@@ -194,6 +200,10 @@
         "key": "ctrl+shift+j a"
       },
       {
+        "command": "cmstead.jsRefactor.convertToTemplateLiteral",
+        "key": "ctrl+shift+j l"
+      },
+      {
         "command": "cmstead.jsRefactor.addExport",
         "key": "ctrl+shift+j x"
       },
@@ -211,6 +221,10 @@
       "commandPalette": [
         {
           "command": "cmstead.jsRefactor.convertToArrowFunction",
+          "when": "resourceLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToTemplateLiteral",
           "when": "resourceLangId == javascript"
         },
         {
@@ -281,6 +295,11 @@
       "editor/context": [
         {
           "command": "cmstead.jsRefactor.convertToArrowFunction",
+          "group": "5_refactor",
+          "when": "resourceLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToTemplateLiteral",
           "group": "5_refactor",
           "when": "resourceLangId == javascript"
         },

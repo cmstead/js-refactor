@@ -2,15 +2,15 @@
 
 const obj = {
     foo: function () {
-        return function bar (whatever) {
-            if(whatever) {
+        return function bar(whatever) {
+            if (whatever) {
                 var aThing = 5
                 console.log('Do the thing', aThing);
             }
         };
     },
-    baz: function() {
-        if(1 !== 3) {
+    baz: function () {
+        if (1 !== 3) {
             console.log('This is definitional!');
         }
     }
@@ -21,7 +21,7 @@ function something(numbers) {
 }
 
 function testing(foo) {
-    if(test(foo + 1)) {
+    if (test(foo + 1)) {
         console.log(foo);
     }
 }
