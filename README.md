@@ -42,8 +42,7 @@ JS Refactor supports the following refactorings (explanations below):
 - Convert To Arrow Function
 - Export Function
 - Negate Expression
-- Shift Parameters Left
-- Shift Parameters Right
+- Shift Parameters
 - Wrap selection options:
     - Arrow Function
     - Async Function
@@ -55,13 +54,15 @@ JS Refactor supports the following refactorings (explanations below):
 
 ### Keybindings
 
+- Menu of available refactorings - ctrl+shift+j r
+
 - Extract method - ctrl+shift+j m
 - Extract variable - ctrl+shift+j v
 - Inline variable - ctrl+shift+j i
 - Rename variable (VS Code internal) - F2
 
-- Menu of available refactorings - ctrl+shift+j r
 - Export function - ctrl+shift+j x
+- Shift parameters - ctrl+shift+j s
 - Wrap selection - ctrl+shift+j w
 
 ### Usage
@@ -90,9 +91,7 @@ Convert to named function only searches the first line of your selection and wil
 
 **Export Function** creates new export declaration for selected function or function name
 
-**Shift Parameters Left** Shifts all selected parameters to the left
-
-**Shift Parameters Right** Shifts all selected parameters to the right
+**Shift Parameters** Shifts function parameters to the left or right by the selected number of places
 
 **Wrap In Condition** Wraps selected code in an if statement, adding indentation as necessary
 
@@ -165,6 +164,18 @@ Nevertheless, following are the required elements of a good pull request:
 - **Pull requests may not be claimed as intellectual property of a company or other external agency.**
 
 ## Updates ##
+
+### 2.6.0 ###
+
+- Rewrite of shift params left and right to shift params
+    - Adds ability to select direction at action invocation
+    - Allows user to select number of places shift should move
+
+### 2.5.0 ###
+
+- Rewrite of negate expression
+    - Allows negation without selection
+    - Fully manages all condition test cases
 
 ### 2.4.0 ###
 
