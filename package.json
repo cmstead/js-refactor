@@ -2,7 +2,7 @@
   "name": "jsrefactor",
   "displayName": "JS Refactor",
   "description": "JS refactoring tools for adding efficiency to your development workflow.",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "publisher": "cmstead",
   "repository": {
     "url": "https://github.com/cmstead/js-refactor.git",
