@@ -168,6 +168,19 @@ Nevertheless, following are the required elements of a good pull request:
 
 ## Updates ##
 
+### 2.8.0 ###
+
+- Added introduce function
+    - Adds new function declaration to document using name from property assignment, function call or variable declaration
+    - Automatically selects name from expression
+    - Allows for better code-by-intention development
+
+### 2.7.0 ###
+
+- Added convert to template literal
+    - Converts a string concatenation expression to a string template literal
+    - Allows user to simply place cursor and run command
+
 ### 2.6.0 ###
 
 - Rewrite of shift params left and right to shift params
