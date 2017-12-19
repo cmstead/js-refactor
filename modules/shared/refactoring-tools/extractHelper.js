@@ -22,6 +22,7 @@ function extractHelper(
     const isProgramScope = isScopeType('program');
 
     function getNewExtractionLocation(scopePath, selectedOptionIndex, selectionCoords, ast) {
+        const currentScope = scopePath[selectedOptionIndex];
         const nextScope = scopePath[selectedOptionIndex + 1];
 
         const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionCoords);
@@ -30,9 +31,9 @@ function extractHelper(
         let destinationExpression;
 
         if(isLocalScope) {
-            destinationExpression = selectionExpressionHelper.getNearestExpression(selectionAstCoords, ast);
+            destinationExpression = selectionExpressionHelper.getNearestExpressionInScope(currentScope.loc, selectionAstCoords, ast);
         } else {
-            destinationExpression = selectionExpressionHelper.getNearestExpression(nextScope.loc, ast);
+            destinationExpression = selectionExpressionHelper.getNearestExpressionInScope(currentScope.loc, nextScope.loc, ast);
         }
 
         let destinationEditorCoords = coordsHelper.coordsFromAstToEditor(destinationExpression.loc);

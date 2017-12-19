@@ -42,6 +42,7 @@ JS Refactor supports the following refactorings (explanations below):
 - Convert To Arrow Function
 - Convert To Template Literal
 - Export Function
+- Introduce Function
 - Negate Expression
 - Shift Parameters
 - Wrap selection options:
@@ -90,6 +91,8 @@ the refactoring and select the correct refactoring from the list. You will be pr
 **Convert To Template Literal** Converts a string concatenation expression to a template literal.
 
 **Export Function** creates new export declaration for selected function or function name
+
+**Introduce Function** creates new function from existing function call or variable assignment
 
 **Shift Parameters** Shifts function parameters to the left or right by the selected number of places
 

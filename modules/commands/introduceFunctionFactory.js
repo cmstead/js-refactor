@@ -17,6 +17,10 @@ function introduceFunctionFactory(
     function getUsageValueNode(node) {
         if (node.type === 'Property') {
             return node.value
+        } else if (node.type === 'CallExpression') {
+            return node.callee;
+        } else {
+            return node.declarations[0].init;
         }
     }
 
@@ -40,14 +44,12 @@ function introduceFunctionFactory(
 
             const selectedNode = selectionExpressionHelper.getNearestUsageNode(selectionAstCoords, ast);
 
-            console.log('Selected Node:');
-            console.log(selectedNode);
-
             if (selectedNode === null || !isValidUsageNode(selectedNode)) {
                 logger.info('Unable to find appropriate identifier');
             } else {
                 scopeHelper.getScopeQuickPick(scopePath, sourceLines, function (selectedOption) {
                     const selectedOptionIndex = scopeHelper.getSelectedScopeIndex(selectedOption);
+                    
                     const newMethodLocation = extractHelper
                         .getNewExtractionLocation(scopePath, selectedOptionIndex, selectionEditorCoords, ast);
 

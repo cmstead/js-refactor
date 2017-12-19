@@ -32,6 +32,10 @@ function commandDefFactory() {
                 behavior: () => container.build('inlineVariableFactory')(formatDocument)()
             },
             {
+                name: 'cmstead.jsRefactor.introduceFunction',
+                behavior: () => container.build('introduceFunctionFactory')(formatDocument)()
+            },
+            {
                 name: 'cmstead.jsRefactor.negateExpression',
                 behavior: () => container.build('negateExpressionFactory')(formatDocument)()
             },

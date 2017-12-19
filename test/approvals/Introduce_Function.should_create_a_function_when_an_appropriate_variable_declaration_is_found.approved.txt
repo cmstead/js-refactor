@@ -3,11 +3,11 @@
         "function myNewFunction () {\n\n}\n\n",
         {
             "start": [
-                10,
+                2,
                 0
             ],
             "end": [
-                10,
+                2,
                 0
             ]
         },

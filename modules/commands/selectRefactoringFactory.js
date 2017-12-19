@@ -8,6 +8,7 @@ function selectRefactoringFactory(
     extractMethodFactory,
     extractVariableFactory,
     inlineVariableFactory,
+    introduceFunctionFactory,
     negateExpressionFactory,
     shiftParamsFactory,
     wrapSelectionFactory,
@@ -22,6 +23,7 @@ function selectRefactoringFactory(
             "Extract Method": extractMethodFactory,
             "Extract Variable": extractVariableFactory,
             "Inline Variable": inlineVariableFactory,
+            "Introduce Function": introduceFunctionFactory,
             "Negate Expression": negateExpressionFactory,
             "Shift Params": shiftParamsFactory,
             "Wrap Selection": wrapSelectionFactory

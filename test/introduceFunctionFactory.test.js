@@ -12,7 +12,7 @@ require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
 let sinon = require('sinon');
 
-describe.only('Introduce Function', function () {
+describe('Introduce Function', function () {
 
     let applySetEditSpy;
     let subcontainer;
@@ -78,6 +78,54 @@ describe.only('Introduce Function', function () {
                 _end: {
                     _line: 11,
                     _character: 23
+                }
+            }]
+        };
+
+        subcontainer.build('introduceFunctionFactory')(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
+    it('should create a function when an appropriate function call is found', function () {
+        var sourceTokens = readSource('./test/fixtures/introduceFunction/introduceFunction.js');
+
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 8,
+                    _character: 25
+                },
+                _end: {
+                    _line: 8,
+                    _character: 25
+                }
+            }]
+        };
+
+        subcontainer.build('introduceFunctionFactory')(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
+    it('should create a function when an appropriate variable declaration is found', function () {
+        var sourceTokens = readSource('./test/fixtures/introduceFunction/introduceFunction.js');
+
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 4,
+                    _character: 41
+                },
+                _end: {
+                    _line: 4,
+                    _character: 41
                 }
             }]
         };

@@ -11,7 +11,8 @@ function selectionExpressionHelper(
         'CallExpression',
         'MemberExpression',
         'IfStatement',
-        'Property'
+        'Property',
+        'FunctionDeclaration'
     ];
 
     const exclusionWrappingNodeTypes = [
@@ -101,19 +102,20 @@ function selectionExpressionHelper(
         return currentScope;
     }
 
-    function getNearestExpression(astCoords, ast) {
+    function getNearestExpressionInScope(scopeAstCoords, selectionAstCoords, ast) {
         let currentScope = null;
-        let lastScope = ast;
 
         astHelper.traverse(ast, {
             enter: astHelper.onMatch(
-                isNearNode(astCoords),
+                isNearNode(selectionAstCoords),
                 function (node) {
-                    if (!isWrappingNode(lastScope)) {
+                    const isInScope = astHelper.nodeInCoords(scopeAstCoords, node);
+                    const isNotSelectedScope = !astHelper.nodeMatchesCoords(scopeAstCoords, node);
+                    const scopeNotSet = currentScope === null;
+
+                    if (isInScope && isNotSelectedScope && scopeNotSet) {
                         currentScope = node;
                     }
-
-                    lastScope = node;
                 }
             )
         });
@@ -246,9 +248,9 @@ function selectionExpressionHelper(
             'astCoords, ast => variant<null, astNode>',
             getSelectionExpression),
 
-        getNearestExpression: typeHelper.enforce(
-            'astCoords, ast => variant<null, astNode>',
-            getNearestExpression),
+        getNearestExpressionInScope: typeHelper.enforce(
+            'astCoords, astCoords, ast => variant<null, astNode>',
+            getNearestExpressionInScope),
 
         getNearestIfCondition: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
