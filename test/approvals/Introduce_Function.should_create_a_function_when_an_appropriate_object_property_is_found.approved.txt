@@ -1,0 +1,16 @@
+[
+    [
+        "function myNewFunction () {\n\n}\n\n",
+        {
+            "start": [
+                11,
+                4
+            ],
+            "end": [
+                11,
+                4
+            ]
+        },
+        "[function: anonymous]"
+    ]
+]

@@ -13,6 +13,6 @@
     },
     {
         "type": "FunctionExpression",
-        "initialLine": "function bar (whatever) {"
+        "initialLine": "function bar(whatever) {"
     }
 ]

@@ -29,14 +29,22 @@ function selectionExpressionHelper(
         'FunctionExpression'
     ]
 
-    const isWrappingNode = astHelper.isNodeType(wrappingNodeTypes);
+    const usageNode = [
+        'CallExpression',
+        'VariableDeclaration',
+        'Property'
+    ];
+
     const isExclusionWrappingNode = astHelper.isNodeType(exclusionWrappingNodeTypes);
-    const isVariableOrFunction = astHelper.isNodeType(variableOrFunctionTypes);
     const isFunctionDeclarationOrExpression = astHelper.isNodeType(functionDeclarationOrExpression);
-    const isIdentifier = astHelper.isNodeType(['Identifier']);
-    const isVariabeDeclaration = astHelper.isNodeType(['VariableDeclaration']);
-    const isIfStatement = astHelper.isNodeType(['IfStatement']);
+    const isUsageNode = astHelper.isNodeType(usageNode);
+    const isVariableOrFunction = astHelper.isNodeType(variableOrFunctionTypes);
+    const isWrappingNode = astHelper.isNodeType(wrappingNodeTypes);
+
     const isBinaryExpression = astHelper.isNodeType(['BinaryExpression']);
+    const isIdentifier = astHelper.isNodeType(['Identifier']);
+    const isIfStatement = astHelper.isNodeType(['IfStatement']);
+    const isVariabeDeclaration = astHelper.isNodeType(['VariableDeclaration']);
 
     function isExpressionNode(node) {
         const isExpression = typeof node.type === 'string'
@@ -56,37 +64,28 @@ function selectionExpressionHelper(
             && lineAndColumnMatch(astCoords.end, node.loc.end);
     }
 
-    const isMatchingNode =
-        (astCoords) =>
-            (node) =>
-                isExpressionNode(node)
-                && nodeCoordsMatch(astCoords, node);
+    const isLocalityMatchingNode =
+        (coordinateMatcher) =>
+            (isMatchingNodeType) =>
+                (astCoords) =>
+                    (node) =>
+                        isMatchingNodeType(node)
+                        && coordinateMatcher(astCoords, node);
 
-    const isNearMatch =
-        (isMatchingNode) =>
-            (astCoords) =>
-                (node) =>
-                    isMatchingNode(node)
-                    && astHelper.coordsInNode(astCoords, node);
+    const isMatchingNode = isLocalityMatchingNode(nodeCoordsMatch)(isExpressionNode);
+    const isNearMatch = isLocalityMatchingNode(astHelper.coordsInNode);
+    const isMatchInScope = isLocalityMatchingNode(astHelper.nodeInCoords);
 
     const isNearNode = isNearMatch(isExpressionNode);
+    const isNearUsageNode = isNearMatch(isUsageNode);
     const isNearIdentifierExpression = isNearMatch(isIdentifier);
     const isNearVariableOrFunction = isNearMatch(isVariableOrFunction);
     const isNearConditional = isNearMatch(isIfStatement);
     const isNearFunctionExpression = isNearMatch(isFunctionDeclarationOrExpression);
     const isNearBinaryExpression = isNearMatch(isBinaryExpression);
 
-    const isIdentifierInScope =
-        (astCoords) =>
-            (node) =>
-                isIdentifier(node)
-                && astHelper.nodeInCoords(astCoords, node);
-
-    const isVariableDeclarationInScope =
-        (astCoords) =>
-            (node) =>
-                isVariabeDeclaration(node)
-                && astHelper.nodeInCoords(astCoords, node);
+    const isIdentifierInScope = isMatchInScope(isIdentifier);
+    const isVariableDeclarationInScope = isMatchInScope(isVariabeDeclaration);
 
     function getSelectionExpression(astCoords, ast) {
         let currentScope = null;
@@ -225,6 +224,19 @@ function selectionExpressionHelper(
         return foundNode;
     }
 
+    function getNearestUsageNode(astCoords, ast) {
+        let foundNode = null;
+
+        astHelper.traverse(ast, {
+            enter: astHelper.onMatch(
+                isNearUsageNode(astCoords),
+                (node) => foundNode = node
+            )
+        });
+
+        return foundNode;
+    }
+
     return {
         getIdentifiersInScope: typeHelper.enforce(
             'astCoords, ast => array<astNode>',
@@ -257,6 +269,10 @@ function selectionExpressionHelper(
         getNearestStringNode: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
             getNearestStringNode),
+
+        getNearestUsageNode: typeHelper.enforce(
+            'astCoords, ast => variant<null, astNode>',
+            getNearestUsageNode),
 
         getVariableDeclarationsInScope: typeHelper.enforce(
             'astCoords, ast => array<astNode>',
