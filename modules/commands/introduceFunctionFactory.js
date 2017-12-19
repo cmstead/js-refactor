@@ -61,7 +61,7 @@ function introduceFunctionFactory(
 
                     const functionString = templateHelper.templates.function.build(functionContext);
                     
-                    editActions.applySetEdit(functionString, newMethodLocation, callback);
+                    editActions.applySetEdit(functionString, newMethodLocation).then(callback);
                 });
             }
         };

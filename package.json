@@ -202,9 +202,6 @@
         "key": "ctrl+shift+j i"
       },
       {
-        "command": "cmstead.jsRefactor.introduceFunction"
-      },
-      {
         "command": "cmstead.jsRefactor.convertToArrowFunction",
         "key": "ctrl+shift+j a"
       },
