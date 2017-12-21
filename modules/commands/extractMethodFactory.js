@@ -8,6 +8,7 @@ function extractMethodFactory(
     parser,
     scopeHelper,
     selectionCoordsHelper,
+    selectionExpressionHelper,
     selectionHelper,
     selectionVariableHelper,
     templateHelper,
@@ -47,11 +48,44 @@ function extractMethodFactory(
             };
         }
 
+        function buildFunctionBody(selectedLines, ast) {
+            const lastExpression = selectionExpressionHelper.getLastExpression(ast);
+
+            const lastExpressionEditorCoords = coordsHelper.coordsFromAstToEditor(lastExpression.loc);
+            const bodyStartEditorCoords = {
+                start: [0, 0],
+                end: lastExpressionEditorCoords.start
+            };
+
+            let bodyStart = selectionHelper.getSelection(selectedLines, bodyStartEditorCoords);
+            let lastExpressionSelection = selectionHelper.getSelection(selectedLines, lastExpressionEditorCoords);
+
+            if (bodyStart.length === 1 && bodyStart[0].trim() === '') {
+                bodyStart = [];
+            }
+
+            if (lastExpression.type === 'VariableDeclaration') {
+                lastExpressionSelection.push(`return ${lastExpression.id.name};`);
+            } else if(lastExpression.type !== 'MemberExpression') {
+                lastExpressionSelection[0] = `return ${lastExpressionSelection[0]};`;
+            }
+
+            return bodyStart.concat(lastExpressionSelection).join('\n');
+        }
+
         function buildInitialExtractMethodContext(selectedLines) {
+            let body;
+
+            try {
+                const ast = parser.parseSourceLines(selectedLines);
+                body = buildFunctionBody(selectedLines, ast);
+            } catch (e) {
+                body = selectedLines.join('\n');
+            }
             return {
                 selectedOptionIndex: 0,
                 name: '',
-                body: selectedLines.join('\n'),
+                body: body,
                 arguments: ''
             };
         }

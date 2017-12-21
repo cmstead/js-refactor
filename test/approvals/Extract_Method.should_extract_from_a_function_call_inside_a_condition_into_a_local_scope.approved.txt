@@ -13,7 +13,7 @@
         }
     ],
     [
-        "function aNewFunction () {\nfoo + 1\n}\n\n",
+        "function aNewFunction () {\nreturn foo + 1;\n}\n\n",
         {
             "start": [
                 23,

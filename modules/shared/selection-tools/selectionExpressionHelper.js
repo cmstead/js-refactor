@@ -36,8 +36,19 @@ function selectionExpressionHelper(
         'Property'
     ];
 
+    const returnableExpression = [
+        'CallExpression',
+        'VariableDeclaration',
+        'FunctionDeclaration',
+        'FunctionExpression',
+        'BinaryExpression',
+        'AssignmentExpression',
+        'ReturnStatement'
+    ];
+
     const isExclusionWrappingNode = astHelper.isNodeType(exclusionWrappingNodeTypes);
     const isFunctionDeclarationOrExpression = astHelper.isNodeType(functionDeclarationOrExpression);
+    const isReturnableExpression = astHelper.isNodeType(returnableExpression);
     const isUsageNode = astHelper.isNodeType(usageNode);
     const isVariableOrFunction = astHelper.isNodeType(variableOrFunctionTypes);
     const isWrappingNode = astHelper.isNodeType(wrappingNodeTypes);
@@ -46,6 +57,7 @@ function selectionExpressionHelper(
     const isIdentifier = astHelper.isNodeType(['Identifier']);
     const isIfStatement = astHelper.isNodeType(['IfStatement']);
     const isVariabeDeclaration = astHelper.isNodeType(['VariableDeclaration']);
+
 
     function isExpressionNode(node) {
         const isExpression = typeof node.type === 'string'
@@ -239,6 +251,41 @@ function selectionExpressionHelper(
         return foundNode;
     }
 
+    function last(values) {
+        return values[values.length - 1];
+    }
+
+    function isExcludableExpression(node) {
+        return node.type === 'CallExpression'
+            && node.callee.type === 'MemberExpression'
+            && !typeHelper.isTypeOf('isNonNativeIdentifier')(node.callee.object);
+    }
+
+    function getLastExpression(ast) {
+        let foundNode = null;
+        let nodeStack = [];
+
+        astHelper.traverse(ast, {
+            enter: function (node) {
+                const parentNode = last(nodeStack);
+                const captureExpression = isReturnableExpression(node)
+                    && !isReturnableExpression(parentNode)
+                    && !isExcludableExpression(node);
+
+                nodeStack.push(node);
+
+                if (captureExpression) {
+                    foundNode = node;
+                }
+            },
+            leave: function () {
+                nodeStack.pop();
+            }
+        });
+
+        return foundNode;
+    }
+
     return {
         getIdentifiersInScope: typeHelper.enforce(
             'astCoords, ast => array<astNode>',
@@ -247,10 +294,6 @@ function selectionExpressionHelper(
         getSelectionExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
             getSelectionExpression),
-
-        getNearestExpressionInScope: typeHelper.enforce(
-            'astCoords, astCoords, ast => variant<null, astNode>',
-            getNearestExpressionInScope),
 
         getNearestIfCondition: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
@@ -278,7 +321,15 @@ function selectionExpressionHelper(
 
         getVariableDeclarationsInScope: typeHelper.enforce(
             'astCoords, ast => array<astNode>',
-            getVariableDeclarationsInScope)
+            getVariableDeclarationsInScope),
+
+        getNearestExpressionInScope: typeHelper.enforce(
+            'astCoords, astCoords, ast => variant<null, astNode>',
+            getNearestExpressionInScope),
+
+        getLastExpression: typeHelper.enforce(
+            'ast => variant<null, astNode>',
+            getLastExpression)
     };
 }
 
