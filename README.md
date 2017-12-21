@@ -168,6 +168,10 @@ Nevertheless, following are the required elements of a good pull request:
 
 ## Updates ##
 
+### 2.9.0 ###
+
+- Enhanced extract method to manage unbound variables better and return in acceptable cases
+
 ### 2.8.0 ###
 
 - Added introduce function
