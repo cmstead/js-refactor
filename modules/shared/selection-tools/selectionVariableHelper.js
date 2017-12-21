@@ -8,15 +8,16 @@ function selectionVariableHelper(
     const isFunctionScope = astHelper.isNodeType(['FunctionDeclaration', 'FunctionExpression']);
     const isVar = astHelper.isNodeType(['VariableDeclarator']);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
+    const isMemberExpression = astHelper.isNodeType(['MemberExpression']);
 
     const isContainingFunctionScope =
         (destinationAstCoords, node) =>
-                isFunctionScope(node)
-                && astHelper.coordsInNode(destinationAstCoords, node);
+            isFunctionScope(node)
+            && astHelper.coordsInNode(destinationAstCoords, node);
 
     const isNodeInSelection =
         (astCoords, node) =>
-                astHelper.nodeInCoords(astCoords, node);
+            astHelper.nodeInCoords(astCoords, node);
 
     const isNonNativeIdentifier = typeHelper.isTypeOf('nonNativeIdentifier');
 
@@ -51,9 +52,13 @@ function selectionVariableHelper(
         }
     }
 
+    function last(values) {
+        return values[values.length - 1];
+    }
+
     function getUnboundVars(selectionAstCoords, destinationAstCoords, ast) {
         let currentScope = null;
-        let lastNativeIdentifierNode = null;
+        let nodeStack = [];
 
         let boundVars = {};
         let identifiers = {};
@@ -64,13 +69,16 @@ function selectionVariableHelper(
 
         astHelper.traverse(ast, {
             enter: function (node) {
-                const nodeIsNativeIdentifier = !isNonNativeIdentifier(node);
+                const parentNode = last(nodeStack);
 
-                // Skip over native identifiers
-                if(nodeIsNativeIdentifier && node.type === 'Identifier') {
-                    lastNativeIdentifierNode = node;
-                } else if(lastNativeIdentifierNode !== null) {
-                    lastNativeIdentifierNode = null;
+                const isNativeIdentifier = isIdentifier(node) && !isNonNativeIdentifier(node);
+                const isPropertyIdentifier = isIdentifier(node) 
+                    && isMemberExpression(parentNode)
+                    && parentNode.property === node;
+
+                nodeStack.push(node);
+
+                if (isNativeIdentifier || isPropertyIdentifier) {
                     return;
                 }
 
@@ -83,13 +91,14 @@ function selectionVariableHelper(
                     currentScope = null;
                 }
 
-                if(isNodeInSelection(selectionAstCoords, node)) {
+                if (isNodeInSelection(selectionAstCoords, node)) {
                     processVariable(node);
                     processIdentifier(node);
                 }
 
             },
-            leave: function (node) {
+            leave: function () {
+                nodeStack.pop();
             }
         });
 
