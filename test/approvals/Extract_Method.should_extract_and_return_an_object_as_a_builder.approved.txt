@@ -1,0 +1,28 @@
+[
+    [
+        "aNewFunction(foo, baz)",
+        {
+            "start": [
+                29,
+                18
+            ],
+            "end": [
+                32,
+                5
+            ]
+        }
+    ],
+    [
+        "function aNewFunction (foo, baz) {\nreturn {\n        foo: 'bar',\n        baz: 'quux'\n    };\n}\n\n",
+        {
+            "start": [
+                29,
+                4
+            ],
+            "end": [
+                29,
+                4
+            ]
+        }
+    ]
+]

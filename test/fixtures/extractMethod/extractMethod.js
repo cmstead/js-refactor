@@ -26,4 +26,13 @@ function testing(foo) {
     }
 }
 
+function testObjectFunction() {
+    const myObj = {
+        foo: 'bar',
+        baz: 'quux'
+    };
+
+    return myObj;
+}
+
 module.exports = obj;

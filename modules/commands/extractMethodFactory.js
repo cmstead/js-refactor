@@ -53,8 +53,11 @@ function extractMethodFactory(
 
             const lastExpressionEditorCoords = coordsHelper.coordsFromAstToEditor(lastExpression.loc);
             const bodyStartEditorCoords = {
-                start: [0, 0],
-                end: lastExpressionEditorCoords.start
+                start: [1, 0],
+                end: [
+                    lastExpressionEditorCoords.start[0],
+                    lastExpressionEditorCoords.start[1]
+                ]
             };
 
             let bodyStart = selectionHelper.getSelection(selectedLines, bodyStartEditorCoords);
@@ -66,19 +69,22 @@ function extractMethodFactory(
 
             if (lastExpression.type === 'VariableDeclaration') {
                 lastExpressionSelection.push(`return ${lastExpression.id.name};`);
-            } else if(lastExpression.type !== 'MemberExpression') {
-                lastExpressionSelection[0] = `return ${lastExpressionSelection[0]};`;
+            } else if (lastExpression.type !== 'MemberExpression') {
+                const lastIndex = lastExpressionSelection.length - 1;
+                lastExpressionSelection[0] = `return ${lastExpressionSelection[0]}`;
+                lastExpressionSelection[lastIndex] = lastExpressionSelection[lastIndex] + ';';
             }
 
             return bodyStart.concat(lastExpressionSelection).join('\n');
         }
 
         function buildInitialExtractMethodContext(selectedLines) {
+            const wrappedSelectionLines = ['('].concat(selectedLines).concat([')']);
             let body;
 
             try {
-                const ast = parser.parseSourceLines(selectedLines);
-                body = buildFunctionBody(selectedLines, ast);
+                const ast = parser.parseSourceLines(wrappedSelectionLines);
+                body = buildFunctionBody(wrappedSelectionLines, ast);
             } catch (e) {
                 body = selectedLines.join('\n');
             }

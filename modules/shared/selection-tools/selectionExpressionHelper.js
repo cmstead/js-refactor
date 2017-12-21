@@ -43,7 +43,8 @@ function selectionExpressionHelper(
         'FunctionExpression',
         'BinaryExpression',
         'AssignmentExpression',
-        'ReturnStatement'
+        'ReturnStatement',
+        'ObjectExpression'
     ];
 
     const isExclusionWrappingNode = astHelper.isNodeType(exclusionWrappingNodeTypes);
@@ -273,6 +274,7 @@ function selectionExpressionHelper(
                     && !isExcludableExpression(node);
 
                 nodeStack.push(node);
+
 
                 if (captureExpression) {
                     foundNode = node;
