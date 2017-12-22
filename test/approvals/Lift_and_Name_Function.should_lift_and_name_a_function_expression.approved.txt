@@ -1,0 +1,15 @@
+[
+    [
+        "function aNewFunction (foo) {\nreturn 'Hello, World!';\n}\n\n",
+        {
+            "start": [
+                6,
+                0
+            ],
+            "end": [
+                6,
+                0
+            ]
+        }
+    ]
+]
