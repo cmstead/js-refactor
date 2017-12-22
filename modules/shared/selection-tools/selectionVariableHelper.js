@@ -48,6 +48,7 @@ function selectionVariableHelper(
                 .filter(param => param.type === 'Identifier')
                 .reduce(function (boundVarsObj, param) {
                     boundVarsObj[param.name] = true;
+                    return boundVarsObj;
                 }, boundVars);
         }
     }

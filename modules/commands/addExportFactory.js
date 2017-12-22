@@ -8,70 +8,85 @@ function addExportFactory(
     selectionExportHelper,
     selectionExpressionHelper,
     templateHelper,
-    utilities,
-    vsCodeFactory) {
+    vsCodeHelperFactory
+) {
 
     return function (callback) {
 
-        function getSelectionEditorCoords(activeEditor) {
-            const firstSelectionCoords = utilities.getAllSelectionCoords(activeEditor)[0];
-            return coordsHelper.coordsFromDocumentToEditor(firstSelectionCoords);
+        const vsCodeHelper = vsCodeHelperFactory();
+
+        function buildExportTemplateKey(exportNode) {
+            if (exportNode === null) {
+                return 'newExport';
+            } else if (selectionExportHelper.isMultilineExport(exportNode.expression.left, exportNode.expression.right)) {
+                return 'mulitilineExport';
+            } else {
+                return 'oneLineExport';
+            }
         }
 
-        function exportSelectedNode(activeEditor, astNode, ast) {
-            const editActions = editActionsFactory(activeEditor);
-            
-            const exportName = astNode.id.name;
+        function buildMultilineExportLocation(exportNode) {
+            let exportLocation = coordsHelper.coordsFromAstToEditor(exportNode.expression.right.loc).start;
+            exportLocation[1] += 1;
+            return exportLocation;
+        }
 
-            const exportNode = selectionExportHelper.getExportNode(ast);
-
-            let exportLocation = exportNode !== null
-                ? coordsHelper.coordsFromAstToEditor(exportNode.loc).end
-                : coordsHelper.coordsFromAstToEditor(ast.loc).end;
-
-            let exportTemplateKey;
-
-            if(exportNode === null) {
-                exportTemplateKey = 'newExport';
-                exportLocation = coordsHelper.coordsFromAstToEditor(ast.loc).end;
-            } else if(selectionExportHelper.isMultilineExport(exportNode.expression.left, exportNode.expression.right)) {
-                exportTemplateKey = 'mulitilineExport';
-                exportLocation = coordsHelper.coordsFromAstToEditor(exportNode.expression.right.loc).start;
-                exportLocation[1] += 1;
+        function buildExportLocation(exportNode, ast) {
+            if (exportNode === null) {
+                return coordsHelper.coordsFromAstToEditor(ast.loc).end;
+            } else if (selectionExportHelper.isMultilineExport(exportNode.expression.left, exportNode.expression.right)) {
+                return buildMultilineExportLocation(exportNode);
             } else {
-                exportTemplateKey = 'oneLineExport';
-                exportLocation = coordsHelper.coordsFromAstToEditor(exportNode.loc).end;
+                return coordsHelper.coordsFromAstToEditor(exportNode.loc).end;
             }
+        }
 
-            const exportEditorCoords = {
+        function buildExportContext(exportName) {
+            return {
+                name: exportName
+            }
+        }
+
+        function buildExportCoords(exportNode, ast) {
+            const exportLocation = buildExportLocation(exportNode, ast);
+
+            return {
                 start: exportLocation,
                 end: exportLocation
             };
+        }
 
-            const exportContext = {
-                name: exportName
-            };
+        function buildExportString(exportName, exportNode) {
+            const exportContext = buildExportContext(exportName);
+            const exportTemplateKey = buildExportTemplateKey(exportNode);
 
-            const exportStr = templateHelper.templates[exportTemplateKey].build(exportContext);
+            return templateHelper.templates[exportTemplateKey].build(exportContext);
+        }
 
-            editActions.applySetEdit(exportStr, exportEditorCoords, function () {
-                callback();
-            });
+        function exportSelectedNode(activeEditor, astNode, ast) {
+            const exportNode = selectionExportHelper.getExportNode(ast);
+            
+            const exportStr = buildExportString(astNode.id.name, exportNode);
+            const exportEditorCoords = buildExportCoords(exportNode, ast);
+
+            editActionsFactory(activeEditor)
+                .applySetEdit(exportStr, exportEditorCoords)
+                .then(callback);
         }
 
         return function () {
-            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
-            const selectionEditorCoords = getSelectionEditorCoords(activeEditor);
+            const activeEditor = vsCodeHelper.getActiveEditor();
+            const sourceLines = vsCodeHelper.getSourceLines();
+
+            const selectionEditorCoords = vsCodeHelper.getSelectionCoords();
             const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
 
-            const sourceLines = utilities.getDocumentLines(activeEditor);
             const ast = parser.parseSourceLines(sourceLines);
 
             const selectedExportValue = selectionExpressionHelper.getNearestFunctionOrVariable(selectionAstCoords, ast);
 
-            if(selectedExportValue === null) {
+            if (selectedExportValue === null) {
                 logger.info('Cannot export a value which is not a function or variable declaration.');
-                callback();
             } else {
                 exportSelectedNode(activeEditor, selectedExportValue, ast);
             }

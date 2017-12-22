@@ -10,7 +10,6 @@
                 10,
                 25
             ]
-        },
-        "[function: anonymous]"
+        }
     ]
 ]
