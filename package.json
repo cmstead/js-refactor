@@ -1,7 +1,7 @@
 {
   "name": "jsrefactor",
   "displayName": "JS Refactor",
-  "description": "JS refactoring tools for adding efficiency to your development workflow.",
+  "description": "Automated refactoring tools to smooth your development workflow",
   "version": "2.10.3",
   "publisher": "cmstead",
   "repository": {
@@ -389,7 +389,7 @@
     "typescript": "^2.4.2"
   },
   "devDependencies": {
-    "approvals": "^2.1.2",
+    "approvals": "https://github.com/cmstead/Approvals.NodeJS.git",
     "chai": "^3.4.1",
     "eslint": "^4.3.0",
     "mocha": "^2.3.4",
