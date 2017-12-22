@@ -65,7 +65,7 @@ function liftAndNameFunctionFactory(
                 scopeHelper.getScopeQuickPick(scopePath, sourceLines, function (selectedOption) {
                     getFunctionName(function(functionName) {
                         const selectedOptionIndex = scopeHelper.getSelectedScopeIndex(selectedOption);
-                    
+                        const selectedFunctionEditorCoords = coordsHelper.coordsFromAstToEditor(selectedFunction.loc);
                         const newMethodLocation = extractHelper
                             .getNewExtractionLocation(scopePath, selectedOptionIndex, selectionEditorCoords, ast);
     
@@ -83,7 +83,9 @@ function liftAndNameFunctionFactory(
     
                         const functionString = templateHelper.templates.function.build(functionContext);
                         
-                        editActions.applySetEdit(functionString, newMethodLocation).then(callback);
+                        editActions.applySetEdit(functionName, selectedFunctionEditorCoords).then(function() {
+                            editActions.applySetEdit(functionString, newMethodLocation).then(callback);
+                        });
                     });
                 });
 
