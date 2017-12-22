@@ -1,6 +1,9 @@
 'use strict';
 
-function coordsHelper(typeHelper) {
+function coordsHelper(
+    typeHelper,
+    arrayUtils
+) {
 
     function coordsFromDocumentToEditor(documentCoords) {
         return {
@@ -48,6 +51,13 @@ function coordsHelper(typeHelper) {
         };
     }
 
+    function getOuterAstCoords(expressionArray) {
+        return {
+            start: arrayUtils.first(expressionArray).loc.start,
+            end: arrayUtils.last(expressionArray).loc.end
+        }
+    }
+
     return {
         coordsFromDocumentToEditor: typeHelper.enforce(
             'documentCoords => editorCoords',
@@ -63,7 +73,11 @@ function coordsHelper(typeHelper) {
 
         coordsFromAstToEditor: typeHelper.enforce(
             'astCoords => editorCoords',
-            coordsFromAstToEditor)
+            coordsFromAstToEditor),
+        
+        getOuterAstCoords: typeHelper.enforce(
+            'array<astNode> => astCoords',
+            getOuterAstCoords)
     };
 }
 

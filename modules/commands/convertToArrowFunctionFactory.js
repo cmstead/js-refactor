@@ -1,7 +1,6 @@
 'use strict';
 
 function convertToArrowFunctionFactory(
-    astHelper,
     coordsHelper,
     editActionsFactory,
     logger,
@@ -9,44 +8,25 @@ function convertToArrowFunctionFactory(
     selectionExpressionHelper,
     selectionHelper,
     templateHelper,
-    utilities,
-    vsCodeFactory) {
+    vsCodeHelperFactory
+) {
 
     return function (callback) {
-
-        function first(values) {
-            return values[0];
-        }
-
-        function last(values) {
-            return values[values.length - 1];
-        }
-
-        function getOuterAstCoords(expressionArray) {
-            return {
-                start: first(expressionArray).loc.start,
-                end: last(expressionArray).loc.end
-            }
-        }
-
-        function getSelectionEditorCoords(activeEditor) {
-            const firstSelectionCoords = utilities.getAllSelectionCoords(activeEditor)[0];
-            return coordsHelper.coordsFromDocumentToEditor(firstSelectionCoords);
-        }
+        const vsCodeHelper = vsCodeHelperFactory();
 
         function getBodyContent(nearestFunctionExpression, sourceLines) {
-            const bodyContentAstCoords = getOuterAstCoords(nearestFunctionExpression.body.body);
-            const bodyContentEditorCoords = coordsHelper.coordsFromAstToEditor(bodyContentAstCoords);
+            const functionBody = nearestFunctionExpression.body.body;
+            const isSingleLineBody = nearestFunctionExpression.body.body.length === 1;
 
-            const bodyContent = selectionHelper.getSelection(sourceLines, bodyContentEditorCoords).join('\n');
+            const bodyContent = selectionHelper
+                .getMultiExpressionSelection(functionBody, sourceLines)
+                .join('\n');
 
-            return nearestFunctionExpression.body.body.length === 1
-                ? bodyContent.replace('return ', '')
-                : bodyContent;
+            return isSingleLineBody ? bodyContent.replace('return ', '') : bodyContent;
         }
 
         function getArgsContent(nearestFunctionExpression, sourceLines) {
-            const argumentsContentAstCoords = getOuterAstCoords(nearestFunctionExpression.params);
+            const argumentsContentAstCoords = coordsHelper.getOuterAstCoords(nearestFunctionExpression.params);
             const argumentsContentEditorCoords = coordsHelper.coordsFromAstToEditor(argumentsContentAstCoords);
 
             return selectionHelper.getSelection(sourceLines, argumentsContentEditorCoords).join('\n');
@@ -68,32 +48,36 @@ function convertToArrowFunctionFactory(
         }
 
         function getFunctionName(nearestFunctionExpression) {
-            return nearestFunctionExpression.id
-                ? nearestFunctionExpression.id.name
-                : '';
+            const expressionId = nearestFunctionExpression.id;
+            return expressionId !== null ? expressionId.name : '';
         }
 
-        function applyConversion(activeEditor, nearestFunctionExpression, sourceLines) {
-            const editActions = editActionsFactory(activeEditor);
-
-            const arrowFunctionContext = {
+        function buildArrowFunctionContext(nearestFunctionExpression, sourceLines) {
+            return {
                 name: getFunctionName(nearestFunctionExpression),
                 body: getBodyContent(nearestFunctionExpression, sourceLines),
                 args: getArgsContent(nearestFunctionExpression, sourceLines)
             };
+        }
+
+        function applyConversion(nearestFunctionExpression, sourceLines) {
+            const activeEditor = vsCodeHelper.getActiveEditor();
+
+            const functionEditorCoords = coordsHelper.coordsFromAstToEditor(nearestFunctionExpression.loc);
+            const arrowFunctionContext = buildArrowFunctionContext(nearestFunctionExpression, sourceLines);
 
             const arrowFunction = getTemplateBuilder(nearestFunctionExpression).build(arrowFunctionContext);
-            const functionEditorCoords = coordsHelper.coordsFromAstToEditor(nearestFunctionExpression.loc);
 
-            editActions.applySetEdit(arrowFunction, functionEditorCoords).then(callback);
+            editActionsFactory(activeEditor)
+                .applySetEdit(arrowFunction, functionEditorCoords)
+                .then(callback);
         }
 
         return function () {
-            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
-            const selectionEditorCoords = getSelectionEditorCoords(activeEditor);
+            const selectionEditorCoords = vsCodeHelper.getSelectionCoords();
             const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
 
-            const sourceLines = utilities.getDocumentLines(activeEditor);
+            const sourceLines = vsCodeHelper.getSourceLines();
             const ast = parser.parseSourceLines(sourceLines);
 
             const nearestFunctionExpression = selectionExpressionHelper.getNearestFunctionExpression(selectionAstCoords, ast);
@@ -101,7 +85,7 @@ function convertToArrowFunctionFactory(
             if (nearestFunctionExpression === null) {
                 logger.info('No acceptable function found which can be converted to arrow function.');
             } else {
-                applyConversion(activeEditor, nearestFunctionExpression, sourceLines)
+                applyConversion(nearestFunctionExpression, sourceLines)
             }
         };
     };

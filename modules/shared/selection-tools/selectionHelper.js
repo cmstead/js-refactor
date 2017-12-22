@@ -1,6 +1,9 @@
 'use strict';
 
-function selectionHelper(typeHelper) {
+function selectionHelper(
+    typeHelper,
+    coordsHelper
+) {
 
     function isEmptySelection(editorCoords) {
         return editorCoords.start[0] === editorCoords.end[0]
@@ -42,16 +45,26 @@ function selectionHelper(typeHelper) {
             ? getMultilineSelection
             : getSingleLineSelection;
 
-        return isEmptySelection(editorCoords) 
-            ? getEmptySelection() 
+        return isEmptySelection(editorCoords)
+            ? getEmptySelection()
             : getSelectionAction(sourceLines, editorCoords);
     }
 
+    function getMultiExpressionSelection(expressions, sourceLines) {
+        const contentAstCoords = coordsHelper.getOuterAstCoords(expressions);
+        const contentEditorCoords = coordsHelper.coordsFromAstToEditor(contentAstCoords);
+
+        return getSelection(sourceLines, contentEditorCoords);
+    }
 
     return {
         getSelection: typeHelper.enforce(
             'sourceLines, editorCoords => sourceLines',
             getSelection),
+
+        getMultiExpressionSelection: typeHelper.enforce(
+            'array<astNode>, sourceLines => sourceLines',
+            getMultiExpressionSelection),
 
         isEmptySelection: typeHelper.enforce(
             'editorCoords => boolean',
