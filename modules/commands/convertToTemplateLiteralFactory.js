@@ -9,10 +9,12 @@ function convertToTemplateLiteralFactory(
     selectionExpressionHelper,
     selectionHelper,
     utilities,
-    vsCodeFactory
+    vsCodeFactory,
+    vsCodeHelperFactory
 ) {
 
     return function (callback) {
+        const vsCodeHelper = vsCodeHelperFactory();
 
         function buildExpressionValue(node, sourceLines) {
             const expressionEditorCoords = coordsHelper.coordsFromAstToEditor(node.loc);
@@ -83,13 +85,13 @@ function convertToTemplateLiteralFactory(
 
         return function () {
 
-            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
+            const activeEditor = vsCodeHelper.getActiveEditor();
             const editActions = editActionsFactory(activeEditor);
 
-            const selectionEditorCoords = selectionCoordsHelper.getSelectionEditorCoords(activeEditor);
+            const selectionEditorCoords = selectionCoordsHelper.getSelectionEditorCoords(vsCodeHelper.getActiveEditor());
             const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
 
-            const sourceLines = utilities.getDocumentLines(activeEditor);
+            const sourceLines = utilities.getDocumentLines(vsCodeHelper.getActiveEditor());
             const ast = parser.parseSourceLines(sourceLines);
 
             const selectedStringNode = selectionExpressionHelper.getNearestStringNode(selectionAstCoords, ast);

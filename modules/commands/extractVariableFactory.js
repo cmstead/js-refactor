@@ -7,18 +7,14 @@ function extractVariableFactory(
     logger,
     parser,
     scopeHelper,
-    scopePathHelper,
-    scopePathTools,
-    selectionCoordsHelper,
     selectionExpressionHelper,
     selectionHelper,
-    selectionVariableHelper,
     templateHelper,
-    utilities,
-    vsCodeFactory
+    vsCodeHelperFactory
 ) {
 
     return function (callback) {
+        const vsCodeHelper = vsCodeHelperFactory();
 
         function buildInitialExtractVariableContext(selectedLines) {
             return {
@@ -76,7 +72,9 @@ function extractVariableFactory(
             }
         }
 
-        function applyVariableExtraction(selectionEditorCoords, ast, sourceLines, activeEditor) {
+        function applyVariableExtraction(selectionEditorCoords, ast, sourceLines) {
+            const activeEditor = vsCodeHelper.getActiveEditor();
+            
             const scopePath = scopeHelper.getScopePath(selectionEditorCoords, ast);
             const selectedLines = selectionHelper.getSelection(sourceLines, selectionEditorCoords);
             const extractVariableContext = buildInitialExtractVariableContext(selectedLines);
@@ -119,9 +117,8 @@ function extractVariableFactory(
         }
 
         return function () {
-            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
-            const tempSelectionEditorCoords = selectionCoordsHelper.getSelectionEditorCoords(activeEditor);
-            const sourceLines = utilities.getDocumentLines(activeEditor);
+            const tempSelectionEditorCoords = vsCodeHelper.getSelectionCoords();
+            const sourceLines = vsCodeHelper.getSourceLines();
 
             const selectionLines = selectionHelper.getSelection(sourceLines, tempSelectionEditorCoords);
             const selectionEditorCoords = getAdjustedEditorCoords(selectionLines, tempSelectionEditorCoords);
@@ -135,7 +132,7 @@ function extractVariableFactory(
             } else if (selectionExpression === null) {
                 logger.info('Cannot extract a selection which is an incomplete expression');
             } else {
-                applyVariableExtraction(selectionEditorCoords, ast, sourceLines, activeEditor)
+                applyVariableExtraction(selectionEditorCoords, ast, sourceLines)
             }
         };
 
