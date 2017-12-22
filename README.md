@@ -43,6 +43,7 @@ JS Refactor supports the following refactorings (explanations below):
 - Convert To Template Literal
 - Export Function
 - Introduce Function
+- Lift and Name Function Expression
 - Negate Expression
 - Shift Parameters
 - Wrap selection options:
@@ -93,6 +94,8 @@ the refactoring and select the correct refactoring from the list. You will be pr
 **Export Function** creates new export declaration for selected function or function name
 
 **Introduce Function** creates new function from existing function call or variable assignment
+
+**Lift and Name Function Expression** Lifts function expression from current context, replacing it with provided name and adds name to expression
 
 **Shift Parameters** Shifts function parameters to the left or right by the selected number of places
 
@@ -167,6 +170,12 @@ Nevertheless, following are the required elements of a good pull request:
 - **Pull requests may not be claimed as intellectual property of a company or other external agency.**
 
 ## Updates ##
+
+### 2.10.0 ###
+
+- Added lift and name function action
+    - Allows developer to select function expression, lift it out of current use and add a name
+    - This can be seen as the function equivalent of extract variable
 
 ### 2.9.0 ###
 

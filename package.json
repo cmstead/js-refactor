@@ -25,8 +25,9 @@
     "onCommand:cmstead.jsRefactor.addExport",
     "onCommand:cmstead.jsRefactor.extractMethod",
     "onCommand:cmstead.jsRefactor.extractVariable",
-    "onCommand:cmstead.jsRefactor.introduceFunction",
     "onCommand:cmstead.jsRefactor.inlineVariable",
+    "onCommand:cmstead.jsRefactor.introduceFunction",
+    "onCommand:cmstead.jsRefactor.liftAndNameFunctionExpression",
     "onCommand:cmstead.jsRefactor.negateExpression",
     "onCommand:cmstead.jsRefactor.selectRefactoring",
     "onCommand:cmstead.jsRefactor.shiftParams",
@@ -120,6 +121,11 @@
         "command": "cmstead.jsRefactor.introduceFunction",
         "title": "JS Refactor: Introduce Function",
         "description": "Introduce function from call or variable assignment"
+      },
+      {
+        "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
+        "title": "JS Refactor: Lift and Name Function Expression",
+        "description": "Lift function expression out of current context and add a name"
       },
       {
         "command": "cmstead.jsRefactor.negateExpression",
@@ -254,6 +260,10 @@
           "when": "resourceLangId == javascript"
         },
         {
+          "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
+          "when": "resourceLangId == javascript"
+        },
+        {
           "command": "cmstead.jsRefactor.negateExpression",
           "when": "resourceLangId == javascript"
         },
@@ -335,6 +345,11 @@
         },
         {
           "command": "cmstead.jsRefactor.introduceFunction",
+          "group": "5_refactor",
+          "when": "resourceLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
           "group": "5_refactor",
           "when": "resourceLangId == javascript"
         },

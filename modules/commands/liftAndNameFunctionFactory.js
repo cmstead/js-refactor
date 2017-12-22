@@ -48,7 +48,8 @@ function liftAndNameFunctionFactory(
         }
 
         return function () {
-            const editActions = editActionsFactory();
+            const activeEditor = vsCodeHelper.getActiveEditor();
+            const editActions = editActionsFactory(activeEditor);
             const sourceLines = vsCodeHelper.getSourceLines();
             const selectionEditorCoords = vsCodeHelper.getSelectionCoords();
 
@@ -60,17 +61,15 @@ function liftAndNameFunctionFactory(
             if(selectedFunction === null || selectedFunction.type === 'FunctionDeclaration') {
                 logger.info('Unable to locate acceptable function expression to lift and name');
             } else {
-                const scopePath = scopeHelper.getScopePath(selectionEditorCoords, ast);
+                const selectedFunctionEditorCoords = coordsHelper.coordsFromAstToEditor(selectedFunction.loc);
+                const scopePath = scopeHelper.getScopePath(selectedFunctionEditorCoords, ast);
 
                 scopeHelper.getScopeQuickPick(scopePath, sourceLines, function (selectedOption) {
                     getFunctionName(function(functionName) {
                         const selectedOptionIndex = scopeHelper.getSelectedScopeIndex(selectedOption);
-                        const selectedFunctionEditorCoords = coordsHelper.coordsFromAstToEditor(selectedFunction.loc);
                         const newMethodLocation = extractHelper
                             .getNewExtractionLocation(scopePath, selectedOptionIndex, selectionEditorCoords, ast);
     
-                        console.log(selectedFunction);
-
                         const functionContext = {
                             name: functionName,
                             arguments: selectedFunction.params.length > 0 
