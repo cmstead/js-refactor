@@ -5,18 +5,17 @@ function selectionVariableHelper(
     typeHelper
 ) {
 
-    const isFunctionScope = astHelper.isNodeType(['FunctionDeclaration', 'FunctionExpression']);
+    const isFunctionScope = astHelper.isNodeType(['FunctionDeclaration', 'FunctionExpression', 'ArrowFunctionExpression']);
     const isVar = astHelper.isNodeType(['VariableDeclarator']);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
-    const isLiteral = astHelper.isNodeType(['Literal']);
     const isMemberExpression = astHelper.isNodeType(['MemberExpression']);
     const isFunctionDeclaration = astHelper.isNodeType(['FunctionDeclaration']);
     const isProperty = astHelper.isNodeType(['Property']);
 
-    const isContainingFunctionScope =
-        (destinationAstCoords, node) =>
-            isFunctionScope(node)
-            && astHelper.coordsInNode(destinationAstCoords, node);
+    const isContainingNode =
+        (destinationAstCoords) =>
+            (node) =>
+                astHelper.coordsInNode(destinationAstCoords, node);
 
     const isNodeInSelection =
         (astCoords, node) =>
@@ -47,7 +46,7 @@ function selectionVariableHelper(
 
     function processFunctionName(boundVars) {
         return function (functionNode) {
-            if(functionNode.id !== null) {
+            if (functionNode.id !== null) {
                 boundVars[functionNode.id.name] = true;
             }
         }
@@ -64,7 +63,7 @@ function selectionVariableHelper(
         }
     }
 
-    function processFunction (boundVars) {
+    function processFunction(boundVars) {
         const processName = processFunctionName(boundVars);
         const processParams = processFunctionParams(boundVars);
 
@@ -81,7 +80,7 @@ function selectionVariableHelper(
     }
 
     function getUnboundVars(selectionAstCoords, destinationAstCoords, ast) {
-        let currentScope = null;
+        let scopeStack = [];
         let nodeStack = [];
 
         let boundVars = {};
@@ -91,10 +90,16 @@ function selectionVariableHelper(
         const processFunctionNameValue = processFunctionName(boundVars);
         const processIdentifier = processIdentifiers(identifiers);
         const processVariable = processBoundVars(boundVars);
+        const isContainingScope = isContainingNode(destinationAstCoords);
+
+        function addToBoundVars(key) {
+            boundVars[key] = true;
+        }
 
         astHelper.traverse(ast, {
             enter: function (node) {
                 const parentNode = last(nodeStack);
+                const parentScope = last(scopeStack);
 
                 const isNativeIdentifier = isIdentifier(node) && !isNonNativeIdentifier(node);
                 const isPropertyIdentifier = isIdentifier(node)
@@ -103,30 +108,39 @@ function selectionVariableHelper(
 
                 nodeStack.push(node);
 
+                if (isFunctionScope(node)) {
+                    scopeStack.push(node);
+                }
+
+                const notInContainingScope = parentScope && !isContainingScope(parentScope);
+
                 if (isNativeIdentifier || isPropertyIdentifier) {
-                    boundVars[node.name] = true;
-                } else if(isProperty(node)) {
-                    const varKey = node.key.name;
-                    boundVars[varKey] = true
-                } else if (isContainingFunctionScope(destinationAstCoords, node)) {
-                    currentScope = node;
+                    if(!parentScope || isContainingScope(parentScope)) {
+                        addToBoundVars(node.name);
+                    }
+                } else if (isNodeInSelection(selectionAstCoords, node)) {
+                    processVariable(node);
+                    processIdentifier(node);
+                } else if (notInContainingScope) {
+                    return;
+                }
+
+                if (isProperty(node)) {
+                    addToBoundVars(node.key.name);
+                } else if (isContainingScope(node) && isFunctionDeclaration(node)) {
                     processFunctionData(node);
                 } else if (isFunctionDeclaration(node)) {
                     processFunctionNameValue(node);
-                } else if (currentScope !== null && !isFunctionScope(node)) {
+                } else if (!isNodeInSelection(selectionAstCoords, node)) {
                     processVariable(node);
-                } else {
-                    currentScope = null;
-                }
-
-                if (isNodeInSelection(selectionAstCoords, node)) {
-                    processVariable(node);
-                    processIdentifier(node);
                 }
 
             },
-            leave: function () {
+            leave: function (node) {
                 nodeStack.pop();
+                if (last(scopeStack) === node) {
+                    scopeStack.pop();
+                }
             }
         });
 

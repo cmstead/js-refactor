@@ -50,6 +50,7 @@ function selectionExpressionHelper(
     const isExclusionWrappingNode = astHelper.isNodeType(exclusionWrappingNodeTypes);
     const isFunctionDeclarationOrExpression = astHelper.isNodeType(functionDeclarationOrExpression);
     const isReturnableExpression = astHelper.isNodeType(returnableExpression);
+    const isReturnStatement = astHelper.isNodeType(['ReturnStatement']);
     const isUsageNode = astHelper.isNodeType(usageNode);
     const isVariableOrFunction = astHelper.isNodeType(variableOrFunctionTypes);
     const isWrappingNode = astHelper.isNodeType(wrappingNodeTypes);
@@ -262,23 +263,17 @@ function selectionExpressionHelper(
             && !typeHelper.isTypeOf('isNonNativeIdentifier')(node.callee.object);
     }
 
-    function getLastExpression(ast) {
+    function getLastIndependentExpression(ast) {
         let foundNode = null;
         let nodeStack = [];
 
         astHelper.traverse(ast, {
             enter: function (node) {
-                const parentNode = last(nodeStack);
-                const captureExpression = isReturnableExpression(node)
-                    && !isReturnableExpression(parentNode)
-                    && !isExcludableExpression(node);
-
-                nodeStack.push(node);
-
-
-                if (captureExpression) {
+                if (nodeStack.length === 1 && !isReturnStatement(node)) {
                     foundNode = node;
                 }
+
+                nodeStack.push(node);
             },
             leave: function () {
                 nodeStack.pop();
@@ -329,9 +324,9 @@ function selectionExpressionHelper(
             'astCoords, astCoords, ast => variant<null, astNode>',
             getNearestExpressionInScope),
 
-        getLastExpression: typeHelper.enforce(
+        getLastIndependentExpression: typeHelper.enforce(
             'ast => variant<null, astNode>',
-            getLastExpression)
+            getLastIndependentExpression)
     };
 }
 

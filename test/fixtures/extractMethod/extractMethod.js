@@ -36,4 +36,17 @@ function testObjectFunction() {
     return myObj;
 }
 
+function outerTestFunction() {
+    return function innerTestFunction() {
+
+
+        function checkNodeProperties(node) {
+            return {
+                    operatorOk: true,
+                    hasStringLiteral: node.type === 'Literal' && typeof node.value === 'string'
+                };
+        }
+    };
+}
+
 module.exports = obj;

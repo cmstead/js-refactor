@@ -49,9 +49,12 @@ function extractMethodFactory(
         }
 
         function buildFunctionBody(selectedLines, ast) {
-            const lastExpression = selectionExpressionHelper.getLastExpression(ast);
+            const lastExpression = selectionExpressionHelper.getLastIndependentExpression(ast);
 
-            const lastExpressionEditorCoords = coordsHelper.coordsFromAstToEditor(lastExpression.loc);
+            const lastExpressionEditorCoords = lastExpression.type === 'ExpressionStatement'
+                ? coordsHelper.coordsFromAstToEditor(lastExpression.expression.loc)
+                : coordsHelper.coordsFromAstToEditor(lastExpression.loc);
+            
             const bodyStartEditorCoords = {
                 start: [1, 0],
                 end: [
@@ -88,6 +91,7 @@ function extractMethodFactory(
             } catch (e) {
                 body = selectedLines.join('\n');
             }
+            
             return {
                 selectedOptionIndex: 0,
                 name: '',
