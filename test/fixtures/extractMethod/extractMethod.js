@@ -23,6 +23,7 @@ function something(numbers) {
 function testing(foo) {
     if (test(foo + 1)) {
         console.log(foo);
+        something([1, 2, 3]);
     }
 }
 

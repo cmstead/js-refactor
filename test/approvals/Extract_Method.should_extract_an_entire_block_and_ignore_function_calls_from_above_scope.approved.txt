@@ -1,26 +1,26 @@
 [
     [
-        "aNewFunction()",
+        "aNewFunction(test)",
         {
             "start": [
-                30,
-                18
+                23,
+                4
             ],
             "end": [
-                33,
+                26,
                 5
             ]
         }
     ],
     [
-        "function aNewFunction () {\nreturn {\n        foo: 'bar',\n        baz: 'quux'\n    };\n}\n\n",
+        "function aNewFunction (test) {\nif (test(foo + 1)) {\n        console.log(foo);\n        something([1, 2, 3]);\n    }\n}\n\n",
         {
             "start": [
-                30,
+                23,
                 4
             ],
             "end": [
-                30,
+                23,
                 4
             ]
         }

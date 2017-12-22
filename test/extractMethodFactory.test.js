@@ -197,6 +197,32 @@ describe('Extract Method', function () {
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
+    
+    it('should extract an entire block and ignore function calls from above scope', function() {
+        setupOptions.selectedScopeIndex = 1;
+
+        const sourceTokens = readSource('./test/fixtures/extractMethod/extractMethod.js');
+        const activeTextEditorOptions = {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [23, 4],
+                    end: [26, 5]
+                }
+            }
+        };
+
+        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor = activeTextEditor;
+
+        const extractMethodFactory = subcontainer.build('extractMethodFactory');
+
+        const callback = function () { };
+
+        extractMethodFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
 
     it('should extract and return an object as a builder', function() {
         setupOptions.selectedScopeIndex = 1;
@@ -206,8 +232,8 @@ describe('Extract Method', function () {
             optionsData: {
                 lines: sourceTokens,
                 selection: {
-                    start: [29, 18],
-                    end: [32, 5]
+                    start: [30, 18],
+                    end: [33, 5]
                 }
             }
         };

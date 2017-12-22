@@ -60,10 +60,10 @@ function convertToArrowFunctionFactory(
                 return templateHelper.templates.namedMultilineArrowFunction;
             } else if (isMultiline) {
                 return templateHelper.templates.multilineArrowFunction;
-            } else if(isNamed) {
+            } else if (isNamed) {
                 return templateHelper.templates.namedSingleLineArrowFunction;
             } else {
-                return templateHelper.templates.singleLineArrowFunction;                
+                return templateHelper.templates.singleLineArrowFunction;
             }
         }
 
@@ -71,6 +71,21 @@ function convertToArrowFunctionFactory(
             return nearestFunctionExpression.id
                 ? nearestFunctionExpression.id.name
                 : '';
+        }
+
+        function applyConversion(activeEditor, nearestFunctionExpression, sourceLines) {
+            const editActions = editActionsFactory(activeEditor);
+
+            const arrowFunctionContext = {
+                name: getFunctionName(nearestFunctionExpression),
+                body: getBodyContent(nearestFunctionExpression, sourceLines),
+                args: getArgsContent(nearestFunctionExpression, sourceLines)
+            };
+
+            const arrowFunction = getTemplateBuilder(nearestFunctionExpression).build(arrowFunctionContext);
+            const functionEditorCoords = coordsHelper.coordsFromAstToEditor(nearestFunctionExpression.loc);
+
+            editActions.applySetEdit(arrowFunction, functionEditorCoords).then(callback);
         }
 
         return function () {
@@ -86,18 +101,7 @@ function convertToArrowFunctionFactory(
             if (nearestFunctionExpression === null) {
                 logger.info('No acceptable function found which can be converted to arrow function.');
             } else {
-                const editActions = editActionsFactory(activeEditor);
-
-                const arrowFunctionContext = {
-                    name: getFunctionName(nearestFunctionExpression),
-                    body: getBodyContent(nearestFunctionExpression, sourceLines),
-                    args: getArgsContent(nearestFunctionExpression, sourceLines)
-                };
-
-                const arrowFunction = getTemplateBuilder(nearestFunctionExpression).build(arrowFunctionContext);
-                const functionEditorCoords = coordsHelper.coordsFromAstToEditor(nearestFunctionExpression.loc);
-
-                editActions.applySetEdit(arrowFunction, functionEditorCoords).then(callback);
+                applyConversion(activeEditor, nearestFunctionExpression, sourceLines)
             }
         };
     };

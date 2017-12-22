@@ -8,7 +8,10 @@ function selectionVariableHelper(
     const isFunctionScope = astHelper.isNodeType(['FunctionDeclaration', 'FunctionExpression']);
     const isVar = astHelper.isNodeType(['VariableDeclarator']);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
+    const isLiteral = astHelper.isNodeType(['Literal']);
     const isMemberExpression = astHelper.isNodeType(['MemberExpression']);
+    const isFunctionDeclaration = astHelper.isNodeType(['FunctionDeclaration']);
+    const isProperty = astHelper.isNodeType(['Property']);
 
     const isContainingFunctionScope =
         (destinationAstCoords, node) =>
@@ -42,6 +45,14 @@ function selectionVariableHelper(
         };
     }
 
+    function processFunctionName(boundVars) {
+        return function (functionNode) {
+            if(functionNode.id !== null) {
+                boundVars[functionNode.id.name] = true;
+            }
+        }
+    }
+
     function processFunctionParams(boundVars) {
         return function (params) {
             return params
@@ -50,6 +61,18 @@ function selectionVariableHelper(
                     boundVarsObj[param.name] = true;
                     return boundVarsObj;
                 }, boundVars);
+        }
+    }
+
+    function processFunction (boundVars) {
+        const processName = processFunctionName(boundVars);
+        const processParams = processFunctionParams(boundVars);
+
+        return function (functionNode) {
+            processName(functionNode);
+            processParams(functionNode.params);
+
+            return boundVars;
         }
     }
 
@@ -64,7 +87,8 @@ function selectionVariableHelper(
         let boundVars = {};
         let identifiers = {};
 
-        const processBoundParams = processFunctionParams(boundVars);
+        const processFunctionData = processFunction(boundVars);
+        const processFunctionNameValue = processFunctionName(boundVars);
         const processIdentifier = processIdentifiers(identifiers);
         const processVariable = processBoundVars(boundVars);
 
@@ -73,19 +97,22 @@ function selectionVariableHelper(
                 const parentNode = last(nodeStack);
 
                 const isNativeIdentifier = isIdentifier(node) && !isNonNativeIdentifier(node);
-                const isPropertyIdentifier = isIdentifier(node) 
+                const isPropertyIdentifier = isIdentifier(node)
                     && isMemberExpression(parentNode)
                     && parentNode.property === node;
 
                 nodeStack.push(node);
 
                 if (isNativeIdentifier || isPropertyIdentifier) {
-                    return;
-                }
-
-                if (isContainingFunctionScope(destinationAstCoords, node)) {
+                    boundVars[node.name] = true;
+                } else if(isProperty(node)) {
+                    const varKey = node.key.name;
+                    boundVars[varKey] = true
+                } else if (isContainingFunctionScope(destinationAstCoords, node)) {
                     currentScope = node;
-                    processBoundParams(node.params);
+                    processFunctionData(node);
+                } else if (isFunctionDeclaration(node)) {
+                    processFunctionNameValue(node);
                 } else if (currentScope !== null && !isFunctionScope(node)) {
                     processVariable(node);
                 } else {
