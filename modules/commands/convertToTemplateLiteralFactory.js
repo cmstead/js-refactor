@@ -1,7 +1,7 @@
 'use strict';
 
 function convertToTemplateLiteralFactory(
-    coordsHelper, 
+    coordsHelper,
     editActionsFactory,
     logger,
     parser,
@@ -19,11 +19,11 @@ function convertToTemplateLiteralFactory(
             return '${' + selectionHelper.getSelection(sourceLines, expressionEditorCoords) + '}';
         }
 
-        function buildNodeValue (node, sourceLines) {
+        function buildNodeValue(node, sourceLines) {
             return node.type === 'Literal' ? node.value : buildExpressionValue(node, sourceLines);
         }
 
-        function buildNodeOrRecur (node, sourceLines) {
+        function buildNodeOrRecur(node, sourceLines) {
             return node.type === 'BinaryExpression'
                 ? buildTemplateLiteral(node, sourceLines)
                 : buildNodeValue(node, sourceLines);
@@ -48,25 +48,37 @@ function convertToTemplateLiteralFactory(
                 };
         }
 
-        function doBinaryExpressionCheck (binaryExpression){
+        function doBinaryExpressionCheck(binaryExpression) {
             const operatorOk = binaryExpression.operator === '+';
 
             const leftResult = checkNodeProperties(binaryExpression.left);
             const rightResult = checkNodeProperties(binaryExpression.right);
 
+            const operatorsAreOk = operatorOk && leftResult.operatorOk && rightResult.operatorOk;
+            const hasStringLiteral = leftResult.hasStringLiteral || rightResult.hasStringLiteral;
+
             return {
-                operatorOk: operatorOk && leftResult.operatorOk && rightResult.operatorOk,
-                hasStringLiteral: leftResult.hasStringLiteral || rightResult.hasStringLiteral
+                operatorOk: operatorsAreOk,
+                hasStringLiteral: hasStringLiteral
             }
         }
 
+        function buildDefaultFailingCheck() {
+            return {
+                operatorOk: false,
+                hasStringLiteral: false
+            };
+        }
+
         function checkBinaryExpression(binaryExpression) {
-            return binaryExpression !== null
-                ? doBinaryExpressionCheck(binaryExpression)
-                : {
-                    operatorOk: false,
-                    hasStringLiteral: false
-                }
+            return binaryExpression !== null ? doBinaryExpressionCheck(binaryExpression) : buildDefaultFailingCheck();
+        }
+
+        function applyTemplateRefactor(selectedStringNode, sourceLines, editActions) {
+            const constructedString = '`' + buildTemplateLiteral(selectedStringNode, sourceLines) + '`';
+            const selectedStringEditorCoords = coordsHelper.coordsFromAstToEditor(selectedStringNode.loc);
+
+            editActions.applySetEdit(constructedString, selectedStringEditorCoords).then(callback);
         }
 
         return function () {
@@ -83,18 +95,15 @@ function convertToTemplateLiteralFactory(
             const selectedStringNode = selectionExpressionHelper.getNearestStringNode(selectionAstCoords, ast);
             const { operatorOk, hasStringLiteral } = checkBinaryExpression(selectedStringNode);
 
-            if(selectedStringNode === null || !operatorOk || !hasStringLiteral) {
+            if (selectedStringNode === null || !operatorOk || !hasStringLiteral) {
                 logger.info('No appropriate string concatenation to convert to template literal');
             } else {
-                const constructedString = '`' + buildTemplateLiteral(selectedStringNode, sourceLines) + '`';
-                const selectedStringEditorCoords = coordsHelper.coordsFromAstToEditor(selectedStringNode.loc);
-                
-                editActions.applySetEdit(constructedString, selectedStringEditorCoords, callback);
+                applyTemplateRefactor(selectedStringNode, sourceLines, editActions)
             }
         }
 
     }
-    
+
 }
 
 module.exports = convertToTemplateLiteralFactory;
