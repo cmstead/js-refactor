@@ -191,41 +191,50 @@
     "keybindings": [
       {
         "command": "cmstead.jsRefactor.selectRefactoring",
-        "key": "ctrl+shift+j r"
+        "key": "ctrl+shift+j r",
+        "mac": "cmd+shift+j r"
       },
       {
         "command": "cmstead.jsRefactor.extractMethod",
         "key": "ctrl+shift+j m",
+        "mac": "cmd+shift+j m",
         "when": "editorHasSelection"
       },
       {
         "command": "cmstead.jsRefactor.extractVariable",
         "key": "ctrl+shift+j v",
+        "mac": "cmd+shift+j v",
         "when": "editorHasSelection"
       },
       {
         "command": "cmstead.jsRefactor.inlineVariable",
-        "key": "ctrl+shift+j i"
+        "key": "ctrl+shift+j i",
+        "mac": "cmd+shift+j i"
       },
       {
         "command": "cmstead.jsRefactor.convertToArrowFunction",
-        "key": "ctrl+shift+j a"
+        "key": "ctrl+shift+j a",
+        "mac": "cmd+shift+j a"
       },
       {
         "command": "cmstead.jsRefactor.convertToTemplateLiteral",
-        "key": "ctrl+shift+j l"
+        "key": "ctrl+shift+j l",
+        "mac": "cmd+shift+j l"
       },
       {
         "command": "cmstead.jsRefactor.addExport",
-        "key": "ctrl+shift+j x"
+        "key": "ctrl+shift+j x",
+        "mac": "cmd+shift+j x"
       },
       {
         "command": "cmstead.jsRefactor.shiftParams",
-        "key": "ctrl+shift+j s"
+        "key": "ctrl+shift+j s",
+        "mac": "cmd+shift+j s"
       },
       {
         "command": "cmstead.jsRefactor.wrapSelection",
         "key": "ctrl+shift+j w",
+        "mac": "cmd+shift+j w",
         "when": "editorHasSelection"
       }
     ],
