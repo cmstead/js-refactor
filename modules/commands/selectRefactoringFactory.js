@@ -1,42 +1,31 @@
 'use strict';
 
-
-function selectRefactoringFactory(
-    addExportFactory,
-    convertToArrowFunctionFactory,
-    convertToTemplateLiteralFactory,
-    extractMethodFactory,
-    extractVariableFactory,
-    inlineVariableFactory,
-    introduceFunctionFactory,
-    negateExpressionFactory,
-    shiftParamsFactory,
-    wrapSelectionFactory,
-    logger) {
-
+function selectRefactoringFactory(logger) {
+    
     return function (callback) {
+        const container = require('../../container');
+        
+        const commandActionData = require('../json/commandActionData');
+        const refactoringKeys = Object
+            .keys(commandActionData)
+            .filter(key => !commandActionData[key].excludeFromSelectList)
+            .reduce(function (result, key) {
+                const description = commandActionData[key].description;
+                const command = commandActionData[key].command;
 
-        var refactoringBehaviors = {
-            "Add Export": addExportFactory,
-            "Convert to Arrow Function": convertToArrowFunctionFactory,
-            "Convert to Template Literal": convertToTemplateLiteralFactory,
-            "Extract Method": extractMethodFactory,
-            "Extract Variable": extractVariableFactory,
-            "Inline Variable": inlineVariableFactory,
-            "Introduce Function": introduceFunctionFactory,
-            "Negate Expression": negateExpressionFactory,
-            "Shift Params": shiftParamsFactory,
-            "Wrap Selection": wrapSelectionFactory
-        };
+                result[description] = command;
+                return result;
+            }, {});
 
         function selectActionAndRun() {
-            var items = Object.keys(refactoringBehaviors);
+            var items = Object.keys(refactoringKeys);
             var options = {
                 prompt: 'Apply refactoring:'
             };
 
             logger.quickPick(items, options, function (value) {
-                refactoringBehaviors[value](null, callback)();
+                const refactoringKey = refactoringKeys[value];
+                container.build(refactoringKey)(callback)();
             });
         }
 

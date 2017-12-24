@@ -44,7 +44,7 @@ function addExportFactory(
         function buildExportContext(exportName) {
             return {
                 name: exportName
-            }
+            };
         }
 
         function buildExportCoords(exportNode, ast) {

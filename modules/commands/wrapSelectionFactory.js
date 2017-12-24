@@ -1,35 +1,31 @@
 'use strict';
 
-function wrapSelectionFactory(
-    wrapInArrowFunctionFactory,
-    wrapInAsyncFunctionFactory,
-    wrapInConditionFactory,
-    wrapInFunctionFactory,
-    wrapInGeneratorFactory,
-    wrapInIIFEFactory,
-    wrapInTryCatchFactory,
-    logger) {
+function wrapSelectionFactory(logger) {
 
     return function (callback) {
+        const container = require('../../container');
 
-        var wrapBehaviors = {
-            "Arrow Function": wrapInArrowFunctionFactory,
-            "Async Function": wrapInAsyncFunctionFactory,
-            "Condition": wrapInConditionFactory,
-            "Function": wrapInFunctionFactory,
-            "Generator": wrapInGeneratorFactory,
-            "IIFE": wrapInIIFEFactory,
-            "Try/Catch": wrapInTryCatchFactory
-        };
+        const commandActionData = require('../json/commandActionData');
+        const wrapBehaviors = Object
+            .keys(commandActionData)
+            .filter(key => !commandActionData[key].excludeFromWrapList)
+            .reduce(function (result, key) {
+                const description = commandActionData[key].description;
+                const command = commandActionData[key].command;
+
+                result[description] = command;
+                return result;
+            }, {});
 
         function selectActionAndRun() {
             var items = Object.keys(wrapBehaviors);
             var options = {
-                prompt: 'Wrap selection in:'
+                prompt: 'Select wrap action:'
             };
 
             logger.quickPick(items, options, function (value) {
-                wrapBehaviors[value](callback)();
+                const refactoringKey = wrapBehaviors[value];
+                container.build(refactoringKey)(callback)();
             });
         }
 

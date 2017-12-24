@@ -1,0 +1,116 @@
+{
+    "addExport": {
+        "command": "addExportFactory",
+        "description": "Add Export",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
+    "convertToArrowFunction": {
+        "command": "convertToArrowFunctionFactory",
+        "description": "Convert to Arrow Function",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
+    "convertToTemplateLiteral": {
+        "command": "convertToTemplateLiteralFactory",
+        "description": "Convert to Template Literal",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
+    "extractMethod": {
+        "command": "extractMethodFactory",
+        "description": "Extract Method",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
+    "extractVariable": {
+        "command": "extractVariableFactory",
+        "description": "Extract Variable",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
+    "inlineVariable": {
+        "command": "inlineVariableFactory",
+        "description": "Inline Variable",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
+    "introduceFunction": {
+        "command": "introduceFunctionFactory",
+        "description": "Introduce Function",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
+    "liftAndNameFunctionExpression": {
+        "command": "liftAndNameFunctionFactory",
+        "description": "Lift and Name Function",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
+    "negateExpression": {
+        "command": "negateExpressionFactory",
+        "description": "Negate Expression",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
+    "selectRefactoring": {
+        "command": "selectRefactoringFactory",
+        "description": "Select Refactoring",
+        "excludeFromSelectList": true,
+        "excludeFromWrapList": true
+    },
+    "shiftParams": {
+        "command": "shiftParamsFactory",
+        "description": "Shift Params",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
+    "wrapInArrowFunction": {
+        "command": "wrapInArrowFunctionFactory",
+        "description": "Wrap In Arrow Function",
+        "excludeFromSelectList": true,
+        "excludeFromWrapList": false
+    },
+    "wrapInAsyncFunction": {
+        "command": "wrapInAsyncFunctionFactory",
+        "description": "Wrap In Async Function",
+        "excludeFromSelectList": true,
+        "excludeFromWrapList": false
+    },
+    "wrapInCondition": {
+        "command": "wrapInConditionFactory",
+        "description": "Wrap In Condition",
+        "excludeFromSelectList": true,
+        "excludeFromWrapList": false
+    },
+    "wrapInFunction": {
+        "command": "wrapInFunctionFactory",
+        "description": "Wrap In Function",
+        "excludeFromSelectList": true,
+        "excludeFromWrapList": false
+    },
+    "wrapInGenerator": {
+        "command": "wrapInGeneratorFactory",
+        "description": "Wrap In Generator",
+        "excludeFromSelectList": true,
+        "excludeFromWrapList": false
+    },
+    "wrapInIIFE": {
+        "command": "wrapInIIFEFactory",
+        "description": "Wrap In IIFE",
+        "excludeFromSelectList": true,
+        "excludeFromWrapList": false
+    },
+    "wrapInTryCatch": {
+        "command": "wrapInTryCatchFactory",
+        "description": "Wrap In Try Catch",
+        "excludeFromSelectList": true,
+        "excludeFromWrapList": false
+    },
+    "wrapSelection": {
+        "command": "wrapSelectionFactory",
+        "description": "Add Export",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    }
+}
