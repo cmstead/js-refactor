@@ -40,7 +40,7 @@
         };
 
         var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
-        subcontainer.build(&#x27;wrapInAsyncFunctionFactory&#x27;)(null, function () { })();
+        subcontainer.build(&#x27;wrapInAsyncFunctionFactory&#x27;)(function () { })();
 
         this.verify(prettyJson(info.args));
     }
@@ -78,7 +78,7 @@
             }]
         };
 
-        subcontainer.build(&#x27;wrapInAsyncFunctionFactory&#x27;)(null, function () { })();
+        subcontainer.build(&#x27;wrapInAsyncFunctionFactory&#x27;)(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     }

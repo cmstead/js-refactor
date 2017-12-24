@@ -14,16 +14,16 @@
     </header>
 
     <div class="content">
-        <h1>Wrap In Function</h1>
+        <h1>Introduce Function</h1>
 <div>
     <a href="#" class="collapse-all collapse-link">Collapse All</a>
 </div>
 <ul>
     <ul>
     <li>
-        <strong>should log an error if selection is empty</strong>
+        <strong>should log an error when no valid identifier can be found</strong>
     </li>
-    <li>File location: <span class="filename">./test/wrapInFunctionFactory.test.js</span></li>
+    <li>File location: <span class="filename">./test/introduceFunctionFactory.test.js</span></li>
     <li class="code-sample-wrapper">
         <div class="code-expand">
             <a href="#" class="collapse-link"></a>
@@ -31,7 +31,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/wrapInWrapper/wrapInWrapper.js&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/introduceFunction/introduceFunction.js&#x27;);
 
         vsCodeProperties.activeTextEditor &#x3D; {
             _documentData: {
@@ -40,7 +40,7 @@
         };
 
         var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
-        subcontainer.build(&#x27;wrapInFunctionFactory&#x27;)(function () { })();
+        subcontainer.build(&#x27;introduceFunctionFactory&#x27;)(function () { })();
 
         this.verify(prettyJson(info.args));
     }
@@ -50,9 +50,9 @@
 </ul>
 <ul>
     <li>
-        <strong>should wrap selection in a function</strong>
+        <strong>should create a function when an appropriate object property is found</strong>
     </li>
-    <li>File location: <span class="filename">./test/wrapInFunctionFactory.test.js</span></li>
+    <li>File location: <span class="filename">./test/introduceFunctionFactory.test.js</span></li>
     <li class="code-sample-wrapper">
         <div class="code-expand">
             <a href="#" class="collapse-link"></a>
@@ -60,7 +60,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/wrapInWrapper/wrapInWrapper.js&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/introduceFunction/introduceFunction.js&#x27;);
 
         vsCodeProperties.activeTextEditor &#x3D; {
             _documentData: {
@@ -68,17 +68,17 @@
             },
             _selections: [{
                 _start: {
-                    _line: 3,
-                    _character: 4
+                    _line: 11,
+                    _character: 23
                 },
                 _end: {
-                    _line: 5,
-                    _character: 5
+                    _line: 11,
+                    _character: 23
                 }
             }]
         };
 
-        subcontainer.build(&#x27;wrapInFunctionFactory&#x27;)(function () { })();
+        subcontainer.build(&#x27;introduceFunctionFactory&#x27;)(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     }
@@ -88,9 +88,9 @@
 </ul>
 <ul>
     <li>
-        <strong>should wrap selection within a line in a function</strong>
+        <strong>should create a function when an appropriate function call is found</strong>
     </li>
-    <li>File location: <span class="filename">./test/wrapInFunctionFactory.test.js</span></li>
+    <li>File location: <span class="filename">./test/introduceFunctionFactory.test.js</span></li>
     <li class="code-sample-wrapper">
         <div class="code-expand">
             <a href="#" class="collapse-link"></a>
@@ -98,7 +98,45 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/wrapInWrapper/wrapInWrapper.js&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/introduceFunction/introduceFunction.js&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 8,
+                    _character: 25
+                },
+                _end: {
+                    _line: 8,
+                    _character: 25
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;introduceFunctionFactory&#x27;)(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should create a function when an appropriate variable declaration is found</strong>
+    </li>
+    <li>File location: <span class="filename">./test/introduceFunctionFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/introduceFunction/introduceFunction.js&#x27;);
 
         vsCodeProperties.activeTextEditor &#x3D; {
             _documentData: {
@@ -107,16 +145,16 @@
             _selections: [{
                 _start: {
                     _line: 4,
-                    _character: 22
+                    _character: 41
                 },
                 _end: {
                     _line: 4,
-                    _character: 27
+                    _character: 41
                 }
             }]
         };
 
-        subcontainer.build(&#x27;wrapInFunctionFactory&#x27;)(function () { })();
+        subcontainer.build(&#x27;introduceFunctionFactory&#x27;)(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     }

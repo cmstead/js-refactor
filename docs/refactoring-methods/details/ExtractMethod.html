@@ -44,10 +44,9 @@
         const infoAction &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
 
-        const unusedObject &#x3D; null;
         const callback &#x3D; function () { };
 
-        extractMethodFactory(unusedObject, callback)();
+        extractMethodFactory(callback)();
 
         this.verify(prettyJson(infoAction.args));
     }
@@ -83,10 +82,9 @@
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
 
-        const unusedObject &#x3D; null;
         const callback &#x3D; function () { };
 
-        extractMethodFactory(unusedObject, callback)();
+        extractMethodFactory(callback)();
 
         this.verify(prettyJson(quickPickSpy.args));
     }
@@ -124,10 +122,9 @@
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
 
-        const unusedObject &#x3D; null;
         const callback &#x3D; function () { };
 
-        extractMethodFactory(unusedObject, callback)();
+        extractMethodFactory(callback)();
 
         this.verify(prettyJson(applySetEditSpy.args));
     }
@@ -165,10 +162,9 @@
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
 
-        const unusedObject &#x3D; null;
         const callback &#x3D; function () { };
 
-        extractMethodFactory(unusedObject, callback)();
+        extractMethodFactory(callback)();
 
         this.verify(prettyJson(applySetEditSpy.args));
     }
@@ -206,10 +202,169 @@
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
 
-        const unusedObject &#x3D; null;
         const callback &#x3D; function () { };
 
-        extractMethodFactory(unusedObject, callback)();
+        extractMethodFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should extract from a function call inside a condition into a local scope</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractMethodFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+        setupOptions.selectedScopeIndex &#x3D; 1;
+
+        const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [23, 13],
+                    end: [23, 20]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
+
+        const callback &#x3D; function () { };
+
+        extractMethodFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should extract an entire block and ignore function calls from above scope</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractMethodFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+        setupOptions.selectedScopeIndex &#x3D; 1;
+
+        const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [23, 4],
+                    end: [26, 5]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
+
+        const callback &#x3D; function () { };
+
+        extractMethodFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should extract and return an object as a builder</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractMethodFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+        setupOptions.selectedScopeIndex &#x3D; 1;
+
+        const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [30, 18],
+                    end: [33, 5]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
+
+        const callback &#x3D; function () { };
+
+        extractMethodFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should extract and return an object as a builder from a ternary expression</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractMethodFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+        setupOptions.selectedScopeIndex &#x3D; 2;
+
+        const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [43, 19],
+                    end: [46, 17]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
+
+        const callback &#x3D; function () { };
+
+        extractMethodFactory(callback)();
 
         this.verify(prettyJson(applySetEditSpy.args));
     }

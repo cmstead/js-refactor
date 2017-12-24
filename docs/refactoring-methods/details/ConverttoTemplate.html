@@ -14,16 +14,16 @@
     </header>
 
     <div class="content">
-        <h1>Wrap In Function</h1>
+        <h1>Convert to Template</h1>
 <div>
     <a href="#" class="collapse-all collapse-link">Collapse All</a>
 </div>
 <ul>
     <ul>
     <li>
-        <strong>should log an error if selection is empty</strong>
+        <strong>should log an error if selection is not string concatenation</strong>
     </li>
-    <li>File location: <span class="filename">./test/wrapInFunctionFactory.test.js</span></li>
+    <li>File location: <span class="filename">./test/convertToTemplateLiteral.test.js</span></li>
     <li class="code-sample-wrapper">
         <div class="code-expand">
             <a href="#" class="collapse-link"></a>
@@ -31,7 +31,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/wrapInWrapper/wrapInWrapper.js&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToTemplateLiteral/convertToTemplateLiteral.js&#x27;);
 
         vsCodeProperties.activeTextEditor &#x3D; {
             _documentData: {
@@ -40,9 +40,10 @@
         };
 
         var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
-        subcontainer.build(&#x27;wrapInFunctionFactory&#x27;)(function () { })();
+        subcontainer.build(&#x27;convertToTemplateLiteralFactory&#x27;)(function () { })();
 
         this.verify(prettyJson(info.args));
+
     }
             </code>
         </pre>
@@ -50,9 +51,9 @@
 </ul>
 <ul>
     <li>
-        <strong>should wrap selection in a function</strong>
+        <strong>should log an error if expression is binary, but not string concatenation</strong>
     </li>
-    <li>File location: <span class="filename">./test/wrapInFunctionFactory.test.js</span></li>
+    <li>File location: <span class="filename">./test/convertToTemplateLiteral.test.js</span></li>
     <li class="code-sample-wrapper">
         <div class="code-expand">
             <a href="#" class="collapse-link"></a>
@@ -60,7 +61,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/wrapInWrapper/wrapInWrapper.js&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToTemplateLiteral/convertToTemplateLiteral.js&#x27;);
 
         vsCodeProperties.activeTextEditor &#x3D; {
             _documentData: {
@@ -68,55 +69,57 @@
             },
             _selections: [{
                 _start: {
-                    _line: 3,
-                    _character: 4
+                    _line: 11,
+                    _character: 12
                 },
                 _end: {
-                    _line: 5,
-                    _character: 5
-                }
-            }]
-        };
-
-        subcontainer.build(&#x27;wrapInFunctionFactory&#x27;)(function () { })();
-
-        this.verify(prettyJson(applySetEditSpy.args));
-    }
-            </code>
-        </pre>
-    </li>
-</ul>
-<ul>
-    <li>
-        <strong>should wrap selection within a line in a function</strong>
-    </li>
-    <li>File location: <span class="filename">./test/wrapInFunctionFactory.test.js</span></li>
-    <li class="code-sample-wrapper">
-        <div class="code-expand">
-            <a href="#" class="collapse-link"></a>
-        </div>
-        <pre class="code-sample">
-            <code>
-        function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/wrapInWrapper/wrapInWrapper.js&#x27;);
-
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 4,
-                    _character: 22
-                },
-                _end: {
-                    _line: 4,
+                    _line: 11,
                     _character: 27
                 }
             }]
         };
 
-        subcontainer.build(&#x27;wrapInFunctionFactory&#x27;)(function () { })();
+        var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
+        subcontainer.build(&#x27;convertToTemplateLiteralFactory&#x27;)(function () { })();
+
+        this.verify(prettyJson(info.args));
+
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should convert a concatenated string to a template literal</strong>
+    </li>
+    <li>File location: <span class="filename">./test/convertToTemplateLiteral.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToTemplateLiteral/convertToTemplateLiteral.js&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 9,
+                    _character: 13
+                },
+                _end: {
+                    _line: 9,
+                    _character: 111
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;convertToTemplateLiteralFactory&#x27;)(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     }

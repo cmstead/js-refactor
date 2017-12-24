@@ -35,21 +35,32 @@
         <pre class="code-sample">
             <code>
         function() {
-            const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
+            const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/unboundVars/unboundVars.js&#x27;);
             const ast &#x3D; parser.parseSourceLines(sourceTokens);
 
-            const astCoords &#x3D; {
+            const selectionAstCoords &#x3D; {
                 start: {
-                    line: 6,
+                    line: 8,
                     column: 12
                 },
                 end: {
-                    line: 9,
+                    line: 19,
                     column: 13
                 }
             };
 
-            const unboundVars &#x3D; selectionVariableHelper.getUnboundVars(astCoords, ast);
+            const destinationAstCoords &#x3D; {
+                start: {
+                    line: 6,
+                    column: 16
+                },
+                end: {
+                    line: 12,
+                    column: 5
+                }
+            };
+
+            const unboundVars &#x3D; selectionVariableHelper.getUnboundVars(selectionAstCoords, destinationAstCoords, ast);
 
             this.verify(prettyJson(unboundVars));
         }
