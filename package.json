@@ -15,8 +15,9 @@
     "vscode": "^0.12.0"
   },
   "categories": [
-    "Other",
+    "Formatters",
     "Languages",
+    "Other",
     "Snippets"
   ],
   "activationEvents": [
@@ -50,8 +51,10 @@
   },
   "tags": [
     "Javascript",
-    "ECMAScript",
-    "Refactoring"
+    "Refactoring",
+    "Automation",
+    "Language-support",
+    "Snippets"
   ],
   "screenshots": [
     {
