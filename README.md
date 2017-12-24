@@ -53,18 +53,33 @@ JS Refactor supports the following refactorings (explanations below):
 
 ### Keybindings
 
-- Menu of available refactorings - ctrl+shift+j r
+- Menu of available refactorings
 
-- Extract method - ctrl+shift+j m
-- Extract variable - ctrl+shift+j v
-- Inline variable - ctrl+shift+j i
+- Extract method
+    - Windows/Linux: ctrl+shift+j m
+    - Mac: cmd+shift+j m
+- Extract variable
+    - Windows/Linux: ctrl+shift+j v
+    - Mac: cmd+shift+j v
+- Inline variable
+    - Windows/Linux: ctrl+shift+j i
+    - Mac: cmd+shift+j i
 - Rename variable (VS Code internal) - F2
-
-- Convert to Arrow Function - ctrl+shift+j a
-- Convert to Template Literal - ctrl+shift+j l
-- Export function - ctrl+shift+j x
-- Shift parameters - ctrl+shift+j s
-- Wrap selection - ctrl+shift+j w
+- Convert to Arrow Function
+    - Windows/Linux: ctrl+shift+j a
+    - Mac: cmd+shift+j a
+- Convert to Template Literal
+    - Windows/Linux: ctrl+shift+j l
+    - Mac: cmd+shift+j l
+- Export function
+    - Windows/Linux: ctrl+shift+j x
+    - Mac: cmd+shift+j x
+- Shift parameters
+    - Windows/Linux: ctrl+shift+j s
+    - Mac: cmd+shift+j s
+- Wrap selection
+    - Windows/Linux: ctrl+shift+j w
+    - Mac: cmd+shift+j w
 
 ### Usage
 
@@ -166,6 +181,11 @@ Nevertheless, following are the required elements of a good pull request:
 - **Pull requests may not be claimed as intellectual property of a company or other external agency.**
 
 ## Updates ##
+
+### 2.11.0 ###
+
+- Introduced fix for Mac user keybindings; keybindings vary on ctrl/cmd for Windows/Linux vs Mac
+- Other marketplace listing and document updates
 
 ### 2.10.0 ###
 
