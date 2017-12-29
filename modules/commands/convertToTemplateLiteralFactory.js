@@ -5,10 +5,8 @@ function convertToTemplateLiteralFactory(
     editActionsFactory,
     logger,
     parser,
-    selectionCoordsHelper,
     selectionExpressionHelper,
     selectionHelper,
-    utilities,
     vsCodeFactory,
     vsCodeHelperFactory
 ) {
@@ -88,10 +86,10 @@ function convertToTemplateLiteralFactory(
             const activeEditor = vsCodeHelper.getActiveEditor();
             const editActions = editActionsFactory(activeEditor);
 
-            const selectionEditorCoords = selectionCoordsHelper.getSelectionEditorCoords(vsCodeHelper.getActiveEditor());
+            const selectionEditorCoords = vsCodeHelper.getSelectionCoords();
             const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
 
-            const sourceLines = utilities.getDocumentLines(vsCodeHelper.getActiveEditor());
+            const sourceLines = vsCodeHelper.getSourceLines();
             const ast = parser.parseSourceLines(sourceLines);
 
             const selectedStringNode = selectionExpressionHelper.getNearestStringNode(selectionAstCoords, ast);

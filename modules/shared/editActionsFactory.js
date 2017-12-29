@@ -2,7 +2,6 @@
 
 function editActionsFactory(
     editFactory,
-    utilities,
     vsCodeFactory) {
 
     return function (vsEditor) {
@@ -10,8 +9,14 @@ function editActionsFactory(
             return vsCodeFactory.get().workspace.applyEdit(edit);
         }
 
+        function getEditorDocument(vsEditor) {
+            return typeof vsEditor._document === 'object'
+                ? vsEditor._document
+                : vsEditor._documentData;
+        }
+
         function getUri() {
-            return utilities.getEditorDocument(vsEditor)._uri;
+            return getEditorDocument(vsEditor)._uri;
         }
 
         function applySetEdit(content, coords) {

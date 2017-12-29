@@ -5,13 +5,13 @@ function negateExpressionFactory(
     editActionsFactory,
     logger,
     parser,
-    selectionCoordsHelper,
     selectionExpressionHelper,
     selectionHelper,
-    utilities,
-    vsCodeFactory) {
+    vsCodeHelperFactory
+) {
 
     return function (callback) {
+        const vsCodeHelper = vsCodeHelperFactory();
 
         function negateExpression(expressionString, selectedExpressionNode) {
             const test = selectedExpressionNode.test;
@@ -26,13 +26,13 @@ function negateExpressionFactory(
         }
 
         return function applyNegateExpression() {
-            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
+            const activeEditor = vsCodeHelper.getActiveEditor();
             const editActions = editActionsFactory(activeEditor);
 
-            const selectionEditorCoords = selectionCoordsHelper.getSelectionEditorCoords(activeEditor);
+            const selectionEditorCoords = vsCodeHelper.getSelectionCoords();
             const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
 
-            const sourceLines = utilities.getDocumentLines(activeEditor);
+            const sourceLines = vsCodeHelper.getSourceLines();
             const ast = parser.parseSourceLines(sourceLines);
 
             const nearestIfCondition = selectionExpressionHelper.getNearestIfCondition(selectionAstCoords, ast);

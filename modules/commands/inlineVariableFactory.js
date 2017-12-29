@@ -9,16 +9,11 @@ function inlineVariableFactory(
     scopePathHelper,
     selectionHelper,
     selectionExpressionHelper,
-    utilities,
-    vsCodeFactory
+    vsCodeHelperFactory
 ) {
 
     return function (callback) {
-
-        function getSelectionEditorCoords(activeEditor) {
-            const firstSelectionCoords = utilities.getAllSelectionCoords(activeEditor)[0];
-            return coordsHelper.coordsFromDocumentToEditor(firstSelectionCoords);
-        }
+        const vsCodeHelper = vsCodeHelperFactory();
 
         const isMatchingIdentifier =
             (identifierName) =>
@@ -114,11 +109,11 @@ function inlineVariableFactory(
         }
 
         return function () {
-            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
-            const selectionEditorCoords = getSelectionEditorCoords(activeEditor);
+            const activeEditor = vsCodeHelper.getActiveEditor();
+            const selectionEditorCoords = vsCodeHelper.getSelectionCoords();
             const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
 
-            const sourceLines = utilities.getDocumentLines(activeEditor);
+            const sourceLines = vsCodeHelper.getSourceLines();
             const ast = parser.parseSourceLines(sourceLines);
 
             const variableExpression = getVariableExpression(selectionAstCoords, ast);

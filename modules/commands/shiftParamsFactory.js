@@ -5,14 +5,14 @@ function shiftParamsFactory (
     editActionsFactory,
     logger,
     parser,
-    selectionCoordsHelper,
     selectionExpressionHelper,
     selectionHelper,
-    utilities,
-    vsCodeFactory
+    vsCodeHelperFactory
 ) {
     
     return function (callback) {
+
+        const vsCodeHelper = vsCodeHelperFactory();
 
         function first(values) {
             return values[0];
@@ -59,10 +59,10 @@ function shiftParamsFactory (
         }
 
         return function () {
-            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
-            const selectionEditorCoords = selectionCoordsHelper.getSelectionEditorCoords(activeEditor);
+            const activeEditor = vsCodeHelper.getActiveEditor();
+            const selectionEditorCoords = vsCodeHelper.getSelectionCoords();
             const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
-            const sourceLines = utilities.getDocumentLines(activeEditor);
+            const sourceLines = vsCodeHelper.getSourceLines();
 
             const ast = parser.parseSourceLines(sourceLines);
             const nearestFunctionExpression = selectionExpressionHelper.getNearestFunctionExpression(selectionAstCoords, ast);

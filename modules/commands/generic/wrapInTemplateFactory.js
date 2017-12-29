@@ -4,12 +4,13 @@ function wrapInTemplateFactory(
     coordsHelper,
     editActionsFactory,
     logger,
-    selectionCoordsHelper,
     selectionHelper,
-    utilities,
-    vsCodeFactory) {
+    vsCodeHelperFactory
+) {
 
     return function (callback) {
+
+        const vsCodeHelper = vsCodeHelperFactory();
 
         function promptAndCall(callback, prompt) {
             if (prompt) {
@@ -20,11 +21,11 @@ function wrapInTemplateFactory(
         }
 
         return function wrapInCondition(wrapSelection, errorMessage, prompt) {
-            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
+            const activeEditor = vsCodeHelper.getActiveEditor();
             const editActions = editActionsFactory(activeEditor);
 
-            const selectionEditorCoords = selectionCoordsHelper.getSelectionEditorCoords(activeEditor);
-            const sourceLines = utilities.getDocumentLines(activeEditor);
+            const selectionEditorCoords = vsCodeHelper.getSelectionCoords();
+            const sourceLines = vsCodeHelper.getSourceLines();
 
             function applyToDocument(value) {
                 const selection = selectionHelper.getSelection(sourceLines, selectionEditorCoords);

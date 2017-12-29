@@ -7,11 +7,9 @@ function introduceFunctionFactory(
     logger,
     parser,
     scopeHelper,
-    selectionCoordsHelper,
     selectionExpressionHelper,
     templateHelper,
-    utilities,
-    vsCodeFactory
+    vsCodeHelperFactory
 ) {
 
     function getUsageValueNode(node) {
@@ -29,14 +27,16 @@ function introduceFunctionFactory(
     }
 
     return function (callback) {
+        const vsCodeHelper = vsCodeHelperFactory();
+
         return function () {
-            const activeEditor = vsCodeFactory.get().window.activeTextEditor;
+            const activeEditor = vsCodeHelper.getActiveEditor();
             const editActions = editActionsFactory(activeEditor);
 
-            const selectionEditorCoords = selectionCoordsHelper.getSelectionEditorCoords(activeEditor);
+            const selectionEditorCoords = vsCodeHelper.getSelectionCoords();
             const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
 
-            const sourceLines = utilities.getDocumentLines(activeEditor);
+            const sourceLines = vsCodeHelper.getSourceLines();
             const ast = parser.parseSourceLines(sourceLines);
             const scopePath = scopeHelper
                 .getScopePath(selectionEditorCoords, ast)
