@@ -72,7 +72,8 @@
       {
         "id": "javascript",
         "extensions": [
-          ".js"
+          ".js",
+          ".jsx"
         ],
         "aliases": [
           "JS"
