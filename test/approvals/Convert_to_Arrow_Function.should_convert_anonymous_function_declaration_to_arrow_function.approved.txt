@@ -1,6 +1,6 @@
 [
     [
-        "(foo, { bar, baz }, ...rest) => {\nconsole.log(foo, bar);\n    console.log(baz, rest);\n};",
+        "(foo, { bar, baz }, ...rest) => {\nconsole.log(foo, bar);\n    console.log(baz, rest);\n}",
         {
             "start": [
                 15,

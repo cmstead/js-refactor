@@ -2,12 +2,12 @@
     "namedMultilineArrowFunction": [
         "const {name} = ({args}) => {",
         "{body}",
-        "};"
+        "}"
     ],
     "multilineArrowFunction": [
         "({args}) => {",
         "{body}",
-        "};"
+        "}"
     ],
     "namedSingleLineArrowFunction": [
         "const {name} = ({args}) => {body}"

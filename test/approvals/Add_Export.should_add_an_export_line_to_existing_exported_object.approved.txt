@@ -1,6 +1,6 @@
 [
     [
-        "\nfoo: foo\n",
+        "\nfoo: foo\n,",
         {
             "start": [
                 10,

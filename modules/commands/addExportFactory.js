@@ -11,17 +11,21 @@ function addExportFactory(
     vsCodeHelperFactory
 ) {
 
+    const oneLineExport = 'oneLineExport';
+    const multilineExport = 'mulitilineExport';
+    const newExport = 'newExport';
+
     return function (callback) {
 
         const vsCodeHelper = vsCodeHelperFactory();
 
         function buildExportTemplateKey(exportNode) {
             if (exportNode === null) {
-                return 'newExport';
+                return newExport;
             } else if (selectionExportHelper.isMultilineExport(exportNode.expression.left, exportNode.expression.right)) {
-                return 'mulitilineExport';
+                return multilineExport;
             } else {
-                return 'oneLineExport';
+                return oneLineExport;
             }
         }
 
@@ -59,13 +63,16 @@ function addExportFactory(
         function buildExportString(exportName, exportNode) {
             const exportContext = buildExportContext(exportName);
             const exportTemplateKey = buildExportTemplateKey(exportNode);
+            const exportLine = templateHelper.templates[exportTemplateKey].build(exportContext);
 
-            return templateHelper.templates[exportTemplateKey].build(exportContext);
+            return exportTemplateKey === multilineExport
+                ? exportLine + ','
+                : exportLine;
         }
 
         function exportSelectedNode(activeEditor, astNode, ast) {
             const exportNode = selectionExportHelper.getExportNode(ast);
-            
+
             const exportStr = buildExportString(astNode.id.name, exportNode);
             const exportEditorCoords = buildExportCoords(exportNode, ast);
 
