@@ -3,7 +3,7 @@
 function commandDefFactory() {
     return function (container) {
         const extensionPrefix = 'cmstead.jsRefactor';
-        const vscode = container.build('vsCodeFactory').get();
+        const vscode = container.build('vscodeFactory').get();
 
         const formatName = "editor.action.formatDocument";
         const formatDocument = vscode.commands.executeCommand.bind(vscode.commands, formatName);

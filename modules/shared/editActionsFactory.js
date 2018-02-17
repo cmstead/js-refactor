@@ -2,11 +2,11 @@
 
 function editActionsFactory(
     editFactory,
-    vsCodeFactory) {
+    vscodeFactory) {
 
     return function (vsEditor) {
         function applyEdit(edit) {
-            return vsCodeFactory.get().workspace.applyEdit(edit);
+            return vscodeFactory.get().workspace.applyEdit(edit);
         }
 
         function getEditorDocument(vsEditor) {

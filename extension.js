@@ -1,6 +1,6 @@
 function activate(context) {
 	var container = require('./container');
-	var vscode = container.build('vsCodeFactory').get();
+	var vscode = container.build('vscodeFactory').get();
 
 	container
 		.build('commandDefFactory')(container)

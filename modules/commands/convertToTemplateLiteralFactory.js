@@ -7,7 +7,7 @@ function convertToTemplateLiteralFactory(
     parser,
     selectionExpressionHelper,
     selectionHelper,
-    vsCodeFactory,
+    vscodeFactory,
     vsCodeHelperFactory
 ) {
 

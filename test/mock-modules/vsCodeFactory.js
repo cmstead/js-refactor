@@ -1,6 +1,6 @@
 var vsCodeFakeFactory = require('../test-utils/vscode-fake-factory');
 
-function vsCodeFactoryFakeFactory(api) {
+function vscodeFactoryFakeFactory(api) {
 
     return function (properties) {
         function get() {
@@ -14,7 +14,7 @@ function vsCodeFactoryFakeFactory(api) {
             return vsCodeFake;
         }
 
-        return function vsCodeFactory() {
+        return function vscodeFactory() {
             return {
                 get: get
             };
@@ -22,4 +22,4 @@ function vsCodeFactoryFakeFactory(api) {
     }
 }
 
-module.exports = vsCodeFactoryFakeFactory;
+module.exports = vscodeFactoryFakeFactory;

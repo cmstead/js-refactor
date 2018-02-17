@@ -1,7 +1,7 @@
 'use strict';
 
-function logger (vsCodeFactory) {
-    var vscode = vsCodeFactory.get();
+function logger (vscodeFactory) {
+    var vscode = vscodeFactory.get();
     
     function log(message) {
         vscode.window.showInformationMessage(message);

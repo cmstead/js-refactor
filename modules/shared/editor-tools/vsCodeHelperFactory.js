@@ -2,10 +2,10 @@
 
 function vsCodeHelperFactory(
     coordsHelper,
-    vsCodeFactory
+    vscodeFactory
 ) {
     return function () {
-        const activeEditor = vsCodeFactory.get().window.activeTextEditor;
+        const activeEditor = vscodeFactory.get().window.activeTextEditor;
 
         function getActiveEditor() {
             return activeEditor;

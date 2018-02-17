@@ -4,7 +4,7 @@ var container = require('../../container');
 var mocker = require('../mocker');
 var sinon = require('sinon');
 
-mocker.registerMock('vsCodeFactory');
+mocker.registerMock('vscodeFactory');
 mocker.registerMock('logger');
 mocker.registerMock('editActionsFactory');
 
@@ -13,8 +13,8 @@ function testHelperFactory() {
     const subcontainer = container.new();
 
     const vsCodeProperties = {};
-    var vsCodeFactoryFake = mocker.getMock('vsCodeFactory').mock(vsCodeProperties);
-    subcontainer.register(vsCodeFactoryFake);
+    var vscodeFactoryFake = mocker.getMock('vscodeFactory').mock(vsCodeProperties);
+    subcontainer.register(vscodeFactoryFake);
 
     let applySetEditSpy = sinon.spy(function (text, coords) {
         return {

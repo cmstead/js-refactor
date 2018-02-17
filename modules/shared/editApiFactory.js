@@ -1,10 +1,10 @@
 'use strict';
 
-function editApiFactory(vsCodeFactory) {
+function editApiFactory(vscodeFactory) {
 
     return function () {
 
-        const vscode = vsCodeFactory.get();
+        const vscode = vscodeFactory.get();
 
         function positionFactory(location) {
             return new vscode.Position(location[0], location[1]);
