@@ -56,24 +56,12 @@
     "Language-support",
     "Snippets"
   ],
-  "screenshots": [
-    {
-      "path": "images/extract-to-function-result.png"
-    },
-    {
-      "path": "images/fn-snippet-menu-option.png"
-    },
-    {
-      "path": "images/fn-result-with-anon-menu-option.png"
-    }
-  ],
   "contributes": {
     "languages": [
       {
         "id": "javascript",
         "extensions": [
-          ".js",
-          ".jsx"
+          ".js"
         ],
         "aliases": [
           "JS"

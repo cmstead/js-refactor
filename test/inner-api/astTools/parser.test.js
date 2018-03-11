@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const container = require('../../../container');
 const testUtils = require('../../test-utils/test-utils');
 
@@ -43,11 +44,21 @@ describe('parser', function () {
             this.verify(testUtils.prettyJson(ast));
         });
 
+
+        it('should parse a complex JSX file', function () {
+            const jsxSource = fs.readFileSync('./test/fixtures/example-files/test.jsx', { encoding: 'utf8' });
+
+            const ast = parser.parse(jsxSource);
+
+            this.verify(testUtils.prettyJson(ast));
+        });
+
+
     });
 
-    describe('parseSourceLines', function() {
-        
-        it('should parse new-line split JS source code', function() {
+    describe('parseSourceLines', function () {
+
+        it('should parse new-line split JS source code', function () {
             const sourceText = `'use strict';
             
             const myFn = () => 'foo';
@@ -58,7 +69,7 @@ describe('parser', function () {
             this.verify(testUtils.prettyJson(ast));
         });
 
-        it('should parse new-line split JSX source code', function() {
+        it('should parse new-line split JSX source code', function () {
             const jsxSourceText = `var ipsumText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.';
             
             ReactDOM.render(
