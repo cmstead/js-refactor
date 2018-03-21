@@ -234,145 +234,145 @@
       "commandPalette": [
         {
           "command": "cmstead.jsRefactor.convertToArrowFunction",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.addExport",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.extractMethod",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.extractVariable",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.inlineVariable",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.introduceFunction",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.negateExpression",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.rename",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.selectRefactoring",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.shiftParams",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.wrapInArrowFunction",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.wrapInAsyncFunction",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.wrapInCondition",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.wrapInFunction",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.wrapInGenerator",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.wrapInIIFE",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.wrapInTryCatch",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.wrapSelection",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         }
       ],
       "editor/context": [
         {
           "command": "cmstead.jsRefactor.convertToArrowFunction",
           "group": "5_refactor",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
           "group": "5_refactor",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.addExport",
           "group": "5_refactor",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.extractMethod",
           "group": "5_refactor",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.extractVariable",
           "group": "5_refactor",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.inlineVariable",
           "group": "5_refactor",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.introduceFunction",
           "group": "5_refactor",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
           "group": "5_refactor",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.negateExpression",
           "group": "5_refactor",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.rename",
           "group": "5_refactor",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.shiftParams",
           "group": "5_refactor",
-          "when": "resourceLangId == javascript"
+          "when": "editorLangId == javascript"
         },
         {
           "command": "cmstead.jsRefactor.wrapSelection",
           "group": "5_refactor",
-          "when": "editorHasSelection && resourceLangId == javascript"
+          "when": "editorHasSelection && editorLangId == javascript"
         }
       ]
     }
