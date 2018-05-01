@@ -404,7 +404,6 @@
     "dject": "^1.4.0",
     "esprima": "^4.0.0",
     "estraverse": "^4.2.0",
-    "gulp": "^3.9.1",
     "jfp": "^4.0.0",
     "signet": "^6.4.2",
     "typescript": "^2.4.2"
@@ -413,6 +412,7 @@
     "approvals": "https://github.com/cmstead/Approvals.NodeJS.git",
     "chai": "^3.4.1",
     "eslint": "^4.3.0",
+    "gulp": "^3.9.1",
     "mocha": "^2.3.4",
     "mockery": "^1.4.0",
     "sinon": "^1.17.2",
