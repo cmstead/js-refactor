@@ -1,6 +1,6 @@
 [
     [
-        "function  (test1, test2, test3) {\nvar firstSum = test1 + test2;\n    return firstSum + test3;\n}\n\n",
+        "function  (test1, test2, test3) {\nvar firstSum = test1 + test2;\n    return firstSum + test3;\n}",
         {
             "start": [
                 6,

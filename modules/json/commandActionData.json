@@ -11,6 +11,12 @@
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
+    "convertToFunctionExpression": {
+        "command": "convertToFunctionExpressionFactory",
+        "description": "Convert to Function Expression",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
     "convertToTemplateLiteral": {
         "command": "convertToTemplateLiteralFactory",
         "description": "Convert to Template Literal",

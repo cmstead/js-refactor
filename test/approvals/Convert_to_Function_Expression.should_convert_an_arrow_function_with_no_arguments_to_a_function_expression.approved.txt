@@ -1,6 +1,6 @@
 [
     [
-        "function  () {\nreturn 'foo';\n}\n\n",
+        "function  () {\nreturn 'foo';\n}",
         {
             "start": [
                 2,

@@ -1,6 +1,6 @@
 [
     [
-        "function  (test1, test2) {\nreturn test1 + test2;\n}\n\n",
+        "function  (test1, test2) {\nreturn test1 + test2;\n}",
         {
             "start": [
                 4,

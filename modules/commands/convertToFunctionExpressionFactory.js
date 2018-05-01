@@ -68,7 +68,7 @@ function convertToFunctionExpressionFactory(
             return expressionId !== null ? expressionId.name : '';
         }
 
-        function buildArrowFunctionContext(nearestFunctionExpression, sourceLines) {
+        function buildFunctionExpressionContext(nearestFunctionExpression, sourceLines) {
             return {
                 name: getFunctionName(nearestFunctionExpression),
                 body: getBodyContent(nearestFunctionExpression, sourceLines),
@@ -80,12 +80,12 @@ function convertToFunctionExpressionFactory(
             const activeEditor = vsCodeHelper.getActiveEditor();
 
             const functionEditorCoords = coordsHelper.coordsFromAstToEditor(nearestArrowFunction.loc);
-            const arrowFunctionContext = buildArrowFunctionContext(nearestArrowFunction, sourceLines);
+            const functionExpressionContext = buildFunctionExpressionContext(nearestArrowFunction, sourceLines);
 
-            const arrowFunction = getTemplateBuilder(nearestArrowFunction).build(arrowFunctionContext);
+            const functionExpression = getTemplateBuilder(nearestArrowFunction).build(functionExpressionContext);
 
             editActionsFactory(activeEditor)
-                .applySetEdit(arrowFunction, functionEditorCoords)
+                .applySetEdit(functionExpression.trim(), functionEditorCoords)
                 .then(callback);
         }
 
@@ -101,7 +101,7 @@ function convertToFunctionExpressionFactory(
             if (nearestArrowFunction === null) {
                 logger.info('No acceptable arrow function found which can be converted to a function expression.');
             } else {
-                applyConversion(nearestArrowFunction, sourceLines)
+                applyConversion(nearestArrowFunction, sourceLines);
             }
         };
     };
