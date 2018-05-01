@@ -28,7 +28,7 @@ if you know the name of the refactoring you need.
 
 JS Refactor supports the following refactorings (explanations below):
 
-**Core Refactorings:**
+**Common Refactorings:**
 - Extract Method
 - Extract Variable
 - Inline Variable
@@ -36,6 +36,7 @@ JS Refactor supports the following refactorings (explanations below):
 
 **Other Utilities:**
 - Convert To Arrow Function
+- Convert To Function Expression
 - Convert To Template Literal
 - Export Function
 - Introduce Function
@@ -53,8 +54,6 @@ JS Refactor supports the following refactorings (explanations below):
 
 ### Keybindings
 
-- Menu of available refactorings
-
 - Extract method
     - Windows/Linux: ctrl+shift+j m
     - Mac: cmd+shift+j m
@@ -65,9 +64,13 @@ JS Refactor supports the following refactorings (explanations below):
     - Windows/Linux: ctrl+shift+j i
     - Mac: cmd+shift+j i
 - Rename variable (VS Code internal) - F2
+
 - Convert to Arrow Function
     - Windows/Linux: ctrl+shift+j a
     - Mac: cmd+shift+j a
+- Convert to Function Expression
+    - Windows/Linux: ctrl+shift+j f
+    - Mac: cmd+shift+j f
 - Convert to Template Literal
     - Windows/Linux: ctrl+shift+j l
     - Mac: cmd+shift+j l
@@ -181,6 +184,10 @@ Nevertheless, following are the required elements of a good pull request:
 - **Pull requests may not be claimed as intellectual property of a company or other external agency.**
 
 ## Updates ##
+
+### 2.12.0 ###
+
+- Added convert to function expression from arrow functions; this is especially useful for any time an arrow function is binding a context incorrectly
 
 ### 2.11.0 ###
 
