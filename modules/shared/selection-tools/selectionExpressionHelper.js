@@ -36,25 +36,14 @@ function selectionExpressionHelper(
         'Property'
     ];
 
-    const returnableExpression = [
-        'CallExpression',
-        'VariableDeclaration',
-        'FunctionDeclaration',
-        'FunctionExpression',
-        'BinaryExpression',
-        'AssignmentExpression',
-        'ReturnStatement',
-        'ObjectExpression'
-    ];
-
     const isExclusionWrappingNode = astHelper.isNodeType(exclusionWrappingNodeTypes);
     const isFunctionDeclarationOrExpression = astHelper.isNodeType(functionDeclarationOrExpression);
-    const isReturnableExpression = astHelper.isNodeType(returnableExpression);
     const isReturnStatement = astHelper.isNodeType(['ReturnStatement']);
     const isUsageNode = astHelper.isNodeType(usageNode);
     const isVariableOrFunction = astHelper.isNodeType(variableOrFunctionTypes);
     const isWrappingNode = astHelper.isNodeType(wrappingNodeTypes);
 
+    const isArrowFunction = astHelper.isNodeType(['ArrowFunctionExpression']);
     const isBinaryExpression = astHelper.isNodeType(['BinaryExpression']);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
     const isIfStatement = astHelper.isNodeType(['IfStatement']);
@@ -97,6 +86,7 @@ function selectionExpressionHelper(
     const isNearVariableOrFunction = isNearMatch(isVariableOrFunction);
     const isNearConditional = isNearMatch(isIfStatement);
     const isNearFunctionExpression = isNearMatch(isFunctionDeclarationOrExpression);
+    const isNearArrowFunction = isNearMatch(isArrowFunction);
     const isNearBinaryExpression = isNearMatch(isBinaryExpression);
 
     const isIdentifierInScope = isMatchInScope(isIdentifier);
@@ -173,6 +163,21 @@ function selectionExpressionHelper(
         astHelper.traverse(ast, {
             enter: astHelper.onMatch(
                 isNearFunctionExpression(astCoords),
+                function (node) {
+                    currentScope = node;
+                }
+            )
+        });
+
+        return currentScope;
+    }
+
+    function getNearestArrowFunction(astCoords, ast) {
+        let currentScope = null;
+
+        astHelper.traverse(ast, {
+            enter: astHelper.onMatch(
+                isNearArrowFunction(astCoords),
                 function (node) {
                     currentScope = node;
                 }
@@ -291,6 +296,10 @@ function selectionExpressionHelper(
         getSelectionExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
             getSelectionExpression),
+
+        getNearestArrowFunction: typeHelper.enforce(
+            'astCoords, ast => variant<null, astNode>',
+            getNearestArrowFunction),
 
         getNearestIfCondition: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',

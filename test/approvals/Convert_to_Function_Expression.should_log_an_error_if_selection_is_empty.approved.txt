@@ -1,0 +1,5 @@
+[
+    [
+        "No acceptable arrow function found which can be converted to a function expression."
+    ]
+]
