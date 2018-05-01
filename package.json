@@ -400,7 +400,6 @@
   "dependencies": {
     "babel-core": "^6.25.0",
     "babylon": "^6.17.4",
-    "datamother": "^2.2.4",
     "dject": "^1.4.0",
     "esprima": "^4.0.0",
     "estraverse": "^4.2.0",
@@ -411,6 +410,7 @@
   "devDependencies": {
     "approvals": "https://github.com/cmstead/Approvals.NodeJS.git",
     "chai": "^3.4.1",
+    "datamother": "^2.2.4",
     "eslint": "^4.3.0",
     "gulp": "^3.9.1",
     "mocha": "^2.3.4",
