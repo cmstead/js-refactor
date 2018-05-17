@@ -9,7 +9,8 @@ function scopePathHelper(
         'ObjectExpression',
         'FunctionExpression',
         'FunctionDeclaration',
-        'ArrowFunctionExpression'
+        'ArrowFunctionExpression',
+        'MethodDefinition'
     ]);
 
     function isBlockArrowFunction(node) {
@@ -29,8 +30,16 @@ function scopePathHelper(
                 && isScopePath(node);
 
     function buildScopePath(coords, ast) {
+        let lastPathNode = null;
+
         const scopePath = [ast];
-        const capturePath = (node) => scopePath.push(node);
+        const capturePath = (node) => {
+            if(lastPathNode === null || lastPathNode.type !== 'MethodDefinition') {
+                scopePath.push(node);
+            }
+
+            lastPathNode = node;
+        }
 
         astHelper.traverse(ast, {
             enter: astHelper.onMatch(function (node) {

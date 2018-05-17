@@ -27,7 +27,7 @@ function scopeHelper(
     function getScopeQuickPick(scopePath, sourceLines, callback) {
         const items = getScopeSelectionOptions(scopePath, sourceLines);
         const quickPickOptions = {
-            message: 'Select method extraction scope:'
+            placeHolder: 'Select method extraction scope:'
         }
 
         logger.quickPick(items, quickPickOptions, callback);

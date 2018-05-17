@@ -7,7 +7,7 @@
             "3: FunctionExpression - function bar(whatever) {"
         ],
         {
-            "message": "Select method extraction scope:"
+            "placeHolder": "Select method extraction scope:"
         },
         "[function: anonymous]"
     ]

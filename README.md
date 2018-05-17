@@ -185,6 +185,11 @@ Nevertheless, following are the required elements of a good pull request:
 
 ## Updates ##
 
+### 2.13.0 ###
+
+- Cleaned up extract variable within a class method to display method name in selection dropdown
+- Fixed quickPick options to display correct selection place holder text
+
 ### 2.12.0 ###
 
 - Added convert to function expression from arrow functions; this is especially useful for any time an arrow function is binding a context incorrectly

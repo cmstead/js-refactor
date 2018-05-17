@@ -74,13 +74,13 @@ function shiftParamsFactory (
                 const paramValues = buildParamValues(nearestFunctionExpression, sourceLines);
                 const shiftDirections = ['left', 'right'];
                 const shiftDirectionOptions = {
-                    message: 'Direction to shift params:'
+                    placeHolder: 'Direction to shift params:'
                 };
                 
                 logger.quickPick(shiftDirections, shiftDirectionOptions, function (direction) {
                     const shiftCountRange = buildShiftCountRange(paramValues.length);
                     const shiftCountOptions = {
-                        message: 'Number of places to shift function params:'
+                        placeHolder: 'Number of places to shift function params:'
                     };
 
                     logger.quickPick(buildShiftCountValues(shiftCountRange), shiftCountOptions, function (shiftSelection) {

@@ -27,7 +27,7 @@ function extractVariableFactory(
             const variableTypes = ['const', 'let', 'var'];
 
             const quickPickOptions = {
-                message: 'Select method extraction scope:'
+                placeHolder: 'Select variable type:'
             }
 
             logger.quickPick(variableTypes, quickPickOptions, callback);

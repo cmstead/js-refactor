@@ -17,12 +17,19 @@ function extractHelper(
         (nodeType) =>
             (astNode) =>
                 astNode.type.toLowerCase().indexOf(nodeType) > -1;
-            
+
     const isObjectScope = isScopeType('object');
     const isProgramScope = isScopeType('program');
 
+    const isMethodDefinition = (node) => node.type === 'MethodDefinition';
+
     function getNewExtractionLocation(scopePath, selectedOptionIndex, selectionCoords, ast) {
-        const currentScope = scopePath[selectedOptionIndex];
+        const selectedNode = scopePath[selectedOptionIndex];
+
+        const currentScope = isMethodDefinition(selectedNode)
+            ? selectedNode.value
+            : selectedNode;
+            
         const nextScope = scopePath[selectedOptionIndex + 1];
 
         const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionCoords);
@@ -30,7 +37,7 @@ function extractHelper(
 
         let destinationExpression;
 
-        if(isLocalScope) {
+        if (isLocalScope) {
             destinationExpression = selectionExpressionHelper.getNearestExpressionInScope(currentScope.loc, selectionAstCoords, ast);
         } else {
             destinationExpression = selectionExpressionHelper.getNearestExpressionInScope(currentScope.loc, nextScope.loc, ast);
