@@ -162,4 +162,31 @@ describe('Convert to Arrow Function', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
+    it('should convert the only function in a file to an arrow function', function () {
+        var source = `function hi() {
+            console.log('hi');
+          }`;
+        var sourceTokens = source.split(/\r?\n/);
+
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 1,
+                    _character: 5
+                },
+                _end: {
+                    _line: 1,
+                    _character: 5
+                }
+            }]
+        };
+
+        subcontainer.build('convertToArrowFunctionFactory')(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
 });

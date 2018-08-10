@@ -13,12 +13,16 @@ function parser(typeHelper) {
             loc: true,
             jsx: true
         };
-        
+
+        let ast = null;
+
         try {
-            return esprima.parseScript(sourceText, options);
+            ast = esprima.parseScript(sourceText, options);
         } catch (e) {
-            return esprima.parseModule(sourceText, options);
+            ast =  esprima.parseModule(sourceText, options);
         }
+
+        return ast;
     }
 
     return {

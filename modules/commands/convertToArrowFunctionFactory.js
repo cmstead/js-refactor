@@ -26,10 +26,15 @@ function convertToArrowFunctionFactory(
         }
 
         function getArgsContent(nearestFunctionExpression, sourceLines) {
-            const argumentsContentAstCoords = coordsHelper.getOuterAstCoords(nearestFunctionExpression.params);
-            const argumentsContentEditorCoords = coordsHelper.coordsFromAstToEditor(argumentsContentAstCoords);
+            if ((nearestFunctionExpression.params).length != 0) {
+                const argumentsContentAstCoords = coordsHelper.getOuterAstCoords(nearestFunctionExpression.params);
+                const argumentsContentEditorCoords = coordsHelper.coordsFromAstToEditor(argumentsContentAstCoords);
 
-            return selectionHelper.getSelection(sourceLines, argumentsContentEditorCoords).join('\n');
+                return selectionHelper.getSelection(sourceLines, argumentsContentEditorCoords).join('\n');
+            }
+            else {
+                return "";
+            }
         }
 
         function getTemplateBuilder(nearestFunctionExpression) {
@@ -62,10 +67,8 @@ function convertToArrowFunctionFactory(
 
         function applyConversion(nearestFunctionExpression, sourceLines) {
             const activeEditor = vsCodeHelper.getActiveEditor();
-
             const functionEditorCoords = coordsHelper.coordsFromAstToEditor(nearestFunctionExpression.loc);
             const arrowFunctionContext = buildArrowFunctionContext(nearestFunctionExpression, sourceLines);
-
             const arrowFunction = getTemplateBuilder(nearestFunctionExpression).build(arrowFunctionContext);
 
             editActionsFactory(activeEditor)
@@ -79,7 +82,6 @@ function convertToArrowFunctionFactory(
 
             const sourceLines = vsCodeHelper.getSourceLines();
             const ast = parser.parseSourceLines(sourceLines);
-
             const nearestFunctionExpression = selectionExpressionHelper.getNearestFunctionExpression(selectionAstCoords, ast);
 
             if (nearestFunctionExpression === null) {
