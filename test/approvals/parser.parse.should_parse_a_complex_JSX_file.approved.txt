@@ -223,8 +223,8 @@
                                             "children": [
                                                 {
                                                     "type": "JSXText",
-                                                    "value": "\r                ",
-                                                    "raw": "\r\n                ",
+                                                    "value": "\n                ",
+                                                    "raw": "\n                ",
                                                     "loc": {
                                                         "start": {
                                                             "line": 8,
@@ -367,8 +367,8 @@
                                                 },
                                                 {
                                                     "type": "JSXText",
-                                                    "value": "\r                ",
-                                                    "raw": "\r\n                ",
+                                                    "value": "\n                ",
+                                                    "raw": "\n                ",
                                                     "loc": {
                                                         "start": {
                                                             "line": 9,
@@ -480,8 +480,8 @@
                                                 },
                                                 {
                                                     "type": "JSXText",
-                                                    "value": "\r            ",
-                                                    "raw": "\r\n            ",
+                                                    "value": "\n            ",
+                                                    "raw": "\n            ",
                                                     "loc": {
                                                         "start": {
                                                             "line": 10,

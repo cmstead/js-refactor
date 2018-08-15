@@ -17,7 +17,7 @@ describe('Convert to Function Expression', function () {
 
     beforeEach(function () {
         var testHelper = testHelperFactory();
-        
+
         subcontainer = testHelper.subcontainer;
         applySetEditSpy = testHelper.applySetEditSpy;
         vsCodeProperties = testHelper.vsCodeProperties;
@@ -137,5 +137,33 @@ describe('Convert to Function Expression', function () {
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
+
+
+    it('converts an arrow function with no parameters to a function expression', function () {
+        const sourceExpression = '() => console.log("hi");';
+
+        var sourceTokens = sourceExpression.split(/\r?\n/);
+
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 0,
+                    _character: 5
+                },
+                _end: {
+                    _line: 0,
+                    _character: 5
+                }
+            }]
+        };
+
+        subcontainer.build('convertToFunctionExpressionFactory')(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
 
 });

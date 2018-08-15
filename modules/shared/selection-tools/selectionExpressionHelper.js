@@ -87,6 +87,7 @@ function selectionExpressionHelper(
     const isNearConditional = isNearMatch(isIfStatement);
     const isNearFunctionExpression = isNearMatch(isFunctionDeclarationOrExpression);
     const isNearArrowFunction = isNearMatch(isArrowFunction);
+
     const isNearBinaryExpression = isNearMatch(isBinaryExpression);
 
     const isIdentifierInScope = isMatchInScope(isIdentifier);
