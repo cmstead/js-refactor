@@ -2,7 +2,7 @@
   "name": "jsrefactor",
   "displayName": "JS Refactor",
   "description": "Automated refactoring tools to smooth your development workflow",
-  "version": "2.13.1",
+  "version": "2.14.0",
   "publisher": "cmstead",
   "repository": {
     "url": "https://github.com/cmstead/js-refactor.git",
@@ -78,7 +78,6 @@
           "HTML"
         ]
       }
-
     ],
     "snippets": [
       {
@@ -262,7 +261,6 @@
           "command": "cmstead.jsRefactor.convertToArrowFunction",
           "when": "editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
           "when": "editorLangId == javascript"
@@ -271,7 +269,6 @@
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
           "when": "editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
           "when": "editorLangId == javascript"
@@ -280,7 +277,6 @@
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
           "when": "editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.addExport",
           "when": "editorLangId == javascript"
@@ -289,7 +285,6 @@
           "command": "cmstead.jsRefactor.addExport",
           "when": "editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.extractMethod",
           "when": "editorHasSelection && editorLangId == javascript"
@@ -298,7 +293,6 @@
           "command": "cmstead.jsRefactor.extractMethod",
           "when": "editorHasSelection && editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.extractVariable",
           "when": "editorHasSelection && editorLangId == javascript"
@@ -307,7 +301,6 @@
           "command": "cmstead.jsRefactor.extractVariable",
           "when": "editorHasSelection && editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.inlineVariable",
           "when": "editorLangId == javascript"
@@ -316,7 +309,6 @@
           "command": "cmstead.jsRefactor.inlineVariable",
           "when": "editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.introduceFunction",
           "when": "editorLangId == javascript"
@@ -325,7 +317,6 @@
           "command": "cmstead.jsRefactor.introduceFunction",
           "when": "editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
           "when": "editorLangId == javascript"
@@ -334,7 +325,6 @@
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
           "when": "editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.negateExpression",
           "when": "editorLangId == javascript"
@@ -343,7 +333,6 @@
           "command": "cmstead.jsRefactor.negateExpression",
           "when": "editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.rename",
           "when": "editorLangId == javascript"
@@ -352,7 +341,6 @@
           "command": "cmstead.jsRefactor.rename",
           "when": "editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.selectRefactoring",
           "when": "editorHasSelection && editorLangId == javascript"
@@ -361,7 +349,6 @@
           "command": "cmstead.jsRefactor.selectRefactoring",
           "when": "editorHasSelection && editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.shiftParams",
           "when": "editorLangId == javascript"
@@ -370,7 +357,6 @@
           "command": "cmstead.jsRefactor.shiftParams",
           "when": "editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.wrapInArrowFunction",
           "when": "editorHasSelection && editorLangId == javascript"
@@ -379,7 +365,6 @@
           "command": "cmstead.jsRefactor.wrapInArrowFunction",
           "when": "editorHasSelection && editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.wrapInAsyncFunction",
           "when": "editorHasSelection && editorLangId == javascript"
@@ -388,7 +373,6 @@
           "command": "cmstead.jsRefactor.wrapInAsyncFunction",
           "when": "editorHasSelection && editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.wrapInCondition",
           "when": "editorHasSelection && editorLangId == javascript"
@@ -397,7 +381,6 @@
           "command": "cmstead.jsRefactor.wrapInCondition",
           "when": "editorHasSelection && editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.wrapInFunction",
           "when": "editorHasSelection && editorLangId == javascript"
@@ -406,7 +389,6 @@
           "command": "cmstead.jsRefactor.wrapInFunction",
           "when": "editorHasSelection && editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.wrapInGenerator",
           "when": "editorHasSelection && editorLangId == javascript"
@@ -415,7 +397,6 @@
           "command": "cmstead.jsRefactor.wrapInGenerator",
           "when": "editorHasSelection && editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.wrapInIIFE",
           "when": "editorHasSelection && editorLangId == javascript"
@@ -424,7 +405,6 @@
           "command": "cmstead.jsRefactor.wrapInIIFE",
           "when": "editorHasSelection && editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.wrapInTryCatch",
           "when": "editorHasSelection && editorLangId == javascript"
@@ -433,7 +413,6 @@
           "command": "cmstead.jsRefactor.wrapInTryCatch",
           "when": "editorHasSelection && editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.wrapSelection",
           "when": "editorHasSelection && editorLangId == javascript"
@@ -454,7 +433,6 @@
           "group": "5_refactor",
           "when": "editorLangId == html"
         },
-
         {
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
           "group": "5_refactor",
@@ -465,7 +443,6 @@
           "group": "5_refactor",
           "when": "editorLangId == html"
         },
-        
         {
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
           "group": "5_refactor",
@@ -476,7 +453,6 @@
           "group": "5_refactor",
           "when": "editorLangId == html"
         },
-        
         {
           "command": "cmstead.jsRefactor.addExport",
           "group": "5_refactor",
@@ -487,7 +463,6 @@
           "group": "5_refactor",
           "when": "editorLangId == html"
         },
-        
         {
           "command": "cmstead.jsRefactor.extractMethod",
           "group": "5_refactor",
@@ -498,7 +473,6 @@
           "group": "5_refactor",
           "when": "editorHasSelection && editorLangId == html"
         },
-        
         {
           "command": "cmstead.jsRefactor.extractVariable",
           "group": "5_refactor",
@@ -509,7 +483,6 @@
           "group": "5_refactor",
           "when": "editorHasSelection && editorLangId == html"
         },
-        
         {
           "command": "cmstead.jsRefactor.inlineVariable",
           "group": "5_refactor",
@@ -520,7 +493,6 @@
           "group": "5_refactor",
           "when": "editorLangId == html"
         },
-        
         {
           "command": "cmstead.jsRefactor.introduceFunction",
           "group": "5_refactor",
@@ -531,7 +503,6 @@
           "group": "5_refactor",
           "when": "editorLangId == html"
         },
-        
         {
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
           "group": "5_refactor",
@@ -542,7 +513,6 @@
           "group": "5_refactor",
           "when": "editorLangId == html"
         },
-        
         {
           "command": "cmstead.jsRefactor.negateExpression",
           "group": "5_refactor",
@@ -553,7 +523,6 @@
           "group": "5_refactor",
           "when": "editorLangId == html"
         },
-        
         {
           "command": "cmstead.jsRefactor.rename",
           "group": "5_refactor",
@@ -564,7 +533,6 @@
           "group": "5_refactor",
           "when": "editorLangId == html"
         },
-        
         {
           "command": "cmstead.jsRefactor.shiftParams",
           "group": "5_refactor",
@@ -575,7 +543,6 @@
           "group": "5_refactor",
           "when": "editorLangId == html"
         },
-        
         {
           "command": "cmstead.jsRefactor.wrapSelection",
           "group": "5_refactor",
