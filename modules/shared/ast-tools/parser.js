@@ -2,10 +2,20 @@
 
 const esprima = require('esprima');
 
-function parser(typeHelper) {
+function parser(htmlToJs, typeHelper) {
     
+    const scriptPattern = /<script/i;
+
+    function isHtmlSource (sourceLines) {
+        return sourceLines.filter(value => scriptPattern.test(value)).length > 0;
+    }
+
     function parseSourceLines(sourceLines) {
-        return parse(sourceLines.join('\n'));
+        const parseableSource = isHtmlSource(sourceLines)
+            ? htmlToJs.convert(sourceLines)
+            : sourceLines;
+
+        return parse(parseableSource.join('\n'));
     }
 
     function parse(sourceText) {
