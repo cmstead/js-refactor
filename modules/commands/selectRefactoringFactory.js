@@ -1,16 +1,11 @@
 'use strict';
 
 function selectRefactoringFactory(
-    coordsHelper,
     logger,
-    parser,
-    scopeHelper,
-    vsCodeHelperFactory
 ) {
     
     return function (callback) {
         const container = require('../../container');
-        const vsCodeHelper = vsCodeHelperFactory();
         
         const commandActionData = require('../json/commandActionData');
         const refactoringKeys = Object
@@ -25,15 +20,6 @@ function selectRefactoringFactory(
             }, {});
 
         function selectActionAndRun() {
-            const activeEditor = vsCodeHelper.getActiveEditor();
-            const sourceLines = vsCodeHelper.getSourceLines();
-            const ast = parser.parseSourceLines(sourceLines);
-
-            const selectionEditorCoords = vsCodeHelper.getSelectedCoords();
-            const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
-
-            const getExpressionPath = scopeHelper.getExpressionPath(selectionAstCoords, ast);
-
             var items = Object.keys(refactoringKeys);
             var options = {
                 prompt: 'Apply refactoring:'
