@@ -190,6 +190,10 @@ Nevertheless, following are the required elements of a good pull request:
 
 ## Updates ##
 
+### 2.15.1 ###
+
+- Added basic Vue single file components (consider this a released alpha)
+
 ### 2.14.1 ###
 
 - Enabled most refactorings in standard HTML within script tags
