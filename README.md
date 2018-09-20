@@ -6,6 +6,7 @@ JS Refactor is the Javascript automated refactoring tool for Visual Studio Code,
 ### Supported Language Files ###
 
 - Javascript/ECMAScript (.js)
+- Vue single file components (.vue)
 - HTML (.htm, .html)
 
 ## Installation
