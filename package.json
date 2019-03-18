@@ -558,8 +558,6 @@
     }
   },
   "dependencies": {
-    "babel-core": "^6.25.0",
-    "babylon": "^6.17.4",
     "dject": "^1.4.0",
     "esprima": "^4.0.0",
     "estraverse": "^4.2.0",

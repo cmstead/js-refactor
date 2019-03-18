@@ -189,15 +189,27 @@ function selectionExpressionHelper(
     }
 
     function getIdentifiersInScope(astCoords, ast) {
+        const acceptableParentNodeTypes = [
+            'identifier',
+            'binaryexpression'
+        ];
+
         let identifiers = [];
+        let parentNodeType = null;
 
         astHelper.traverse(ast, {
-            enter: astHelper.onMatch(
-                isIdentifierInScope(astCoords),
-                function (node) {
-                    identifiers.push(node);
-                }
-            )
+            enter: function (node) {
+                astHelper.onMatch(
+                    isIdentifierInScope(astCoords),
+                    function (node) {
+                        if (acceptableParentNodeTypes.includes(parentNodeType)) {
+                            identifiers.push(node);
+                        }
+                    }
+                )(node);
+
+                parentNodeType = node.type.toLowerCase();
+            }
         });
 
         return identifiers;
@@ -257,16 +269,6 @@ function selectionExpressionHelper(
         });
 
         return foundNode;
-    }
-
-    function last(values) {
-        return values[values.length - 1];
-    }
-
-    function isExcludableExpression(node) {
-        return node.type === 'CallExpression'
-            && node.callee.type === 'MemberExpression'
-            && !typeHelper.isTypeOf('isNonNativeIdentifier')(node.callee.object);
     }
 
     function getLastIndependentExpression(ast) {
