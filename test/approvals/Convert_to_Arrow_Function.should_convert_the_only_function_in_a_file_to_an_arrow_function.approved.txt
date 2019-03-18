@@ -1,6 +1,6 @@
 [
     [
-        "const hi = () => console.log('hi');",
+        "const hi = () => console.log('hi')",
         {
             "start": [
                 0,

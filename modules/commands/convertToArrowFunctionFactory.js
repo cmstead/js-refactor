@@ -65,11 +65,31 @@ function convertToArrowFunctionFactory(
             };
         }
 
+        function getLastCharacter(value) {
+            return value[value.length - 1];
+        }
+
+        function isLastCharacterASemicolon(value) {
+            const lastCharacter = getLastCharacter(value);
+            return lastCharacter === ';';
+        }
+
+        function cleanArrowFunction (arrowFunctionString) {
+            let resultFunction =  arrowFunctionString.trim();
+
+            while(isLastCharacterASemicolon(resultFunction)) {
+                resultFunction = resultFunction.slice(0, resultFunction.length - 1);
+            }
+            
+            return resultFunction;
+        }
+
         function applyConversion(nearestFunctionExpression, sourceLines) {
             const activeEditor = vsCodeHelper.getActiveEditor();
             const functionEditorCoords = coordsHelper.coordsFromAstToEditor(nearestFunctionExpression.loc);
             const arrowFunctionContext = buildArrowFunctionContext(nearestFunctionExpression, sourceLines);
-            const arrowFunction = getTemplateBuilder(nearestFunctionExpression).build(arrowFunctionContext);
+            const unsanitizedArrowFunction = getTemplateBuilder(nearestFunctionExpression).build(arrowFunctionContext);
+            const arrowFunction = cleanArrowFunction(unsanitizedArrowFunction);
 
             editActionsFactory(activeEditor)
                 .applySetEdit(arrowFunction, functionEditorCoords)

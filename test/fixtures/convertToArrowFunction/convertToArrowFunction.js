@@ -9,7 +9,7 @@ function fnWithNoArgs(foo, bar) {
     console.log('testing 2');
 }
 
-function myNamedFunction (value) {
+function myNamedFunction(value) {
     return value;
 }
 
@@ -17,3 +17,7 @@ const myFunction = function (foo, { bar, baz }, ...rest) {
     console.log(foo, bar);
     console.log(baz, rest);
 }
+
+var f = (function () {
+    return foo;
+});
