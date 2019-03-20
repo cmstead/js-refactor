@@ -1,6 +1,5 @@
 .vscode/**
 docs/**
-images/**
 typings/**
 test/**
 .gitignore
