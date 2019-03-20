@@ -1,6 +1,10 @@
 .vscode/**
+docs/**
+images/**
 typings/**
 test/**
 .gitignore
+.eslintrc
+build-docs.js
 jsconfig.json
 vsc-extension-quickstart.md
