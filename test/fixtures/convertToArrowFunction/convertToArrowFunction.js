@@ -21,3 +21,7 @@ const myFunction = function (foo, { bar, baz }, ...rest) {
 var f = (function () {
     return foo;
 });
+
+var f = (function (a) {
+    if (true) a = 0;
+});

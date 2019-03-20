@@ -213,4 +213,28 @@ describe('Convert to Arrow Function', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
+    it('should enclose complex 1-line expressions in curly braces', function() {
+        var sourceTokens = readSource('./test/fixtures/convertToArrowFunction/convertToArrowFunction.js');
+
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 24,
+                    _character: 15
+                },
+                _end: {
+                    _line: 24,
+                    _character: 15
+                }
+            }]
+        };
+
+        subcontainer.build('convertToArrowFunctionFactory')(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
 });

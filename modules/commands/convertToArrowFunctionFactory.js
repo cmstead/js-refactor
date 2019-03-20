@@ -37,13 +37,20 @@ function convertToArrowFunctionFactory(
             }
         }
 
+        function isComplexExpression(functionExpression) {
+            const functionBody = functionExpression.body.body;
+
+            return functionBody.length > 1
+                || functionBody[0].type.toLowerCase() === 'ifstatement';
+        }
+
         function getTemplateBuilder(nearestFunctionExpression) {
-            const isMultiline = nearestFunctionExpression.body.body.length > 1;
+            const expressionIsComplex = isComplexExpression(nearestFunctionExpression);
             const isNamed = Boolean(nearestFunctionExpression.id);
 
-            if (isNamed && isMultiline) {
+            if (isNamed && expressionIsComplex) {
                 return templateHelper.templates.namedMultilineArrowFunction;
-            } else if (isMultiline) {
+            } else if (expressionIsComplex) {
                 return templateHelper.templates.multilineArrowFunction;
             } else if (isNamed) {
                 return templateHelper.templates.namedSingleLineArrowFunction;
@@ -74,13 +81,13 @@ function convertToArrowFunctionFactory(
             return lastCharacter === ';';
         }
 
-        function cleanArrowFunction (arrowFunctionString) {
-            let resultFunction =  arrowFunctionString.trim();
+        function cleanArrowFunction(arrowFunctionString) {
+            let resultFunction = arrowFunctionString.trim();
 
-            while(isLastCharacterASemicolon(resultFunction)) {
+            while (isLastCharacterASemicolon(resultFunction)) {
                 resultFunction = resultFunction.slice(0, resultFunction.length - 1);
             }
-            
+
             return resultFunction;
         }
 
