@@ -23,3 +23,9 @@ function anotherFunction() {
         g: [2, 3]
     };
 }
+
+function test() {
+    const sum = 2 + 2;
+
+    return (sum);
+}

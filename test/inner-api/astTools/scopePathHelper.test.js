@@ -15,6 +15,12 @@ describe('scopePathHelper', function () {
     beforeEach(function () {
         const subcontainer = container.new();
 
+        const loggerFake = {
+            error: () => {}
+        }
+
+        subcontainer.register(() => loggerFake, 'logger');
+
         coordsHelper = subcontainer.build('coordsHelper');
         const parser = subcontainer.build('parser');
 

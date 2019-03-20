@@ -15,6 +15,13 @@ describe('selectionVariableHelper', function() {
 
     beforeEach(function() {
         subcontainer = container.new();
+        
+        const loggerFake = {
+            error: () => {}
+        }
+
+        subcontainer.register(() => loggerFake, 'logger');
+
         parser = subcontainer.build('parser');
         selectionVariableHelper = subcontainer.build('selectionVariableHelper');
     });

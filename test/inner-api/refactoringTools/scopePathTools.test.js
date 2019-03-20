@@ -15,6 +15,12 @@ describe('scopePathTools', function () {
     beforeEach(function() {
         const subcontainer = container.new();
         
+        const loggerFake = {
+            error: () => {}
+        }
+
+        subcontainer.register(() => loggerFake, 'logger');
+        
         scopePathHelper = subcontainer.build('scopePathHelper');
         scopePathTools = subcontainer.build('scopePathTools');
         parser = subcontainer.build('parser');

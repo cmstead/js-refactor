@@ -11,7 +11,15 @@ describe('parser', function () {
     let parser;
 
     beforeEach(function () {
-        parser = container.build('parser');
+        const subcontainer = container.new();
+
+        const loggerFake = {
+            error: () => {}
+        }
+
+        subcontainer.register(() => loggerFake, 'logger');
+
+        parser = subcontainer.build('parser');
     });
 
     describe('parse', function () {

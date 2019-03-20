@@ -5,15 +5,22 @@ const esprima = require('esprima');
 function parser(htmlToJs, typeHelper, logger) {
     
     const scriptPattern = /<script/i;
+    const shebangPattern = /^\#\!\/usr\/bin\/env node/i;
 
     function isHtmlSource (sourceLines) {
         return sourceLines.filter(value => scriptPattern.test(value)).length > 0;
     }
 
+    function stripShebang(sourceLines) {
+        return sourceLines.map(function(line) {
+            return shebangPattern.test(line) ? '' : line;
+        });
+    }
+
     function parseSourceLines(sourceLines) {
         const parseableSource = isHtmlSource(sourceLines)
             ? htmlToJs.convert(sourceLines)
-            : sourceLines;
+            : stripShebang(sourceLines);
 
         return parse(parseableSource.join('\n'));
     }

@@ -183,6 +183,30 @@ describe('Inline Variable', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
+    it('should inline correctly when identifier is inside parentheses', function () {
+        var sourceTokens = readSource('./test/fixtures/inlineVariable/inlineVariable.js');
+
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 27,
+                    _character: 12
+                },
+                _end: {
+                    _line: 27,
+                    _character: 12
+                }
+            }]
+        };
+
+        subcontainer.build('inlineVariableFactory')(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+
     it.skip('should inline variable from comma-separated variable list', function () {
         // I don't even know what this is going to look like yet.
     });

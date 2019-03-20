@@ -191,7 +191,8 @@ function selectionExpressionHelper(
     function getIdentifiersInScope(astCoords, ast) {
         const acceptableParentNodeTypes = [
             'identifier',
-            'binaryexpression'
+            'binaryexpression',
+            'returnstatement'
         ];
 
         let identifiers = [];
