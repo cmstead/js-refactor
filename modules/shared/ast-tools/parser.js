@@ -2,7 +2,7 @@
 
 const esprima = require('esprima');
 
-function parser(htmlToJs, typeHelper) {
+function parser(htmlToJs, typeHelper, logger) {
     
     const scriptPattern = /<script/i;
 
@@ -18,12 +18,7 @@ function parser(htmlToJs, typeHelper) {
         return parse(parseableSource.join('\n'));
     }
 
-    function parse(sourceText) {
-        const options = {
-            loc: true,
-            jsx: true
-        };
-
+    function tryParseSource(sourceText, options) {
         let ast = null;
 
         try {
@@ -32,7 +27,20 @@ function parser(htmlToJs, typeHelper) {
             ast =  esprima.parseModule(sourceText, options);
         }
 
-        return ast;
+        return ast
+    }
+
+    function parse(sourceText) {
+        const options = {
+            loc: true,
+            jsx: true
+        };
+
+        try{
+            return tryParseSource(sourceText, options);
+        } catch (e) {
+            logger.error(`Unable to parse source code. Parser error: ${e.message}`);
+        }
     }
 
     return {
