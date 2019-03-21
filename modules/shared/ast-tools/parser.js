@@ -3,26 +3,36 @@
 const esprima = require('esprima');
 
 function parser(htmlToJs, typeHelper, logger) {
-    
+
     const scriptPattern = /<script/i;
     const shebangPattern = /^\#\!\/usr\/bin\/env node/i;
 
-    function isHtmlSource (sourceLines) {
+    function isHtmlSource(sourceLines) {
         return sourceLines.filter(value => scriptPattern.test(value)).length > 0;
     }
 
     function stripShebang(sourceLines) {
-        return sourceLines.map(function(line) {
+        return sourceLines.map(function (line) {
             return shebangPattern.test(line) ? '' : line;
         });
     }
 
-    function parseSourceLines(sourceLines) {
-        const parseableSource = isHtmlSource(sourceLines)
+    function buildParseableSource(sourceLines) {
+        return isHtmlSource(sourceLines)
             ? htmlToJs.convert(sourceLines)
             : stripShebang(sourceLines);
+    }
+
+    function parseSourceLines(sourceLines) {
+        const parseableSource = buildParseableSource(sourceLines);
 
         return parse(parseableSource.join('\n'));
+    }
+
+    function tryParseSourceLines(sourceLines) {
+        const parseableSource = buildParseableSource(sourceLines);
+
+        return tryParse(parseableSource.join('\n'));
     }
 
     function tryParseSource(sourceText, options) {
@@ -31,20 +41,24 @@ function parser(htmlToJs, typeHelper, logger) {
         try {
             ast = esprima.parseScript(sourceText, options);
         } catch (e) {
-            ast =  esprima.parseModule(sourceText, options);
+            ast = esprima.parseModule(sourceText, options);
         }
 
         return ast
     }
 
-    function parse(sourceText) {
+    function tryParse(sourceText) {
         const options = {
             loc: true,
             jsx: true
         };
 
-        try{
-            return tryParseSource(sourceText, options);
+        return tryParseSource(sourceText, options);
+    }
+
+    function parse(sourceText) {
+        try {
+            return tryParse(sourceText);
         } catch (e) {
             logger.error(`Unable to parse source code. Parser error: ${e.message}`);
         }
@@ -52,14 +66,18 @@ function parser(htmlToJs, typeHelper, logger) {
 
     return {
         parse: typeHelper.enforce(
-            'sourceText => ast', 
+            'sourceText => ast',
             parse),
 
         parseSourceLines: typeHelper.enforce(
             'sourceLines => ast',
-            parseSourceLines)
+            parseSourceLines),
+
+        tryParseSourceLines: typeHelper.enforce(
+            'sourceLines => ast',
+            tryParseSourceLines)
     };
-    
+
 }
 
 module.exports = parser;

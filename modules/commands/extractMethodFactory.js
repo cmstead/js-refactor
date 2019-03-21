@@ -86,7 +86,7 @@ function extractMethodFactory(
             let body;
 
             try {
-                const ast = parser.parseSourceLines(wrappedSelectionLines);
+                const ast = parser.tryParseSourceLines(wrappedSelectionLines);
                 body = buildFunctionBody(wrappedSelectionLines, ast);
             } catch (e) {
                 body = selectedLines.join('\n');
