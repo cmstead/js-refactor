@@ -132,6 +132,10 @@ JS Refactor supports several common code snippets:
 - Anonymous Function (anon)
 - Arrow Function (arrow)
 - Async Function (async)
+- Class
+    - Definition (class)
+    - Constructor (ctor)
+    - Method (method)
 - Condition Block (cond)
 - Console Log (log)
 - Export statement -- single variable (export)
