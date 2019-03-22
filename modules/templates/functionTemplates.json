@@ -12,7 +12,7 @@
     "classMethod": [
         "{name} ({arguments}) {",
         "{body}",
-        "},\n\n"
+        "}\n\n"
     ],
     "functionCall": [
         "{name}({arguments})"

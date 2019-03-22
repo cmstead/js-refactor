@@ -13,7 +13,7 @@
         }
     ],
     [
-        "aNewFunction () {\nreturn console.log({\n            baz: 3 + 4\n        });\n}\n\n",
+        "aNewFunction () {\nreturn console.log({\n            baz: 3 + 4\n        });\n},\n\n",
         {
             "start": [
                 54,
