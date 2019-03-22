@@ -1,122 +1,128 @@
 {
     "addExport": {
         "command": "addExportFactory",
-        "description": "Add Export",
+        "description": "Action : Add Export",
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "convertToArrowFunction": {
         "command": "convertToArrowFunctionFactory",
-        "description": "Convert to Arrow Function",
+        "description": "Refactor : Convert to Arrow Function",
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "convertToFunctionExpression": {
         "command": "convertToFunctionExpressionFactory",
-        "description": "Convert to Function Expression",
+        "description": "Refactor : Convert to Function Expression",
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "convertToTemplateLiteral": {
         "command": "convertToTemplateLiteralFactory",
-        "description": "Convert to Template Literal",
+        "description": "Refactor : Convert to Template Literal",
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "extractMethod": {
         "command": "extractMethodFactory",
-        "description": "Extract Method",
+        "description": "Refactor : Extract Method",
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "extractVariable": {
         "command": "extractVariableFactory",
-        "description": "Extract Variable",
+        "description": "Refactor : Extract Variable",
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "inlineVariable": {
         "command": "inlineVariableFactory",
-        "description": "Inline Variable",
+        "description": "Refactor : Inline Variable",
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "introduceFunction": {
         "command": "introduceFunctionFactory",
-        "description": "Introduce Function",
+        "description": "Action : Introduce Function",
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "liftAndNameFunctionExpression": {
         "command": "liftAndNameFunctionFactory",
-        "description": "Lift and Name Function",
+        "description": "Refactor : Lift and Name Function",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
+    "markAsAsync": {
+        "command": "markAsAsyncFactory",
+        "description": "Action : Mark Function as Async",
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "negateExpression": {
         "command": "negateExpressionFactory",
-        "description": "Negate Expression",
+        "description": "Action : Negate Expression",
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "selectRefactoring": {
         "command": "selectRefactoringFactory",
-        "description": "Select Refactoring",
-        "excludeFromSelectList": true,
+        "description": "Action : Select Refactoring",
+        "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "shiftParams": {
         "command": "shiftParamsFactory",
-        "description": "Shift Params",
+        "description": "Action : Shift Params",
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
     "wrapInArrowFunction": {
         "command": "wrapInArrowFunctionFactory",
-        "description": "Wrap In Arrow Function",
-        "excludeFromSelectList": true,
+        "description": "Wrap Selection : in Arrow Function",
+        "excludeFromSelectList": false,
         "excludeFromWrapList": false
     },
     "wrapInAsyncFunction": {
         "command": "wrapInAsyncFunctionFactory",
-        "description": "Wrap In Async Function",
-        "excludeFromSelectList": true,
+        "description": "Wrap Selection : in Async Function",
+        "excludeFromSelectList": false,
         "excludeFromWrapList": false
     },
     "wrapInCondition": {
         "command": "wrapInConditionFactory",
-        "description": "Wrap In Condition",
-        "excludeFromSelectList": true,
+        "description": "Wrap Selection : in Condition",
+        "excludeFromSelectList": false,
         "excludeFromWrapList": false
     },
     "wrapInFunction": {
         "command": "wrapInFunctionFactory",
-        "description": "Wrap In Function",
-        "excludeFromSelectList": true,
+        "description": "Wrap Selection : in Function",
+        "excludeFromSelectList": false,
         "excludeFromWrapList": false
     },
     "wrapInGenerator": {
         "command": "wrapInGeneratorFactory",
-        "description": "Wrap In Generator",
-        "excludeFromSelectList": true,
+        "description": "Wrap Selection : in Generator",
+        "excludeFromSelectList": false,
         "excludeFromWrapList": false
     },
     "wrapInIIFE": {
         "command": "wrapInIIFEFactory",
-        "description": "Wrap In IIFE",
-        "excludeFromSelectList": true,
+        "description": "Wrap Selection : in IIFE",
+        "excludeFromSelectList": false,
         "excludeFromWrapList": false
     },
     "wrapInTryCatch": {
         "command": "wrapInTryCatchFactory",
-        "description": "Wrap In Try Catch",
-        "excludeFromSelectList": true,
+        "description": "Wrap Selection : in Try Catch",
+        "excludeFromSelectList": false,
         "excludeFromWrapList": false
     },
     "wrapSelection": {
         "command": "wrapSelectionFactory",
-        "description": "Add Export",
-        "excludeFromSelectList": false,
+        "description": "Action : Wrap Selection",
+        "excludeFromSelectList": true,
         "excludeFromWrapList": true
     }
 }

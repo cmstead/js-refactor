@@ -83,9 +83,12 @@ JS Refactor supports the following refactorings (explanations below):
 - Export function
     - Windows/Linux: ctrl+shift+j x
     - Mac: cmd+shift+j x
-- Shift parameters
+- Mark function as async
     - Windows/Linux: ctrl+shift+j s
     - Mac: cmd+shift+j s
+- Shift parameters
+    - Windows/Linux: ctrl+shift+j p
+    - Mac: cmd+shift+j p
 - Wrap selection
     - Windows/Linux: ctrl+shift+j w
     - Mac: cmd+shift+j w
