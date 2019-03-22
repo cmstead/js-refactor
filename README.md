@@ -198,6 +198,11 @@ Nevertheless, following are the required elements of a good pull request:
 
 ## Updates ##
 
+### 2.17.1 ##
+
+- Added "mark function as async"
+- Updated snippets to support common class syntax
+
 ### 2.16.0 ##
 
 - Updated extract method to support class extractions
