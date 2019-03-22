@@ -33,11 +33,25 @@ function extractMethodFactory(
             logger.input(inputOptions, callback);
         }
 
-        function buildFunctionStrings(context, selectedScope) {
-            const scopeIsObject = extractHelper.isObjectScope(selectedScope);
+        function getFunctionTemplateKey (selectedScope) {
+            let functionTemplateKey = null;
 
-            const functionTemplateKey = scopeIsObject ? 'method' : 'function';
-            const functionCallTemplateKey = scopeIsObject ? 'methodCall' : 'functionCall';
+            if(extractHelper.isObjectScope(selectedScope)) {
+                functionTemplateKey = 'method';
+            } else if(extractHelper.isClassScope(selectedScope)) {
+                functionTemplateKey = 'classMethod';
+            } else {
+                functionTemplateKey = 'function';
+            }
+
+            return functionTemplateKey;
+        }
+
+        function buildFunctionStrings(context, selectedScope) {
+            const functionTemplateKey = getFunctionTemplateKey(selectedScope);
+            const functionCallTemplateKey = functionTemplateKey === 'function'
+                ? 'functionCall'
+                : 'methodCall';
 
             const newFunction = templateHelper.templates[functionTemplateKey].build(context);
             const newFunctionCall = templateHelper.templates[functionCallTemplateKey].build(context);
@@ -104,7 +118,7 @@ function extractMethodFactory(
             const activeEditor = vsCodeHelper.getActiveEditor();
 
             const ast = parser.parseSourceLines(sourceLines);
-            const scopePath = extractHelper.getScopePath(selectionEditorCoords, ast);
+            const scopePath = extractHelper.getMethodScopePath(selectionEditorCoords, ast);
 
             scopeHelper.getScopeQuickPick(scopePath, sourceLines, function (selectedOption) {
                 getFunctionName(function (functionName) {

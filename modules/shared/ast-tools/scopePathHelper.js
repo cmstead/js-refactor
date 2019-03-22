@@ -5,36 +5,38 @@ function scopePathHelper(
     typeHelper
 ) {
 
-    const isScopeElement = astHelper.isNodeType([
-        'ObjectExpression',
-        'FunctionExpression',
-        'FunctionDeclaration',
+    const scopeElementTypes = [
         'ArrowFunctionExpression',
-        'MethodDefinition'
-    ]);
+        'FunctionDeclaration',
+        'FunctionExpression',
+        'MethodDefinition',
+        'ObjectExpression'
+    ];
+
+    const methodScopeElementTypes = scopeElementTypes.concat('ClassBody');
 
     function isBlockArrowFunction(node) {
         return node.type !== 'ArrowFunctionExpression'
             || node.body.type === 'BlockStatement';
     }
 
-    function isScopePath(node) {
-        return isScopeElement(node) && isBlockArrowFunction(node);
+    function isScopePath(elementTypes, node) {
+        return astHelper.isNodeType(elementTypes)(node) && isBlockArrowFunction(node);
     }
 
     const isScopePathElement =
-        (coords) =>
+        (elementTypes, coords) =>
             (node) =>
                 astHelper.coordsInNode(coords, node)
                 && !astHelper.nodeMatchesCoords(coords, node)
-                && isScopePath(node);
+                && isScopePath(elementTypes, node);
 
-    function buildScopePath(coords, ast) {
+    function buildScopePathWithElementTypes(elementTypes, coords, ast) {
         let lastPathNode = null;
 
         const scopePath = [ast];
         const capturePath = (node) => {
-            if(lastPathNode === null || lastPathNode.type !== 'MethodDefinition') {
+            if (lastPathNode === null || lastPathNode.type !== 'MethodDefinition') {
                 scopePath.push(node);
             }
 
@@ -43,16 +45,28 @@ function scopePathHelper(
 
         astHelper.traverse(ast, {
             enter: astHelper.onMatch(function (node) {
-                return isScopePathElement(coords)(node);
+                return isScopePathElement(elementTypes, coords)(node);
             }, capturePath)
         });
 
         return scopePath;
     }
 
+    function buildScopePath(coords, ast) {
+        return buildScopePathWithElementTypes(scopeElementTypes, coords, ast);
+    }
+    
+    function buildMethodScopePath(coords, ast) {
+        return buildScopePathWithElementTypes(methodScopeElementTypes, coords, ast);
+    }
+
     return {
+        buildMethodScopePath: typeHelper.enforce(
+            'astCoords, ast => array<astNode>',
+            buildMethodScopePath),
+
         buildScopePath: typeHelper.enforce(
-            'astCoords, ast => array<astNode>', 
+            'astCoords, ast => array<astNode>',
             buildScopePath)
     };
 }

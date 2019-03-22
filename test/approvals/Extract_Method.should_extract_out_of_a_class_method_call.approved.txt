@@ -1,0 +1,28 @@
+[
+    [
+        "this.aNewFunction()",
+        {
+            "start": [
+                55,
+                8
+            ],
+            "end": [
+                57,
+                10
+            ]
+        }
+    ],
+    [
+        "aNewFunction () {\nreturn console.log({\n            baz: 3 + 4\n        });\n},\n\n",
+        {
+            "start": [
+                54,
+                4
+            ],
+            "end": [
+                54,
+                4
+            ]
+        }
+    ]
+]

@@ -50,3 +50,11 @@ function outerTestFunction() {
 }
 
 module.exports = obj;
+
+class MyClass {
+    foo() {
+        console.log({
+            baz: 3 + 4
+        });
+    }
+}

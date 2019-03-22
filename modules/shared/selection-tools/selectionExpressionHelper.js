@@ -10,6 +10,7 @@ function selectionExpressionHelper(
         'ReturnStatement',
         'CallExpression',
         'MemberExpression',
+        'MethodDefinition',
         'IfStatement',
         'Property',
         'FunctionDeclaration'

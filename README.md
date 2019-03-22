@@ -191,6 +191,10 @@ Nevertheless, following are the required elements of a good pull request:
 
 ## Updates ##
 
+### 2.16.0 ##
+
+- Updated extract method to support class extractions
+
 ### 2.15.1 ###
 
 - Added basic Vue single file components (consider this a released alpha)
