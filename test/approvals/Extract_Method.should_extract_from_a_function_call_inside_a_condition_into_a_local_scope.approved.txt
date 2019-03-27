@@ -1,6 +1,6 @@
 [
     [
-        "aNewFunction()",
+        "aNewFunction(foo)",
         {
             "start": [
                 23,
@@ -13,7 +13,7 @@
         }
     ],
     [
-        "function aNewFunction () {\nreturn foo + 1;\n}\n\n",
+        "function aNewFunction (foo) {\nreturn foo + 1;\n}\n\n",
         {
             "start": [
                 23,

@@ -42,9 +42,9 @@ function outerTestFunction() {
 
         function checkNodeProperties(node) {
             return {
-                    operatorOk: true,
-                    hasStringLiteral: node.type === 'Literal' && typeof node.value === 'string'
-                };
+                operatorOk: true,
+                hasStringLiteral: node.type === 'Literal' && typeof node.value === 'string'
+            };
         }
     };
 }
@@ -58,3 +58,21 @@ class MyClass {
         });
     }
 }
+
+function bar() {}
+
+(function someWrappingFunction() {
+
+    function testFunction(foo1) {
+
+        if (foo1) {
+            bar('something', function (error, data) {
+                const somethingElse = 'message: ' + foo1;
+    
+                console.log(somethingElse);
+            });
+        }
+    
+    }
+    
+})();

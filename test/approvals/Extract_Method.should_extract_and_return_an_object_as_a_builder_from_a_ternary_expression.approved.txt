@@ -13,7 +13,7 @@
         }
     ],
     [
-        "function aNewFunction (node) {\nreturn {\n                    operatorOk: true,\n                    hasStringLiteral: node.type === 'Literal' && typeof node.value === 'string'\n                };\n}\n\n",
+        "function aNewFunction (node) {\nreturn {\n                operatorOk: true,\n                hasStringLiteral: node.type === 'Literal' && typeof node.value === 'string'\n            };\n}\n\n",
         {
             "start": [
                 42,

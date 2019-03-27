@@ -361,7 +361,7 @@ function selectionExpressionHelper(
             getNearestExpressionInScope),
 
         getLastIndependentExpression: typeHelper.enforce(
-            'ast => variant<null, astNode>',
+            'astNode => variant<null, astNode>',
             getLastIndependentExpression)
     };
 }

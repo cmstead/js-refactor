@@ -1,6 +1,6 @@
 [
     [
-        "aNewFunction(test)",
+        "aNewFunction(test, foo)",
         {
             "start": [
                 23,
@@ -13,7 +13,7 @@
         }
     ],
     [
-        "function aNewFunction (test) {\nif (test(foo + 1)) {\n        console.log(foo);\n        something([1, 2, 3]);\n    }\n}\n\n",
+        "function aNewFunction (test, foo) {\nif (test(foo + 1)) {\n        console.log(foo);\n        something([1, 2, 3]);\n    }\n}\n\n",
         {
             "start": [
                 23,

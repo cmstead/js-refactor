@@ -301,4 +301,30 @@ describe('Extract Method', function () {
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
+
+    it('should extract function without capturing inappropriate identifiers', function() {
+        setupOptions.selectedScopeIndex = 1;
+
+        const sourceTokens = readSource('./test/fixtures/extractMethod/extractMethod.js');
+        const activeTextEditorOptions = {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [66, 8],
+                    end: [70, 11]
+                }
+            }
+        };
+
+        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor = activeTextEditor;
+
+        const extractMethodFactory = subcontainer.build('extractMethodFactory');
+
+        const callback = function () { };
+
+        extractMethodFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
 });

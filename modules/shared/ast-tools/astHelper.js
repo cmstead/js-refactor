@@ -84,7 +84,7 @@ function astHelper(estraverse, typeHelper) {
             onMatch),
 
         traverse: typeHelper.enforce(
-            'ast, traversalOptions => undefined',
+            'astNode, traversalOptions => undefined',
             traverse)
     };
 

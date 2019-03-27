@@ -1,0 +1,28 @@
+[
+    [
+        "aNewFunction(foo1)",
+        {
+            "start": [
+                66,
+                8
+            ],
+            "end": [
+                70,
+                11
+            ]
+        }
+    ],
+    [
+        "function aNewFunction (foo1) {\n\n        if (foo1) {\n            bar('something', function (error, data) {\n                const somethingElse = 'message: ' + foo1;\n    \n}\n\n",
+        {
+            "start": [
+                65,
+                4
+            ],
+            "end": [
+                65,
+                4
+            ]
+        }
+    ]
+]

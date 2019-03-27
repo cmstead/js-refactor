@@ -5,12 +5,10 @@ function selectionVariableHelper(
     typeHelper
 ) {
 
-    const isFunctionScope = astHelper.isNodeType(['FunctionDeclaration', 'FunctionExpression', 'ArrowFunctionExpression']);
-    const isVar = astHelper.isNodeType(['VariableDeclarator']);
-    const isIdentifier = astHelper.isNodeType(['Identifier']);
     const isMemberExpression = astHelper.isNodeType(['MemberExpression']);
-    const isFunctionDeclaration = astHelper.isNodeType(['FunctionDeclaration']);
-    const isProperty = astHelper.isNodeType(['Property']);
+    const isIdentifier = astHelper.isNodeType(['Identifier']);
+    const isNonNativeIdentifier = typeHelper.isTypeOf('nonNativeIdentifier');
+
 
     const isContainingNode =
         (destinationAstCoords) =>
@@ -18,128 +16,122 @@ function selectionVariableHelper(
                 astHelper.coordsInNode(destinationAstCoords, node);
 
     const isNodeInSelection =
-        (astCoords, node) =>
-            astHelper.nodeInCoords(astCoords, node);
+        (astCoords) =>
+            (node) =>
+                astHelper.nodeInCoords(astCoords, node);
 
-    const isNonNativeIdentifier = typeHelper.isTypeOf('nonNativeIdentifier');
 
-    function processIdentifiers(identifiers) {
-        return function (node) {
-            const nodeIsNonNativeIdentifier = isNonNativeIdentifier(node);
+    function isFunctionNode(node) {
+        const acceptableFunctionNodes = [
+            'FunctionExpression',
+            'FunctionDeclaration',
+            'ArrowFunctionExpression',
+            'MethodDefinition'
+        ];
 
-            if (nodeIsNonNativeIdentifier && isIdentifier(node) && typeof node.name === 'string') {
-                identifiers[node.name] = true;
-            } else if (nodeIsNonNativeIdentifier && typeof node.object.name === 'string') {
-                identifiers[node.object.name] = true;
-            }
-        };
+        return acceptableFunctionNodes.includes(node.type);
     }
 
-    function processBoundVars(boundVars) {
-        return function (node) {
-            if (isVar(node)) {
-                const key = node.id.name;
-                boundVars[key] = true;
-            }
-        };
+    function isMemberObject(node, parentNode) {
+        return isMemberExpression(parentNode)
+            && parentNode.object.name === node.name;
     }
 
-    function processFunctionName(boundVars) {
-        return function (functionNode) {
-            if (functionNode.id !== null) {
-                boundVars[functionNode.id.name] = true;
-            }
-        }
+    function isMemberCall(node, parentNode) {
+        return isMemberExpression(parentNode)
+            && parentNode.object.name !== node.name
+            && parentNode.property.name !== node.name;
     }
 
-    function processFunctionParams(boundVars) {
-        return function (params) {
-            return params
-                .filter(param => param.type === 'Identifier')
-                .reduce(function (boundVarsObj, param) {
-                    boundVarsObj[param.name] = true;
-                    return boundVarsObj;
-                }, boundVars);
-        }
+    function isIdentifierBinding(node, parentNode) {
+        const acceptableParentNodes = [
+            'VariableDeclarator'
+        ];
+
+        const parentNodeType = parentNode.type;
+
+        return isFunctionNode(node) || acceptableParentNodes.includes(parentNodeType);
     }
 
-    function processFunction(boundVars) {
-        const processName = processFunctionName(boundVars);
-        const processParams = processFunctionParams(boundVars);
-
-        return function (functionNode) {
-            processName(functionNode);
-            processParams(functionNode.params);
-
-            return boundVars;
-        }
+    function isVariableBinding(node, parentNode) {
+        return isIdentifier(node) && isIdentifierBinding(node, parentNode);
     }
 
-    function last(values) {
-        return values[values.length - 1];
+    function isIdentifierUsage(node, parentNode) {
+        const acceptableParentNodes = [
+            'BinaryExpression',
+            'CallExpression',
+            'IfStatement',
+            'Literal',
+            'ReturnStatement'
+        ];
+
+        const parentNodeType = parentNode.type;
+
+        return isMemberObject(node, parentNode)
+            || isMemberCall(node, parentNode)
+            || acceptableParentNodes.includes(parentNodeType);
+    }
+
+    function isVariableUsage(node, parentNode) {
+        return isIdentifier(node) && isIdentifierUsage(node, parentNode);
     }
 
     function getUnboundVars(selectionAstCoords, destinationAstCoords, ast) {
-        let scopeStack = [];
-        let nodeStack = [];
+        let parentNode = ast;
+        let lastScopePathNode = ast;
+        let lastFunctionScope = null;
 
         let boundVars = {};
         let identifiers = {};
 
-        const processFunctionData = processFunction(boundVars);
-        const processFunctionNameValue = processFunctionName(boundVars);
-        const processIdentifier = processIdentifiers(identifiers);
-        const processVariable = processBoundVars(boundVars);
-        const isContainingScope = isContainingNode(destinationAstCoords);
+        const containsDestinationScope = isContainingNode(destinationAstCoords);
+        const isContainedInDestinationScope = isNodeInSelection(destinationAstCoords);
+        const isContainedInSelection = isNodeInSelection(selectionAstCoords)
 
         function addToBoundVars(key) {
             boundVars[key] = true;
         }
 
+        function addToIdentifiers(key) {
+            identifiers[key] = true;
+        }
+
         astHelper.traverse(ast, {
             enter: function (node) {
-                const parentNode = last(nodeStack);
-                const parentScope = last(scopeStack);
-
-                const isNativeIdentifier = isIdentifier(node) && !isNonNativeIdentifier(node);
-                const isPropertyIdentifier = isIdentifier(node)
-                    && isMemberExpression(parentNode)
-                    && parentNode.property === node;
-
-                nodeStack.push(node);
-
-                if (isFunctionScope(node)) {
-                    scopeStack.push(node);
-                }
-
-                const notInContainingScope = parentScope && !isContainingScope(parentScope);
-
-                if (isNativeIdentifier || isPropertyIdentifier) {
-                    if(!parentScope || isContainingScope(parentScope)) {
-                        addToBoundVars(node.name);
-                    }
-                } else if (isNodeInSelection(selectionAstCoords, node)) {
-                    processVariable(node);
-                    processIdentifier(node);
-                } else if (notInContainingScope) {
+                if (isIdentifier(node) && !isNonNativeIdentifier(node)) {
                     return;
                 }
 
-                if (isProperty(node)) {
-                    addToBoundVars(node.key.name);
-                } else if (isContainingScope(node) && isFunctionDeclaration(node)) {
-                    processFunctionData(node);
-                } else if (isFunctionDeclaration(node)) {
-                    processFunctionNameValue(node);
-                } else if (!isNodeInSelection(selectionAstCoords, node)) {
-                    processVariable(node);
+                if (node.type !== 'Identifier') {
+                    parentNode = node;
                 }
 
-            },
-            leave: function (node) {
-                nodeStack.pop();
-                if (last(scopeStack) === node) {
-                    scopeStack.pop();
+                if (isFunctionNode(node)) {
+                    lastFunctionScope = node;
+                }
+
+                if (containsDestinationScope(node)) {
+                    lastScopePathNode = node;
+                }
+
+                const isInBindingScope = isNodeInSelection(lastScopePathNode.loc)(node)
+                    || (isContainedInDestinationScope(node) && !isContainedInSelection(node));
+
+                if (isContainedInSelection(node)) {
+                    if (isVariableBinding(node, parentNode)) {
+                        addToBoundVars(node.name);
+                    } else if (isVariableUsage(node, parentNode)) {
+                        addToIdentifiers(node.name);
+                    }
+                } else if (lastFunctionScope === node && isInBindingScope) {
+                    if (typeof node.id === 'object' && node.id !== null) {
+                        addToBoundVars(node.id.name);
+                    }
+                } else if (isInBindingScope) {
+                    if (isVariableBinding(node, parentNode)) {
+                        addToBoundVars(node.name);
+                    }
                 }
             }
         });

@@ -33,12 +33,12 @@ function extractMethodFactory(
             logger.input(inputOptions, callback);
         }
 
-        function getFunctionTemplateKey (selectedScope) {
+        function getFunctionTemplateKey(selectedScope) {
             let functionTemplateKey = null;
 
-            if(extractHelper.isObjectScope(selectedScope)) {
+            if (extractHelper.isObjectScope(selectedScope)) {
                 functionTemplateKey = 'method';
-            } else if(extractHelper.isClassScope(selectedScope)) {
+            } else if (extractHelper.isClassScope(selectedScope)) {
                 functionTemplateKey = 'classMethod';
             } else {
                 functionTemplateKey = 'function';
@@ -62,20 +62,29 @@ function extractMethodFactory(
             };
         }
 
-        function buildFunctionBody(selectedLines, ast) {
-            const lastExpression = selectionExpressionHelper.getLastIndependentExpression(ast);
-
-            const lastExpressionEditorCoords = lastExpression.type === 'ExpressionStatement'
+        function getLastExpressionEditorCoords(lastExpression) {
+            return lastExpression.type === 'ExpressionStatement'
                 ? coordsHelper.coordsFromAstToEditor(lastExpression.expression.loc)
                 : coordsHelper.coordsFromAstToEditor(lastExpression.loc);
+        }
 
-            const bodyStartEditorCoords = {
-                start: [1, 0],
+        function buildBodyStartEditorCoords(lastExpressionEditorCoords) {
+            return {
+                start: [
+                    0, 1
+                ],
                 end: [
                     lastExpressionEditorCoords.start[0],
                     lastExpressionEditorCoords.start[1]
                 ]
             };
+        }
+
+        function buildFunctionBody(selectedLines, ast) {
+            const lastExpression = selectionExpressionHelper.getLastIndependentExpression(ast);
+
+            const lastExpressionEditorCoords = getLastExpressionEditorCoords(lastExpression);
+            const bodyStartEditorCoords = buildBodyStartEditorCoords(lastExpressionEditorCoords);
 
             let bodyStart = selectionHelper.getSelection(selectedLines, bodyStartEditorCoords);
             let lastExpressionSelection = selectionHelper.getSelection(selectedLines, lastExpressionEditorCoords);
@@ -95,13 +104,39 @@ function extractMethodFactory(
             return bodyStart.concat(lastExpressionSelection).join('\n');
         }
 
+        function getLastIndex(value) {
+            return value.length - 1;
+        }
+
+        function cleanAndWrapSelection(selectedLines) {
+            let selection = selectedLines.join('\n').trim();
+            let lastIndex = getLastIndex(selection);
+
+            while(selection.charAt(lastIndex) === ';') {
+                selection = selection.substring(0, lastIndex);
+                lastIndex = getLastIndex(selection);
+            }
+
+            return `(${selection})`.split('\n');
+        }
+
+        function tryParseSelection(selectedLines) {
+            const cleanedSelection = cleanAndWrapSelection(selectedLines);
+                const wrappedSelection = cleanedSelection;
+
+                return {
+                    ast: parser.tryParseSourceLines(wrappedSelection),
+                    wrappedSelection: wrappedSelection
+                };
+        }
+
         function buildInitialExtractMethodContext(selectedLines) {
-            const wrappedSelectionLines = ['('].concat(selectedLines).concat([')']);
             let body;
 
             try {
-                const ast = parser.tryParseSourceLines(wrappedSelectionLines);
-                body = buildFunctionBody(wrappedSelectionLines, ast);
+                const { ast, isRawSelection, wrappedSelection } = tryParseSelection(selectedLines);
+
+                body = buildFunctionBody(wrappedSelection, ast);
             } catch (e) {
                 body = selectedLines.join('\n');
             }
@@ -132,10 +167,10 @@ function extractMethodFactory(
 
                     const newMethodLocation = extractHelper
                         .getNewExtractionLocation(
-                        scopePath,
-                        selectedOptionIndex,
-                        selectionEditorCoords,
-                        ast
+                            scopePath,
+                            selectedOptionIndex,
+                            selectionEditorCoords,
+                            ast
                         );
 
 
