@@ -9,6 +9,7 @@ function inlineVariableFactory(
     scopePathHelper,
     selectionHelper,
     selectionExpressionHelper,
+    selectionVariableHelper,
     vsCodeHelperFactory
 ) {
 
@@ -77,7 +78,7 @@ function inlineVariableFactory(
                 .getSelection(sourceLines, expressionCoords)
                 .join('\n');
 
-            const documentUpdates = selectionExpressionHelper
+            const documentUpdates = selectionVariableHelper
                 .getIdentifiersInScope(varScope.loc, ast)
                 .filter((node) =>
                     isMatchingIdentifier(identifierName)(node)

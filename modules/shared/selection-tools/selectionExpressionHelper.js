@@ -216,18 +216,18 @@ function selectionExpressionHelper(
         let identifiers = [];
         let parentNodeType = null;
 
-        const captureNodeOnMatch = astHelper.onMatch(
-            isIdentifierInScope(astCoords),
-            function (node) {
-                if (acceptableParentNodeTypes.includes(parentNodeType)) {
-                    identifiers.push(node);
-                }
-            }
-        )
-
         astHelper.traverse(ast, {
             enter: function (node) {
-                captureNodeOnMatch(node);
+
+                astHelper.onMatch(
+                    isIdentifierInScope(astCoords),
+                    function (node) {
+                        if (acceptableParentNodeTypes.includes(parentNodeType)) {
+                            identifiers.push(node);
+                        }
+                    }
+                )(node);
+                
                 parentNodeType = node.type.toLowerCase();
             }
         });

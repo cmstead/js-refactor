@@ -6,6 +6,7 @@ function selectionVariableHelper(
 ) {
 
     const isMemberExpression = astHelper.isNodeType(['MemberExpression']);
+    const isProperty = astHelper.isNodeType(['Property']);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
     const isNonNativeIdentifier = typeHelper.isTypeOf('nonNativeIdentifier');
 
@@ -43,6 +44,12 @@ function selectionVariableHelper(
             && parentNode.property.name !== node.name;
     }
 
+    function isPropertyValue(node, parentNode) {
+        return isProperty(parentNode)
+            && parentNode.value.type === 'Identifier'
+            && parentNode.value.name === node.name;
+    }
+
     function isIdentifierBinding(node, parentNode) {
         const acceptableParentNodes = [
             'VariableDeclarator'
@@ -71,6 +78,7 @@ function selectionVariableHelper(
 
         return isMemberObject(node, parentNode)
             || isMemberCall(node, parentNode)
+            || isPropertyValue(node, parentNode)
             || acceptableParentNodes.includes(parentNodeType);
     }
 
@@ -122,33 +130,43 @@ function selectionVariableHelper(
                 }
 
                 const lastFunctionScope = last(functionStack);
-                const isContainedInContainingFunction = !Boolean(lastFunctionScope)
-                    || containsSelection(lastFunctionScope);
-                const functionScopeIsContainedInDestination = Boolean(lastFunctionScope)
-                    && isContainedInDestinationScope(lastFunctionScope);
+
+                const isContainedInScopePath =
+                    !Boolean(lastFunctionScope)
+                    || (
+                        !isContainedInDestinationScope(lastFunctionScope)
+                        && containsSelection(lastFunctionScope)
+                    );
 
 
                 const isInBindingScope = isNodeInSelection(lastScopePathNode.loc)(node)
                     || (isContainedInDestinationScope(node) && !isContainedInSelection(node));
 
-                if (isContainedInSelection(node)) {
-                    if (isVariableBinding(node, parentNode)) {
-                        addToBoundVars(node.name);
-                    } else if (isVariableUsage(node, parentNode)) {
-                        addToIdentifiers(node.name);
-                    }
-                } else if (lastFunctionScope === node && isInBindingScope) {
-                    if (typeof node.id === 'object' && node.id !== null) {
-                        addToBoundVars(node.id.name);
-                    }
-                } else if (
-                    isInBindingScope
-                    && isContainedInContainingFunction
-                    && !functionScopeIsContainedInDestination
+                const nodeIsContainedInSelection = isContainedInSelection(node);
+
+                if (
+                    nodeIsContainedInSelection
+                    && isVariableUsage(node, parentNode)
                 ) {
-                    if (isVariableBinding(node, parentNode)) {
-                        addToBoundVars(node.name);
-                    }
+                    addToIdentifiers(node.name);
+                } else if (
+                    lastFunctionScope === node
+                    && isInBindingScope
+                    && typeof node.id === 'object'
+                    && node.id !== null
+                ) {
+                    addToBoundVars(node.id.name);
+                } else if (
+                    (nodeIsContainedInSelection
+                        && isVariableBinding(node, parentNode))
+
+                    ||
+
+                    (isInBindingScope
+                        && isContainedInScopePath
+                        && isVariableBinding(node, parentNode))
+                ) {
+                    addToBoundVars(node.name);
                 }
             },
 
@@ -162,10 +180,41 @@ function selectionVariableHelper(
         return Object.keys(identifiers).filter(identifier => !boundVars[identifier]);
     }
 
+    function getIdentifiersInScope(astCoords, ast) {
+        let parentNode = ast;
+        let identifiers = [];
+
+        const containedInSelectedScope = isNodeInSelection(astCoords);
+
+        astHelper.traverse(ast, {
+            enter: function (node) {
+                if (isIdentifier(node) && !isNonNativeIdentifier(node)) {
+                    return;
+                }
+
+                if (node.type !== 'Identifier') {
+                    parentNode = node;
+                }
+
+                if (
+                    containedInSelectedScope(node)
+                    && isVariableUsage(node, parentNode)
+                ) {
+                    identifiers.push(node);
+                }
+            }
+        });
+
+        return identifiers;
+    }
+
     return {
         getUnboundVars: typeHelper.enforce(
             'selectionAstCoords: astCoords, destinationAstCoords: astCoords, ast => unboundVars',
-            getUnboundVars)
+            getUnboundVars),
+        getIdentifiersInScope: typeHelper.enforce(
+            'astCoords, ast => array<astNode>',
+            getIdentifiersInScope)
     };
 
 }
