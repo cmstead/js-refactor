@@ -64,9 +64,13 @@ function bar() {}
 (function someWrappingFunction() {
 
     function testFunction(foo1) {
+        var temp1 = 'something';
+        var temp2 = 'anotherThing';
 
         if (foo1) {
             bar('something', function (error, data) {
+                var aThing = [temp1, temp2];
+                
                 const somethingElse = 'message: ' + foo1;
     
                 console.log(somethingElse);

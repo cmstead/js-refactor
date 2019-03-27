@@ -59,6 +59,7 @@ function selectionVariableHelper(
 
     function isIdentifierUsage(node, parentNode) {
         const acceptableParentNodes = [
+            'ArrayExpression',
             'BinaryExpression',
             'CallExpression',
             'IfStatement',
@@ -77,16 +78,21 @@ function selectionVariableHelper(
         return isIdentifier(node) && isIdentifierUsage(node, parentNode);
     }
 
+    function last(values) {
+        return values[values.length - 1];
+    }
+
     function getUnboundVars(selectionAstCoords, destinationAstCoords, ast) {
         let parentNode = ast;
         let lastScopePathNode = ast;
-        let lastFunctionScope = null;
+        let functionStack = [];
 
         let boundVars = {};
         let identifiers = {};
 
         const containsDestinationScope = isContainingNode(destinationAstCoords);
         const isContainedInDestinationScope = isNodeInSelection(destinationAstCoords);
+        const containsSelection = isContainingNode(selectionAstCoords);
         const isContainedInSelection = isNodeInSelection(selectionAstCoords)
 
         function addToBoundVars(key) {
@@ -108,12 +114,19 @@ function selectionVariableHelper(
                 }
 
                 if (isFunctionNode(node)) {
-                    lastFunctionScope = node;
+                    functionStack.push(node);
                 }
 
                 if (containsDestinationScope(node)) {
                     lastScopePathNode = node;
                 }
+
+                const lastFunctionScope = last(functionStack);
+                const isContainedInContainingFunction = !Boolean(lastFunctionScope)
+                    || containsSelection(lastFunctionScope);
+                const functionScopeIsContainedInDestination = Boolean(lastFunctionScope)
+                    && isContainedInDestinationScope(lastFunctionScope);
+
 
                 const isInBindingScope = isNodeInSelection(lastScopePathNode.loc)(node)
                     || (isContainedInDestinationScope(node) && !isContainedInSelection(node));
@@ -128,10 +141,20 @@ function selectionVariableHelper(
                     if (typeof node.id === 'object' && node.id !== null) {
                         addToBoundVars(node.id.name);
                     }
-                } else if (isInBindingScope) {
+                } else if (
+                    isInBindingScope
+                    && isContainedInContainingFunction
+                    && !functionScopeIsContainedInDestination
+                ) {
                     if (isVariableBinding(node, parentNode)) {
                         addToBoundVars(node.name);
                     }
+                }
+            },
+
+            leave: function (node) {
+                if (last(functionStack) === node) {
+                    functionStack.pop();
                 }
             }
         });

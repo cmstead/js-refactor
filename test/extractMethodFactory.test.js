@@ -310,8 +310,8 @@ describe('Extract Method', function () {
             optionsData: {
                 lines: sourceTokens,
                 selection: {
-                    start: [66, 8],
-                    end: [70, 11]
+                    start: [69, 8],
+                    end: [77, 9]
                 }
             }
         };

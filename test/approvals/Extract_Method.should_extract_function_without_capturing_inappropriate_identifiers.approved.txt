@@ -1,19 +1,19 @@
 [
     [
-        "aNewFunction(foo1)",
+        "aNewFunction(foo1, temp1, temp2)",
         {
             "start": [
-                66,
+                69,
                 8
             ],
             "end": [
-                70,
-                11
+                77,
+                9
             ]
         }
     ],
     [
-        "function aNewFunction (foo1) {\n\n        if (foo1) {\n            bar('something', function (error, data) {\n                const somethingElse = 'message: ' + foo1;\n    \n}\n\n",
+        "function aNewFunction (foo1, temp1, temp2) {\nif (foo1) {\n            bar('something', function (error, data) {\n                var aThing = [temp1, temp2];\n                \n                const somethingElse = 'message: ' + foo1;\n    \n                console.log(somethingElse);\n            });\n        }\n}\n\n",
         {
             "start": [
                 65,
