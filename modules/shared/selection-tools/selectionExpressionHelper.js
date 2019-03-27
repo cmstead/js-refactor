@@ -206,35 +206,6 @@ function selectionExpressionHelper(
         return currentScope;
     }
 
-    function getIdentifiersInScope(astCoords, ast) {
-        const acceptableParentNodeTypes = [
-            'identifier',
-            'binaryexpression',
-            'returnstatement'
-        ];
-
-        let identifiers = [];
-        let parentNodeType = null;
-
-        astHelper.traverse(ast, {
-            enter: function (node) {
-
-                astHelper.onMatch(
-                    isIdentifierInScope(astCoords),
-                    function (node) {
-                        if (acceptableParentNodeTypes.includes(parentNodeType)) {
-                            identifiers.push(node);
-                        }
-                    }
-                )(node);
-                
-                parentNodeType = node.type.toLowerCase();
-            }
-        });
-
-        return identifiers;
-    }
-
     function getVariableDeclarationsInScope(astCoords, ast) {
         let variableDeclarations = [];
 
@@ -312,10 +283,6 @@ function selectionExpressionHelper(
     }
 
     return {
-        getIdentifiersInScope: typeHelper.enforce(
-            'astCoords, ast => array<astNode>',
-            getIdentifiersInScope),
-
         getSelectionExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
             getSelectionExpression),
