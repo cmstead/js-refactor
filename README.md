@@ -42,6 +42,7 @@ JS Refactor supports the following refactorings (explanations below):
 
 **Other Utilities:**
 - Convert To Arrow Function
+- Convert To Function Declaration
 - Convert To Function Expression
 - Convert To Template Literal
 - Export Function
@@ -111,6 +112,10 @@ the refactoring and select the correct refactoring from the list. You will be pr
 #### Other Utilities ####
 
 **Convert To Arrow Function** Converts a function expression to an arrow function.
+
+**Convert To Function Declaration** Converts a function expression, assigned to a variable, to a function declaration.
+
+**Convert To Function Expression** Converts an arrow function to a function expression.
 
 **Convert To Template Literal** Converts a string concatenation expression to a template literal.
 
@@ -197,6 +202,10 @@ Nevertheless, following are the required elements of a good pull request:
 - **Pull requests may not be claimed as intellectual property of a company or other external agency.**
 
 ## Updates ##
+
+### 2.18.0 ##
+
+- Added "convert to function declaration"
 
 ### 2.17.1 ##
 

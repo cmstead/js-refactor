@@ -22,6 +22,7 @@
   ],
   "activationEvents": [
     "onCommand:cmstead.jsRefactor.convertToArrowFunction",
+    "onCommand:cmstead.jsRefactor.convertToFunctionDeclaration",
     "onCommand:cmstead.jsRefactor.convertToFunctionExpression",
     "onCommand:cmstead.jsRefactor.convertToTemplateLiteral",
     "onCommand:cmstead.jsRefactor.addExport",
@@ -95,6 +96,11 @@
         "command": "cmstead.jsRefactor.convertToArrowFunction",
         "title": "JS Refactor: Convert To Arrow Function",
         "description": "Convert function from a function expression to an arrow function"
+      },
+      {
+        "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
+        "title": "JS Refactor: Convert To Function Expression",
+        "description": "Convert function expression assignment to a function declaration"
       },
       {
         "command": "cmstead.jsRefactor.convertToFunctionExpression",
@@ -273,6 +279,14 @@
           "when": "editorLangId == html"
         },
         {
+          "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
+          "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
+          "when": "editorLangId == html"
+        },
+        {
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
           "when": "editorLangId == javascript"
         },
@@ -441,6 +455,16 @@
         },
         {
           "command": "cmstead.jsRefactor.convertToArrowFunction",
+          "group": "5_refactor",
+          "when": "editorLangId == html"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
+          "group": "5_refactor",
+          "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
           "group": "5_refactor",
           "when": "editorLangId == html"
         },

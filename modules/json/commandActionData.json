@@ -11,6 +11,12 @@
         "excludeFromSelectList": false,
         "excludeFromWrapList": true
     },
+    "convertToFunctionDeclaration": {
+        "command": "convertToFunctionDeclarationFactory",
+        "description": "Refactor : Convert to Function Declaration",
+        "excludeFromSelectList": false,
+        "excludeFromWrapList": true
+    },
     "convertToFunctionExpression": {
         "command": "convertToFunctionExpressionFactory",
         "description": "Refactor : Convert to Function Expression",
