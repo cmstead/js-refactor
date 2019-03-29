@@ -1,0 +1,15 @@
+[
+    [
+        "function myFunction(foo) {\n    console.log(foo);\n}",
+        {
+            "start": [
+                0,
+                19
+            ],
+            "end": [
+                2,
+                1
+            ]
+        }
+    ]
+]

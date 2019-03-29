@@ -49,7 +49,8 @@ function selectionExpressionHelper(
     const isBinaryExpression = astHelper.isNodeType(['BinaryExpression']);
     const isIdentifier = astHelper.isNodeType(['Identifier']);
     const isIfStatement = astHelper.isNodeType(['IfStatement']);
-    const isVariabeDeclaration = astHelper.isNodeType(['VariableDeclaration']);
+    const isVariableDeclaration = astHelper.isNodeType(['VariableDeclaration']);
+    const isVariableDeclarator = astHelper.isNodeType(['VariableDeclarator']);
 
 
     function isExpressionNode(node) {
@@ -82,19 +83,20 @@ function selectionExpressionHelper(
     const isNearMatch = isLocalityMatchingNode(astHelper.coordsInNode);
     const isMatchInScope = isLocalityMatchingNode(astHelper.nodeInCoords);
 
-    const isNearNode = isNearMatch(isExpressionNode);
-    const isNearUsageNode = isNearMatch(isUsageNode);
-    const isNearIdentifierExpression = isNearMatch(isIdentifier);
-    const isNearVariableOrFunction = isNearMatch(isVariableOrFunction);
+    const isNearArrowFunction = isNearMatch(isArrowFunction);
+    const isNearBinaryExpression = isNearMatch(isBinaryExpression);
     const isNearConditional = isNearMatch(isIfStatement);
     const isNearFunctionExpression = isNearMatch(isFunctionDeclarationOrExpression);
+    const isNearIdentifierExpression = isNearMatch(isIdentifier);
     const isNearMethodDeclaration = isNearMatch(isMethodDeclaration);
-    const isNearArrowFunction = isNearMatch(isArrowFunction);
+    const isNearNode = isNearMatch(isExpressionNode);
+    const isNearUsageNode = isNearMatch(isUsageNode);
+    const isNearVariableDeclaration = isNearMatch(isVariableDeclaration);
+    const isNearVariableDeclarator = isNearMatch(isVariableDeclarator);
+    const isNearVariableOrFunction = isNearMatch(isVariableOrFunction);
 
-    const isNearBinaryExpression = isNearMatch(isBinaryExpression);
 
-    const isIdentifierInScope = isMatchInScope(isIdentifier);
-    const isVariableDeclarationInScope = isMatchInScope(isVariabeDeclaration);
+    const isVariableDeclarationInScope = isMatchInScope(isVariableDeclaration);
 
     function getSelectionExpression(astCoords, ast) {
         let currentScope = null;
@@ -282,6 +284,23 @@ function selectionExpressionHelper(
         return foundNode;
     }
 
+    function getNearestFunctionAssignment(astCoords, ast) {
+        let foundNode = null;
+
+        astHelper.traverse(ast, {
+            enter: astHelper.onMatch(
+                isNearVariableDeclarator(astCoords),
+                function (node) {
+                    if(Boolean(node.init) && node.init.type === 'FunctionExpression') {
+                        foundNode = node;
+                    }
+                }
+            )
+        });
+
+        return foundNode;
+    }
+
     return {
         getSelectionExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
@@ -294,6 +313,10 @@ function selectionExpressionHelper(
         getNearestIfCondition: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
             getNearestIfCondition),
+
+        getNearestFunctionAssignment: typeHelper.enforce(
+            'astCoords, ast => variant<null, astNode>',
+            getNearestFunctionAssignment),
 
         getNearestFunctionExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
