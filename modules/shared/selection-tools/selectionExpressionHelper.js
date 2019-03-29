@@ -289,9 +289,9 @@ function selectionExpressionHelper(
 
         astHelper.traverse(ast, {
             enter: astHelper.onMatch(
-                isNearVariableDeclarator(astCoords),
+                isNearVariableDeclaration(astCoords),
                 function (node) {
-                    if(Boolean(node.init) && node.init.type === 'FunctionExpression') {
+                    if(Boolean(node.declarations[0].init) && node.declarations[0].init.type === 'FunctionExpression') {
                         foundNode = node;
                     }
                 }

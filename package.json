@@ -99,7 +99,7 @@
       },
       {
         "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
-        "title": "JS Refactor: Convert To Function Expression",
+        "title": "JS Refactor: Convert To Function Declaration",
         "description": "Convert function expression assignment to a function declaration"
       },
       {

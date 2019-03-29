@@ -16,7 +16,7 @@ function convertToFunctionDeclarationFactory(
         const vsCodeHelper = vsCodeHelperFactory();
 
         function getFunctionExpressionString(nearestFunctionAssignment, sourceLines) {
-            const functionExpression = nearestFunctionAssignment.init;
+            const functionExpression = nearestFunctionAssignment.declarations[0].init;
             const functionExpressionEditorLocation = coordsHelper.coordsFromAstToEditor(functionExpression.loc);
             const functionExpressionLines = selectionHelper.getSelection(sourceLines, functionExpressionEditorLocation);
 
@@ -25,7 +25,7 @@ function convertToFunctionDeclarationFactory(
 
         function getFunctionDeclarationString(nearestFunctionAssignment, sourceLines) {
             const functionExpressionString = getFunctionExpressionString(nearestFunctionAssignment, sourceLines);
-            const functionName = nearestFunctionAssignment.id.name;
+            const functionName = nearestFunctionAssignment.declarations[0].id.name;
 
             return functionExpressionString.replace(/^function\s*\(/, `function ${functionName}(`);
 
@@ -33,8 +33,8 @@ function convertToFunctionDeclarationFactory(
 
         function writeFunctionDeclarationToDocument(functionDeclarationString, nearestFunctionAssignment) {
             const activeEditor = vsCodeHelper.getActiveEditor();
-            const functionExpression = nearestFunctionAssignment.init;
-            const functionExpressionEditorLocation = coordsHelper.coordsFromAstToEditor(functionExpression.loc);
+            const variableDeclarationNode = nearestFunctionAssignment;
+            const functionExpressionEditorLocation = coordsHelper.coordsFromAstToEditor(variableDeclarationNode.loc);
 
             const editActions = editActionsFactory(activeEditor);
 
@@ -46,12 +46,13 @@ function convertToFunctionDeclarationFactory(
         return function () {
             const selectionEditorCoords = vsCodeHelper.getSelectionCoords();
             const selectionAstCoords = coordsHelper.coordsFromEditorToAst(selectionEditorCoords);
-
+            
             const sourceLines = vsCodeHelper.getSourceLines();
             const ast = parser.parseSourceLines(sourceLines);
-
+            
             const nearestFunctionAssignment = selectionExpressionHelper.getNearestFunctionAssignment(selectionAstCoords, ast);
-
+            
+            
             if (nearestFunctionAssignment === null) {
                 logger.info('Unable to locate an appropriate function assignment to convert');
             } else {
