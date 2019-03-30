@@ -34,21 +34,6 @@ describe('coordsHelper', function () {
 
     });
 
-    describe('coordsFromEditorToDocument', function () {
-
-        it('should convert VS Code editor coordinates to document format', function () {
-            const documentCoords = {
-                start: [0, 0],
-                end: [10, 11]
-            };
-
-            const editorCoords = coordsHelper.coordsFromEditorToDocument(documentCoords);
-
-            this.verify(testUtils.prettyJson(editorCoords));
-        });
-
-    });
-
     describe('coordsFromEditorToAst', function () {
 
         it('should convert VS Code editor selection coordinates to AST format', function () {

@@ -26,7 +26,6 @@ function extractHelper(
 
     const isObjectScope = isScopeType('object');
     const isClassScope = isScopeType('classbody');
-    const isProgramScope = isScopeType('program');
 
     const isMethodDefinition = (node) => node.type === 'MethodDefinition';
 
@@ -77,11 +76,7 @@ function extractHelper(
 
         isClassScope: typeHelper.enforce(
             'astNode => boolean',
-            isClassScope),
-
-        isProgramScope: typeHelper.enforce(
-            'astNode => boolean',
-            isProgramScope),
+            isClassScope)
 
     }
 }

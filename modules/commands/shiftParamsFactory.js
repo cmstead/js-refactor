@@ -1,6 +1,7 @@
 'use strict';
 
 function shiftParamsFactory (
+    arrayUtils,
     coordsHelper,
     editActionsFactory,
     logger,
@@ -14,18 +15,10 @@ function shiftParamsFactory (
 
         const vsCodeHelper = vsCodeHelperFactory();
 
-        function first(values) {
-            return values[0];
-        }
-
-        function last(values) {
-            return values[values.length - 1];
-        }
-
         function getOuterAstCoords(expressionArray) {
             return {
-                start: first(expressionArray).loc.start,
-                end: last(expressionArray).loc.end
+                start: arrayUtils.first(expressionArray).loc.start,
+                end: arrayUtils.last(expressionArray).loc.end
             }
         }
         function buildParamValues(functionExpression, sourceLines) {

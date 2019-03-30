@@ -33,11 +33,6 @@ function selectionExportHelper(
             && isExportExpression(node.expression.left);
     }
 
-    function isOneLineExport(left, right) {
-        return isNestedExportExpression(left.object)
-            || !isObjectExpression(right);
-    }
-
     function isMultilineExport(left, right) {
         return isSimpleExportExpression(left)
             && isObjectExpression(right);
@@ -60,10 +55,6 @@ function selectionExportHelper(
         getExportNode: typeHelper.enforce(
             'ast => variant<null, astNode>',
             getExportNode),
-        
-        isOneLineExport: typeHelper.enforce(
-            'left:astNode, right:astNode => boolean',
-            isOneLineExport),
         
         isMultilineExport: typeHelper.enforce(
             'left:astNode, right:astNode => boolean',

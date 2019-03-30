@@ -1,15 +1,25 @@
 'use strict';
 
 function selectionVariableHelper(
+    arrayUtils,
     astHelper,
+    nodeTypes,
+    nodeTypeValidator,
     typeHelper
 ) {
 
-    const isMemberExpression = astHelper.isNodeType(['MemberExpression']);
-    const isProperty = astHelper.isNodeType(['Property']);
-    const isIdentifier = astHelper.isNodeType(['Identifier']);
     const isNonNativeIdentifier = typeHelper.isTypeOf('nonNativeIdentifier');
 
+    function isFunctionNode(node) {
+        const acceptableFunctionNodes = [
+            nodeTypes.FunctionExpression,
+            nodeTypes.FunctionDeclaration,
+            nodeTypes.ArrowFunctionExpression,
+            nodeTypes.MethodDefinition
+        ];
+
+        return acceptableFunctionNodes.includes(node.type);
+    }
 
     const isContainingNode =
         (destinationAstCoords) =>
@@ -22,37 +32,26 @@ function selectionVariableHelper(
                 astHelper.nodeInCoords(astCoords, node);
 
 
-    function isFunctionNode(node) {
-        const acceptableFunctionNodes = [
-            'FunctionExpression',
-            'FunctionDeclaration',
-            'ArrowFunctionExpression',
-            'MethodDefinition'
-        ];
-
-        return acceptableFunctionNodes.includes(node.type);
-    }
-
     function isMemberObject(node, parentNode) {
-        return isMemberExpression(parentNode)
+        return nodeTypeValidator.isMemberExpression(parentNode)
             && parentNode.object.name === node.name;
     }
 
     function isMemberCall(node, parentNode) {
-        return isMemberExpression(parentNode)
+        return nodeTypeValidator.isMemberExpression(parentNode)
             && parentNode.object.name !== node.name
             && parentNode.property.name !== node.name;
     }
 
     function isPropertyValue(node, parentNode) {
-        return isProperty(parentNode)
-            && parentNode.value.type === 'Identifier'
+        return nodeTypeValidator.isProperty(parentNode)
+            && nodeTypeValidator.isIdentifier(parentNode.value)
             && parentNode.value.name === node.name;
     }
 
     function isIdentifierBinding(node, parentNode) {
         const acceptableParentNodes = [
-            'VariableDeclarator'
+            nodeTypes.VariableDeclarator
         ];
 
         const parentNodeType = parentNode.type;
@@ -61,17 +60,17 @@ function selectionVariableHelper(
     }
 
     function isVariableBinding(node, parentNode) {
-        return isIdentifier(node) && isIdentifierBinding(node, parentNode);
+        return nodeTypeValidator.isIdentifier(node) && isIdentifierBinding(node, parentNode);
     }
 
     function isIdentifierUsage(node, parentNode) {
         const acceptableParentNodes = [
-            'ArrayExpression',
-            'BinaryExpression',
-            'CallExpression',
-            'IfStatement',
-            'Literal',
-            'ReturnStatement'
+            nodeTypes.ArrayExpression,
+            nodeTypes.BinaryExpression,
+            nodeTypes.CallExpression,
+            nodeTypes.IfStatement,
+            nodeTypes.Literal,
+            nodeTypes.ReturnStatement
         ];
 
         const parentNodeType = parentNode.type;
@@ -83,11 +82,7 @@ function selectionVariableHelper(
     }
 
     function isVariableUsage(node, parentNode) {
-        return isIdentifier(node) && isIdentifierUsage(node, parentNode);
-    }
-
-    function last(values) {
-        return values[values.length - 1];
+        return nodeTypeValidator.isIdentifier(node) && isIdentifierUsage(node, parentNode);
     }
 
     function getUnboundVars(selectionAstCoords, destinationAstCoords, ast) {
@@ -113,11 +108,11 @@ function selectionVariableHelper(
 
         astHelper.traverse(ast, {
             enter: function (node) {
-                if (isIdentifier(node) && !isNonNativeIdentifier(node)) {
+                if (nodeTypeValidator.isIdentifier(node) && !isNonNativeIdentifier(node)) {
                     return;
                 }
 
-                if (node.type !== 'Identifier') {
+                if (!nodeTypeValidator.isIdentifier(node)) {
                     parentNode = node;
                 }
 
@@ -129,7 +124,7 @@ function selectionVariableHelper(
                     lastScopePathNode = node;
                 }
 
-                const lastFunctionScope = last(functionStack);
+                const lastFunctionScope = arrayUtils.last(functionStack);
 
                 const isContainedInScopePath =
                     !Boolean(lastFunctionScope)
@@ -171,7 +166,7 @@ function selectionVariableHelper(
             },
 
             leave: function (node) {
-                if (last(functionStack) === node) {
+                if (arrayUtils.last(functionStack) === node) {
                     functionStack.pop();
                 }
             }
@@ -188,11 +183,11 @@ function selectionVariableHelper(
 
         astHelper.traverse(ast, {
             enter: function (node) {
-                if (isIdentifier(node) && !isNonNativeIdentifier(node)) {
+                if (nodeTypeValidator.isIdentifier(node) && !isNonNativeIdentifier(node)) {
                     return;
                 }
 
-                if (node.type !== 'Identifier') {
+                if (!nodeTypeValidator.isIdentifier(node)) {
                     parentNode = node;
                 }
 
@@ -208,13 +203,43 @@ function selectionVariableHelper(
         return identifiers;
     }
 
+    function getNearestIdentifier(astCoords, ast) {
+        let parentNode = ast;
+        let foundNode = null;
+
+        const nodeContainsSelection = isContainingNode(astCoords);
+
+        astHelper.traverse(ast, {
+            enter: astHelper.onMatch(
+                (node) => nodeContainsSelection(node),
+                function (node) {
+                    if (!nodeTypeValidator.isIdentifier(node)) {
+                        parentNode = node;
+                    }
+
+                    if (nodeTypeValidator.isIdentifier(node)
+                        && (
+                            isIdentifierBinding(node, parentNode)
+                            || isIdentifierUsage(node, parentNode))) {
+                        foundNode = node;
+                    }
+                }
+            )
+        });
+
+        return foundNode;
+    }
+
     return {
-        getUnboundVars: typeHelper.enforce(
-            'selectionAstCoords: astCoords, destinationAstCoords: astCoords, ast => unboundVars',
-            getUnboundVars),
         getIdentifiersInScope: typeHelper.enforce(
             'astCoords, ast => array<astNode>',
-            getIdentifiersInScope)
+            getIdentifiersInScope),
+        getNearestIdentifier: typeHelper.enforce(
+            'astCoords, ast => variant<null, astNode>',
+            getNearestIdentifier),
+        getUnboundVars: typeHelper.enforce(
+            'selectionAstCoords: astCoords, destinationAstCoords: astCoords, ast => unboundVars',
+            getUnboundVars)
     };
 
 }

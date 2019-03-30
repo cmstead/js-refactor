@@ -2,55 +2,48 @@
 
 function selectionExpressionHelper(
     astHelper,
+    nodeTypes,
+    nodeTypeValidator,
     typeHelper
 ) {
 
     const wrappingNodeTypes = [
-        'VariableDeclaration',
-        'ReturnStatement',
-        'CallExpression',
-        'MemberExpression',
-        'MethodDefinition',
-        'IfStatement',
-        'Property',
-        'FunctionDeclaration'
+        nodeTypes.VariableDeclaration,
+        nodeTypes.ReturnStatement,
+        nodeTypes.CallExpression,
+        nodeTypes.MemberExpression,
+        nodeTypes.MethodDefinition,
+        nodeTypes.IfStatement,
+        nodeTypes.Property,
+        nodeTypes.FunctionDeclaration
     ];
 
     const exclusionWrappingNodeTypes = [
-        'ArrowFunctionExpression',
-        'BinaryExpression'
+        nodeTypes.ArrowFunctionExpression,
+        nodeTypes.BinaryExpression
     ];
 
     const variableOrFunctionTypes = [
-        'FunctionDeclaration',
-        'VariableDeclaration'
+        nodeTypes.FunctionDeclaration,
+        nodeTypes.VariableDeclaration
     ];
-
-    const functionDeclarationOrExpression = [
-        'FunctionDeclaration',
-        'FunctionExpression'
-    ]
 
     const usageNode = [
-        'CallExpression',
-        'VariableDeclaration',
-        'Property'
+        nodeTypes.CallExpression,
+        nodeTypes.VariableDeclaration,
+        nodeTypes.Property
     ];
 
+
+    function isFunctionDeclarationOrExpression(node) {
+        return nodeTypeValidator.isFunctionDeclaration(node)
+            || nodeTypeValidator.isFunctionExpression(node);
+    }
+
     const isExclusionWrappingNode = astHelper.isNodeType(exclusionWrappingNodeTypes);
-    const isFunctionDeclarationOrExpression = astHelper.isNodeType(functionDeclarationOrExpression);
-    const isMethodDeclaration = astHelper.isNodeType(['MethodDefinition']);
-    const isReturnStatement = astHelper.isNodeType(['ReturnStatement']);
     const isUsageNode = astHelper.isNodeType(usageNode);
     const isVariableOrFunction = astHelper.isNodeType(variableOrFunctionTypes);
     const isWrappingNode = astHelper.isNodeType(wrappingNodeTypes);
-
-    const isArrowFunction = astHelper.isNodeType(['ArrowFunctionExpression']);
-    const isBinaryExpression = astHelper.isNodeType(['BinaryExpression']);
-    const isIdentifier = astHelper.isNodeType(['Identifier']);
-    const isIfStatement = astHelper.isNodeType(['IfStatement']);
-    const isVariableDeclaration = astHelper.isNodeType(['VariableDeclaration']);
-    const isVariableDeclarator = astHelper.isNodeType(['VariableDeclarator']);
 
 
     function isExpressionNode(node) {
@@ -83,20 +76,19 @@ function selectionExpressionHelper(
     const isNearMatch = isLocalityMatchingNode(astHelper.coordsInNode);
     const isMatchInScope = isLocalityMatchingNode(astHelper.nodeInCoords);
 
-    const isNearArrowFunction = isNearMatch(isArrowFunction);
-    const isNearBinaryExpression = isNearMatch(isBinaryExpression);
-    const isNearConditional = isNearMatch(isIfStatement);
+    const isNearArrowFunction = isNearMatch(nodeTypeValidator.isArrowFunctionExpression);
+    const isNearBinaryExpression = isNearMatch(nodeTypeValidator.isBinaryExpression);
+    const isNearConditional = isNearMatch(nodeTypeValidator.isIfStatement);
     const isNearFunctionExpression = isNearMatch(isFunctionDeclarationOrExpression);
-    const isNearIdentifierExpression = isNearMatch(isIdentifier);
-    const isNearMethodDeclaration = isNearMatch(isMethodDeclaration);
+    const isNearIdentifierExpression = isNearMatch(nodeTypeValidator.isIdentifier);
+    const isNearMethodDefinition = isNearMatch(nodeTypeValidator.isMethodDefinition);
     const isNearNode = isNearMatch(isExpressionNode);
     const isNearUsageNode = isNearMatch(isUsageNode);
-    const isNearVariableDeclaration = isNearMatch(isVariableDeclaration);
-    const isNearVariableDeclarator = isNearMatch(isVariableDeclarator);
+    const isNearVariableDeclaration = isNearMatch(nodeTypeValidator.isVariableDeclaration);
     const isNearVariableOrFunction = isNearMatch(isVariableOrFunction);
 
 
-    const isVariableDeclarationInScope = isMatchInScope(isVariableDeclaration);
+    const isVariableDeclarationInScope = isMatchInScope(nodeTypeValidator.isVariableDeclaration);
 
     function getSelectionExpression(astCoords, ast) {
         let currentScope = null;
@@ -168,7 +160,7 @@ function selectionExpressionHelper(
 
         astHelper.traverse(ast, {
             enter: astHelper.onMatch(
-                isNearMethodDeclaration(astCoords),
+                isNearMethodDefinition(astCoords),
                 function (node) {
                     currentScope = node;
                 }
@@ -270,7 +262,7 @@ function selectionExpressionHelper(
 
         astHelper.traverse(ast, {
             enter: function (node) {
-                if (nodeStack.length === 1 && !isReturnStatement(node)) {
+                if (nodeStack.length === 1 && !nodeTypeValidator.isReturnStatement(node)) {
                     foundNode = node;
                 }
 
@@ -291,7 +283,7 @@ function selectionExpressionHelper(
             enter: astHelper.onMatch(
                 isNearVariableDeclaration(astCoords),
                 function (node) {
-                    if(Boolean(node.declarations[0].init) && node.declarations[0].init.type === 'FunctionExpression') {
+                    if(Boolean(node.declarations[0].init) && node.declarations[0].init.type === nodeTypes.FunctionExpression) {
                         foundNode = node;
                     }
                 }

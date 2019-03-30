@@ -11,7 +11,7 @@ require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
 let sinon = require('sinon');
 
-describe.skip('markAsAsyncFactory', function () {
+describe.skip('renameFactory', function () {
     var subcontainer;
     var applySetEditSpy;
     var vsCodeProperties;
@@ -48,7 +48,7 @@ describe.skip('markAsAsyncFactory', function () {
         mocker.getMock('logger').api.quickPick = quickPickSpy;
     });
 
-    it('should log an error if no variable can be found to rename', function () {
+    it('should log an error if no identifier can be found to rename', function () {
         var sourceTokens = readSource('./test/fixtures/rename/rename.js');
 
         const activeTextEditorOptions = {

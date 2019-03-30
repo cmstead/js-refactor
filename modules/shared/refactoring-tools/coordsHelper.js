@@ -18,19 +18,6 @@ function coordsHelper(
         }
     }
 
-    function coordsFromEditorToDocument(editorCoords) {
-        return {
-            _start: {
-                _line: editorCoords.start[0],
-                _character: editorCoords.start[1],
-            },
-            _end: {
-                _line: editorCoords.end[0],
-                _character: editorCoords.end[1],
-            }
-        };
-    }
-
     function coordsFromEditorToAst(editorCoords) {
         return {
             start: {
@@ -62,10 +49,6 @@ function coordsHelper(
         coordsFromDocumentToEditor: typeHelper.enforce(
             'documentCoords => editorCoords',
             coordsFromDocumentToEditor),
-
-        coordsFromEditorToDocument: typeHelper.enforce(
-            'editorCoords => documentCoords',
-            coordsFromEditorToDocument),
 
         coordsFromEditorToAst: typeHelper.enforce(
             'editorCoords => astCoords',
