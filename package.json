@@ -573,6 +573,7 @@
   },
   "dependencies": {
     "dject": "^1.13.3",
+    "espree": "^5.0.1",
     "esprima": "^4.0.0",
     "estraverse": "^4.2.0",
     "jfp": "^4.0.0",

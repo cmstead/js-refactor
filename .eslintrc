@@ -1,6 +1,6 @@
 {
     "extends": "eslint:recommended",
-    "parser": "esprima",
+    "parser": "espree",
     "env": {
         "browser": true,
         "node": true

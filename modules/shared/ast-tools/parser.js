@@ -1,8 +1,6 @@
 'use strict';
 
-const esprima = require('esprima');
-
-function parser(htmlToJs, typeHelper, logger) {
+function parser(htmlToJs, espree, typeHelper, logger) {
 
     const scriptPattern = /<script/i;
     const shebangPattern = /^\#\!\/usr\/bin\/env node/i;
@@ -36,21 +34,16 @@ function parser(htmlToJs, typeHelper, logger) {
     }
 
     function tryParseSource(sourceText, options) {
-        let ast = null;
-
-        try {
-            ast = esprima.parseScript(sourceText, options);
-        } catch (e) {
-            ast = esprima.parseModule(sourceText, options);
-        }
-
-        return ast
+        return espree.parse(sourceText, options);
     }
 
     function tryParse(sourceText) {
         const options = {
             loc: true,
-            jsx: true
+            ecmaVersion: 10,
+            ecmaFeatures: {
+                jsx: true
+            }
         };
 
         return tryParseSource(sourceText, options);
@@ -60,6 +53,7 @@ function parser(htmlToJs, typeHelper, logger) {
         try {
             return tryParse(sourceText);
         } catch (e) {
+            console.log(e.message);
             logger.error(`Unable to parse source code. Parser error: ${e.message}`);
         }
     }
