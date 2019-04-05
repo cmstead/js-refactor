@@ -33,8 +33,34 @@ function parser(htmlToJs, espree, typeHelper, logger) {
         return tryParse(parseableSource.join('\n'));
     }
 
+    const scriptOptions = {
+        loc: true,
+        ecmaVersion: 10,
+        sourceType: 'script',
+        ecmaFeatures: {
+            jsx: true
+        }
+    };
+
+    const moduleOptions = {
+        loc: true,
+        ecmaVersion: 10,
+        sourceType: 'module',
+        ecmaFeatures: {
+            jsx: true
+        }
+    };
+
     function tryParseSource(sourceText, options) {
-        return espree.parse(sourceText, options);
+        let ast = null;
+
+        try{
+            ast = espree.parse(sourceText, scriptOptions);
+        } catch (e) {
+            ast = espree.parse(sourceText, moduleOptions);
+        }
+        
+        return ast;
     }
 
     function tryParse(sourceText) {
