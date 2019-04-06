@@ -11,7 +11,7 @@ require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
 let sinon = require('sinon');
 
-describe.skip('renameFactory', function () {
+describe('renameFactory', function () {
     var subcontainer;
     var applySetEditSpy;
     var vsCodeProperties;

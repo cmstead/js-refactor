@@ -1,5 +1,0 @@
-[
-    [
-        "Cannot rename selected identifier or value"
-    ]
-]
