@@ -263,5 +263,30 @@ describe('Extract Variable', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
     
+    it.only('should extract variable to a scope outside the class', function () {
+        var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+        setupOptions.selectedScopeIndex = 0;
+        
+        vsCodeProperties.activeTextEditor = {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 38,
+                    _character: 17
+                },
+                _end: {
+                    _line: 38,
+                    _character: 22
+                }
+            }]
+        };
+
+        subcontainer.build('extractVariableFactory')(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    });
+    
 
 });

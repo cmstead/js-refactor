@@ -75,7 +75,7 @@ function extractVariableFactory(
         function applyVariableExtraction(selectionEditorCoords, ast, sourceLines) {
             const activeEditor = vsCodeHelper.getActiveEditor();
             
-            const scopePath = scopeHelper.getScopePath(selectionEditorCoords, ast);
+            const scopePath = extractHelper.getScopePath(selectionEditorCoords, ast);
             const selectedLines = selectionHelper.getSelection(sourceLines, selectionEditorCoords);
             const extractVariableContext = buildInitialExtractVariableContext(selectedLines);
 
@@ -85,6 +85,8 @@ function extractVariableFactory(
 
                 const newMethodLocation = extractHelper
                     .getNewExtractionLocation(scopePath, selectedOptionIndex, selectionEditorCoords, ast);
+
+                console.log(newMethodLocation);
 
                 function applyExtractEdit(variableType) {
                     return function (variableName) {

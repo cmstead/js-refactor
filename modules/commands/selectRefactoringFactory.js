@@ -20,7 +20,6 @@ function selectRefactoringFactory(
             }, {});
 
         const refactorPattern = /^Refactor/;
-        const actionPattern = /^Action/;
 
         function pickOrdering(name1, name2) {
             if(name1 < name2) {

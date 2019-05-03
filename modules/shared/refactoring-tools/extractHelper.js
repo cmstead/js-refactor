@@ -46,6 +46,7 @@ function extractHelper(
         if (isLocalScope) {
             destinationExpression = selectionExpressionHelper.getNearestExpressionInScope(currentScope.loc, selectionAstCoords, ast);
         } else {
+            console.log('Not local scope', currentScope);
             destinationExpression = selectionExpressionHelper.getNearestExpressionInScope(currentScope.loc, nextScope.loc, ast);
         }
 
@@ -68,7 +69,7 @@ function extractHelper(
 
         getScopePath: typeHelper.enforce(
             'editorCoords, ast => array<astNode>',
-            getScopePath),
+            getMethodScopePath),
 
         isObjectScope: typeHelper.enforce(
             'astNode => boolean',
