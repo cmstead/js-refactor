@@ -45,7 +45,7 @@ and side-loaded into your editor.
 
 ## Keep In Touch
 
-- [ChrisStead.com](http://www.chrisstead.com)
+- [ChrisStead.net](http://www.chrisstead.net)
 - [Visit me on Twitter](https://twitter.com/cm_stead)
 - [Fork and Contribute on Github](https://github.com/cmstead/js-refactor)
 

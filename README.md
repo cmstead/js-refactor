@@ -19,7 +19,7 @@ Open VS Code, press F1 and enter `ext install` to open the extensions panel, fol
 
 ## Find Me Online
 
-- [ChrisStead.com](http://www.chrisstead.com)
+- [ChrisStead.net](http://www.chrisstead.net)
 - [Visit me on Twitter](https://twitter.com/cm_stead)
 - [Fork and Contribute on Github](https://github.com/cmstead/js-refactor)
 
