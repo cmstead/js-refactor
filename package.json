@@ -46,10 +46,13 @@
   ],
   "main": "./extension",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha --recursive ./test/**/*.test.js",
+    "test": "node ./node_modules/nanocommit/",
     "build": "tfx extension create --manifest-globs vss-integration.json",
     "build-docs": "node build-docs",
     "publish": "vsce publish"
+  },
+  "nanocommit": {
+    "testCommand": "node ./node_modules/mocha/bin/mocha --recursive ./test/**/*.test.js"
   },
   "tags": [
     "Javascript",
@@ -588,6 +591,7 @@
     "gulp": "^3.9.1",
     "mocha": "^2.3.4",
     "mockery": "^1.4.0",
+    "nanocommit": "^1.0.3",
     "sinon": "^1.17.2",
     "vscode": "^1.1.8"
   },

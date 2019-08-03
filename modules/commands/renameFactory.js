@@ -28,8 +28,6 @@ function renameFactory (
 
             const nearestIdentifier = selectionVariableHelper.getNearestIdentifier(selectionAstCoords, sourceAst);
 
-            console.log(nearestIdentifier);
-
             if(nearestIdentifier === null) {
                 logger.info('Cannot rename selected identifier or value');
             } else {

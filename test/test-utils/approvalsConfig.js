@@ -1,6 +1,4 @@
 
-var BeyondCompare4 = require('./BeyondCompare4Reporter');
-
 module.exports = {
     reporters: ['kdiff3'],
 

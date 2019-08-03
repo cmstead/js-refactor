@@ -263,7 +263,7 @@ describe('Extract Variable', function () {
         this.verify(prettyJson(applySetEditSpy.args));
     });
     
-    it.only('should extract variable to a scope outside the class', function () {
+    it.skip('should extract variable to a scope outside the class', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
         setupOptions.selectedScopeIndex = 0;
         

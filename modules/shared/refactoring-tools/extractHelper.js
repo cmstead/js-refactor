@@ -46,7 +46,6 @@ function extractHelper(
         if (isLocalScope) {
             destinationExpression = selectionExpressionHelper.getNearestExpressionInScope(currentScope.loc, selectionAstCoords, ast);
         } else {
-            console.log('Not local scope', currentScope);
             destinationExpression = selectionExpressionHelper.getNearestExpressionInScope(currentScope.loc, nextScope.loc, ast);
         }
 

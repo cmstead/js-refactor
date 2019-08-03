@@ -86,8 +86,6 @@ function extractVariableFactory(
                 const newMethodLocation = extractHelper
                     .getNewExtractionLocation(scopePath, selectedOptionIndex, selectionEditorCoords, ast);
 
-                console.log(newMethodLocation);
-
                 function applyExtractEdit(variableType) {
                     return function (variableName) {
                         extractVariableContext.type = variableType;

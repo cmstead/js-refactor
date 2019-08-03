@@ -541,7 +541,8 @@
                                                                 }
                                                             },
                                                             "value": "Button",
-                                                            "raw": "Button"
+                                                            "raw": "Button",
+                                                            "bigint": "Butto"
                                                         }
                                                     ]
                                                 },
