@@ -47,12 +47,13 @@
   "main": "./extension",
   "scripts": {
     "test": "node ./node_modules/nanocommit/",
+    "mocha": "node ./node_modules/mocha/bin/mocha --recursive ./test/**/*.test.js",
     "build": "tfx extension create --manifest-globs vss-integration.json",
     "build-docs": "node build-docs",
     "publish": "vsce publish"
   },
   "nanocommit": {
-    "testCommand": "node ./node_modules/mocha/bin/mocha --recursive ./test/**/*.test.js"
+    "testCommand": "npm run mocha && npm run build-docs"
   },
   "tags": [
     "Javascript",

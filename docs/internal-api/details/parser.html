@@ -79,6 +79,28 @@
         </pre>
     </li>
 </ul>
+<ul>
+    <li>
+        <strong>should parse a complex JSX file</strong>
+    </li>
+    <li>File location: <span class="filename">./test/inner-api/astTools/parser.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+            const jsxSource &#x3D; fs.readFileSync(&#x27;./test/fixtures/example-files/test.jsx&#x27;, { encoding: &#x27;utf8&#x27; });
+
+            const ast &#x3D; parser.parse(jsxSource);
+
+            this.verify(testUtils.prettyJson(ast));
+        }
+            </code>
+        </pre>
+    </li>
+</ul>
     </ul>
 </li>
 <li class="describe-item">
@@ -96,7 +118,7 @@
         </div>
         <pre class="code-sample">
             <code>
-        function() {
+        function () {
             const sourceText &#x3D; &#x60;&#x27;use strict&#x27;;
             
             const myFn &#x3D; () &#x3D;&gt; &#x27;foo&#x27;;
@@ -121,7 +143,7 @@
         </div>
         <pre class="code-sample">
             <code>
-        function() {
+        function () {
             const jsxSourceText &#x3D; &#x60;var ipsumText &#x3D; &#x27;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.&#x27;;
             
             ReactDOM.render(

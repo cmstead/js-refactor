@@ -242,6 +242,123 @@
         </pre>
     </li>
 </ul>
+<ul>
+    <li>
+        <strong>should convert the only function in a file to an arrow function</strong>
+    </li>
+    <li>File location: <span class="filename">./test/convertToArrowFunction.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var source &#x3D; &#x60;function hi() {
+            console.log(&#x27;hi&#x27;);
+          }&#x60;;
+        var sourceTokens &#x3D; source.split(/\r?\n/);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 1,
+                    _character: 5
+                },
+                _end: {
+                    _line: 1,
+                    _character: 5
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;convertToArrowFunctionFactory&#x27;)(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should remove trailing semi-colons from single-line arrow functions</strong>
+    </li>
+    <li>File location: <span class="filename">./test/convertToArrowFunction.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToArrowFunction/convertToArrowFunction.js&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 20,
+                    _character: 15
+                },
+                _end: {
+                    _line: 20,
+                    _character: 15
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;convertToArrowFunctionFactory&#x27;)(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should enclose complex 1-line expressions in curly braces</strong>
+    </li>
+    <li>File location: <span class="filename">./test/convertToArrowFunction.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function() {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToArrowFunction/convertToArrowFunction.js&#x27;);
+
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 24,
+                    _character: 15
+                },
+                _end: {
+                    _line: 24,
+                    _character: 15
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;convertToArrowFunctionFactory&#x27;)(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
 </ul>
     </div>
 

@@ -1,0 +1,304 @@
+<html>
+
+<head>
+    <title>JS Refactor -- Mochadoc Test Documentation</title>
+
+    <link rel="stylesheet" href="../assets/doc-style.css" media="screen">
+    <link rel="stylesheet" href="../assets/github-gist.css" media="screen">
+</head>
+
+<body>
+    <header>
+        <a href="../index.html"><span id="library-name">JS Refactor</span>
+        <span id="subtitle">Mochadoc-Generated Test Documents</span></a>
+    </header>
+
+    <div class="content">
+        <h1>markAsAsyncFactory</h1>
+<div>
+    <a href="#" class="collapse-all collapse-link">Collapse All</a>
+</div>
+<ul>
+    <ul>
+    <li>
+        <strong>should log an error if no function can be found to mark</strong>
+    </li>
+    <li>File location: <span class="filename">./test/markAsAsyncFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/markAsAsync/markAsAsync.js&#x27;);
+
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [99, 99],
+                    end: [99, 99]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const infoAction &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
+        const markAsAsyncFactory &#x3D; subcontainer.build(&#x27;markAsAsyncFactory&#x27;);
+
+        const callback &#x3D; () &#x3D;&gt; null;
+
+        markAsAsyncFactory(callback)();
+
+        this.verify(prettyJson(infoAction.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should mark a named function as async</strong>
+    </li>
+    <li>File location: <span class="filename">./test/markAsAsyncFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/markAsAsync/markAsAsync.js&#x27;);
+
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [5, 0],
+                    end: [5, 0]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const markAsAsyncFactory &#x3D; subcontainer.build(&#x27;markAsAsyncFactory&#x27;);
+
+        const callback &#x3D; () &#x3D;&gt; null;
+
+        markAsAsyncFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should mark an anonymous function as async</strong>
+    </li>
+    <li>File location: <span class="filename">./test/markAsAsyncFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/markAsAsync/markAsAsync.js&#x27;);
+
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [9, 0],
+                    end: [9, 0]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const markAsAsyncFactory &#x3D; subcontainer.build(&#x27;markAsAsyncFactory&#x27;);
+
+        const callback &#x3D; () &#x3D;&gt; null;
+
+        markAsAsyncFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should mark a simple lambda function as async</strong>
+    </li>
+    <li>File location: <span class="filename">./test/markAsAsyncFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/markAsAsync/markAsAsync.js&#x27;);
+
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [12, 24],
+                    end: [12, 24]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const markAsAsyncFactory &#x3D; subcontainer.build(&#x27;markAsAsyncFactory&#x27;);
+
+        const callback &#x3D; () &#x3D;&gt; null;
+
+        markAsAsyncFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should mark a multi-line lambda function as async</strong>
+    </li>
+    <li>File location: <span class="filename">./test/markAsAsyncFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/markAsAsync/markAsAsync.js&#x27;);
+
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [15, 0],
+                    end: [15, 0]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const markAsAsyncFactory &#x3D; subcontainer.build(&#x27;markAsAsyncFactory&#x27;);
+
+        const callback &#x3D; () &#x3D;&gt; null;
+
+        markAsAsyncFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should mark a method on a class as async</strong>
+    </li>
+    <li>File location: <span class="filename">./test/markAsAsyncFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/markAsAsync/markAsAsync.js&#x27;);
+
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [20, 0],
+                    end: [20, 0]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const markAsAsyncFactory &#x3D; subcontainer.build(&#x27;markAsAsyncFactory&#x27;);
+
+        const callback &#x3D; () &#x3D;&gt; null;
+
+        markAsAsyncFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should not mark a function which is already async</strong>
+    </li>
+    <li>File location: <span class="filename">./test/markAsAsyncFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/markAsAsync/markAsAsync.js&#x27;);
+
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [1, 0],
+                    end: [1, 0]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const markAsAsyncFactory &#x3D; subcontainer.build(&#x27;markAsAsyncFactory&#x27;);
+
+        const callback &#x3D; () &#x3D;&gt; null;
+
+        markAsAsyncFactory(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+</ul>
+    </div>
+
+    <script src="../assets/code-collapse.js"></script>
+    <script src="../assets/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+</html>

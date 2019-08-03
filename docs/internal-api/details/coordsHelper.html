@@ -57,37 +57,6 @@
     </ul>
 </li>
 <li class="describe-item">
-    <h3>coordsFromEditorToDocument</h3>
-    <div><a href="#" class="describe-link collapse-link"></a></div>
-    <ul class="describe-collapsible shown">
-        <ul>
-    <li>
-        <strong>should convert VS Code editor coordinates to document format</strong>
-    </li>
-    <li>File location: <span class="filename">./test/inner-api/refactoringTools/coordsHelper.test.js</span></li>
-    <li class="code-sample-wrapper">
-        <div class="code-expand">
-            <a href="#" class="collapse-link"></a>
-        </div>
-        <pre class="code-sample">
-            <code>
-        function () {
-            const documentCoords &#x3D; {
-                start: [0, 0],
-                end: [10, 11]
-            };
-
-            const editorCoords &#x3D; coordsHelper.coordsFromEditorToDocument(documentCoords);
-
-            this.verify(testUtils.prettyJson(editorCoords));
-        }
-            </code>
-        </pre>
-    </li>
-</ul>
-    </ul>
-</li>
-<li class="describe-item">
     <h3>coordsFromEditorToAst</h3>
     <div><a href="#" class="describe-link collapse-link"></a></div>
     <ul class="describe-collapsible shown">

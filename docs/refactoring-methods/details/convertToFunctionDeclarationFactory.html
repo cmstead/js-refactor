@@ -1,0 +1,109 @@
+<html>
+
+<head>
+    <title>JS Refactor -- Mochadoc Test Documentation</title>
+
+    <link rel="stylesheet" href="../assets/doc-style.css" media="screen">
+    <link rel="stylesheet" href="../assets/github-gist.css" media="screen">
+</head>
+
+<body>
+    <header>
+        <a href="../index.html"><span id="library-name">JS Refactor</span>
+        <span id="subtitle">Mochadoc-Generated Test Documents</span></a>
+    </header>
+
+    <div class="content">
+        <h1>convertToFunctionDeclarationFactory</h1>
+<div>
+    <a href="#" class="collapse-all collapse-link">Collapse All</a>
+</div>
+<ul>
+    <ul>
+    <li>
+        <strong>should log an error if variable declaration with function assigned cannot be found</strong>
+    </li>
+    <li>File location: <span class="filename">./test/convertToFunctionDeclaration.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToFunctionDeclaration/convertToFunctionDeclaration.js&#x27;);
+
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [4, 9],
+                    end: [4, 9]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const infoAction &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
+        const convertToFunctionDeclaration &#x3D; subcontainer.build(&#x27;convertToFunctionDeclarationFactory&#x27;);
+
+        const callback &#x3D; () &#x3D;&gt; null;
+
+        convertToFunctionDeclaration(callback)();
+
+        this.verify(prettyJson(infoAction.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should convert a declaration with function expression assignment to a function declaration</strong>
+    </li>
+    <li>File location: <span class="filename">./test/convertToFunctionDeclaration.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToFunctionDeclaration/convertToFunctionDeclaration.js&#x27;);
+
+        const activeTextEditorOptions &#x3D; {
+            optionsData: {
+                lines: sourceTokens,
+                selection: {
+                    start: [0, 9],
+                    end: [0, 9]
+                }
+            }
+        };
+
+        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
+        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+
+        const convertToFunctionDeclaration &#x3D; subcontainer.build(&#x27;convertToFunctionDeclarationFactory&#x27;);
+
+        const callback &#x3D; () &#x3D;&gt; null;
+
+        convertToFunctionDeclaration(callback)();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+</ul>
+    </div>
+
+    <script src="../assets/code-collapse.js"></script>
+    <script src="../assets/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+</html>

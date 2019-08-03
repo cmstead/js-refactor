@@ -31,7 +31,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.js&#x27;);
 
         vsCodeProperties.activeTextEditor &#x3D; {
             _documentData: {
@@ -60,7 +60,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.js&#x27;);
 
         vsCodeProperties.activeTextEditor &#x3D; {
             _documentData: {
@@ -99,7 +99,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.js&#x27;);
         setupOptions.selectedScopeIndex &#x3D; 1;
 
         vsCodeProperties.activeTextEditor &#x3D; {
@@ -138,7 +138,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.js&#x27;);
         setupOptions.selectedScopeIndex &#x3D; 3;
         
         vsCodeProperties.activeTextEditor &#x3D; {
@@ -177,7 +177,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.js&#x27;);
         setupOptions.selectedScopeIndex &#x3D; 2;
         
         vsCodeProperties.activeTextEditor &#x3D; {
@@ -216,7 +216,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.js&#x27;);
         setupOptions.selectedScopeIndex &#x3D; 1;
         
         vsCodeProperties.activeTextEditor &#x3D; {
@@ -255,7 +255,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.js&#x27;);
         setupOptions.selectedScopeIndex &#x3D; 0;
         
         vsCodeProperties.activeTextEditor &#x3D; {
@@ -294,7 +294,7 @@
         <pre class="code-sample">
             <code>
         function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.ts&#x27;);
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.js&#x27;);
         setupOptions.selectedScopeIndex &#x3D; 3;
         
         vsCodeProperties.activeTextEditor &#x3D; {
@@ -309,6 +309,45 @@
                 _end: {
                     _line: 30,
                     _character: 34
+                }
+            }]
+        };
+
+        subcontainer.build(&#x27;extractVariableFactory&#x27;)(function () { })();
+
+        this.verify(prettyJson(applySetEditSpy.args));
+    }
+            </code>
+        </pre>
+    </li>
+</ul>
+<ul>
+    <li>
+        <strong>should extract variable within a method on a class</strong>
+    </li>
+    <li>File location: <span class="filename">./test/extractVariableFactory.test.js</span></li>
+    <li class="code-sample-wrapper">
+        <div class="code-expand">
+            <a href="#" class="collapse-link"></a>
+        </div>
+        <pre class="code-sample">
+            <code>
+        function () {
+        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractVariable/extractVariable.js&#x27;);
+        setupOptions.selectedScopeIndex &#x3D; 1;
+        
+        vsCodeProperties.activeTextEditor &#x3D; {
+            _documentData: {
+                _lines: sourceTokens
+            },
+            _selections: [{
+                _start: {
+                    _line: 37,
+                    _character: 20
+                },
+                _end: {
+                    _line: 39,
+                    _character: 9
                 }
             }]
         };
