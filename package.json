@@ -53,7 +53,8 @@
     "publish": "vsce publish"
   },
   "nanocommit": {
-    "testCommand": "npm run mocha && npm run build-docs"
+    "testCommand": "npm run mocha && npm run build-docs",
+    "blindCommit": true
   },
   "tags": [
     "Javascript",
@@ -576,9 +577,8 @@
     }
   },
   "dependencies": {
+    "@typescript-eslint/typescript-estree": "^2.2.0",
     "dject": "^1.13.3",
-    "espree": "^5.0.1",
-    "esprima": "^4.0.0",
     "estraverse": "^4.2.0",
     "jfp": "^4.0.0",
     "signet": "^6.4.2",
