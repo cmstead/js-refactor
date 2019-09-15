@@ -76,6 +76,15 @@
         ]
       },
       {
+        "id": "typescript",
+        "extensions": [
+          ".ts"
+        ],
+        "aliases": [
+          "TS"
+        ]
+      },
+      {
         "id": "html",
         "extensions": [
           ".htm",
