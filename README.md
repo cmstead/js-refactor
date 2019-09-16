@@ -6,9 +6,14 @@ JS Refactor is the Javascript automated refactoring tool for Visual Studio Code,
 ### Supported Language Files ###
 
 - JavaScript/ECMAScript (.js)
-- Experimental TypeScript support (.ts)
 - Vue single file components (.vue)
 - HTML (.htm, .html)
+
+**Experimental Support**
+
+- JavaScript React (.jsx)
+- TypeScript support (.ts)
+- TypeScript React (.tsx)
 
 ## Installation
 
@@ -203,6 +208,10 @@ Nevertheless, following are the required elements of a good pull request:
 - **Pull requests may not be claimed as intellectual property of a company or other external agency.**
 
 ## Updates ##
+
+### 2.20.0 ###
+
+- Added experimental support for JS and TS react files
 
 ### 2.19.0 ###
 
