@@ -16,7 +16,8 @@ Estraverse was called with given functions:
         },
         {
             "enter": "[function: enterFake]",
-            "leave": "[function: leaveFake]"
+            "leave": "[function: leaveFake]",
+            "fallback": "iteration"
         }
     ]
 ]

@@ -7,12 +7,6 @@ function extractHelper(
     typeHelper
 ) {
 
-    function getScopePath(editorCoords, ast) {
-        const astCoords = coordsHelper.coordsFromEditorToAst(editorCoords);
-
-        return scopePathHelper.buildScopePath(astCoords, ast);
-    }
-
     function getMethodScopePath(editorCoords, ast) {
         const astCoords = coordsHelper.coordsFromEditorToAst(editorCoords);
 

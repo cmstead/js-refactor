@@ -1,7 +1,7 @@
-.vscode/**
-docs/**
-typings/**
-test/**
+.vscode/
+docs/
+typings/
+test/
 .gitignore
 .eslintrc
 build-docs.js

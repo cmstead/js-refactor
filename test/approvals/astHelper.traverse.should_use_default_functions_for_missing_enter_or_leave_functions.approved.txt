@@ -16,7 +16,8 @@ Estraverse was called with default functions:
         },
         {
             "enter": "[function: noOp]",
-            "leave": "[function: noOp]"
+            "leave": "[function: noOp]",
+            "fallback": "iteration"
         }
     ]
 ]

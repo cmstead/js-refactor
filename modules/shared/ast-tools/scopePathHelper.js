@@ -15,13 +15,13 @@ function scopePathHelper(
 
     const methodScopeElementTypes = scopeElementTypes.concat('ClassBody');
 
-    function isBlockArrowFunction(node) {
+    function isBlockOrNotArrowExpression(node) {
         return node.type !== 'ArrowFunctionExpression'
             || node.body.type === 'BlockStatement';
     }
 
     function isScopePath(elementTypes, node) {
-        return astHelper.isNodeType(elementTypes)(node) && isBlockArrowFunction(node);
+        return astHelper.isNodeType(elementTypes)(node) && isBlockOrNotArrowExpression(node);
     }
 
     const isScopePathElement =
@@ -43,11 +43,17 @@ function scopePathHelper(
             lastPathNode = node;
         }
 
-        astHelper.traverse(ast, {
-            enter: astHelper.onMatch(function (node) {
-                return isScopePathElement(elementTypes, coords)(node);
-            }, capturePath)
-        });
+        try{
+            astHelper.traverse(ast, {
+                enter: astHelper.onMatch(
+                    isScopePathElement(elementTypes, coords),
+                    capturePath
+                )
+            });    
+        } catch(e) {
+            console.log('An error occurred', e);
+            throw new Error('An error occurred while resolving scope path: ', e.message);
+        }
 
         return scopePath;
     }
@@ -55,7 +61,7 @@ function scopePathHelper(
     function buildScopePath(coords, ast) {
         return buildScopePathWithElementTypes(scopeElementTypes, coords, ast);
     }
-    
+
     function buildMethodScopePath(coords, ast) {
         return buildScopePathWithElementTypes(methodScopeElementTypes, coords, ast);
     }

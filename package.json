@@ -76,6 +76,14 @@
         ]
       },
       {
+        "id": "javascriptreact",
+        "extensions": [
+          ".js",
+          ".jsx"
+        ],
+        "aliases": []
+      },
+      {
         "id": "typescript",
         "extensions": [
           ".ts"
@@ -83,6 +91,14 @@
         "aliases": [
           "TS"
         ]
+      },
+      {
+        "id": "typescriptreact",
+        "extensions": [
+          ".ts",
+          ".tsx"
+        ],
+        "aliases": []
       },
       {
         "id": "html",
@@ -102,6 +118,18 @@
       },
       {
         "language": "typescript",
+        "path": "./snippets/jsrefactor.json"
+      },
+      {
+        "language": "javascriptreact",
+        "path": "./snippets/jsrefactor.json"
+      },
+      {
+        "language": "typescriptreact",
+        "path": "./snippets/jsrefactor.json"
+      },
+      {
+        "language": "html",
         "path": "./snippets/jsrefactor.json"
       }
     ],
@@ -294,6 +322,14 @@
         },
         {
           "command": "cmstead.jsRefactor.convertToArrowFunction",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToArrowFunction",
+          "when": "editorLangId == typescriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToArrowFunction",
           "when": "editorLangId == html"
         },
         {
@@ -306,6 +342,14 @@
         },
         {
           "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
+          "when": "editorLangId == typescriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
           "when": "editorLangId == html"
         },
         {
@@ -315,6 +359,14 @@
         {
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionExpression",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionExpression",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
@@ -327,6 +379,14 @@
         {
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToTemplateLiteral",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToTemplateLiteral",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
@@ -339,6 +399,14 @@
         {
           "command": "cmstead.jsRefactor.addExport",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.addExport",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.addExport",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.addExport",
@@ -366,6 +434,14 @@
         },
         {
           "command": "cmstead.jsRefactor.extractVariable",
+          "when": "editorHasSelection && editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.extractVariable",
+          "when": "editorHasSelection && editorLangId == typescriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.extractVariable",
           "when": "editorHasSelection && editorLangId == html"
         },
         {
@@ -378,6 +454,14 @@
         },
         {
           "command": "cmstead.jsRefactor.inlineVariable",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.inlineVariable",
+          "when": "editorLangId == typescriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.inlineVariable",
           "when": "editorLangId == html"
         },
         {
@@ -390,6 +474,14 @@
         },
         {
           "command": "cmstead.jsRefactor.introduceFunction",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.introduceFunction",
+          "when": "editorLangId == typescriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.introduceFunction",
           "when": "editorLangId == html"
         },
         {
@@ -399,6 +491,14 @@
         {
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
@@ -411,6 +511,14 @@
         {
           "command": "cmstead.jsRefactor.markAsAsync",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.markAsAsync",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.markAsAsync",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.markAsAsync",
@@ -423,6 +531,14 @@
         {
           "command": "cmstead.jsRefactor.negateExpression",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.negateExpression",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.negateExpression",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.negateExpression",
@@ -435,6 +551,14 @@
         {
           "command": "cmstead.jsRefactor.rename",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.rename",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.rename",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.rename",
@@ -447,6 +571,14 @@
         {
           "command": "cmstead.jsRefactor.selectRefactoring",
           "when": "editorHasSelection && editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.selectRefactoring",
+          "when": "editorHasSelection && editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.selectRefactoring",
+          "when": "editorHasSelection && editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.selectRefactoring",
@@ -459,6 +591,14 @@
         {
           "command": "cmstead.jsRefactor.shiftParams",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.shiftParams",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.shiftParams",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.shiftParams",
@@ -471,6 +611,14 @@
         {
           "command": "cmstead.jsRefactor.wrapInArrowFunction",
           "when": "editorHasSelection && editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInArrowFunction",
+          "when": "editorHasSelection && editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInArrowFunction",
+          "when": "editorHasSelection && editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.wrapInArrowFunction",
@@ -483,6 +631,14 @@
         {
           "command": "cmstead.jsRefactor.wrapInAsyncFunction",
           "when": "editorHasSelection && editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInAsyncFunction",
+          "when": "editorHasSelection && editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInAsyncFunction",
+          "when": "editorHasSelection && editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.wrapInAsyncFunction",
@@ -495,6 +651,14 @@
         {
           "command": "cmstead.jsRefactor.wrapInCondition",
           "when": "editorHasSelection && editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInCondition",
+          "when": "editorHasSelection && editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInCondition",
+          "when": "editorHasSelection && editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.wrapInCondition",
@@ -507,6 +671,14 @@
         {
           "command": "cmstead.jsRefactor.wrapInFunction",
           "when": "editorHasSelection && editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInFunction",
+          "when": "editorHasSelection && editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInFunction",
+          "when": "editorHasSelection && editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.wrapInFunction",
@@ -519,6 +691,14 @@
         {
           "command": "cmstead.jsRefactor.wrapInGenerator",
           "when": "editorHasSelection && editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInGenerator",
+          "when": "editorHasSelection && editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInGenerator",
+          "when": "editorHasSelection && editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.wrapInGenerator",
@@ -531,6 +711,14 @@
         {
           "command": "cmstead.jsRefactor.wrapInIIFE",
           "when": "editorHasSelection && editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInIIFE",
+          "when": "editorHasSelection && editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInIIFE",
+          "when": "editorHasSelection && editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.wrapInIIFE",
@@ -543,6 +731,14 @@
         {
           "command": "cmstead.jsRefactor.wrapInTryCatch",
           "when": "editorHasSelection && editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInTryCatch",
+          "when": "editorHasSelection && editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInTryCatch",
+          "when": "editorHasSelection && editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.wrapInTryCatch",
@@ -563,6 +759,16 @@
         {
           "command": "cmstead.jsRefactor.convertToArrowFunction",
           "group": "5_refactor",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToArrowFunction",
+          "group": "5_refactor",
+          "when": "editorLangId == typescriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToArrowFunction",
+          "group": "5_refactor",
           "when": "editorLangId == html"
         },
         {
@@ -578,6 +784,16 @@
         {
           "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
           "group": "5_refactor",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
+          "group": "5_refactor",
+          "when": "editorLangId == typescriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
+          "group": "5_refactor",
           "when": "editorLangId == html"
         },
         {
@@ -589,6 +805,16 @@
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
           "group": "5_refactor",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionExpression",
+          "group": "5_refactor",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionExpression",
+          "group": "5_refactor",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
@@ -604,6 +830,16 @@
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
           "group": "5_refactor",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToTemplateLiteral",
+          "group": "5_refactor",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToTemplateLiteral",
+          "group": "5_refactor",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
@@ -619,6 +855,16 @@
           "command": "cmstead.jsRefactor.addExport",
           "group": "5_refactor",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.addExport",
+          "group": "5_refactor",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.addExport",
+          "group": "5_refactor",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.addExport",
@@ -653,6 +899,16 @@
         {
           "command": "cmstead.jsRefactor.extractVariable",
           "group": "5_refactor",
+          "when": "editorHasSelection && editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.extractVariable",
+          "group": "5_refactor",
+          "when": "editorHasSelection && editorLangId == typescriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.extractVariable",
+          "group": "5_refactor",
           "when": "editorHasSelection && editorLangId == html"
         },
         {
@@ -668,6 +924,16 @@
         {
           "command": "cmstead.jsRefactor.inlineVariable",
           "group": "5_refactor",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.inlineVariable",
+          "group": "5_refactor",
+          "when": "editorLangId == typescriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.inlineVariable",
+          "group": "5_refactor",
           "when": "editorLangId == html"
         },
         {
@@ -683,6 +949,16 @@
         {
           "command": "cmstead.jsRefactor.introduceFunction",
           "group": "5_refactor",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.introduceFunction",
+          "group": "5_refactor",
+          "when": "editorLangId == typescriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.introduceFunction",
+          "group": "5_refactor",
           "when": "editorLangId == html"
         },
         {
@@ -694,6 +970,16 @@
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
           "group": "5_refactor",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
+          "group": "5_refactor",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
+          "group": "5_refactor",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
@@ -709,6 +995,16 @@
           "command": "cmstead.jsRefactor.markAsAsync",
           "group": "5_refactor",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.markAsAsync",
+          "group": "5_refactor",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.markAsAsync",
+          "group": "5_refactor",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.markAsAsync",
@@ -724,6 +1020,16 @@
           "command": "cmstead.jsRefactor.selectRefactoring",
           "group": "5_refactor",
           "when": "editorLangId == typescript"
+        },
+        {
+          "command": "cmstead.jsRefactor.selectRefactoring",
+          "group": "5_refactor",
+          "when": "editorLangId == javascriptreact"
+        },
+        {
+          "command": "cmstead.jsRefactor.selectRefactoring",
+          "group": "5_refactor",
+          "when": "editorLangId == typescriptreact"
         },
         {
           "command": "cmstead.jsRefactor.selectRefactoring",
@@ -739,7 +1045,7 @@
     "estraverse": "^4.2.0",
     "jfp": "^4.0.0",
     "signet": "^6.4.2",
-    "typescript": "^2.4.2"
+    "typescript": "^3.6.3"
   },
   "devDependencies": {
     "approvals": "https://github.com/cmstead/Approvals.NodeJS.git",

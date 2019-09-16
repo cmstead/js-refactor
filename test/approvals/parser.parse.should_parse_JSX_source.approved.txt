@@ -210,7 +210,7 @@
                         },
                         "children": [
                             {
-                                "type": "JSXText",
+                                "type": "Literal",
                                 "value": "\n                ",
                                 "raw": "\n                ",
                                 "range": [
@@ -359,7 +359,7 @@
                                 },
                                 "children": [
                                     {
-                                        "type": "JSXText",
+                                        "type": "Literal",
                                         "value": "Button",
                                         "raw": "Button",
                                         "range": [
@@ -394,7 +394,7 @@
                                 }
                             },
                             {
-                                "type": "JSXText",
+                                "type": "Literal",
                                 "value": "\n                ",
                                 "raw": "\n                ",
                                 "range": [
@@ -539,7 +539,7 @@
                                 }
                             },
                             {
-                                "type": "JSXText",
+                                "type": "Literal",
                                 "value": "\n              ",
                                 "raw": "\n              ",
                                 "range": [

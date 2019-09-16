@@ -156,6 +156,7 @@ function extractMethodFactory(
             const scopePath = extractHelper.getMethodScopePath(selectionEditorCoords, ast);
 
             scopeHelper.getScopeQuickPick(scopePath, sourceLines, function (selectedOption) {
+                
                 getFunctionName(function (functionName) {
                     const selectedOptionIndex = scopeHelper.getSelectedScopeIndex(selectedOption);
                     const destinationScope = scopePath[selectedOptionIndex];

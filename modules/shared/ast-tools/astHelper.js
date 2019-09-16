@@ -54,7 +54,8 @@ function astHelper(estraverse, typeHelper) {
     function traverse(ast, traversalOptions) {
         const traversal = {
             enter: functionOrDefault(traversalOptions.enter),
-            leave: functionOrDefault(traversalOptions.leave)
+            leave: functionOrDefault(traversalOptions.leave),
+            fallback: 'iteration'
         }
 
         estraverse.traverse(ast, traversal);

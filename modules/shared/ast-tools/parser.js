@@ -30,7 +30,7 @@ function parser(htmlToJs, tsEsTree, typeHelper, logger) {
     function tryParseSourceLines(sourceLines) {
         const parseableSource = buildParseableSource(sourceLines);
 
-        return tryParse(parseableSource.join('\n'));
+        return parseSource(parseableSource.join('\n'));
     }
 
     const scriptOptions = {
@@ -39,45 +39,17 @@ function parser(htmlToJs, tsEsTree, typeHelper, logger) {
         tokens: false,
         comment: false,
         jsx: true,
-        useJSXTextNode: true
+        useJSXTextNode: false
     };
 
-    const moduleOptions = {
-        loc: true,
-        ecmaVersion: 10,
-        sourceType: 'module',
-        ecmaFeatures: {
-            jsx: true
-        }
-    };
 
-    function tryParseSource(sourceText, options) {
-        let ast = null;
-
-        try{
-            ast = tsEsTree.parse(sourceText, scriptOptions);
-        } catch (e) {
-            // ast = espree.parse(sourceText, moduleOptions);
-        }
-        
-        return ast;
-    }
-
-    function tryParse(sourceText) {
-        const options = {
-            loc: true,
-            ecmaVersion: 10,
-            ecmaFeatures: {
-                jsx: true
-            }
-        };
-
-        return tryParseSource(sourceText, options);
+    function parseSource(sourceText) {
+        return tsEsTree.parse(sourceText, scriptOptions);
     }
 
     function parse(sourceText) {
         try {
-            return tryParse(sourceText);
+            return parseSource(sourceText);
         } catch (e) {
             console.log(e.message);
             logger.error(`Unable to parse source code. Parser error: ${e.message}`);
