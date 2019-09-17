@@ -209,6 +209,10 @@ Nevertheless, following are the required elements of a good pull request:
 
 ## Updates ##
 
+### 2.20.1 ###
+
+- Fixed bug with TypeScript where elements were being incorrectly parsed as JSX
+
 ### 2.20.0 ###
 
 - Added experimental support for JS and TS react files
