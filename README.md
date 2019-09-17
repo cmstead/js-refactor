@@ -209,7 +209,7 @@ Nevertheless, following are the required elements of a good pull request:
 
 ## Updates ##
 
-### 2.20.1 ###
+### 2.20.3 ###
 
 - Fixed bug with TypeScript where elements were being incorrectly parsed as JSX
 
