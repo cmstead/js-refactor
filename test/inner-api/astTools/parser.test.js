@@ -3,20 +3,31 @@
 const fs = require('fs');
 const container = require('../../../container');
 const testUtils = require('../../test-utils/test-utils');
+const motherContainer = require('../../test-utils/mother-container');
 
 require('../../test-utils/approvalsConfig');
 
 describe('parser', function () {
 
     let parser;
+    let activeEditor;
 
     beforeEach(function () {
         const subcontainer = container.new();
 
         const loggerFake = {
             error: () => {}
-        }
+        };
 
+        activeEditor = motherContainer.buildData('activeTextEditor');
+
+        const vsCodeHelperFactoryFake = function () {
+            return {
+                getActiveEditor: () => activeEditor
+            }
+        };
+
+        subcontainer.register(() => vsCodeHelperFactoryFake, 'vsCodeHelperFactory');
         subcontainer.register(() => loggerFake, 'logger');
 
         parser = subcontainer.build('parser');
@@ -37,6 +48,8 @@ describe('parser', function () {
 
         it('should parse JSX source', function () {
 
+            activeEditor._documentData._languageId = 'javascriptreact';
+
             const jsxSourceText = `var ipsumText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.';
             
             ReactDOM.render(
@@ -54,6 +67,8 @@ describe('parser', function () {
 
 
         it('should parse a complex JSX file', function () {
+            activeEditor._documentData._languageId = 'javascriptreact';
+
             const jsxSource = fs.readFileSync('./test/fixtures/example-files/test.jsx', { encoding: 'utf8' });
 
             const ast = parser.parse(jsxSource);
@@ -78,6 +93,8 @@ describe('parser', function () {
         });
 
         it('should parse new-line split JSX source code', function () {
+            activeEditor._documentData._languageId = 'javascriptreact';
+
             const jsxSourceText = `var ipsumText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.';
             
             ReactDOM.render(

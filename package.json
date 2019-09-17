@@ -78,7 +78,6 @@
       {
         "id": "javascriptreact",
         "extensions": [
-          ".js",
           ".jsx"
         ],
         "aliases": []
@@ -95,7 +94,6 @@
       {
         "id": "typescriptreact",
         "extensions": [
-          ".ts",
           ".tsx"
         ],
         "aliases": []
@@ -1042,6 +1040,7 @@
   "dependencies": {
     "@typescript-eslint/typescript-estree": "^2.2.0",
     "dject": "^1.13.3",
+    "espree": "^6.1.1",
     "estraverse": "^4.2.0",
     "jfp": "^4.0.0",
     "signet": "^6.4.2",

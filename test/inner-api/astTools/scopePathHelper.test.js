@@ -4,6 +4,7 @@ const fs = require('fs');
 const container = require('../../../container');
 
 const testUtils = require('../../test-utils/test-utils');
+const motherContainer = require('../../test-utils/mother-container');
 require('../../test-utils/approvalsConfig');
 
 describe('scopePathHelper', function () {
@@ -11,6 +12,7 @@ describe('scopePathHelper', function () {
     let astFixture;
     let coordsHelper;
     let scopePathHelper;
+    let activeEditor;
 
     beforeEach(function () {
         const subcontainer = container.new();
@@ -20,6 +22,16 @@ describe('scopePathHelper', function () {
         }
 
         subcontainer.register(() => loggerFake, 'logger');
+
+        activeEditor = motherContainer.buildData('activeTextEditor');
+
+        const vsCodeHelperFactoryFake = function () {
+            return {
+                getActiveEditor: () => activeEditor
+            }
+        };
+
+        subcontainer.register(() => vsCodeHelperFactoryFake, 'vsCodeHelperFactory');
 
         coordsHelper = subcontainer.build('coordsHelper');
         const parser = subcontainer.build('parser');

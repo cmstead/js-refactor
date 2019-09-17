@@ -26,10 +26,19 @@ function scopePathHelper(
 
     const isScopePathElement =
         (elementTypes, coords) =>
-            (node) =>
-                astHelper.coordsInNode(coords, node)
-                && !astHelper.nodeMatchesCoords(coords, node)
-                && isScopePath(elementTypes, node);
+            (node) =>{
+                
+                try{
+                    const satisfiesCriteria = astHelper.coordsInNode(coords, node)
+                    && !astHelper.nodeMatchesCoords(coords, node)
+                    && isScopePath(elementTypes, node);
+                    
+                    return satisfiesCriteria;
+                } catch(e) {
+                    console.log('An error occurred', e);
+                    return false;
+                }
+            };
 
     function buildScopePathWithElementTypes(elementTypes, coords, ast) {
         let lastPathNode = null;

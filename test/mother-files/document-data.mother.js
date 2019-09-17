@@ -6,7 +6,8 @@ module.exports = function (motherContainer) {
         return {
             _lines: function (index, optionsData) {
                 return optionsData && optionsData.lines ? optionsData.lines : []
-            }
+            },
+            _languageId: 'javascript'
         };
     }
 

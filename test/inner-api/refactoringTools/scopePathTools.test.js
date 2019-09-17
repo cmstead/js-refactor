@@ -4,6 +4,7 @@ const container = require('../../../container');
 const readSource = require('../../test-utils/read-source');
 const prettyJson = require('../../test-utils/test-utils').prettyJson;
 
+const motherContainer = require('../../test-utils/mother-container');
 require('../../test-utils/approvalsConfig');
 
 describe('scopePathTools', function () {
@@ -11,6 +12,7 @@ describe('scopePathTools', function () {
     let scopePathHelper;
     let scopePathTools;
     let parser;
+    let activeEditor;
 
     beforeEach(function() {
         const subcontainer = container.new();
@@ -20,7 +22,17 @@ describe('scopePathTools', function () {
         }
 
         subcontainer.register(() => loggerFake, 'logger');
-        
+
+        activeEditor = motherContainer.buildData('activeTextEditor');
+
+        const vsCodeHelperFactoryFake = function () {
+            return {
+                getActiveEditor: () => activeEditor
+            }
+        };
+
+        subcontainer.register(() => vsCodeHelperFactoryFake, 'vsCodeHelperFactory');
+
         scopePathHelper = subcontainer.build('scopePathHelper');
         scopePathTools = subcontainer.build('scopePathTools');
         parser = subcontainer.build('parser');

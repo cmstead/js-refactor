@@ -5,6 +5,7 @@ const container = require('../../../container');
 let readSource = require('../../test-utils/read-source');
 let prettyJson = require('../../test-utils/test-utils').prettyJson;
 
+const motherContainer = require('../../test-utils/mother-container');
 require('../../test-utils/approvalsConfig');
 
 describe('selectionVariableHelper', function() {
@@ -12,6 +13,7 @@ describe('selectionVariableHelper', function() {
     let subcontainer;
     let selectionVariableHelper;
     let parser;
+    let activeEditor;
 
     beforeEach(function() {
         subcontainer = container.new();
@@ -21,6 +23,16 @@ describe('selectionVariableHelper', function() {
         }
 
         subcontainer.register(() => loggerFake, 'logger');
+
+        activeEditor = motherContainer.buildData('activeTextEditor');
+
+        const vsCodeHelperFactoryFake = function () {
+            return {
+                getActiveEditor: () => activeEditor
+            }
+        };
+
+        subcontainer.register(() => vsCodeHelperFactoryFake, 'vsCodeHelperFactory');
 
         parser = subcontainer.build('parser');
         selectionVariableHelper = subcontainer.build('selectionVariableHelper');
