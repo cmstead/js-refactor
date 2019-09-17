@@ -1,6 +1,6 @@
 var vsCodeFakeFactory = require('../test-utils/vscode-fake-factory');
 
-function vscodeFactoryFakeFactory(api) {
+function vscodeFactoryFakeFactory() {
 
     return function (properties) {
         function get() {

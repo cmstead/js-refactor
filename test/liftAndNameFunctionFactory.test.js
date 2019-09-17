@@ -7,6 +7,9 @@ let testHelperFactory = require('./test-utils/testHelperFactory');
 let readSource = require('./test-utils/read-source');
 let prettyJson = require('./test-utils/test-utils').prettyJson;
 
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
+
 let approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
@@ -50,12 +53,18 @@ describe('Lift and Name Function', function () {
 
     it('should log an error when no valid function expression can be found', function () {
         var sourceTokens = readSource('./test/fixtures/liftAndNameFunction/liftAndNameFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            }
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('liftAndNameFunctionFactory')(function () { })();
@@ -65,22 +74,18 @@ describe('Lift and Name Function', function () {
 
     it('should lift and name a function expression', function () {
         var sourceTokens = readSource('./test/fixtures/liftAndNameFunction/liftAndNameFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [6, 21],
+                [6, 21]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 6,
-                    _character: 21
-                },
-                _end: {
-                    _line: 6,
-                    _character: 21
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('liftAndNameFunctionFactory')(function () { })();
 
@@ -89,22 +94,18 @@ describe('Lift and Name Function', function () {
 
     it('should log an error when a named function is selected', function () {
         var sourceTokens = readSource('./test/fixtures/liftAndNameFunction/liftAndNameFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [2, 18],
+                [2, 18]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 18
-                },
-                _end: {
-                    _line: 2,
-                    _character: 18
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('liftAndNameFunctionFactory')(function () { })();

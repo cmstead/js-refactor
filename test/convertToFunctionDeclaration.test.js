@@ -1,10 +1,12 @@
 let mocker = require('./mocker');
 
 let testHelperFactory = require('./test-utils/testHelperFactory');
-let motherContainer = require('./test-utils/mother-container');
 
 let readSource = require('./test-utils/read-source');
 let prettyJson = require('./test-utils/test-utils').prettyJson;
+
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
 
 let approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
@@ -36,23 +38,21 @@ describe('convertToFunctionDeclarationFactory', function () {
 
     it('should log an error if variable declaration with function assigned cannot be found', function () {
         var sourceTokens = readSource('./test/fixtures/convertToFunctionDeclaration/convertToFunctionDeclaration.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [4, 9],
+                [4, 9]
+            ])
+        ];
 
-        const activeTextEditorOptions = {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [4, 9],
-                    end: [4, 9]
-                }
-            }
-        };
-
-        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor = activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const infoAction = mocker.getMock('logger').api.info;
         const convertToFunctionDeclaration = subcontainer.build('convertToFunctionDeclarationFactory');
-
         const callback = () => null;
 
         convertToFunctionDeclaration(callback)();
@@ -62,22 +62,20 @@ describe('convertToFunctionDeclarationFactory', function () {
 
     it('should convert a declaration with function expression assignment to a function declaration', function () {
         var sourceTokens = readSource('./test/fixtures/convertToFunctionDeclaration/convertToFunctionDeclaration.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 9],
+                [0, 9]
+            ])
+        ];
 
-        const activeTextEditorOptions = {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [0, 9],
-                    end: [0, 9]
-                }
-            }
-        };
-
-        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor = activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const convertToFunctionDeclaration = subcontainer.build('convertToFunctionDeclarationFactory');
-
         const callback = () => null;
 
         convertToFunctionDeclaration(callback)();

@@ -1,6 +1,6 @@
 'use strict';
 
-const container = require('../../../container.js');
+const container = require('../../test-utils/testContainer');
 const testUtils = require('../../test-utils/test-utils');
 
 require('../../test-utils/approvalsConfig');

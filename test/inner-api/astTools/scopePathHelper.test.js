@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-const container = require('../../../container');
+const container = require('../../test-utils/testContainer');
 
 const testUtils = require('../../test-utils/test-utils');
 const motherContainer = require('../../test-utils/mother-container');

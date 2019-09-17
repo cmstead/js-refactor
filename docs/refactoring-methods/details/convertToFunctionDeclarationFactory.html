@@ -32,23 +32,21 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToFunctionDeclaration/convertToFunctionDeclaration.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [4, 9],
+                [4, 9]
+            ])
+        ];
 
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [4, 9],
-                    end: [4, 9]
-                }
-            }
-        };
-
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const infoAction &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
         const convertToFunctionDeclaration &#x3D; subcontainer.build(&#x27;convertToFunctionDeclarationFactory&#x27;);
-
         const callback &#x3D; () &#x3D;&gt; null;
 
         convertToFunctionDeclaration(callback)();
@@ -72,22 +70,20 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/convertToFunctionDeclaration/convertToFunctionDeclaration.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [0, 9],
+                [0, 9]
+            ])
+        ];
 
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [0, 9],
-                    end: [0, 9]
-                }
-            }
-        };
-
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const convertToFunctionDeclaration &#x3D; subcontainer.build(&#x27;convertToFunctionDeclarationFactory&#x27;);
-
         const callback &#x3D; () &#x3D;&gt; null;
 
         convertToFunctionDeclaration(callback)();

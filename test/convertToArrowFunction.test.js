@@ -7,6 +7,9 @@ var testHelperFactory = require('./test-utils/testHelperFactory');
 var readSource = require('./test-utils/read-source');
 var prettyJson = require('./test-utils/test-utils').prettyJson;
 
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
+
 var approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
@@ -25,12 +28,17 @@ describe('Convert to Arrow Function', function () {
 
     it('should log an error if selection is empty', function () {
         var sourceTokens = readSource('./test/fixtures/convertToArrowFunction/convertToArrowFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            }
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('convertToArrowFunctionFactory')(function () { })();
@@ -41,23 +49,17 @@ describe('Convert to Arrow Function', function () {
 
     it('should log an error if selection is invalid', function () {
         var sourceTokens = readSource('./test/fixtures/convertToArrowFunction/convertToArrowFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 13]            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 0,
-                    _character: 0
-                },
-                _end: {
-                    _line: 0,
-                    _character: 13
-                }
-            }]
-        };
-
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('convertToArrowFunctionFactory')(function () { })();
@@ -68,22 +70,18 @@ describe('Convert to Arrow Function', function () {
 
     it('should convert named function declaration with to arrow function', function () {
         var sourceTokens = readSource('./test/fixtures/convertToArrowFunction/convertToArrowFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [6, 14],
+                [6, 14]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 6,
-                    _character: 14
-                },
-                _end: {
-                    _line: 6,
-                    _character: 14
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
@@ -92,22 +90,18 @@ describe('Convert to Arrow Function', function () {
 
     it('should convert anonymous function declaration to arrow function', function () {
         var sourceTokens = readSource('./test/fixtures/convertToArrowFunction/convertToArrowFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [15, 27],
+                [15, 27]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 15,
-                    _character: 27
-                },
-                _end: {
-                    _line: 15,
-                    _character: 27
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
@@ -116,22 +110,18 @@ describe('Convert to Arrow Function', function () {
 
     it('should convert named one-line function declaration with to arrow function', function () {
         var sourceTokens = readSource('./test/fixtures/convertToArrowFunction/convertToArrowFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [11, 14],
+                [11, 14]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 11,
-                    _character: 14
-                },
-                _end: {
-                    _line: 11,
-                    _character: 14
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
@@ -140,22 +130,18 @@ describe('Convert to Arrow Function', function () {
 
     it('should convert anonymous one-line function declaration with to arrow function', function () {
         var sourceTokens = readSource('./test/fixtures/convertToArrowFunction/convertToArrowFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [2, 33],
+                [2, 33]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 33
-                },
-                _end: {
-                    _line: 2,
-                    _character: 33
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
@@ -167,22 +153,18 @@ describe('Convert to Arrow Function', function () {
             console.log('hi');
           }`;
         var sourceTokens = source.split(/\r?\n/);
+        var selections = [
+            selectionBuilder.buildSelection([
+                [1, 5],
+                [1, 5]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 1,
-                    _character: 5
-                },
-                _end: {
-                    _line: 1,
-                    _character: 5
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
@@ -191,22 +173,18 @@ describe('Convert to Arrow Function', function () {
 
     it('should remove trailing semi-colons from single-line arrow functions', function () {
         var sourceTokens = readSource('./test/fixtures/convertToArrowFunction/convertToArrowFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [20, 15],
+                [20, 15]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 20,
-                    _character: 15
-                },
-                _end: {
-                    _line: 20,
-                    _character: 15
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 
@@ -215,22 +193,18 @@ describe('Convert to Arrow Function', function () {
 
     it('should enclose complex 1-line expressions in curly braces', function() {
         var sourceTokens = readSource('./test/fixtures/convertToArrowFunction/convertToArrowFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [24, 15],
+                [24, 15]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 24,
-                    _character: 15
-                },
-                _end: {
-                    _line: 24,
-                    _character: 15
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToArrowFunctionFactory')(function () { })();
 

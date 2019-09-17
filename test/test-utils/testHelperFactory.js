@@ -1,6 +1,7 @@
 'use strict';
 
-var container = require('../../container');
+var container = require('./testContainer');
+const motherContainer = require('./mother-container');
 var mocker = require('../mocker');
 var sinon = require('sinon');
 
@@ -12,9 +13,12 @@ function testHelperFactory() {
 
     const subcontainer = container.new();
 
-    const vsCodeProperties = {};
+    const vsCodeProperties = {
+        activeTextEditor: motherContainer.buildData('activeTextEditor')
+    };
+
     var vscodeFactoryFake = mocker.getMock('vscodeFactory').mock(vsCodeProperties);
-    subcontainer.register(vscodeFactoryFake);
+    subcontainer.override(vscodeFactoryFake);
 
     let applySetEditSpy = sinon.spy(function (text, coords) {
         return {

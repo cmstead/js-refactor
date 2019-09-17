@@ -1,6 +1,6 @@
 'use strict';
 
-const container = require('../../../container');
+const container = require('../../test-utils/testContainer');
 const readSource = require('../../test-utils/read-source');
 const prettyJson = require('../../test-utils/test-utils').prettyJson;
 
@@ -27,7 +27,9 @@ describe('scopePathTools', function () {
 
         const vsCodeHelperFactoryFake = function () {
             return {
-                getActiveEditor: () => activeEditor
+                getActiveEditor: () => activeEditor,
+                getFileExtension: () => 'js',
+                getLanguageId: () => activeEditor._documentData._languageId
             }
         };
 

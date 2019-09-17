@@ -1,6 +1,6 @@
 'use strict';
 
-const container = require('../../../container');
+const container = require('../../test-utils/testContainer');
 const readSource = require('../../test-utils/read-source');
 const prettyJson = require('../../test-utils/test-utils').prettyJson;
 

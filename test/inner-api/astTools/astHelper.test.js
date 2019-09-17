@@ -3,7 +3,7 @@
 const assert = require('chai').assert;
 const sinon = require('sinon');
 
-const container = require('../../../container');
+const container = require('../../test-utils/testContainer');
 const motherContainer = require('../../test-utils/mother-container');
 const testUtils = require('../../test-utils/test-utils');
 

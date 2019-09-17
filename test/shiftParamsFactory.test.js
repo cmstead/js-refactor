@@ -7,6 +7,9 @@ var testHelperFactory = require('./test-utils/testHelperFactory');
 var readSource = require('./test-utils/read-source');
 var prettyJson = require('./test-utils/test-utils').prettyJson;
 
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
+
 var approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
@@ -51,12 +54,18 @@ describe('Shift Params', function () {
 
     it('should log an error if selection is not within a function', function () {
         var sourceTokens = readSource('./test/fixtures/shiftParams/shiftParams.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            }
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('shiftParamsFactory')(function () { })();
@@ -66,22 +75,18 @@ describe('Shift Params', function () {
 
     it('should rotate params one to the left', function () {
         var sourceTokens = readSource('./test/fixtures/shiftParams/shiftParams.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [2, 17],
+                [2, 17]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 17
-                },
-                _end: {
-                    _line: 2,
-                    _character: 17
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('shiftParamsFactory')(function () { })();
 
@@ -91,22 +96,18 @@ describe('Shift Params', function () {
     it('should rotate params one to the right', function () {
         quickPickOptions.itemIndices = [1, 0];
         var sourceTokens = readSource('./test/fixtures/shiftParams/shiftParams.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [2, 17],
+                [2, 17]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 17
-                },
-                _end: {
-                    _line: 2,
-                    _character: 17
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('shiftParamsFactory')(function () { })();
 
@@ -116,22 +117,18 @@ describe('Shift Params', function () {
     it('should rotate params two to the left', function () {
         quickPickOptions.itemIndices = [0, 1];
         var sourceTokens = readSource('./test/fixtures/shiftParams/shiftParams.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [2, 17],
+                [2, 17]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 17
-                },
-                _end: {
-                    _line: 2,
-                    _character: 17
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('shiftParamsFactory')(function () { })();
 

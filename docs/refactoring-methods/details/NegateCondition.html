@@ -32,12 +32,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/negateExpression/negateExpression.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            }
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
         subcontainer.build(&#x27;negateExpressionFactory&#x27;)(function () { })();
@@ -61,22 +67,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/negateExpression/negateExpression.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [3, 8],
+                [3, 8]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 3,
-                    _character: 8
-                },
-                _end: {
-                    _line: 3,
-                    _character: 8
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;negateExpressionFactory&#x27;)(function () { })();
 
@@ -99,22 +101,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/negateExpression/negateExpression.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [4, 7],
+                [4, 11]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 4,
-                    _character: 7
-                },
-                _end: {
-                    _line: 4,
-                    _character: 11
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;negateExpressionFactory&#x27;)(function () { })();
 
@@ -137,22 +135,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/negateExpression/negateExpression.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [5, 7],
+                [5, 17]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 5,
-                    _character: 7
-                },
-                _end: {
-                    _line: 5,
-                    _character: 17
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;negateExpressionFactory&#x27;)(function () { })();
 
@@ -175,22 +169,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/negateExpression/negateExpression.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [6, 7],
+                [6, 19]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 6,
-                    _character: 7
-                },
-                _end: {
-                    _line: 6,
-                    _character: 19
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;negateExpressionFactory&#x27;)(function () { })();
 
@@ -213,22 +203,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/negateExpression/negateExpression.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [7, 7],
+                [7, 28]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 7,
-                    _character: 7
-                },
-                _end: {
-                    _line: 7,
-                    _character: 28
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;negateExpressionFactory&#x27;)(function () { })();
 
@@ -251,22 +237,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/negateExpression/negateExpression.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [8, 7],
+                [8, 18]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 8,
-                    _character: 7
-                },
-                _end: {
-                    _line: 8,
-                    _character: 18
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;negateExpressionFactory&#x27;)(function () { })();
 
@@ -289,22 +271,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/negateExpression/negateExpression.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [9, 7],
+                [9, 22]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 9,
-                    _character: 7
-                },
-                _end: {
-                    _line: 9,
-                    _character: 22
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;negateExpressionFactory&#x27;)(function () { })();
 

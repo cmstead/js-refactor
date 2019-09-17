@@ -1,10 +1,12 @@
 let mocker = require('./mocker');
 
 let testHelperFactory = require('./test-utils/testHelperFactory');
-let motherContainer = require('./test-utils/mother-container');
 
 let readSource = require('./test-utils/read-source');
 let prettyJson = require('./test-utils/test-utils').prettyJson;
+
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
 
 let approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
@@ -50,19 +52,18 @@ describe('markAsAsyncFactory', function () {
 
     it('should log an error if no function can be found to mark', function () {
         var sourceTokens = readSource('./test/fixtures/markAsAsync/markAsAsync.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [99, 99],
+                [99, 99]
+            ])
+        ];
 
-        const activeTextEditorOptions = {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [99, 99],
-                    end: [99, 99]
-                }
-            }
-        };
-
-        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor = activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const infoAction = mocker.getMock('logger').api.info;
         const markAsAsyncFactory = subcontainer.build('markAsAsyncFactory');
@@ -76,22 +77,21 @@ describe('markAsAsyncFactory', function () {
 
     it('should mark a named function as async', function () {
         var sourceTokens = readSource('./test/fixtures/markAsAsync/markAsAsync.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [5, 0],
+                [5, 0]
+            ])
+        ];
 
-        const activeTextEditorOptions = {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [5, 0],
-                    end: [5, 0]
-                }
-            }
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
-        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor = activeTextEditor;
 
         const markAsAsyncFactory = subcontainer.build('markAsAsyncFactory');
-
         const callback = () => null;
 
         markAsAsyncFactory(callback)();
@@ -101,22 +101,20 @@ describe('markAsAsyncFactory', function () {
 
     it('should mark an anonymous function as async', function () {
         var sourceTokens = readSource('./test/fixtures/markAsAsync/markAsAsync.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [9, 0],
+                [9, 0]
+            ])
+        ];
 
-        const activeTextEditorOptions = {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [9, 0],
-                    end: [9, 0]
-                }
-            }
-        };
-
-        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor = activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const markAsAsyncFactory = subcontainer.build('markAsAsyncFactory');
-
         const callback = () => null;
 
         markAsAsyncFactory(callback)();
@@ -126,19 +124,18 @@ describe('markAsAsyncFactory', function () {
 
     it('should mark a simple lambda function as async', function () {
         var sourceTokens = readSource('./test/fixtures/markAsAsync/markAsAsync.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [12, 24],
+                [12, 24]
+            ])
+        ];
 
-        const activeTextEditorOptions = {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [12, 24],
-                    end: [12, 24]
-                }
-            }
-        };
-
-        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor = activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const markAsAsyncFactory = subcontainer.build('markAsAsyncFactory');
 
@@ -151,22 +148,20 @@ describe('markAsAsyncFactory', function () {
 
     it('should mark a multi-line lambda function as async', function () {
         var sourceTokens = readSource('./test/fixtures/markAsAsync/markAsAsync.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [15, 0],
+                [15, 0]
+            ])
+        ];
 
-        const activeTextEditorOptions = {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [15, 0],
-                    end: [15, 0]
-                }
-            }
-        };
-
-        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor = activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const markAsAsyncFactory = subcontainer.build('markAsAsyncFactory');
-
         const callback = () => null;
 
         markAsAsyncFactory(callback)();
@@ -176,19 +171,18 @@ describe('markAsAsyncFactory', function () {
 
     it('should mark a method on a class as async', function () {
         var sourceTokens = readSource('./test/fixtures/markAsAsync/markAsAsync.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [20, 0],
+                [20, 0]
+            ])
+        ];
 
-        const activeTextEditorOptions = {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [20, 0],
-                    end: [20, 0]
-                }
-            }
-        };
-
-        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor = activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const markAsAsyncFactory = subcontainer.build('markAsAsyncFactory');
 
@@ -201,22 +195,20 @@ describe('markAsAsyncFactory', function () {
 
     it('should not mark a function which is already async', function () {
         var sourceTokens = readSource('./test/fixtures/markAsAsync/markAsAsync.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
 
-        const activeTextEditorOptions = {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [1, 0],
-                    end: [1, 0]
-                }
-            }
-        };
-
-        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor = activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const markAsAsyncFactory = subcontainer.build('markAsAsyncFactory');
-
         const callback = () => null;
 
         markAsAsyncFactory(callback)();

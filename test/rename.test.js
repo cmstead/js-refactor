@@ -1,10 +1,12 @@
 let mocker = require('./mocker');
 
 let testHelperFactory = require('./test-utils/testHelperFactory');
-let motherContainer = require('./test-utils/mother-container');
 
 let readSource = require('./test-utils/read-source');
 let prettyJson = require('./test-utils/test-utils').prettyJson;
+
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
 
 let approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
@@ -50,19 +52,18 @@ describe('renameFactory', function () {
 
     it('should log an error if no identifier can be found to rename', function () {
         var sourceTokens = readSource('./test/fixtures/rename/rename.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [5, 20],
+                [5, 20]
+            ])
+        ];
 
-        const activeTextEditorOptions = {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [5, 20],
-                    end: [5, 20]
-                }
-            }
-        };
-
-        const activeTextEditor = motherContainer.buildData('activeTextEditor', activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor = activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const infoAction = mocker.getMock('logger').api.info;
         const markAsAsyncFactory = subcontainer.build('renameFactory');

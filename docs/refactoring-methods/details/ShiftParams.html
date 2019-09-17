@@ -32,12 +32,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/shiftParams/shiftParams.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            }
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
         subcontainer.build(&#x27;shiftParamsFactory&#x27;)(function () { })();
@@ -61,22 +67,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/shiftParams/shiftParams.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [2, 17],
+                [2, 17]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 17
-                },
-                _end: {
-                    _line: 2,
-                    _character: 17
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;shiftParamsFactory&#x27;)(function () { })();
 
@@ -100,22 +102,18 @@
         function () {
         quickPickOptions.itemIndices &#x3D; [1, 0];
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/shiftParams/shiftParams.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [2, 17],
+                [2, 17]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 17
-                },
-                _end: {
-                    _line: 2,
-                    _character: 17
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;shiftParamsFactory&#x27;)(function () { })();
 
@@ -139,22 +137,18 @@
         function () {
         quickPickOptions.itemIndices &#x3D; [0, 1];
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/shiftParams/shiftParams.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [2, 17],
+                [2, 17]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 17
-                },
-                _end: {
-                    _line: 2,
-                    _character: 17
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;shiftParamsFactory&#x27;)(function () { })();
 

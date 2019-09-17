@@ -7,6 +7,9 @@ var testHelperFactory = require('./test-utils/testHelperFactory');
 var readSource = require('./test-utils/read-source');
 var prettyJson = require('./test-utils/test-utils').prettyJson;
 
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
+
 var approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
@@ -38,12 +41,18 @@ describe('Negate Condition', function () {
 
     it('should log an error if conditional cannot be found', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            }
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('negateExpressionFactory')(function () { })();
@@ -53,22 +62,18 @@ describe('Negate Condition', function () {
 
     it('should negate a single value', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [3, 8],
+                [3, 8]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 3,
-                    _character: 8
-                },
-                _end: {
-                    _line: 3,
-                    _character: 8
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('negateExpressionFactory')(function () { })();
 
@@ -77,22 +82,18 @@ describe('Negate Condition', function () {
 
     it('should negate negated value', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [4, 7],
+                [4, 11]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 4,
-                    _character: 7
-                },
-                _end: {
-                    _line: 4,
-                    _character: 11
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('negateExpressionFactory')(function () { })();
 
@@ -101,22 +102,18 @@ describe('Negate Condition', function () {
 
     it('should negate multiple values', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [5, 7],
+                [5, 17]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 5,
-                    _character: 7
-                },
-                _end: {
-                    _line: 5,
-                    _character: 17
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('negateExpressionFactory')(function () { })();
 
@@ -125,22 +122,18 @@ describe('Negate Condition', function () {
 
     it('should negate multiple values in parentheses', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [6, 7],
+                [6, 19]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 6,
-                    _character: 7
-                },
-                _end: {
-                    _line: 6,
-                    _character: 19
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('negateExpressionFactory')(function () { })();
 
@@ -149,22 +142,18 @@ describe('Negate Condition', function () {
 
     it('should negate negated values in parentheses', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [7, 7],
+                [7, 28]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 7,
-                    _character: 7
-                },
-                _end: {
-                    _line: 7,
-                    _character: 28
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('negateExpressionFactory')(function () { })();
 
@@ -173,22 +162,18 @@ describe('Negate Condition', function () {
 
     it('should negate un-grouped values with first value negated', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [8, 7],
+                [8, 18]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 8,
-                    _character: 7
-                },
-                _end: {
-                    _line: 8,
-                    _character: 18
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('negateExpressionFactory')(function () { })();
 
@@ -197,22 +182,18 @@ describe('Negate Condition', function () {
 
     it('should negate un-grouped, individually grouped values with first value negated', function () {
         var sourceTokens = readSource('./test/fixtures/negateExpression/negateExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [9, 7],
+                [9, 22]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 9,
-                    _character: 7
-                },
-                _end: {
-                    _line: 9,
-                    _character: 22
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('negateExpressionFactory')(function () { })();
 

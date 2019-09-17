@@ -32,19 +32,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/rename/rename.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [5, 20],
+                [5, 20]
+            ])
+        ];
 
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [5, 20],
-                    end: [5, 20]
-                }
-            }
-        };
-
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const infoAction &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
         const markAsAsyncFactory &#x3D; subcontainer.build(&#x27;renameFactory&#x27;);

@@ -21,47 +21,6 @@
 <ul>
     <ul>
     <li>
-        <strong>should log an error if selection is not an identifier or variable declaration</strong>
-    </li>
-    <li>File location: <span class="filename">./test/inlineVariableFactory.test.js</span></li>
-    <li class="code-sample-wrapper">
-        <div class="code-expand">
-            <a href="#" class="collapse-link"></a>
-        </div>
-        <pre class="code-sample">
-            <code>
-        function () {
-        var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/inlineVariable/inlineVariable.js&#x27;);
-
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens,
-                _selections: [
-                    {
-                        _start: {
-                            _line: 4,
-                            _column: 10
-                        },
-                        _end: {
-                            _line: 4,
-                            _column: 10
-                        }
-                    }
-                ]
-            }
-        };
-
-        var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
-        subcontainer.build(&#x27;inlineVariableFactory&#x27;)(function () { })();
-
-        this.verify(prettyJson(info.args));
-    }
-            </code>
-        </pre>
-    </li>
-</ul>
-<ul>
-    <li>
         <strong>should log an error if variable is not assigned</strong>
     </li>
     <li>File location: <span class="filename">./test/inlineVariableFactory.test.js</span></li>
@@ -73,22 +32,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/inlineVariable/inlineVariable.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [11, 9],
+                [11, 9]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 11,
-                    _character: 9
-                },
-                _end: {
-                    _line: 11,
-                    _character: 9
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
         subcontainer.build(&#x27;inlineVariableFactory&#x27;)(function () { })();
@@ -112,22 +67,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/inlineVariable/inlineVariable.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [12, 10],
+                [12, 10]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 12,
-                    _character: 10
-                },
-                _end: {
-                    _line: 12,
-                    _character: 10
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;inlineVariableFactory&#x27;)(function () { })();
 
@@ -150,22 +101,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/inlineVariable/inlineVariable.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [13, 21],
+                [13, 25]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 13,
-                    _character: 21
-                },
-                _end: {
-                    _line: 13,
-                    _character: 25
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;inlineVariableFactory&#x27;)(function () { })();
 
@@ -188,22 +135,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/inlineVariable/inlineVariable.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [14, 24],
+                [14, 28]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 14,
-                    _character: 24
-                },
-                _end: {
-                    _line: 14,
-                    _character: 28
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;inlineVariableFactory&#x27;)(function () { })();
 
@@ -226,22 +169,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/inlineVariable/inlineVariable.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [19, 8],
+                [19, 9]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 19,
-                    _character: 8
-                },
-                _end: {
-                    _line: 19,
-                    _character: 9
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;inlineVariableFactory&#x27;)(function () { })();
 
@@ -264,22 +203,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/inlineVariable/inlineVariable.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [27, 12],
+                [27, 12]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 27,
-                    _character: 12
-                },
-                _end: {
-                    _line: 27,
-                    _character: 12
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;inlineVariableFactory&#x27;)(function () { })();
 

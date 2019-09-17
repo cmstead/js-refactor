@@ -7,6 +7,9 @@ var testHelperFactory = require('./test-utils/testHelperFactory');
 var readSource = require('./test-utils/read-source');
 var prettyJson = require('./test-utils/test-utils').prettyJson;
 
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
+
 var approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
@@ -52,22 +55,18 @@ describe('Wrap In Try/Catch', function () {
 
     it('should wrap selection in a try/catch block', function () {
         var sourceTokens = readSource('./test/fixtures/wrapInWrapper/wrapInWrapper.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [3, 4],
+                [5, 5]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 3,
-                    _character: 4
-                },
-                _end: {
-                    _line: 5,
-                    _character: 5
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('wrapInTryCatchFactory')(function () { })();
 

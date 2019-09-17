@@ -76,6 +76,15 @@
         ]
       },
       {
+        "id": "vue",
+        "extensions": [
+          ".vue"
+        ],
+        "aliases": [
+          "Vue"
+        ]
+      },
+      {
         "id": "javascriptreact",
         "extensions": [
           ".jsx"
@@ -316,6 +325,10 @@
         },
         {
           "command": "cmstead.jsRefactor.convertToArrowFunction",
+          "when": "editorLangId == vue"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToArrowFunction",
           "when": "editorLangId == typescript"
         },
         {
@@ -333,6 +346,10 @@
         {
           "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
@@ -353,6 +370,10 @@
         {
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionExpression",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
@@ -373,6 +394,10 @@
         {
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToTemplateLiteral",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
@@ -393,6 +418,10 @@
         {
           "command": "cmstead.jsRefactor.addExport",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.addExport",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.addExport",
@@ -413,6 +442,10 @@
         {
           "command": "cmstead.jsRefactor.extractMethod",
           "when": "editorHasSelection && editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.extractMethod",
+          "when": "editorHasSelection && editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.extractMethod",
@@ -425,6 +458,10 @@
         {
           "command": "cmstead.jsRefactor.extractVariable",
           "when": "editorHasSelection && editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.extractVariable",
+          "when": "editorHasSelection && editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.extractVariable",
@@ -448,6 +485,10 @@
         },
         {
           "command": "cmstead.jsRefactor.inlineVariable",
+          "when": "editorLangId == vue"
+        },
+        {
+          "command": "cmstead.jsRefactor.inlineVariable",
           "when": "editorLangId == typescript"
         },
         {
@@ -465,6 +506,10 @@
         {
           "command": "cmstead.jsRefactor.introduceFunction",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.introduceFunction",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.introduceFunction",
@@ -485,6 +530,10 @@
         {
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
@@ -505,6 +554,10 @@
         {
           "command": "cmstead.jsRefactor.markAsAsync",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.markAsAsync",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.markAsAsync",
@@ -525,6 +578,10 @@
         {
           "command": "cmstead.jsRefactor.negateExpression",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.negateExpression",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.negateExpression",
@@ -545,6 +602,10 @@
         {
           "command": "cmstead.jsRefactor.rename",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.rename",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.rename",
@@ -565,6 +626,10 @@
         {
           "command": "cmstead.jsRefactor.selectRefactoring",
           "when": "editorHasSelection && editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.selectRefactoring",
+          "when": "editorHasSelection && editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.selectRefactoring",
@@ -585,6 +650,10 @@
         {
           "command": "cmstead.jsRefactor.shiftParams",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.shiftParams",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.shiftParams",
@@ -605,6 +674,10 @@
         {
           "command": "cmstead.jsRefactor.wrapInArrowFunction",
           "when": "editorHasSelection && editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInArrowFunction",
+          "when": "editorHasSelection && editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.wrapInArrowFunction",
@@ -625,6 +698,10 @@
         {
           "command": "cmstead.jsRefactor.wrapInAsyncFunction",
           "when": "editorHasSelection && editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInAsyncFunction",
+          "when": "editorHasSelection && editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.wrapInAsyncFunction",
@@ -645,6 +722,10 @@
         {
           "command": "cmstead.jsRefactor.wrapInCondition",
           "when": "editorHasSelection && editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInCondition",
+          "when": "editorHasSelection && editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.wrapInCondition",
@@ -665,6 +746,10 @@
         {
           "command": "cmstead.jsRefactor.wrapInFunction",
           "when": "editorHasSelection && editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInFunction",
+          "when": "editorHasSelection && editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.wrapInFunction",
@@ -685,6 +770,10 @@
         {
           "command": "cmstead.jsRefactor.wrapInGenerator",
           "when": "editorHasSelection && editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInGenerator",
+          "when": "editorHasSelection && editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.wrapInGenerator",
@@ -705,6 +794,10 @@
         {
           "command": "cmstead.jsRefactor.wrapInIIFE",
           "when": "editorHasSelection && editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInIIFE",
+          "when": "editorHasSelection && editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.wrapInIIFE",
@@ -725,6 +818,10 @@
         {
           "command": "cmstead.jsRefactor.wrapInTryCatch",
           "when": "editorHasSelection && editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.wrapInTryCatch",
+          "when": "editorHasSelection && editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.wrapInTryCatch",
@@ -752,6 +849,11 @@
         {
           "command": "cmstead.jsRefactor.convertToArrowFunction",
           "group": "5_refactor",
+          "when": "editorLangId == vue"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToArrowFunction",
+          "group": "5_refactor",
           "when": "editorLangId == typescript"
         },
         {
@@ -773,6 +875,11 @@
           "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
           "group": "5_refactor",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
+          "group": "5_refactor",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.convertToFunctionDeclaration",
@@ -798,6 +905,11 @@
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
           "group": "5_refactor",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToFunctionExpression",
+          "group": "5_refactor",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.convertToFunctionExpression",
@@ -823,6 +935,11 @@
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
           "group": "5_refactor",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.convertToTemplateLiteral",
+          "group": "5_refactor",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.convertToTemplateLiteral",
@@ -848,6 +965,11 @@
           "command": "cmstead.jsRefactor.addExport",
           "group": "5_refactor",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.addExport",
+          "group": "5_refactor",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.addExport",
@@ -873,6 +995,11 @@
           "command": "cmstead.jsRefactor.extractMethod",
           "group": "5_refactor",
           "when": "editorHasSelection && editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.extractMethod",
+          "group": "5_refactor",
+          "when": "editorHasSelection && editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.extractMethod",
@@ -917,6 +1044,11 @@
         {
           "command": "cmstead.jsRefactor.inlineVariable",
           "group": "5_refactor",
+          "when": "editorLangId == vue"
+        },
+        {
+          "command": "cmstead.jsRefactor.inlineVariable",
+          "group": "5_refactor",
           "when": "editorLangId == typescript"
         },
         {
@@ -938,6 +1070,11 @@
           "command": "cmstead.jsRefactor.introduceFunction",
           "group": "5_refactor",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.introduceFunction",
+          "group": "5_refactor",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.introduceFunction",
@@ -963,6 +1100,11 @@
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
           "group": "5_refactor",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
+          "group": "5_refactor",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.liftAndNameFunctionExpression",
@@ -988,6 +1130,11 @@
           "command": "cmstead.jsRefactor.markAsAsync",
           "group": "5_refactor",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.markAsAsync",
+          "group": "5_refactor",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.markAsAsync",
@@ -1013,6 +1160,11 @@
           "command": "cmstead.jsRefactor.selectRefactoring",
           "group": "5_refactor",
           "when": "editorLangId == javascript"
+        },
+        {
+          "command": "cmstead.jsRefactor.selectRefactoring",
+          "group": "5_refactor",
+          "when": "editorLangId == vue"
         },
         {
           "command": "cmstead.jsRefactor.selectRefactoring",

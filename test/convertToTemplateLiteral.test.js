@@ -7,6 +7,9 @@ var testHelperFactory = require('./test-utils/testHelperFactory');
 var readSource = require('./test-utils/read-source');
 var prettyJson = require('./test-utils/test-utils').prettyJson;
 
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
+
 var approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
@@ -25,12 +28,18 @@ describe('Convert to Template', function () {
 
     it('should log an error if selection is not string concatenation', function () {
         var sourceTokens = readSource('./test/fixtures/convertToTemplateLiteral/convertToTemplateLiteral.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            }
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('convertToTemplateLiteralFactory')(function () { })();
@@ -41,22 +50,18 @@ describe('Convert to Template', function () {
 
     it('should log an error if expression is binary, but not string concatenation', function () {
         var sourceTokens = readSource('./test/fixtures/convertToTemplateLiteral/convertToTemplateLiteral.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [11, 12],
+                [11, 27]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 11,
-                    _character: 12
-                },
-                _end: {
-                    _line: 11,
-                    _character: 27
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('convertToTemplateLiteralFactory')(function () { })();
@@ -67,22 +72,18 @@ describe('Convert to Template', function () {
 
     it('should convert a concatenated string to a template literal', function () {
         var sourceTokens = readSource('./test/fixtures/convertToTemplateLiteral/convertToTemplateLiteral.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [9, 13],
+                [9, 111]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 9,
-                    _character: 13
-                },
-                _end: {
-                    _line: 9,
-                    _character: 111
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToTemplateLiteralFactory')(function () { })();
 

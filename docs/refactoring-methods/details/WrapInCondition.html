@@ -32,12 +32,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/wrapInWrapper/wrapInWrapper.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            }
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
         subcontainer.build(&#x27;wrapInConditionFactory&#x27;)(function () { })();
@@ -61,22 +67,18 @@
             <code>
         function () {
         var sourceTokens &#x3D; readSource(&#x27;./test/fixtures/wrapInWrapper/wrapInWrapper.js&#x27;);
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [3, 4],
+                [5, 5]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor &#x3D; {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 3,
-                    _character: 4
-                },
-                _end: {
-                    _line: 5,
-                    _character: 5
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build(&#x27;wrapInConditionFactory&#x27;)(function () { })();
 

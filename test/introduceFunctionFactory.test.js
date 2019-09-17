@@ -7,6 +7,9 @@ let testHelperFactory = require('./test-utils/testHelperFactory');
 let readSource = require('./test-utils/read-source');
 let prettyJson = require('./test-utils/test-utils').prettyJson;
 
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
+
 let approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
@@ -50,12 +53,18 @@ describe('Introduce Function', function () {
 
     it('should log an error when no valid identifier can be found', function () {
         var sourceTokens = readSource('./test/fixtures/introduceFunction/introduceFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            }
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('introduceFunctionFactory')(function () { })();
@@ -65,22 +74,18 @@ describe('Introduce Function', function () {
 
     it('should create a function when an appropriate object property is found', function () {
         var sourceTokens = readSource('./test/fixtures/introduceFunction/introduceFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [11, 23],
+                [11, 23]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 11,
-                    _character: 23
-                },
-                _end: {
-                    _line: 11,
-                    _character: 23
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('introduceFunctionFactory')(function () { })();
 
@@ -89,22 +94,18 @@ describe('Introduce Function', function () {
 
     it('should create a function when an appropriate function call is found', function () {
         var sourceTokens = readSource('./test/fixtures/introduceFunction/introduceFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [8, 25],
+                [8, 25]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 8,
-                    _character: 25
-                },
-                _end: {
-                    _line: 8,
-                    _character: 25
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('introduceFunctionFactory')(function () { })();
 
@@ -113,22 +114,18 @@ describe('Introduce Function', function () {
 
     it('should create a function when an appropriate variable declaration is found', function () {
         var sourceTokens = readSource('./test/fixtures/introduceFunction/introduceFunction.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [4, 41],
+                [4, 41]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 4,
-                    _character: 41
-                },
-                _end: {
-                    _line: 4,
-                    _character: 41
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('introduceFunctionFactory')(function () { })();
 

@@ -9,14 +9,13 @@ function parser(
     vsCodeHelperFactory
 ) {
 
-    const scriptPattern = /<script/i;
-    const shebangPattern = /^#!\/usr\/bin\/env node/i;
+    const shebangPattern = /^#!\/usr\/bin\/env node\s*$/i;
 
-    function isHtmlSource(sourceLines, languageId) {
-        return (/html/g.test(languageId))
-            || sourceLines
-                .filter(value => scriptPattern.test(value))
-                .length > 0;
+    function isHtmlSource(fileExtension, languageId) {
+        return languageId === 'html'
+            || languageId === 'vue'
+            || fileExtension.toLowerCase() === 'html'
+            || fileExtension.toLowerCase() === 'vue';
     }
 
     function stripShebang(sourceLines) {
@@ -26,9 +25,12 @@ function parser(
     }
 
     function buildParseableSource(sourceLines) {
-        const languageId = getLanguageId();
+        const vsCodeHelper = vsCodeHelperFactory();
 
-        return isHtmlSource(sourceLines, languageId)
+        const fileExtension = vsCodeHelper.getFileExtension();
+        const languageId = vsCodeHelper.getLanguageId();
+
+        return isHtmlSource(fileExtension, languageId)
             ? htmlToJs.convert(sourceLines)
             : stripShebang(sourceLines);
     }
@@ -94,6 +96,7 @@ function parser(
 
     function getLanguageId() {
         const activeEditor = vsCodeHelperFactory().getActiveEditor();
+
         return activeEditor._documentData._languageId;
     }
 

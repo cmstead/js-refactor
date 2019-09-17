@@ -7,6 +7,9 @@ var testHelperFactory = require('./test-utils/testHelperFactory');
 var readSource = require('./test-utils/read-source');
 var prettyJson = require('./test-utils/test-utils').prettyJson;
 
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
+
 var approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
@@ -50,11 +53,18 @@ describe('Extract Variable', function () {
     it('should log an error if selection is empty', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            }
-        };
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
+
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('extractVariableFactory')(function () { })();
@@ -64,22 +74,18 @@ describe('Extract Variable', function () {
 
     it('should log an error if selection is not a single expression', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [20, 20],
+                [21, 23]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 20,
-                    _character: 20
-                },
-                _end: {
-                    _line: 21,
-                    _character: 23
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('extractVariableFactory')(function () { })();
@@ -91,21 +97,18 @@ describe('Extract Variable', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
         setupOptions.selectedScopeIndex = 1;
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 11,
-                    _character: 21
-                },
-                _end: {
-                    _line: 11,
-                    _character: 26
-                }
-            }]
-        };
+        var selections = [
+            selectionBuilder.buildSelection([
+                [11, 21],
+                [11, 26]
+            ])
+        ];
+
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('extractVariableFactory')(function () { })();
 
@@ -115,22 +118,18 @@ describe('Extract Variable', function () {
     it('should extract multiline variable to the local scope', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
         setupOptions.selectedScopeIndex = 3;
-        
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 26,
-                    _character: 24
-                },
-                _end: {
-                    _line: 28,
-                    _character: 13
-                }
-            }]
-        };
+        var selections = [
+            selectionBuilder.buildSelection([
+                [26, 24],
+                [28, 13]
+            ])
+        ];
+
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('extractVariableFactory')(function () { })();
 
@@ -140,22 +139,18 @@ describe('Extract Variable', function () {
     it('should extract multiline variable to a function scope', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
         setupOptions.selectedScopeIndex = 2;
-        
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 26,
-                    _character: 24
-                },
-                _end: {
-                    _line: 28,
-                    _character: 13
-                }
-            }]
-        };
+        var selections = [
+            selectionBuilder.buildSelection([
+                [26, 24],
+                [28, 13]
+            ])
+        ];
+
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('extractVariableFactory')(function () { })();
 
@@ -165,22 +160,18 @@ describe('Extract Variable', function () {
     it('should extract multiline variable to an object scope', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
         setupOptions.selectedScopeIndex = 1;
-        
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 26,
-                    _character: 24
-                },
-                _end: {
-                    _line: 28,
-                    _character: 13
-                }
-            }]
-        };
+        var selections = [
+            selectionBuilder.buildSelection([
+                [26, 24],
+                [28, 13]
+            ])
+        ];
+
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('extractVariableFactory')(function () { })();
 
@@ -190,22 +181,18 @@ describe('Extract Variable', function () {
     it('should extract multiline variable to the program scope', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
         setupOptions.selectedScopeIndex = 0;
-        
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 26,
-                    _character: 24
-                },
-                _end: {
-                    _line: 28,
-                    _character: 13
-                }
-            }]
-        };
+        var selections = [
+            selectionBuilder.buildSelection([
+                [26, 24],
+                [28, 13]
+            ])
+        ];
+
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('extractVariableFactory')(function () { })();
 
@@ -215,78 +202,66 @@ describe('Extract Variable', function () {
     it('should adjust for terminating semicolon', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
         setupOptions.selectedScopeIndex = 3;
-        
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 30,
-                    _character: 29
-                },
-                _end: {
-                    _line: 30,
-                    _character: 34
-                }
-            }]
-        };
+        var selections = [
+            selectionBuilder.buildSelection([
+                [30, 29],
+                [30, 34]
+            ])
+        ];
+
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('extractVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
 
-    
+
     it('should extract variable within a method on a class', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
         setupOptions.selectedScopeIndex = 1;
-        
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 37,
-                    _character: 20
-                },
-                _end: {
-                    _line: 39,
-                    _character: 9
-                }
-            }]
-        };
+        var selections = [
+            selectionBuilder.buildSelection([
+                [37, 20],
+                [39, 9]
+            ])
+        ];
+
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('extractVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
-    
+
     it.skip('should extract variable to a scope outside the class', function () {
         var sourceTokens = readSource('./test/fixtures/extractVariable/extractVariable.js');
         setupOptions.selectedScopeIndex = 0;
-        
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 38,
-                    _character: 17
-                },
-                _end: {
-                    _line: 38,
-                    _character: 22
-                }
-            }]
-        };
+        var selections = [
+            selectionBuilder.buildSelection([
+                [38, 17],
+                [38, 22]
+            ])
+        ];
+
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('extractVariableFactory')(function () { })();
 
         this.verify(prettyJson(applySetEditSpy.args));
     });
-    
+
 
 });

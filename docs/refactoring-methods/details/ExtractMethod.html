@@ -32,18 +32,21 @@
             <code>
         function () {
         const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens
-            }
-        };
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
 
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const infoAction &#x3D; mocker.getMock(&#x27;logger&#x27;).api.info;
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
-
         const callback &#x3D; function () { };
 
         extractMethodFactory(callback)();
@@ -67,21 +70,20 @@
             <code>
         function () {
         const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [6, 12],
-                    end: [8, 13]
-                }
-            }
-        };
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [6, 12],
+                [8, 13]
+            ])
+        ];
 
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
-
         const callback &#x3D; function () { };
 
         extractMethodFactory(callback)();
@@ -107,21 +109,21 @@
         setupOptions.selectedScopeIndex &#x3D; 2;
 
         const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [12, 8],
-                    end: [14, 9]
-                }
-            }
-        };
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [12, 8],
+                [14, 9]
+            ])
+        ];
 
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
+
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
-
         const callback &#x3D; function () { };
 
         extractMethodFactory(callback)();
@@ -147,21 +149,21 @@
         setupOptions.selectedScopeIndex &#x3D; 1;
 
         const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [5, 12],
-                    end: [8, 13]
-                }
-            }
-        };
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [5, 12],
+                [8, 13]
+            ])
+        ];
 
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
+
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
-
         const callback &#x3D; function () { };
 
         extractMethodFactory(callback)();
@@ -187,21 +189,20 @@
         setupOptions.selectedScopeIndex &#x3D; 1;
 
         const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [19, 28],
-                    end: [19, 43]
-                }
-            }
-        };
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [19, 28],
+                [19, 43]
+            ])
+        ];
 
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
-
         const callback &#x3D; function () { };
 
         extractMethodFactory(callback)();
@@ -227,21 +228,20 @@
         setupOptions.selectedScopeIndex &#x3D; 1;
 
         const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [55, 8],
-                    end: [57, 10]
-                }
-            }
-        };
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [55, 8],
+                [57, 10]
+            ])
+        ];
 
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
-
         const callback &#x3D; function () { };
 
         extractMethodFactory(callback)();
@@ -267,21 +267,20 @@
         setupOptions.selectedScopeIndex &#x3D; 1;
 
         const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [23, 13],
-                    end: [23, 20]
-                }
-            }
-        };
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [23, 13],
+                [23, 20]
+            ])
+        ];
 
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
-
         const callback &#x3D; function () { };
 
         extractMethodFactory(callback)();
@@ -307,21 +306,20 @@
         setupOptions.selectedScopeIndex &#x3D; 1;
 
         const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [23, 4],
-                    end: [26, 5]
-                }
-            }
-        };
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [23, 4],
+                [26, 5]
+            ])
+        ];
 
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
-
         const callback &#x3D; function () { };
 
         extractMethodFactory(callback)();
@@ -347,21 +345,20 @@
         setupOptions.selectedScopeIndex &#x3D; 1;
 
         const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [30, 18],
-                    end: [33, 5]
-                }
-            }
-        };
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [30, 18],
+                [33, 5]
+            ])
+        ];
 
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
-
         const callback &#x3D; function () { };
 
         extractMethodFactory(callback)();
@@ -387,21 +384,20 @@
         setupOptions.selectedScopeIndex &#x3D; 2;
 
         const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [43, 19],
-                    end: [46, 17]
-                }
-            }
-        };
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [43, 19],
+                [46, 17]
+            ])
+        ];
 
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
-
         const callback &#x3D; function () { };
 
         extractMethodFactory(callback)();
@@ -427,21 +423,20 @@
         setupOptions.selectedScopeIndex &#x3D; 1;
 
         const sourceTokens &#x3D; readSource(&#x27;./test/fixtures/extractMethod/extractMethod.js&#x27;);
-        const activeTextEditorOptions &#x3D; {
-            optionsData: {
-                lines: sourceTokens,
-                selection: {
-                    start: [69, 8],
-                    end: [77, 9]
-                }
-            }
-        };
+        var selections &#x3D; [
+            selectionBuilder.buildSelection([
+                [69, 8],
+                [77, 9]
+            ])
+        ];
 
-        const activeTextEditor &#x3D; motherContainer.buildData(&#x27;activeTextEditor&#x27;, activeTextEditorOptions);
-        vsCodeProperties.activeTextEditor &#x3D; activeTextEditor;
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         const extractMethodFactory &#x3D; subcontainer.build(&#x27;extractMethodFactory&#x27;);
-
         const callback &#x3D; function () { };
 
         extractMethodFactory(callback)();

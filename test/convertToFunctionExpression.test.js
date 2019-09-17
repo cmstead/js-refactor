@@ -7,6 +7,9 @@ var testHelperFactory = require('./test-utils/testHelperFactory');
 var readSource = require('./test-utils/read-source');
 var prettyJson = require('./test-utils/test-utils').prettyJson;
 
+const selectionBuilder = require('./test-utils/selectionBuilder');
+const activeEditorUpdater = require('./test-utils/activeEditorUpdater');
+
 var approvalsConfig = require('./test-utils/approvalsConfig');
 require('approvals').configure(approvalsConfig).mocha('./test/approvals');
 
@@ -25,12 +28,18 @@ describe('Convert to Function Expression', function () {
 
     it('should log an error if selection is empty', function () {
         var sourceTokens = readSource('./test/fixtures/convertToFunctionExpression/convertToFunctionExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 0]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            }
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('convertToFunctionExpressionFactory')(function () { })();
@@ -41,23 +50,18 @@ describe('Convert to Function Expression', function () {
 
     it('should log an error if selection is invalid', function () {
         var sourceTokens = readSource('./test/fixtures/convertToFunctionExpression/convertToFunctionExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 0],
+                [0, 13]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 0,
-                    _character: 0
-                },
-                _end: {
-                    _line: 0,
-                    _character: 13
-                }
-            }]
-        };
-
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         var info = mocker.getMock('logger').api.info;
         subcontainer.build('convertToFunctionExpressionFactory')(function () { })();
@@ -68,22 +72,18 @@ describe('Convert to Function Expression', function () {
 
     it('should convert an arrow function with no arguments to a function expression', function () {
         var sourceTokens = readSource('./test/fixtures/convertToFunctionExpression/convertToFunctionExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [2, 22],
+                [2, 22]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 2,
-                    _character: 22
-                },
-                _end: {
-                    _line: 2,
-                    _character: 22
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToFunctionExpressionFactory')(function () { })();
 
@@ -92,22 +92,18 @@ describe('Convert to Function Expression', function () {
 
     it('should convert arrow function declaration with arguments to anonymous function expression', function () {
         var sourceTokens = readSource('./test/fixtures/convertToFunctionExpression/convertToFunctionExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [4, 27],
+                [4, 27]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 4,
-                    _character: 27
-                },
-                _end: {
-                    _line: 4,
-                    _character: 27
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToFunctionExpressionFactory')(function () { })();
 
@@ -116,22 +112,18 @@ describe('Convert to Function Expression', function () {
 
     it('converts multiline arrow function to function expression', function () {
         var sourceTokens = readSource('./test/fixtures/convertToFunctionExpression/convertToFunctionExpression.js');
+        var selections = [
+            selectionBuilder.buildSelection([
+                [6, 34],
+                [6, 34]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 6,
-                    _character: 34
-                },
-                _end: {
-                    _line: 6,
-                    _character: 34
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToFunctionExpressionFactory')(function () { })();
 
@@ -143,22 +135,18 @@ describe('Convert to Function Expression', function () {
         const sourceExpression = '() => console.log("hi");';
 
         var sourceTokens = sourceExpression.split(/\r?\n/);
+        var selections = [
+            selectionBuilder.buildSelection([
+                [0, 5],
+                [0, 5]
+            ])
+        ];
 
-        vsCodeProperties.activeTextEditor = {
-            _documentData: {
-                _lines: sourceTokens
-            },
-            _selections: [{
-                _start: {
-                    _line: 0,
-                    _character: 5
-                },
-                _end: {
-                    _line: 0,
-                    _character: 5
-                }
-            }]
-        };
+        activeEditorUpdater.updateActiveEditor(
+            vsCodeProperties.activeTextEditor,
+            selections,
+            sourceTokens
+        );
 
         subcontainer.build('convertToFunctionExpressionFactory')(function () { })();
 
