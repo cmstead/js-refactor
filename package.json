@@ -1196,7 +1196,7 @@
     "estraverse": "^4.2.0",
     "jfp": "^4.0.0",
     "signet": "^6.4.2",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.4"
   },
   "devDependencies": {
     "approvals": "https://github.com/cmstead/Approvals.NodeJS.git",
