@@ -3,6 +3,12 @@ JS Refactor
 
 JS Refactor is the Javascript automated refactoring tool for Visual Studio Code, built to smooth and streamline your development experience. It provides an extensive list of automated actions including the commonly needed: Extract Method, Extract Variable, Inline Variable, and an alias for the built-in VS Code rename. JS Refactor also supports many common snippets and associated actions for wrapping existing code in common block expressions.
 
+## Donate to the JSR Cause ##
+
+If you use JS Refactor and find it useful, please consider visiting my Patreon page and donating. Anything helps to keep updates and maintenance happening, and is much appreciated!
+
+[https://www.patreon.com/sdlcpunk](https://www.patreon.com/sdlcpunk)
+
 ### Supported Language Files ###
 
 - JavaScript/ECMAScript (.js)
