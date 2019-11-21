@@ -35,6 +35,7 @@ function testHelperFactory() {
 
     loggerMock.api.log = sinon.spy();
     loggerMock.api.info = sinon.spy();
+    loggerMock.api.error = sinon.spy();
     loggerMock.api.input = function (astr, callback) {
         callback('foo');
     }

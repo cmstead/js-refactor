@@ -25,3 +25,7 @@ var f = (function () {
 var f = (function (a) {
     if (true) a = 0;
 });
+
+// const something = {};
+
+// const somethingElse = something.?else;
