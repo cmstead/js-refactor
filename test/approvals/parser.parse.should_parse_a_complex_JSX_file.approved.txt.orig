@@ -7,6 +7,10 @@
                 "type": "Literal",
                 "raw": "'react'",
                 "value": "react",
+                "range": [
+                    26,
+                    33
+                ],
                 "loc": {
                     "start": {
                         "line": 1,
@@ -24,6 +28,10 @@
                     "local": {
                         "type": "Identifier",
                         "name": "Component",
+                        "range": [
+                            9,
+                            18
+                        ],
                         "loc": {
                             "start": {
                                 "line": 1,
@@ -38,6 +46,10 @@
                     "imported": {
                         "type": "Identifier",
                         "name": "Component",
+                        "range": [
+                            9,
+                            18
+                        ],
                         "loc": {
                             "start": {
                                 "line": 1,
@@ -49,6 +61,10 @@
                             }
                         }
                     },
+                    "range": [
+                        9,
+                        18
+                    ],
                     "loc": {
                         "start": {
                             "line": 1,
@@ -60,6 +76,10 @@
                         }
                     }
                 }
+            ],
+            "range": [
+                0,
+                34
             ],
             "loc": {
                 "start": {
@@ -80,6 +100,10 @@
                     "id": {
                         "type": "Identifier",
                         "name": "ipsumText",
+                        "range": [
+                            40,
+                            49
+                        ],
                         "loc": {
                             "start": {
                                 "line": 3,
@@ -95,6 +119,10 @@
                         "type": "Literal",
                         "raw": "'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.'",
                         "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
+                        "range": [
+                            52,
+                            145
+                        ],
                         "loc": {
                             "start": {
                                 "line": 3,
@@ -106,6 +134,10 @@
                             }
                         }
                     },
+                    "range": [
+                        40,
+                        145
+                    ],
                     "loc": {
                         "start": {
                             "line": 3,
@@ -119,6 +151,10 @@
                 }
             ],
             "kind": "var",
+            "range": [
+                36,
+                146
+            ],
             "loc": {
                 "start": {
                     "line": 3,
@@ -135,6 +171,10 @@
             "id": {
                 "type": "Identifier",
                 "name": "TestClass",
+                "range": [
+                    154,
+                    163
+                ],
                 "loc": {
                     "start": {
                         "line": 5,
@@ -154,6 +194,10 @@
                         "key": {
                             "type": "Identifier",
                             "name": "render",
+                            "range": [
+                                188,
+                                194
+                            ],
                             "loc": {
                                 "start": {
                                     "line": 6,
@@ -184,6 +228,10 @@
                                                 "name": {
                                                     "type": "JSXIdentifier",
                                                     "name": "div",
+                                                    "range": [
+                                                        229,
+                                                        232
+                                                    ],
                                                     "loc": {
                                                         "start": {
                                                             "line": 8,
@@ -196,6 +244,10 @@
                                                     }
                                                 },
                                                 "attributes": [],
+                                                "range": [
+                                                    228,
+                                                    233
+                                                ],
                                                 "loc": {
                                                     "start": {
                                                         "line": 8,
@@ -212,6 +264,10 @@
                                                 "name": {
                                                     "type": "JSXIdentifier",
                                                     "name": "div",
+                                                    "range": [
+                                                        336,
+                                                        339
+                                                    ],
                                                     "loc": {
                                                         "start": {
                                                             "line": 11,
@@ -223,6 +279,10 @@
                                                         }
                                                     }
                                                 },
+                                                "range": [
+                                                    334,
+                                                    340
+                                                ],
                                                 "loc": {
                                                     "start": {
                                                         "line": 11,
@@ -239,6 +299,10 @@
                                                     "type": "Literal",
                                                     "value": "\n                ",
                                                     "raw": "\n                ",
+                                                    "range": [
+                                                        233,
+                                                        250
+                                                    ],
                                                     "loc": {
                                                         "start": {
                                                             "line": 8,
@@ -258,6 +322,10 @@
                                                         "name": {
                                                             "type": "JSXIdentifier",
                                                             "name": "a",
+                                                            "range": [
+                                                                251,
+                                                                252
+                                                            ],
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 9,
@@ -275,6 +343,10 @@
                                                                 "name": {
                                                                     "type": "JSXIdentifier",
                                                                     "name": "className",
+                                                                    "range": [
+                                                                        253,
+                                                                        262
+                                                                    ],
                                                                     "loc": {
                                                                         "start": {
                                                                             "line": 9,
@@ -290,6 +362,10 @@
                                                                     "type": "Literal",
                                                                     "raw": "\"button\"",
                                                                     "value": "button",
+                                                                    "range": [
+                                                                        263,
+                                                                        271
+                                                                    ],
                                                                     "loc": {
                                                                         "start": {
                                                                             "line": 9,
@@ -301,6 +377,10 @@
                                                                         }
                                                                     }
                                                                 },
+                                                                "range": [
+                                                                    253,
+                                                                    271
+                                                                ],
                                                                 "loc": {
                                                                     "start": {
                                                                         "line": 9,
@@ -312,6 +392,10 @@
                                                                     }
                                                                 }
                                                             }
+                                                        ],
+                                                        "range": [
+                                                            250,
+                                                            272
                                                         ],
                                                         "loc": {
                                                             "start": {
@@ -329,6 +413,10 @@
                                                         "name": {
                                                             "type": "JSXIdentifier",
                                                             "name": "a",
+                                                            "range": [
+                                                                280,
+                                                                281
+                                                            ],
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 9,
@@ -340,6 +428,10 @@
                                                                 }
                                                             }
                                                         },
+                                                        "range": [
+                                                            278,
+                                                            282
+                                                        ],
                                                         "loc": {
                                                             "start": {
                                                                 "line": 9,
@@ -356,6 +448,10 @@
                                                             "type": "Literal",
                                                             "value": "Button",
                                                             "raw": "Button",
+                                                            "range": [
+                                                                272,
+                                                                278
+                                                            ],
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 9,
@@ -367,6 +463,10 @@
                                                                 }
                                                             }
                                                         }
+                                                    ],
+                                                    "range": [
+                                                        250,
+                                                        282
                                                     ],
                                                     "loc": {
                                                         "start": {
@@ -383,6 +483,10 @@
                                                     "type": "Literal",
                                                     "value": "\n                ",
                                                     "raw": "\n                ",
+                                                    "range": [
+                                                        282,
+                                                        299
+                                                    ],
                                                     "loc": {
                                                         "start": {
                                                             "line": 9,
@@ -402,6 +506,10 @@
                                                         "name": {
                                                             "type": "JSXIdentifier",
                                                             "name": "div",
+                                                            "range": [
+                                                                300,
+                                                                303
+                                                            ],
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 10,
@@ -414,6 +522,10 @@
                                                             }
                                                         },
                                                         "attributes": [],
+                                                        "range": [
+                                                            299,
+                                                            304
+                                                        ],
                                                         "loc": {
                                                             "start": {
                                                                 "line": 10,
@@ -430,6 +542,10 @@
                                                         "name": {
                                                             "type": "JSXIdentifier",
                                                             "name": "div",
+                                                            "range": [
+                                                                317,
+                                                                320
+                                                            ],
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 10,
@@ -441,6 +557,10 @@
                                                                 }
                                                             }
                                                         },
+                                                        "range": [
+                                                            315,
+                                                            321
+                                                        ],
                                                         "loc": {
                                                             "start": {
                                                                 "line": 10,
@@ -458,6 +578,10 @@
                                                             "expression": {
                                                                 "type": "Identifier",
                                                                 "name": "ipsumText",
+                                                                "range": [
+                                                                    305,
+                                                                    314
+                                                                ],
                                                                 "loc": {
                                                                     "start": {
                                                                         "line": 10,
@@ -469,6 +593,10 @@
                                                                     }
                                                                 }
                                                             },
+                                                            "range": [
+                                                                304,
+                                                                315
+                                                            ],
                                                             "loc": {
                                                                 "start": {
                                                                     "line": 10,
@@ -480,6 +608,10 @@
                                                                 }
                                                             }
                                                         }
+                                                    ],
+                                                    "range": [
+                                                        299,
+                                                        321
                                                     ],
                                                     "loc": {
                                                         "start": {
@@ -496,6 +628,10 @@
                                                     "type": "Literal",
                                                     "value": "\n            ",
                                                     "raw": "\n            ",
+                                                    "range": [
+                                                        321,
+                                                        334
+                                                    ],
                                                     "loc": {
                                                         "start": {
                                                             "line": 10,
@@ -508,6 +644,10 @@
                                                     }
                                                 }
                                             ],
+                                            "range": [
+                                                228,
+                                                340
+                                            ],
                                             "loc": {
                                                 "start": {
                                                     "line": 8,
@@ -519,6 +659,10 @@
                                                 }
                                             }
                                         },
+                                        "range": [
+                                            207,
+                                            350
+                                        ],
                                         "loc": {
                                             "start": {
                                                 "line": 7,
@@ -531,6 +675,10 @@
                                         }
                                     }
                                 ],
+                                "range": [
+                                    197,
+                                    356
+                                ],
                                 "loc": {
                                     "start": {
                                         "line": 6,
@@ -542,6 +690,10 @@
                                     }
                                 }
                             },
+                            "range": [
+                                194,
+                                356
+                            ],
                             "params": [],
                             "loc": {
                                 "start": {
@@ -557,6 +709,10 @@
                         "computed": false,
                         "static": false,
                         "kind": "method",
+                        "range": [
+                            188,
+                            356
+                        ],
                         "loc": {
                             "start": {
                                 "line": 6,
@@ -568,6 +724,10 @@
                             }
                         }
                     }
+                ],
+                "range": [
+                    182,
+                    359
                 ],
                 "loc": {
                     "start": {
@@ -583,6 +743,10 @@
             "superClass": {
                 "type": "Identifier",
                 "name": "Component",
+                "range": [
+                    172,
+                    181
+                ],
                 "loc": {
                     "start": {
                         "line": 5,
@@ -594,6 +758,10 @@
                     }
                 }
             },
+            "range": [
+                148,
+                359
+            ],
             "loc": {
                 "start": {
                     "line": 5,
@@ -610,6 +778,10 @@
             "declaration": {
                 "type": "Identifier",
                 "name": "TestClass",
+                "range": [
+                    376,
+                    385
+                ],
                 "loc": {
                     "start": {
                         "line": 16,
@@ -621,6 +793,10 @@
                     }
                 }
             },
+            "range": [
+                361,
+                386
+            ],
             "loc": {
                 "start": {
                     "line": 16,
@@ -634,6 +810,10 @@
         }
     ],
     "sourceType": "module",
+    "range": [
+        0,
+        386
+    ],
     "loc": {
         "start": {
             "line": 1,

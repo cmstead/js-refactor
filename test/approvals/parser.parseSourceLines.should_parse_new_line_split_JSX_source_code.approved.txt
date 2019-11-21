@@ -9,10 +9,6 @@
                     "id": {
                         "type": "Identifier",
                         "name": "ipsumText",
-                        "range": [
-                            4,
-                            13
-                        ],
                         "loc": {
                             "start": {
                                 "line": 1,
@@ -28,10 +24,6 @@
                         "type": "Literal",
                         "raw": "'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.'",
                         "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
-                        "range": [
-                            16,
-                            109
-                        ],
                         "loc": {
                             "start": {
                                 "line": 1,
@@ -43,10 +35,6 @@
                             }
                         }
                     },
-                    "range": [
-                        4,
-                        109
-                    ],
                     "loc": {
                         "start": {
                             "line": 1,
@@ -60,10 +48,6 @@
                 }
             ],
             "kind": "var",
-            "range": [
-                0,
-                110
-            ],
             "loc": {
                 "start": {
                     "line": 1,
@@ -84,10 +68,6 @@
                     "object": {
                         "type": "Identifier",
                         "name": "ReactDOM",
-                        "range": [
-                            136,
-                            144
-                        ],
                         "loc": {
                             "start": {
                                 "line": 3,
@@ -102,10 +82,6 @@
                     "property": {
                         "type": "Identifier",
                         "name": "render",
-                        "range": [
-                            145,
-                            151
-                        ],
                         "loc": {
                             "start": {
                                 "line": 3,
@@ -118,10 +94,7 @@
                         }
                     },
                     "computed": false,
-                    "range": [
-                        136,
-                        151
-                    ],
+                    "optional": false,
                     "loc": {
                         "start": {
                             "line": 3,
@@ -142,10 +115,6 @@
                             "name": {
                                 "type": "JSXIdentifier",
                                 "name": "div",
-                                "range": [
-                                    168,
-                                    171
-                                ],
                                 "loc": {
                                     "start": {
                                         "line": 4,
@@ -158,10 +127,6 @@
                                 }
                             },
                             "attributes": [],
-                            "range": [
-                                167,
-                                172
-                            ],
                             "loc": {
                                 "start": {
                                     "line": 4,
@@ -178,10 +143,6 @@
                             "name": {
                                 "type": "JSXIdentifier",
                                 "name": "div",
-                                "range": [
-                                    277,
-                                    280
-                                ],
                                 "loc": {
                                     "start": {
                                         "line": 7,
@@ -193,10 +154,6 @@
                                     }
                                 }
                             },
-                            "range": [
-                                275,
-                                281
-                            ],
                             "loc": {
                                 "start": {
                                     "line": 7,
@@ -213,10 +170,6 @@
                                 "type": "Literal",
                                 "value": "\n                ",
                                 "raw": "\n                ",
-                                "range": [
-                                    172,
-                                    189
-                                ],
                                 "loc": {
                                     "start": {
                                         "line": 4,
@@ -236,10 +189,6 @@
                                     "name": {
                                         "type": "JSXIdentifier",
                                         "name": "a",
-                                        "range": [
-                                            190,
-                                            191
-                                        ],
                                         "loc": {
                                             "start": {
                                                 "line": 5,
@@ -257,10 +206,6 @@
                                             "name": {
                                                 "type": "JSXIdentifier",
                                                 "name": "className",
-                                                "range": [
-                                                    192,
-                                                    201
-                                                ],
                                                 "loc": {
                                                     "start": {
                                                         "line": 5,
@@ -276,10 +221,6 @@
                                                 "type": "Literal",
                                                 "raw": "\"button\"",
                                                 "value": "button",
-                                                "range": [
-                                                    202,
-                                                    210
-                                                ],
                                                 "loc": {
                                                     "start": {
                                                         "line": 5,
@@ -291,10 +232,6 @@
                                                     }
                                                 }
                                             },
-                                            "range": [
-                                                192,
-                                                210
-                                            ],
                                             "loc": {
                                                 "start": {
                                                     "line": 5,
@@ -306,10 +243,6 @@
                                                 }
                                             }
                                         }
-                                    ],
-                                    "range": [
-                                        189,
-                                        211
                                     ],
                                     "loc": {
                                         "start": {
@@ -327,10 +260,6 @@
                                     "name": {
                                         "type": "JSXIdentifier",
                                         "name": "a",
-                                        "range": [
-                                            219,
-                                            220
-                                        ],
                                         "loc": {
                                             "start": {
                                                 "line": 5,
@@ -342,10 +271,6 @@
                                             }
                                         }
                                     },
-                                    "range": [
-                                        217,
-                                        221
-                                    ],
                                     "loc": {
                                         "start": {
                                             "line": 5,
@@ -362,10 +287,6 @@
                                         "type": "Literal",
                                         "value": "Button",
                                         "raw": "Button",
-                                        "range": [
-                                            211,
-                                            217
-                                        ],
                                         "loc": {
                                             "start": {
                                                 "line": 5,
@@ -377,10 +298,6 @@
                                             }
                                         }
                                     }
-                                ],
-                                "range": [
-                                    189,
-                                    221
                                 ],
                                 "loc": {
                                     "start": {
@@ -397,10 +314,6 @@
                                 "type": "Literal",
                                 "value": "\n                ",
                                 "raw": "\n                ",
-                                "range": [
-                                    221,
-                                    238
-                                ],
                                 "loc": {
                                     "start": {
                                         "line": 5,
@@ -420,10 +333,6 @@
                                     "name": {
                                         "type": "JSXIdentifier",
                                         "name": "div",
-                                        "range": [
-                                            239,
-                                            242
-                                        ],
                                         "loc": {
                                             "start": {
                                                 "line": 6,
@@ -436,10 +345,6 @@
                                         }
                                     },
                                     "attributes": [],
-                                    "range": [
-                                        238,
-                                        243
-                                    ],
                                     "loc": {
                                         "start": {
                                             "line": 6,
@@ -456,10 +361,6 @@
                                     "name": {
                                         "type": "JSXIdentifier",
                                         "name": "div",
-                                        "range": [
-                                            256,
-                                            259
-                                        ],
                                         "loc": {
                                             "start": {
                                                 "line": 6,
@@ -471,10 +372,6 @@
                                             }
                                         }
                                     },
-                                    "range": [
-                                        254,
-                                        260
-                                    ],
                                     "loc": {
                                         "start": {
                                             "line": 6,
@@ -492,10 +389,6 @@
                                         "expression": {
                                             "type": "Identifier",
                                             "name": "ipsumText",
-                                            "range": [
-                                                244,
-                                                253
-                                            ],
                                             "loc": {
                                                 "start": {
                                                     "line": 6,
@@ -507,10 +400,6 @@
                                                 }
                                             }
                                         },
-                                        "range": [
-                                            243,
-                                            254
-                                        ],
                                         "loc": {
                                             "start": {
                                                 "line": 6,
@@ -522,10 +411,6 @@
                                             }
                                         }
                                     }
-                                ],
-                                "range": [
-                                    238,
-                                    260
                                 ],
                                 "loc": {
                                     "start": {
@@ -542,10 +427,6 @@
                                 "type": "Literal",
                                 "value": "\n              ",
                                 "raw": "\n              ",
-                                "range": [
-                                    260,
-                                    275
-                                ],
                                 "loc": {
                                     "start": {
                                         "line": 6,
@@ -557,10 +438,6 @@
                                     }
                                 }
                             }
-                        ],
-                        "range": [
-                            167,
-                            281
                         ],
                         "loc": {
                             "start": {
@@ -580,10 +457,6 @@
                             "object": {
                                 "type": "Identifier",
                                 "name": "document",
-                                "range": [
-                                    297,
-                                    305
-                                ],
                                 "loc": {
                                     "start": {
                                         "line": 8,
@@ -598,10 +471,6 @@
                             "property": {
                                 "type": "Identifier",
                                 "name": "getElementById",
-                                "range": [
-                                    306,
-                                    320
-                                ],
                                 "loc": {
                                     "start": {
                                         "line": 8,
@@ -614,10 +483,7 @@
                                 }
                             },
                             "computed": false,
-                            "range": [
-                                297,
-                                320
-                            ],
+                            "optional": false,
                             "loc": {
                                 "start": {
                                     "line": 8,
@@ -634,10 +500,6 @@
                                 "type": "Literal",
                                 "raw": "'impl'",
                                 "value": "impl",
-                                "range": [
-                                    321,
-                                    327
-                                ],
                                 "loc": {
                                     "start": {
                                         "line": 8,
@@ -650,10 +512,7 @@
                                 }
                             }
                         ],
-                        "range": [
-                            297,
-                            328
-                        ],
+                        "optional": false,
                         "loc": {
                             "start": {
                                 "line": 8,
@@ -666,10 +525,7 @@
                         }
                     }
                 ],
-                "range": [
-                    136,
-                    342
-                ],
+                "optional": false,
                 "loc": {
                     "start": {
                         "line": 3,
@@ -681,10 +537,6 @@
                     }
                 }
             },
-            "range": [
-                136,
-                343
-            ],
             "loc": {
                 "start": {
                     "line": 3,
@@ -698,10 +550,6 @@
         }
     ],
     "sourceType": "script",
-    "range": [
-        0,
-        343
-    ],
     "loc": {
         "start": {
             "line": 1,
