@@ -1,9 +1,7 @@
-const filesystem = require('fs');
-const path = require('path');
-const vscodeFactory = require('../../mock-modules/vscodeFactory');
-
 const { assert } = require('chai');
 const gwt = require('fluent-gwt').configure({});
+const buildAstFixture = require('../buildAstFixture');
+
 const container = require('../../../container');
 
 describe.only("Selection utilities and expression discovery", function () {
@@ -14,22 +12,7 @@ describe.only("Selection utilities and expression discovery", function () {
     beforeEach(function () {
         const testContainer = container.new();
 
-        const vsCodeFactoryFake = vscodeFactory()({ activeTextEditor: {} });
-
-        testContainer.register(vsCodeFactoryFake, 'vscodeFactory');
-
-        const parser = testContainer.build('parser');
-
-        const fixturePath = path.join(
-            __dirname,
-            '..',
-            'fixtures',
-            'arrow-function-fixture.js'
-        );
-
-        const fileFixture = filesystem.readFileSync(fixturePath, { encoding: 'utf8' });
-        astFixture = parser.parse(fileFixture);
-
+        astFixture = buildAstFixture('arrow-function-fixture', testContainer);
 
         selectionExpressionHelper = testContainer.build('selectionExpressionHelper');
     });
