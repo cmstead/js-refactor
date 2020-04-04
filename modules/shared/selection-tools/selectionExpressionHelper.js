@@ -314,6 +314,8 @@ function selectionExpressionHelper(
             'astCoords, ast => variant<null, astNode>',
             getNearestMethodDeclaration),
 
+        // ---------- everything above this line was organized
+
         getSelectionExpression: typeHelper.enforce(
             'astCoords, ast => variant<null, astNode>',
             getSelectionExpression),
