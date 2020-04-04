@@ -1,5 +1,6 @@
 const filesystem = require('fs');
 const path = require('path');
+const vscodeFactory = require('../../mock-modules/vscodeFactory');
 
 const { assert } = require('chai');
 const gwt = require('fluent-gwt').configure({});
@@ -13,21 +14,9 @@ describe.only("Selection utilities and expression discovery", function () {
     beforeEach(function () {
         const testContainer = container.new();
 
-        const vsCodeFactoryFake = {
-            get: function () {
-                return {
-                    window: {
-                        activeTextEditor: {
-                            _documentData: {
-                                _languageId: 'javascript'
-                            }
-                        }
-                    }
-                };
-            }
-        };
+        const vsCodeFactoryFake = vscodeFactory()({ activeTextEditor: {} });
 
-        testContainer.register(() => (vsCodeFactoryFake), 'vscodeFactory');
+        testContainer.register(vsCodeFactoryFake, 'vscodeFactory');
 
         const parser = testContainer.build('parser');
 
