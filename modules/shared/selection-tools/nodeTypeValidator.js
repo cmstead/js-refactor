@@ -1,7 +1,6 @@
 function nodeTypeValidator(
     astHelper,
-    nodeTypes,
-    typeHelper
+    nodeTypes
 ) {
     'use strict';
 
