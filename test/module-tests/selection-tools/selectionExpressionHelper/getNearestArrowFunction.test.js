@@ -20,7 +20,7 @@ describe.only("Selection utilities and expression discovery", function () {
 
     describe('Get nearest arrow function', function () {
 
-        it('returns null when ast coordinates are not positioned within an arrow function', function () {
+        it('returns null when cursor is not positioned within an arrow function', function () {
             return gwt
                 .given(
                     'ast coordinates are not in an arrow function expression',
@@ -46,7 +46,7 @@ describe.only("Selection utilities and expression discovery", function () {
                 )
         });
 
-        it('returns arrow function ast node when coordinates are in a stand-alone arrow function', function () {
+        it('returns arrow function node when cursor is in a stand-alone arrow function', function () {
             return gwt
                 .given(
                     'selection coordinates are within a standalone arrow function',
@@ -67,7 +67,7 @@ describe.only("Selection utilities and expression discovery", function () {
                         .getNearestArrowFunction(selection, astFixture)
                 )
                 .then(
-                    'returns arrow function ast node',
+                    'correct arrow function ast node is returned',
                     (result) => {
                         const expectedLocation = {
                             start: {
@@ -83,6 +83,47 @@ describe.only("Selection utilities and expression discovery", function () {
                         const actualLocation = result.loc;
 
                         assert.equal(JSON.stringify(actualLocation), JSON.stringify(expectedLocation), 'Locations did not match, arrow function was not found correctly');
+                    }
+                )
+        });
+
+        it('returns nested arrow function when cursor is inside inner arrow function', function () {
+            return gwt
+                .given(
+                    'the cursor is inside a nested arrow function',
+                    () => ({
+                        start: {
+                            line: 2,
+                            column: 37
+                        },
+                        end: {
+                            line: 2,
+                            column: 37
+                        }
+                    })
+                )
+                .when(
+                    'locating arrow function at cursor',
+                    (cursorPosition) => selectionExpressionHelper
+                        .getNearestArrowFunction(cursorPosition, astFixture)
+                )
+                .then(
+                    'inner arrow function node is returned',
+                    (result) => {
+                        const expectedLocation = {
+                            start: {
+                                line: 2,
+                                column: 34
+                            },
+                            end: {
+                                line: 2,
+                                column: 44
+                            }
+                        };
+
+                        const actualLocation = result.loc;
+
+                        assert.equal(JSON.stringify(actualLocation), JSON.stringify(expectedLocation), 'Locations did not match, arrow function was not correctly found');
                     }
                 )
         });
