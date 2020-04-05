@@ -128,6 +128,47 @@ describe.only("Selection utilities and expression discovery", function () {
                 )
         });
 
+        it('returns arrow function node when cursor is inside arrow function attached to object literal', function () {
+            return gwt
+                .given(
+                    'cursor is inside arrow function attached to object literal',
+                    () => ({
+                        start: {
+                            line: 5,
+                            column: 15
+                        },
+                        end: {
+                            line: 5,
+                            column: 15
+                        }
+                    })
+                )
+                .when(
+                    'arrow function search behavior is run',
+                    (cursorPosition) => selectionExpressionHelper
+                        .getNearestArrowFunction(cursorPosition, astFixture)
+                )
+                .then(
+                    'arrow function node located in object literal is returned',
+                    (result) => {
+                        const expectedLocation = {
+                            start: {
+                                line: 5,
+                                column: 11 
+                            },
+                            end: {
+                                line: 5,
+                                column: 21 
+                            }
+                        };
+
+                        const actualLocation = result.loc;
+
+                        assert.equal(JSON.stringify(actualLocation), JSON.stringify(expectedLocation), 'Unable to correctly locate arrow function in object literal');
+                    }
+                )
+        });
+
     });
 
 });
