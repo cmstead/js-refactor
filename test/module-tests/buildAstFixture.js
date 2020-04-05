@@ -16,8 +16,8 @@ function buildAstFixture(fixtureName, testContainer) {
     );
 
     const fileFixture = filesystem.readFileSync(fixturePath, { encoding: 'utf8' });
+ 
     return parser.parse(fileFixture);
-
 }
 
 module.exports = buildAstFixture
