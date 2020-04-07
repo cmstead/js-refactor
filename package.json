@@ -14,6 +14,16 @@
   "engines": {
     "vscode": "^0.12.0"
   },
+  "main": "./extension",
+  "scripts": {
+    "test": "npm run unit & npm run integration",
+    "commit": "node ./node_modules/nanocommit/",
+    "integration": "node ./node_modules/mocha/bin/mocha ./test/integration/**/*.test.js",
+    "unit": "node ./node_modules/mocha/bin/mocha ./test/unit/**/*.test.js",
+    "build": "tfx extension create --manifest-globs vss-integration.json",
+    "build-docs": "node build-docs",
+    "publish": "vsce publish"
+  },
   "categories": [
     "Formatters",
     "Programming Languages",
@@ -44,16 +54,8 @@
     "onCommand:cmstead.jsRefactor.wrapInIIFE",
     "onCommand:cmstead.jsRefactor.wrapInTryCatch"
   ],
-  "main": "./extension",
-  "scripts": {
-    "test": "node ./node_modules/nanocommit/",
-    "mocha": "node ./node_modules/mocha/bin/mocha --recursive ./test/**/*.test.js",
-    "build": "tfx extension create --manifest-globs vss-integration.json",
-    "build-docs": "node build-docs",
-    "publish": "vsce publish"
-  },
   "nanocommit": {
-    "testCommand": "npm run mocha && npm run build-docs",
+    "testCommand": "npm run test && npm run build-docs",
     "blindCommit": true
   },
   "tags": [

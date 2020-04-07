@@ -8,7 +8,7 @@ module.exports = {
 
     EOL: require('os').EOL,
 
-    errorOnStaleApprovedFiles: true,
+    errorOnStaleApprovedFiles: false,
 
     shouldIgnoreStaleApprovedFile: function (/*fileName*/) { return false; },
 
