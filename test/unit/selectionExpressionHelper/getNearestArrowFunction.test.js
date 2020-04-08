@@ -23,7 +23,7 @@ describe("Selection utilities and expression discovery", function () {
         it('returns null when cursor is not positioned within an arrow function', function () {
             return gwt
                 .given(
-                    'ast coordinates are not in an arrow function expression',
+                    'cursor is at the very beginning of the document',
                     () => ({
                         start: {
                             line: 1,
