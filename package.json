@@ -1193,7 +1193,7 @@
   },
   "dependencies": {
     "@typescript-eslint/typescript-estree": "^2.8.0",
-    "dject": "^1.13.3",
+    "dject": "^1.18.1",
     "espree": "^6.1.2",
     "estraverse": "^4.2.0",
     "jfp": "^4.0.0",
