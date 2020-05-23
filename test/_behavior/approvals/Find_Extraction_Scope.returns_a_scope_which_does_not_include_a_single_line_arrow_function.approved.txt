@@ -1,0 +1,10 @@
+[
+    {
+        "nodeIndex": 0,
+        "nodeType": "VariableDeclaration",
+        "nodeStart": {
+            "line": 1,
+            "column": 0
+        }
+    }
+]

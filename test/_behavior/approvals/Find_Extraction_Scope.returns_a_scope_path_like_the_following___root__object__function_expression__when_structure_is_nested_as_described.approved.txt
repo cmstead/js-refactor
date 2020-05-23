@@ -1,0 +1,26 @@
+[
+    {
+        "nodeIndex": 0,
+        "nodeType": "VariableDeclaration",
+        "nodeStart": {
+            "line": 1,
+            "column": 0
+        }
+    },
+    {
+        "nodeIndex": 1,
+        "nodeType": "ObjectExpression",
+        "nodeStart": {
+            "line": 7,
+            "column": 22
+        }
+    },
+    {
+        "nodeIndex": 2,
+        "nodeType": "FunctionExpression",
+        "nodeStart": {
+            "line": 8,
+            "column": 24
+        }
+    }
+]

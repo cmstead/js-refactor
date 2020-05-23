@@ -22,5 +22,5 @@ const approvalsConfig = {
 const approvals = require('approvals');
 
 module.exports = {
-    init: () => approvals.configure(approvalsConfig).mocha('./test/approvals')
+    init: () => approvals.configure(approvalsConfig).mocha('./test/_behavior/approvals')
 };

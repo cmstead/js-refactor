@@ -7,6 +7,7 @@ var config = {
     modulePaths: [
         '_jsr-new-core',
         '_jsr-new-core' + sep + 'extract-variable',
+        '_jsr-new-core' + sep + 'const',
 
         'commands',
         'commands' + sep + 'generic',
