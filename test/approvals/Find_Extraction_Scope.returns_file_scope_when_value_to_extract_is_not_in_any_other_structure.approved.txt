@@ -1,0 +1,7 @@
+{
+    "scopeLength": 1,
+    "startLocation": {
+        "line": 1,
+        "column": 0
+    }
+}

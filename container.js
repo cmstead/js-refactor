@@ -5,6 +5,9 @@ var sep = require('path').sep;
 var config = {
     cwd: __dirname + sep + 'modules',
     modulePaths: [
+        '_jsr-new-core',
+        '_jsr-new-core' + sep + 'extract-variable',
+
         'commands',
         'commands' + sep + 'generic',
         'helpers',

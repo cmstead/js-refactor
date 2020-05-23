@@ -1,0 +1,28 @@
+[
+    [
+        "aNewFunction()",
+        {
+            "start": [
+                12,
+                8
+            ],
+            "end": [
+                14,
+                9
+            ]
+        }
+    ],
+    [
+        "function aNewFunction () {\nif (1 !== 3) {\n            console.log('This is definitional!');\n        }\n}\n\n",
+        {
+            "start": [
+                12,
+                8
+            ],
+            "end": [
+                12,
+                8
+            ]
+        }
+    ]
+]
