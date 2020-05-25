@@ -37,8 +37,11 @@ function variableExtractionScopeFinder(
                     return this.skip();
                 }
 
-                if ((scopeTypes.includes(node.type)
-                        && isValidExtractionNode(node))) {
+                if (
+                    scopeTypes.includes(node.type)
+                    && isValidExtractionNode(node)
+                    && !scopePath.includes(node)
+                ) {
                     scopePath.push(node);
                 }
             }

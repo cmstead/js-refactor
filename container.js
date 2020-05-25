@@ -8,6 +8,7 @@ var config = {
         '_jsr-new-core',
         '_jsr-new-core' + sep + 'extract-variable',
         '_jsr-new-core' + sep + 'const',
+        '_jsr-new-core' + sep + 'shared',
 
         'commands',
         'commands' + sep + 'generic',

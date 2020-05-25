@@ -50,4 +50,8 @@ describe('Find extraction location', function () {
 
         this.verify(prettyJson(extractionLocation));
     });
+
+    it('returns the position at the beginning of the property name in scopePath[2]', function() {
+        throw new Error('Start here');
+    })
 });
