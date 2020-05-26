@@ -1,9 +1,8 @@
 function variableExtractionLocationFinder(
     estraverse,
+    nodeTypeMap,
     nodeUtils
 ) {
-
-    const last = values => values[values.length - 1];
 
     function buildMatchPath(parentNode, childLocation) {
 
@@ -14,15 +13,9 @@ function variableExtractionLocationFinder(
                 const nodeContainsChild = nodeUtils
                     .doesNodeContainCoords(node.loc, childLocation);
 
-                const nodeIsChildNode = nodeUtils
-                    .isSameLocation(
-                        node.loc,
-                        childLocation
-                    ) === 0;
-
-                if (node === childLocation || !nodeContainsChild) {
+                if (!nodeContainsChild) {
                     return this.skip;
-                } else if (!nodeIsChildNode) {
+                } else {
                     matchPath.push(node);
                 }
             }
@@ -31,21 +24,45 @@ function variableExtractionLocationFinder(
         return matchPath;
     }
 
-    function getExtractionLocation(parentNode, childLocation) {
-        if (parentNode === null) {
-            return {
-                start: childLocation.start,
-                end: childLocation.start
-            }
-        } else {
-            const matchPath = buildMatchPath(parentNode, childLocation);
-            const matchedLocation = last(matchPath).loc;
+    const extractionPoints = [
+        nodeTypeMap.ASSIGNMENT_EXPRESSION,
+        nodeTypeMap.CALL_EXPRESSION,
+        nodeTypeMap.IF_STATEMENT,
+        nodeTypeMap.FUNCTION_DECLARATION,
+        nodeTypeMap.PROPERTY,
+        nodeTypeMap.RETURN_STATEMENT,
+        nodeTypeMap.VARIABLE_DECLARATION
+    ];
 
-            return {
-                start: matchedLocation.start,
-                end: matchedLocation.start
-            };
+    const unsafeWrappers = extractionPoints.concat([
+        nodeTypeMap.VARIABLE_DECLARATOR
+    ]);
+
+    function isNotArrowExpressionOrMultiline(node) {
+        return node.type !== nodeTypeMap.ARROW_FUNCTION_EXPRESSION
+            || node.body.type === nodeTypeMap.BLOCK_STATEMENT
+    }
+
+    function isAcceptableExtractionPoint(node, parent) {
+        return extractionPoints.includes(node.type)
+            && !unsafeWrappers.includes(parent.type)
+            && isNotArrowExpressionOrMultiline(parent);
+    }
+
+    const last = values => values[values.length - 1];
+
+    function getExtractionLocation(parentNode, childLocation) {
+        const matchPath = buildMatchPath(parentNode, childLocation);
+        let extractionNode = matchPath.pop();
+
+        while (matchPath.length > 0 && !isAcceptableExtractionPoint(extractionNode, last(matchPath))) {
+            extractionNode = matchPath.pop();
         }
+
+        return {
+            start: extractionNode.loc.start,
+            end: extractionNode.loc.start
+        };
     }
 
     return {

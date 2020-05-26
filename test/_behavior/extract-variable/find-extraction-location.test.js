@@ -44,7 +44,7 @@ describe('Find extraction location', function () {
         });
 
         it('returns the first position of the first line for extraction', function () {
-            const parentNode = null;
+            const parentNode = astFixture;
             const childPosition = scopePath[0].loc;
     
             const extractionLocation = variableExtractionLocationFinder.getExtractionLocation(parentNode, childPosition);
@@ -88,16 +88,78 @@ describe('Find extraction location', function () {
         beforeEach(function () {
             selectionPosition = {
                 start: {
-                    line: 8,
+                    line: 10,
                     column: 53
                 },
                 end: {
-                    line: 8,
+                    line: 10,
                     column: 58
                 }
             };
 
             scopePath = variableExtractionScopeFinder.findScopePath(selectionPosition, astFixture);
+        });
+
+        it('returns the position at the beginning of the outermost if statement', function () {
+            const parentNode = scopePath[2];
+            const childPosition = scopePath[3].loc;
+    
+            const extractionLocation = variableExtractionLocationFinder.getExtractionLocation(parentNode, childPosition);
+    
+            this.verify(prettyJson(extractionLocation));
+        });
+
+        it('returns the position at the beginning of the variable declaration', function () {
+            const parentNode = scopePath[3];
+            const childPosition = selectionPosition;
+    
+            const extractionLocation = variableExtractionLocationFinder.getExtractionLocation(parentNode, childPosition);
+    
+            this.verify(prettyJson(extractionLocation));
+        });
+
+        it('returns the position at the beginning of the variable assignment', function () {
+            selectionPosition = {
+                start: {
+                    line: 14,
+                    column: 24
+                },
+                end: {
+                    line: 14,
+                    column: 30
+                }
+            };
+
+            scopePath = variableExtractionScopeFinder.findScopePath(selectionPosition, astFixture);
+
+            const parentNode = scopePath[3];
+            const childPosition = selectionPosition;
+    
+            const extractionLocation = variableExtractionLocationFinder.getExtractionLocation(parentNode, childPosition);
+    
+            this.verify(prettyJson(extractionLocation));
+        });
+
+        it('returns the position at the beginning of the expression', function () {
+            selectionPosition = {
+                start: {
+                    line: 17,
+                    column: 58
+                },
+                end: {
+                    line: 17,
+                    column: 67
+                }
+            };
+
+            scopePath = variableExtractionScopeFinder.findScopePath(selectionPosition, astFixture);
+
+            const parentNode = scopePath[3];
+            const childPosition = selectionPosition;
+    
+            const extractionLocation = variableExtractionLocationFinder.getExtractionLocation(parentNode, childPosition);
+    
+            this.verify(prettyJson(extractionLocation));
         });
     });
 
