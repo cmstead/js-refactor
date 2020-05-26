@@ -4,6 +4,20 @@ function variableExtractionLocationFinder(
     nodeUtils
 ) {
 
+    const extractionPoints = [
+        nodeTypeMap.ASSIGNMENT_EXPRESSION,
+        nodeTypeMap.CALL_EXPRESSION,
+        nodeTypeMap.IF_STATEMENT,
+        nodeTypeMap.FUNCTION_DECLARATION,
+        nodeTypeMap.PROPERTY,
+        nodeTypeMap.RETURN_STATEMENT,
+        nodeTypeMap.VARIABLE_DECLARATION
+    ];
+
+    const unsafeWrappers = extractionPoints.concat([
+        nodeTypeMap.VARIABLE_DECLARATOR
+    ]);
+
     function buildMatchPath(parentNode, childLocation) {
 
         let matchPath = [];
@@ -24,21 +38,7 @@ function variableExtractionLocationFinder(
         return matchPath;
     }
 
-    const extractionPoints = [
-        nodeTypeMap.ASSIGNMENT_EXPRESSION,
-        nodeTypeMap.CALL_EXPRESSION,
-        nodeTypeMap.IF_STATEMENT,
-        nodeTypeMap.FUNCTION_DECLARATION,
-        nodeTypeMap.PROPERTY,
-        nodeTypeMap.RETURN_STATEMENT,
-        nodeTypeMap.VARIABLE_DECLARATION
-    ];
-
-    const unsafeWrappers = extractionPoints.concat([
-        nodeTypeMap.VARIABLE_DECLARATOR
-    ]);
-
-    function isNotArrowExpressionOrMultiline(node) {
+    function isNotArrowExpressionOrIsMultiline(node) {
         return node.type !== nodeTypeMap.ARROW_FUNCTION_EXPRESSION
             || node.body.type === nodeTypeMap.BLOCK_STATEMENT
     }
@@ -46,7 +46,7 @@ function variableExtractionLocationFinder(
     function isAcceptableExtractionPoint(node, parent) {
         return extractionPoints.includes(node.type)
             && !unsafeWrappers.includes(parent.type)
-            && isNotArrowExpressionOrMultiline(parent);
+            && isNotArrowExpressionOrIsMultiline(parent);
     }
 
     const last = values => values[values.length - 1];
