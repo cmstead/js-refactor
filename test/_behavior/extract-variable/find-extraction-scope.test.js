@@ -133,4 +133,27 @@ describe('Find Extraction Scope', function() {
 
         this.verify(prettyJson(scopeInfo));
     });
+
+    it('returns a scope which includes a conditional block', function () {
+        const coordinates = {
+            start: {
+                line: 20,
+                column: 16
+            },
+            end: {
+                line: 20,
+                column: 49
+            }
+        };
+
+        const foundScopePath = variableExtractionScopeFinder.findScopePath(coordinates, astFixture);
+
+        const scopeInfo = foundScopePath.map((node, index) => ({
+            nodeIndex: index,
+            nodeType: node.type,
+            nodeStart: node.loc.start
+        }));
+
+        this.verify(prettyJson(scopeInfo));
+    });
 });

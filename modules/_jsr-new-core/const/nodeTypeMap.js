@@ -4,6 +4,7 @@ function nodeTypeMap () {
         BLOCK_STATEMENT: 'BlockStatement',
         FUNCTION_DECLARATION: 'FunctionDeclaration',
         FUNCTION_EXPRESSION: 'FunctionExpression',
+        IF_STATEMENT: 'IfStatement',
         OBJECT_EXPRESSION: 'ObjectExpression',
     };
 }

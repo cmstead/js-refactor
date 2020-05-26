@@ -17,16 +17,12 @@
   "main": "./extension",
   "scripts": {
     "test": "npm run behavior-tests && npm run unit-tests & npm run integration-tests",
-
     "behavior-tests": "node ./node_modules/mocha/bin/mocha ./test/_behavior/**/*.test.js",
     "integration-tests": "node ./node_modules/mocha/bin/mocha ./test/integration/**/*.test.js",
     "unit-tests": "node ./node_modules/mocha/bin/mocha ./test/unit/**/*.test.js",
-
     "commit": "node ./node_modules/nanocommit/",
-
     "build": "tfx extension create --manifest-globs vss-integration.json",
     "build-docs": "node build-docs",
-
     "publish": "vsce publish"
   },
   "categories": [

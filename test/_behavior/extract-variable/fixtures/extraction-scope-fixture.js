@@ -15,3 +15,7 @@ const arrowFunctionWithBody = () => {
 }
 
 const arrowFunctionWithoutBody = () => console.log('Arrow function without body');
+
+if(true) {
+    console.log('testing for conditional capture');
+}

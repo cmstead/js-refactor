@@ -7,6 +7,7 @@ function variableExtractionScopeFinder(
         nodeTypeMap.ARROW_FUNCTION_EXPRESSION,
         nodeTypeMap.FUNCTION_DECLARATION,
         nodeTypeMap.FUNCTION_EXPRESSION,
+        nodeTypeMap.IF_STATEMENT,
         nodeTypeMap.OBJECT_EXPRESSION
     ];
 

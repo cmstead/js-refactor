@@ -10,48 +10,95 @@ approvals.init();
 
 describe('Find extraction location', function () {
 
-    let scopePath;
+    let astFixture;
     let variableExtractionLocationFinder;
+    let variableExtractionScopeFinder;
 
-    beforeEach(function(){
+    beforeEach(function () {
         const testContainer = container.new();
-        
-        const astFixture = jsAstFixtureLoader.load(basePath, 'extraction-location-fixture.js');
 
-        const variableExtractionScopeFinder = testContainer.build('variableExtractionScopeFinder');
-        scopePath = variableExtractionScopeFinder.findScopePath({
-            start: {
-                line: 4,
-                column: 24
-            },
-            end: {
-                line: 4,
-                column: 40
-            }
-        }, astFixture);
+        astFixture = jsAstFixtureLoader.load(basePath, 'extraction-location-fixture.js');
 
+        variableExtractionScopeFinder = testContainer.build('variableExtractionScopeFinder');
         variableExtractionLocationFinder = testContainer.build('variableExtractionLocationFinder');
     });
 
-    it('returns the first position of the first line for extraction', function () {
-        const parentNode = null;
-        const childPosition = scopePath[0].loc;
+    describe('simple extraction', function() {
 
-        const extractionLocation = variableExtractionLocationFinder.getExtractionLocation(parentNode, childPosition);
+        let scopePath;
+        let selectionPosition;
 
-        this.verify(prettyJson(extractionLocation));
+        beforeEach(function () {
+            selectionPosition = {
+                start: {
+                    line: 4,
+                    column: 24
+                },
+                end: {
+                    line: 4,
+                    column: 40
+                }
+            };
+
+            scopePath = variableExtractionScopeFinder.findScopePath(selectionPosition, astFixture);
+        });
+
+        it('returns the first position of the first line for extraction', function () {
+            const parentNode = null;
+            const childPosition = scopePath[0].loc;
+    
+            const extractionLocation = variableExtractionLocationFinder.getExtractionLocation(parentNode, childPosition);
+    
+            this.verify(prettyJson(extractionLocation));
+        });
+    
+        it('returns the position at the beginning of the return statement in scopePath[1]', function () {
+            const parentNode = scopePath[0];
+            const childPosition = scopePath[1].loc;
+    
+            const extractionLocation = variableExtractionLocationFinder.getExtractionLocation(parentNode, childPosition);
+    
+            this.verify(prettyJson(extractionLocation));
+        });
+    
+        it('returns the position at the beginning of the property name in scopePath[2]', function () {
+            const parentNode = scopePath[1];
+            const childPosition = scopePath[2].loc;
+    
+            const extractionLocation = variableExtractionLocationFinder.getExtractionLocation(parentNode, childPosition);
+    
+            this.verify(prettyJson(extractionLocation));
+        });
+    
+        it('returns the position at the beginning of the console.log location', function () {
+            const parentNode = scopePath[2];
+            const childPosition = selectionPosition;
+    
+            const extractionLocation = variableExtractionLocationFinder.getExtractionLocation(parentNode, childPosition);
+    
+            this.verify(prettyJson(extractionLocation));
+        });
     });
 
-    it('returns the position at the beginning of the return statement in scopePath[1]', function () {
-        const parentNode = scopePath[0];
-        const childPosition = scopePath[1].loc;
+    describe('complex extraction conditions', function () {
 
-        const extractionLocation = variableExtractionLocationFinder.getExtractionLocation(parentNode, childPosition);
+        let scopePath;
+        let selectionPosition;
 
-        this.verify(prettyJson(extractionLocation));
+        beforeEach(function () {
+            selectionPosition = {
+                start: {
+                    line: 8,
+                    column: 53
+                },
+                end: {
+                    line: 8,
+                    column: 58
+                }
+            };
+
+            scopePath = variableExtractionScopeFinder.findScopePath(selectionPosition, astFixture);
+        });
     });
 
-    it('returns the position at the beginning of the property name in scopePath[2]', function() {
-        throw new Error('Start here');
-    })
 });
