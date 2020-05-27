@@ -5,21 +5,12 @@ var sep = require('path').sep;
 var config = {
     cwd: __dirname + sep + 'modules',
     modulePaths: [
-        '_jsr-new-core',
-        '_jsr-new-core' + sep + 'const',
-        '_jsr-new-core' + sep + 'extract-variable',
-        '_jsr-new-core' + sep + 'shared',
-        '_jsr-new-core' + sep + 'types',
+        '_jsr-new-core' + sep + '**' + sep + '*.js',
 
         'commands',
         'commands' + sep + 'generic',
         'helpers',
-        'shared',
-        'shared' + sep + 'ast-tools',
-        'shared' + sep + 'refactoring-tools',
-        'shared' + sep + 'selection-tools',
-        'shared' + sep + 'loader-files',
-        'shared' + sep + 'editor-tools',
+        'shared' + sep + '**' + sep + '*.js',
         'wrapped-modules'
     ]
 }

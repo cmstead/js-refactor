@@ -5,6 +5,7 @@ function variableExtractionLocationFinder(
     types
 ) {
 
+    const { doesNodeContainCoords } = nodeUtils;
     const extractionPoints = [
         nodeTypeMap.ASSIGNMENT_EXPRESSION,
         nodeTypeMap.CALL_EXPRESSION,
@@ -19,24 +20,25 @@ function variableExtractionLocationFinder(
         nodeTypeMap.VARIABLE_DECLARATOR
     ]);
 
-    function buildMatchPath(parentNode, childLocation) {
+    function testAndCaptureNodes(captureNode, childLocation) {
+        return function (node) {
+            const nodeContainsCoords = doesNodeContainCoords(node.loc, childLocation);
+            const action = nodeContainsCoords ? captureNode : () => this.skip();
 
-        let matchPath = [];
+            action(node);
+        }
+    }
+
+    function buildExtractionPath(parentNode, childLocation) {
+
+        let extractionPath = [];
+        const captureNode = (node) => extractionPath.push(node)
 
         estraverse.traverse(parentNode, {
-            enter: function (node) {
-                const nodeContainsChild = nodeUtils
-                    .doesNodeContainCoords(node.loc, childLocation);
-
-                if (!nodeContainsChild) {
-                    return this.skip;
-                } else {
-                    matchPath.push(node);
-                }
-            }
+            enter: testAndCaptureNodes(captureNode, childLocation)
         });
 
-        return matchPath;
+        return extractionPath;
     }
 
     function isNotArrowExpressionOrIsMultiline(node) {
@@ -53,11 +55,11 @@ function variableExtractionLocationFinder(
     const last = values => values[values.length - 1];
 
     function getExtractionLocation(parentNode, childLocation) {
-        const matchPath = buildMatchPath(parentNode, childLocation);
-        let extractionNode = matchPath.pop();
+        const extractionPath = buildExtractionPath(parentNode, childLocation);
+        let extractionNode = extractionPath.pop();
 
-        while (matchPath.length > 0 && !isAcceptableExtractionPoint(extractionNode, last(matchPath))) {
-            extractionNode = matchPath.pop();
+        while (extractionPath.length > 0 && !isAcceptableExtractionPoint(extractionNode, last(extractionPath))) {
+            extractionNode = extractionPath.pop();
         }
 
         return {

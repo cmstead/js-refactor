@@ -12,7 +12,6 @@ function extractVariableOptionsBuilder(
     }
 
     function getScopeOptions(scopePath, sourceLines) {
-        // This requires logic to capture string data
         return scopePath.map(function (scopeNode, index) {
             return `${index}: ${selectionUtils.getFirstLine(scopeNode.loc, sourceLines)}`;
         });
