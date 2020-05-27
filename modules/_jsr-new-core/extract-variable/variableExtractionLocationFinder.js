@@ -1,7 +1,8 @@
 function variableExtractionLocationFinder(
     estraverse,
     nodeTypeMap,
-    nodeUtils
+    nodeUtils,
+    types
 ) {
 
     const extractionPoints = [
@@ -66,7 +67,10 @@ function variableExtractionLocationFinder(
     }
 
     return {
-        getExtractionLocation
+        getExtractionLocation: types.enforce(
+            'astNode, astLocation => astLocation',
+            getExtractionLocation
+        )
     };
 }
 

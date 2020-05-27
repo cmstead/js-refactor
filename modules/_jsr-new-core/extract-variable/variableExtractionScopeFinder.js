@@ -1,6 +1,7 @@
 function variableExtractionScopeFinder(
     estraverse,
-    nodeTypeMap
+    nodeTypeMap,
+    types
 ) {
 
     const scopeTypes = [
@@ -52,7 +53,10 @@ function variableExtractionScopeFinder(
     }
 
     return {
-        findScopePath
+        findScopePath: types.enforce(
+            'astLocation, astNode => array<astNode>',
+            findScopePath
+        )
     };
 }
 

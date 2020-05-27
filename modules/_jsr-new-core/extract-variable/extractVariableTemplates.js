@@ -1,4 +1,6 @@
-function extractVariableTemplates() {
+function extractVariableTemplates(
+    types
+) {
 
     function propertyDeclaration({
         name,
@@ -25,12 +27,24 @@ function extractVariableTemplates() {
 
     return {
         declaration: {
-            property: propertyDeclaration,
-            variable: variableDeclaration
+            property: types.enforce(
+                'propertySetupDefinition => string',
+                propertyDeclaration
+            ),
+            variable: types.enforce(
+                'variableSetupDefinition => string',
+                variableDeclaration
+            )
         },
         use: {
-            property: propertyUse,
-            variable: variableUse
+            property: types.enforce(
+                'name: string => string',
+                propertyUse
+            ),
+            variable: types.enforce(
+                'name: string => string',
+                variableUse
+            )
         }
     };
 }

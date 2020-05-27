@@ -1,4 +1,6 @@
-function nodeUtils () {
+function nodeUtils (
+    types
+) {
     
     function compareNodePositions(firstNodePosition, secondNodePosition) {
         return secondNodePosition.line === firstNodePosition.line
@@ -19,9 +21,18 @@ function nodeUtils () {
     }
 
     return {
-        compareNodePositions,
-        doesNodeContainCoords,
-        isSameLocation
+        compareNodePositions: types.enforce(
+            'astLocation, astLocation => int',
+            compareNodePositions
+        ),
+        doesNodeContainCoords: types.enforce(
+            'astLocation, astLocation => boolean',
+            doesNodeContainCoords
+        ),
+        isSameLocation: types.enforce(
+            'astLocation, astLocation => boolean',
+            isSameLocation
+        )
     };
 }
 
