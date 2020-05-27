@@ -17,6 +17,22 @@ typeScope.defineDuckType(
 );
 
 typeScope.defineDuckType(
+    'editorPosition',
+    {
+        _line: 'leftBoundedInt<0>',
+        _character: 'leftBoundedInt<0>'
+    }
+);
+
+typeScope.defineDuckType(
+    'editorLocation',
+    {
+        _start: 'editorPosition',
+        _end: 'editorPosition'
+    }
+);
+
+typeScope.defineDuckType(
     'astNode',
     {
         type: 'string',
