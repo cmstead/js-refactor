@@ -1,6 +1,9 @@
-function extractVariableOptionsBuilder () {
-    
-    function variableTypes() {
+function extractVariableOptionsBuilder(
+    selectionUtils,
+    types
+) {
+
+    function getVariableTypes() {
         return [
             'const',
             'let',
@@ -8,12 +11,22 @@ function extractVariableOptionsBuilder () {
         ]
     }
 
-    function scopeOptions(scopePath) {
+    function getScopeOptions(scopePath, sourceLines) {
         // This requires logic to capture string data
+        return scopePath.map(function (scopeNode, index) {
+            return `${index}: ${selectionUtils.getFirstLine(scopeNode.loc, sourceLines)}`;
+        });
     }
 
     return {
-        variableTypes
+        getScopeOptions: types.enforce(
+            'array<astNode>, array<string> => array<string>',
+            getScopeOptions
+        ),
+        getVariableTypes: types.enforce(
+            '() => array<string>',
+            getVariableTypes
+        )
     };
 }
 

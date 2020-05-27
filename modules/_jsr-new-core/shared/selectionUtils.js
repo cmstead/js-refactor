@@ -1,39 +1,48 @@
-function selectionUtils () {
-    
-    function getSingleLineSelection(astCoords, sourceLines) {
-        const startChar = astCoords.start.column;
-        const endChar = astCoords.end.column - startChar;
+function selectionUtils(
+    types
+) {
 
-        return sourceLines[astCoords.start.line - 1].substr(startChar, endChar);
-    }
-
-    function getMultilineSelection(astCoords, sourceLines) {
+    function getSelectedLines(astCoords, sourceLines) {
         const startLine = astCoords.start.line - 1;
         const endLine = astCoords.end.line;
 
-        let selectedLines = sourceLines.slice(startLine, endLine);
-        const lastIndex = selectedLines.length - 1;
-
-        selectedLines[0] = selectedLines[0].substr(astCoords.start.column);
-        selectedLines[lastIndex] = selectedLines[lastIndex].substr(0, astCoords.end.column);
-
-        return selectedLines.join('\n');
+        return sourceLines.slice(startLine, endLine);
     }
 
-    function isSingleLineSelection(astCoords) {
-        return astCoords.start.line === astCoords.end.line;
+    function trimToSelection(astCoords, selectedLines) {
+        const startColumn = astCoords.start.column;
+        const endColumn = astCoords.end.column;
+        const lastIndex = selectedLines.length - 1;
+
+        selectedLines[lastIndex] = selectedLines[lastIndex].substr(0, endColumn);
+        selectedLines[0] = selectedLines[0].substr(startColumn);
+
+        return selectedLines;
+    }
+
+    function getSelectedSource(astCoords, sourceLines) {
+        let selectedLines = getSelectedLines(astCoords, sourceLines);
+
+        return trimToSelection(astCoords, selectedLines);
     }
 
     function getSelection(astCoords, sourceLines) {
-        if(isSingleLineSelection(astCoords)) {
-            return getSingleLineSelection(astCoords, sourceLines);
-        } else {
-            return getMultilineSelection(astCoords, sourceLines);
-        }
+        return getSelectedSource(astCoords, sourceLines).join('\n');
+    }
+
+    function getFirstLine(astCoords, sourceLines) {
+        return getSelectedSource(astCoords, sourceLines)[0];
     }
 
     return {
-        getSelection
+        getFirstLine: types.enforce(
+            'astLocation, array<string> => string',
+            getFirstLine
+        ),
+        getSelection: types.enforce(
+            'astLocation, array<string> => string',
+            getSelection
+        )
     };
 }
 

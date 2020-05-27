@@ -6,9 +6,10 @@ var config = {
     cwd: __dirname + sep + 'modules',
     modulePaths: [
         '_jsr-new-core',
-        '_jsr-new-core' + sep + 'extract-variable',
         '_jsr-new-core' + sep + 'const',
+        '_jsr-new-core' + sep + 'extract-variable',
         '_jsr-new-core' + sep + 'shared',
+        '_jsr-new-core' + sep + 'types',
 
         'commands',
         'commands' + sep + 'generic',
