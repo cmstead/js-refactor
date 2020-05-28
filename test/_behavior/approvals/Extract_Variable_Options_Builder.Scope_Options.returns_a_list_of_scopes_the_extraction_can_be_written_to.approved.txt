@@ -1,7 +1,7 @@
 [
-    "0: function topLevel() {\r",
-    "1: {\r",
-    "2: () => {\r",
-    "3: if(false) {\r",
-    "4: if((9 + x) === 14) {\r"
+    "0: function topLevel() {",
+    "1: {",
+    "2: () => {",
+    "3: if(false) {",
+    "4: if((9 + x) === 14) {"
 ]

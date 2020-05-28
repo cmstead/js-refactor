@@ -28,7 +28,7 @@ function locationUtils (
         }
     }
 
-    function isLocationEmptySelection(astCoordinates) {
+    function isLocationAnEmptySelection(astCoordinates) {
         return astCoordinates.start.line === astCoordinates.end.line
             && astCoordinates.start.column === astCoordinates.end.column;
     }
@@ -42,9 +42,9 @@ function locationUtils (
             'astLocation => editorLocation',
             convertToEditorLocation
         ),
-        isLocationEmptySelection: types.enforce(
+        isLocationAnEmptySelection: types.enforce(
             'astLocation => boolean',
-            isLocationEmptySelection
+            isLocationAnEmptySelection
         )
     };
 }
