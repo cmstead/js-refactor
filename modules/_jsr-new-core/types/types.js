@@ -57,6 +57,21 @@ typeScope.defineDuckType(
     }
 );
 
+typeScope.defineDuckType(
+    'quickPickOptions',
+    {
+        ignoreFocusOut: 'boolean',
+        placeholder: 'string'
+    }
+);
+
+typeScope.defineDuckType(
+    'promise',
+    {
+        then: 'function',
+        catch: 'function'
+    }
+);
 
 module.exports = function types() {
     return typeScope;

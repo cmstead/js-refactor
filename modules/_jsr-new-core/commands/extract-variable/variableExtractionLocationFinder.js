@@ -1,11 +1,11 @@
 function variableExtractionLocationFinder(
     estraverse,
     nodeTypeMap,
-    nodeUtils,
+    astNodeUtils,
     types
 ) {
 
-    const { doesNodeContainCoords } = nodeUtils;
+    const { doesNodeContainCoords } = astNodeUtils;
     const extractionPoints = [
         nodeTypeMap.ASSIGNMENT_EXPRESSION,
         nodeTypeMap.CALL_EXPRESSION,

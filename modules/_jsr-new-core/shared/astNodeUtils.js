@@ -1,4 +1,4 @@
-function nodeUtils (
+function astNodeUtils (
     types
 ) {
     
@@ -36,4 +36,4 @@ function nodeUtils (
     };
 }
 
-module.exports = nodeUtils;
+module.exports = astNodeUtils;

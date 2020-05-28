@@ -1,8 +1,8 @@
-const approvals = require('../test-utils/approvals');
-const jsAstFixtureLoader = require('../test-utils/jsAstFixtureLoader');
-const prettyJson = require('../test-utils/prettyJson');
+const approvals = require('../../test-utils/approvals');
+const jsAstFixtureLoader = require('../../test-utils/jsAstFixtureLoader');
+const prettyJson = require('../../test-utils/prettyJson');
 
-const container = require('../../../container');
+const container = require('../../../../container');
 
 const basePath = jsAstFixtureLoader.buildPath(__dirname, './fixtures');
 

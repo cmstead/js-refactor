@@ -2,8 +2,11 @@ const container = require('../../../container');
 const prettyJson = require('../test-utils/prettyJson');
 const vsCodeFake = require('../fakes/vscode-fake');
 const approvals = require('../test-utils/approvals');
+const jsSourceFixtureLoader = require('../test-utils/jsSourceFixtureLoader');
 
 approvals.init();
+
+const basePath = jsSourceFixtureLoader.buildPath(__dirname, 'fixtures');
 
 describe('Active Editor Utility Functions', function () {
 
@@ -44,6 +47,23 @@ describe('Active Editor Utility Functions', function () {
 
 
             this.verify(prettyJson(selectionCoordinates));
+        });
+
+    });
+
+    describe('get document source lines', function () {
+    
+        it('returns source lines from the active text editor document', function () {
+            const vscodeFakeInstance = vsCodeFake.buildFake();
+            const activeEditorUtils = getActiveEditorUtils(vscodeFakeInstance);
+
+            const sourceFixtureLines = jsSourceFixtureLoader.loadLines(basePath, 'activeEditorUtils.js');
+
+            vsCodeFake.setSourceLines(vscodeFakeInstance, sourceFixtureLines);
+
+            const sourceLines = activeEditorUtils.getSourceLines();
+
+            this.verify(prettyJson(sourceLines));
         });
 
     });

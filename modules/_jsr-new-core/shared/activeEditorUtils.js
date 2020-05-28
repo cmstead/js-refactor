@@ -1,17 +1,29 @@
 function activeEditorUtils(
+    types,
     vscodeFactory
 ) {
 
-    function create () {
-        const vscodeInstance = vscodeFactory.get();
+    function create() {
+        const activeTextEditor = vscodeFactory.get().window.activeTextEditor;
 
         function getSelectionCoords() {
-            return vscodeInstance.window.activeTextEditor._selections[0];
+            return activeTextEditor._selections[0];
         }
-    
+
+        function getSourceLines() {
+            return activeTextEditor._documentData._lines;
+        }
+
         return {
-            getSelectionCoords
-        };    
+            getSelectionCoords: types.enforce(
+                '() => editorLocation',
+                getSelectionCoords
+            ),
+            getSourceLines: types.enforce(
+                '() => array<string>',
+                getSourceLines
+            )
+        };
     }
 
     return {
