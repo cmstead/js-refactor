@@ -8,7 +8,7 @@ function load(basePath, filePath) {
 }
 
 function loadLines(basePath, filePath) {
-    return load(basePath, filePath).split('\n');
+    return load(basePath, filePath).split(/\r?\n/);
 }
 
 module.exports = {
