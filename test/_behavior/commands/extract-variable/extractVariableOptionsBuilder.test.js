@@ -14,13 +14,11 @@ describe('Extract Variable Options Builder', function () {
     let astFixture;
     let sourceFixture;
     let extractVariableOptionsBuilder;
-    let variableExtractionLocationFinder;
     let variableExtractionScopeFinder;
 
     beforeEach(function () {
         const testContainer = container.new();
 
-        variableExtractionLocationFinder = testContainer.build('variableExtractionLocationFinder');
         variableExtractionScopeFinder = testContainer.build('variableExtractionScopeFinder');
 
         astFixture = jsAstFixtureLoader.load(basePath, 'extraction-location-fixture.js');

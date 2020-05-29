@@ -1,12 +1,11 @@
-// function quickPick(items, options, callback) {
-//     vscode.window.showQuickPick(items, options).then(callback);
-// }
-
 function userInput (
-    types
+    types,
+    vscodeFactory
 ) {
     
-    function getDefaultQuickPickOptions(placeholder) {
+    const vscode = vscodeFactory.get();
+
+    function getBaseQuickPickOptions(placeholder) {
         return {
             ignoreFocusOut: true,
             placeholder: placeholder
@@ -14,13 +13,17 @@ function userInput (
     }
 
     function showQuickPick(choices, options) {
-
+        return vscode.window.showQuickPick(choices, options);
     }
 
     return {
         showQuickPick: types.enforce(
             'array<string>, quickPickOptions => promise',
             showQuickPick
+        ),
+        getBaseQuickPickOptions: types.enforce(
+            'string => quickPickOptions',
+            getBaseQuickPickOptions
         )
     };
 }

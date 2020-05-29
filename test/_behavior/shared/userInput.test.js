@@ -1,5 +1,6 @@
 const container = require('../../../container');
 const vsCodeFake = require('../fakes/vscode-fake');
+const { assert } = require('chai');
 
 describe('User Input Tooling', function () {
     function getUserInputModule(vsCodeInstance) {
@@ -18,7 +19,16 @@ describe('User Input Tooling', function () {
 
     describe('Show Quick Pick', function () {
         it('it passes arguments to the core VS Code showQuickPick method', function () {
-            
+            const vsCodeFakeInstance = vsCodeFake.buildFake();
+            const userInput = getUserInputModule(vsCodeFakeInstance);
+
+            const expectedChoices = ['test1', 'test2'];
+            const expectedOptions = userInput.getBaseQuickPickOptions('Choose a test string');
+
+            userInput.showQuickPick(expectedChoices, expectedOptions);
+
+            assert.equal(vsCodeFakeInstance.window.showQuickPick.args[0][0], expectedChoices);
+            assert.equal(vsCodeFakeInstance.window.showQuickPick.args[0][1], expectedOptions);
         });
     });
 });

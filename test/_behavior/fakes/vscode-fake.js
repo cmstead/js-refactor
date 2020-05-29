@@ -9,7 +9,7 @@ function buildFake() {
                     _lines: []
                 }
             },
-            showQuickPick: sinon.stub()
+            showQuickPick: sinon.stub().returns(Promise.resolve(true))
         }
     }
 }
