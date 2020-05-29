@@ -18,8 +18,10 @@ describe('User Input Tooling', function () {
     }
 
     describe('Show Quick Pick', function () {
-        it('it passes arguments to the core VS Code showQuickPick method', function () {
+        it('passes arguments to the core VS Code showQuickPick method', function () {
             const vsCodeFakeInstance = vsCodeFake.buildFake();
+            vsCodeFakeInstance.window.showQuickPick.returns(Promise.resolve('okay'));
+
             const userInput = getUserInputModule(vsCodeFakeInstance);
 
             const expectedChoices = ['test1', 'test2'];
@@ -29,6 +31,22 @@ describe('User Input Tooling', function () {
 
             assert.equal(vsCodeFakeInstance.window.showQuickPick.args[0][0], expectedChoices);
             assert.equal(vsCodeFakeInstance.window.showQuickPick.args[0][1], expectedOptions);
+        });
+
+        it('fails when selected value is invalid', function () {
+            const vsCodeFakeInstance = vsCodeFake.buildFake();
+            vsCodeFakeInstance.window.showQuickPick.returns(Promise.resolve(true));
+
+            const userInput = getUserInputModule(vsCodeFakeInstance);
+
+            const expectedChoices = ['test1', 'test2'];
+            const expectedOptions = userInput.getBaseQuickPickOptions('Choose a test string');
+
+            return userInput
+                .showQuickPick(expectedChoices, expectedOptions)
+                .catch(function(error) {
+                    assert.equal(error.message, 'Invalid selection value: "true", type: "boolean"');
+                });
         });
     });
 });

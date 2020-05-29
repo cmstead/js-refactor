@@ -23,7 +23,8 @@ function setSourceLines(vscodeFakeInstance, sourceLines) {
 }
 
 module.exports = {
-    addSelection,
     buildFake,
+    
+    addSelection,
     setSourceLines
 }
