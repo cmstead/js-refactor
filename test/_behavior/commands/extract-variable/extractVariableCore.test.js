@@ -121,4 +121,34 @@ describe('Core extract variable behaviors', function () {
 
 
     });
+
+    describe('get variable type', function () {
+        
+        it('returns "property" when node type is "object"', function () {
+            const extractVariableCore = buildExtractVariableCore();
+
+            const fakeNode = {
+                type: 'ObjectExpression',
+                loc: getSelectionCoordinates()
+            }
+
+            const variableType = extractVariableCore.getVariableType(fakeNode);
+
+            assert.equal(variableType, 'property');
+        });
+
+        it('returns "variable" when node type is not "object"', function () {
+            const extractVariableCore = buildExtractVariableCore();
+
+            const fakeNode = {
+                type: 'FunctionExpression',
+                loc: getSelectionCoordinates()
+            }
+
+            const variableType = extractVariableCore.getVariableType(fakeNode);
+
+            assert.equal(variableType, 'variable');
+        });
+
+    });
 });

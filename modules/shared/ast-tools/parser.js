@@ -108,7 +108,6 @@ function parser(
         try {
             return parser.parse(sourceText, parserOptions);
         } catch (e) {
-            console.log(e.message);
             logger.error(`Unable to parse source code. Parser error: ${e.message}`);
         }
     }
