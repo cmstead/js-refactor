@@ -16,6 +16,45 @@ typeScope.defineDuckType(
     }
 );
 
+// Correlates with VS Code "Position" type
+typeScope.defineDuckType(
+    'editPosition',
+    {
+        character: 'number',
+        line: 'number'
+    }
+);
+
+// Correlates with VS Code "Range" type
+typeScope.defineDuckType(
+    'editRange',
+    {
+        start: 'number',
+        end: 'number',
+        isEmpty: 'boolean',
+        isSingleLine: 'boolean'
+    }
+);
+
+// Correlates with VS Code "TextEdit" type
+typeScope.defineDuckType(
+    'textEdit',
+    {
+        delete: 'function',
+        insert: 'function',
+        replace: 'function',
+        setEndOfLine: 'function'
+    }
+);
+
+// Correlates with VS Code "WorkspaceEdit" type
+typeScope.defineDuckType(
+    'workspaceEdit',
+    {
+        set: 'function'
+    }
+);
+
 typeScope.defineDuckType(
     'editorPosition',
     {

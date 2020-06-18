@@ -45,6 +45,7 @@ function testHelperFactory() {
     }
 
     subcontainer.register(loggerMock.mock);
+    subcontainer.register(loggerMock.mock, 'messageLogger');
 
     return {
         applySetEditSpy: applySetEditSpy,
