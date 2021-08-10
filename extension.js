@@ -4,9 +4,12 @@ const packageData = require('./package.json');
 const JSREFACTORVERSION = "jsrefactorversion";
 
 function activate(context) {
+	
 	var container = require('./container');
 	var vscode = container.build('vscodeFactory').get();
 	const versionData = getVersionData(context);
+
+	vscode.window.showInformationMessage('JS Refactor is no longer supported -- please see the readme for more information');
 
 	displayPatreonPopup(versionData, container);
 	updateVersion(versionData, context);

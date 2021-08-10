@@ -1,13 +1,40 @@
-JS Refactor
-===========
+# JS Refactor -- DEPRECATED/UNSUPPORTED #
 
-JS Refactor is the Javascript automated refactoring tool for Visual Studio Code, built to smooth and streamline your development experience. It provides an extensive list of automated actions including the commonly needed: Extract Method, Extract Variable, Inline Variable, and an alias for the built-in VS Code rename. JS Refactor also supports many common snippets and associated actions for wrapping existing code in common block expressions.
+### The TL;DR ###
 
-## Donate to the JSR Cause ##
+JS Refactor is closing its doors, BUT there is a new extension coming.
 
-If you use JS Refactor and find it useful, please consider visiting my Patreon page and donating. Anything helps to keep updates and maintenance happening, and is much appreciated!
+Here's the github link: https://github.com/cmstead/js-codeformer
 
-[https://www.patreon.com/sdlcpunk](https://www.patreon.com/sdlcpunk)
+The marketplace link will be forthcoming.
+
+### The Long Version ###
+
+JS Refactor had a good run -- about 6 years. It was the first extension I ever built for VS Code, and I learned a lot from it. Unfortunately, there were a number of design choices I made (and didn't make) which lead to the most common of software problems: slowing of development until no development was happening at all.
+
+The code had become a disaster, the bugs mounted, and people were unhappy. I can't blame them. At this point, the software only really works some of the time anyway.
+
+### Now What? ###
+
+The question I asked when I created JSR was "can I build a refactoring plugin for VS Code?" The answer was a resounding "yes, but". That "but" was really the heart of the problem. The VS Code extension API was still in development, and underwent a number of changes. This means the software had to account for the unstable environment.
+
+This is not an indictment of the folks who were working hard on the API, it's just the state of the world at the time.
+
+SO...
+
+The extension API has stabilized, and I have learned a lot. I have a new question now: "what would I do to create a smoother experience for developers working with JS and JS-adjacent technology?"
+
+I have some answers now, and some are sure to emerge:
+
+1. Carry forward some important core features from JSR, and make them stable
+2. Think about developer experience, usability, and accessibility first
+3. Support developers and make their code-authoring experience awesome
+
+So, in the end, this isn't goodbye. It's not the death of a tool, it's the birth of something better.
+
+I hope you'll join me and we can make awesome software together!
+
+## The Rest of the Old Readme: ##
 
 ### Supported Language Files ###
 
