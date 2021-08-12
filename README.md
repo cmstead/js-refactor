@@ -6,7 +6,9 @@ JS Refactor is closing its doors, BUT there is a new extension coming.
 
 Here's the github link: https://github.com/cmstead/js-codeformer
 
-The marketplace link will be forthcoming.
+JS CodeFormer can be installed from the Visual Studio Marketplace:
+
+https://marketplace.visualstudio.com/items?itemName=cmstead.js-codeformer
 
 ### The Long Version ###
 
