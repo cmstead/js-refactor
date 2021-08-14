@@ -75,6 +75,8 @@ function extractVariable(
     }
 
     function extract() {
+        var someUnus
+
         getSourceDataIfValid()
             .then(function ({ sourceLines, astLocationCoordinates }) {
                 return getSelectedScope({ sourceLines, astLocationCoordinates });

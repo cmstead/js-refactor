@@ -1,6 +1,6 @@
 {
   "name": "jsrefactor",
-  "displayName": "JS Refactor",
+  "displayName": "JS Refactor (Deprecated)",
   "description": "Automated refactoring tools to smooth your development workflow",
   "version": "2.20.7",
   "publisher": "cmstead",

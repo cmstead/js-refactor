@@ -9,7 +9,7 @@ function activate(context) {
 	var vscode = container.build('vscodeFactory').get();
 	const versionData = getVersionData(context);
 
-	vscode.window.showInformationMessage('JS Refactor is no longer supported -- please see the readme for more information');
+	vscode.window.showInformationMessage('JS Refactor is deprecated. Please consider using JS CodeFormer!');
 
 	displayPatreonPopup(versionData, container);
 	updateVersion(versionData, context);
