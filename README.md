@@ -1,5 +1,13 @@
 # JS Refactor -- DEPRECATED/UNSUPPORTED #
 
+### Important Notice ###
+
+When JS CodeFormer reaches its first major release (v1.0.0), this project will roll off. The entry will still remain in the Visual Studio Marketplace, but it will become an extension pack, installing JS CodeFormer.
+
+For people using the hotkeys for standard refactoring, you should notice very little difference.
+
+For folks who use the context menu, things will change. This will be detailed more fully when the switch is complete.
+
 ### The TL;DR ###
 
 JS Refactor is closing its doors, BUT there is a new extension coming.
