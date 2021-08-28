@@ -1,5 +1,0 @@
-[
-    [
-        "Cannot extract an empty selection as a method."
-    ]
-]

@@ -1,5 +1,0 @@
-{
-    "projectName": "JS Refactor",
-    "files": "./test/inner-api/**/*.test.js",
-    "dest": "./docs/internal-api"
-}

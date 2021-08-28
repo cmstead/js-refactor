@@ -1,5 +1,0 @@
-[
-    [
-        "Cannot wrap empty selection. To create a new if block, use the if (cond) snippet."
-    ]
-]

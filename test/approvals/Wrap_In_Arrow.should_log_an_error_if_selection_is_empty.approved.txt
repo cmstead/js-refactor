@@ -1,5 +1,0 @@
-[
-    [
-        "Cannot wrap empty selection. To create a new arrow function, use the arrow or lambda snippet."
-    ]
-]

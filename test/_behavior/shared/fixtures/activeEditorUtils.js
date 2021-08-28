@@ -1,8 +1,0 @@
-// This is not required to be anything
-// It is simply a set of source lines
-
-function aSourceFunction() {
-    console.log('Hello, World!');
-}
-
-aSourceFunction();

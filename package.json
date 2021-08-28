@@ -27,8 +27,27 @@
   "extensionPack": [
     "cmstead.js-codeformer"
   ],
-  "dependencies": {
-    "typescript": "^3.6.4"
+  "contributes": {
+    "languages": [
+      {
+        "id": "html"
+      },
+      {
+        "id": "javascript"
+      },
+      {
+        "id": "javascriptreact"
+      },
+      {
+        "id": "typescript"
+      },
+      {
+        "id": "typescriptreact"
+      },
+      {
+        "id": "vue"
+      }
+    ]
   },
   "links": {
     "getstarted": {

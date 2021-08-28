@@ -1,5 +1,0 @@
-[
-    [
-        "Cannot wrap empty selection. To create a new generator, use the generator snippet."
-    ]
-]

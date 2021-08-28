@@ -1,5 +1,0 @@
-[
-    [
-        "Cannot export a value which is not a function or variable declaration."
-    ]
-]

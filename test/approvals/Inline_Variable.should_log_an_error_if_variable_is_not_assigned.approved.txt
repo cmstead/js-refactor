@@ -1,5 +1,0 @@
-[
-    [
-        "Cannot inline an unassigned variable."
-    ]
-]

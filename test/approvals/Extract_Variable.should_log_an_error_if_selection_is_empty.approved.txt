@@ -1,5 +1,0 @@
-[
-    [
-        "Cannot extract an empty selection to a variable"
-    ]
-]

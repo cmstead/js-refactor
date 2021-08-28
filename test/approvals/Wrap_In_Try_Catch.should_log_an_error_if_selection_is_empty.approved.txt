@@ -1,5 +1,0 @@
-[
-    [
-        "Cannot wrap empty selection. To create a new try/catch block, use the tryCatch snippet."
-    ]
-]
