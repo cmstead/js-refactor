@@ -14,6 +14,21 @@
   "engines": {
     "vscode": "^0.12.0"
   },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Formatters",
+    "Other"
+  ],
+  "keywords": [
+    "refactor",
+    "refactoring",
+    "javascript",
+    "react",
+    "vue",
+    "typescript",
+    "automation"
+  ],
   "scripts": {
     "test": "npm run behavior-tests && npm run unit-tests & npm run integration-tests",
     "behavior-tests": "node ./node_modules/mocha/bin/mocha ./test/_behavior/commands/**/*.test.js ./test/_behavior/**/*.test.js",
