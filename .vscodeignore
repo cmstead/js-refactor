@@ -7,3 +7,6 @@ test/
 build-docs.js
 jsconfig.json
 vsc-extension-quickstart.md
+modules/
+extension.js
+container.js
