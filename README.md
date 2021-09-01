@@ -17,6 +17,71 @@ More good news: JS CodeFormer is a significant improvement in a number of ways:
 - **It's designed for stability and maintenance** -- The source code is well tested, and designed for quick easy fixes, which has already borne fruit.
 - **The old JSR bugs are gone** -- I combed through the old issues and either verified they were gone, or fixed them if they were a design oversight.
 
+## The Highlights ##
+
+### Language Support ###
+
+Languages:
+
+- JavaScript
+- TypeScript
+- HTML (Embedded Javascript)
+
+Frameworks:
+
+- Angular
+- React
+- Vue
+
+Framework-specific formats:
+
+- JSX
+- TSX
+- Vue Single-file components
+    - Full Vue support requires the Vetur extension: https://marketplace.visualstudio.com/items?itemName=octref.vetur
+
+Experimental framework support:
+
+- Svelte -- requires the Svelte extension to work
+    - https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode
+
+### Refactorings ###
+
+- Extract Method/Function
+    - Windows: `ctrl+shift+j, m`
+    - Mac: `cmd+shift+j, m`
+- Extract to Parameter
+    - Windows: `ctrl+shift+j, p`
+    - Mac: `cmd+shift+j, p`
+- Extract Variable
+    - Windows: `ctrl+shift+j, v`
+    - Mac: `cmd+shift+j, v`
+- Inline Variable
+    - Windows: `ctrl+shift+j, i`
+    - Mac: `cmd+shift+j, i`
+- Rename (important for non js/ts files)
+    - Windows: `ctrl+shift+j, r`
+    - Mac: `cmd+shift+j, r`
+
+### Conversions ###
+
+- Change Variable Type
+- Convert Expression to Template Literal
+- Convert Function to Arrow Function
+- Convert Function to Function Expression
+- Convert Function Property to Method
+- Convert Function Variable to Function Declaration
+- Toggle Property Declaration Type
+
+### Other Actions ###
+
+- Surround with (open options list)
+    - Windows: `ctrl+shift+j, w`
+    - Mac: `cmd+shift+j, w`
+- Introduce variable
+- Introduce function
+- Lift and name function expression
+
 ## Why (The Life Story) ##
 
 JS Refactor was created at a time when VS Code was new and the refactoring landscape in the editor was limited. It was initially designed to simply be a refactoring extension. As time went along, it grew, and extended beyond being a simple refactoring tool.
